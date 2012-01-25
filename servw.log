@@ -1,0 +1,19 @@
+Root directory set to: /home/alexdantas/Documentos/2) Servidor WEB Single-Threaded/servw/../root
+Socket Created
+Reusable Port Set
+Address binded to port 27015
+Ready to accept connections
+Socket set as nonblocking
+Inicializacao completa!
+Tem um cliente tentando se conectar!
+Nova conexao de cliente aceita!
+Mensagem recebida!
+Processando request...
+Arquivo processado!
+Enviando Headers...
+Enviando Headers...
+Header enviado
+Enviando arquivo
+Arquivo enviado
+Cliente desconectou
+

@@ -1,0 +1,21 @@
+
+  replace:
+
+    project name:    servw
+    description:     A simple web server
+    package name:    servw
+    developer name:  Alexandre Dantas
+    developer email: alex.dantas92@gmail.com
+    version:         0.5
+    date:            Dec2011
+    object files:    _OBJS_
+
+  edit Doxyfile
+
+    project name
+    javadoc autobrief
+    optimize for C
+    output directory
+    project brief
+    output language
+    input
