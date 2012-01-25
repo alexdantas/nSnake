@@ -1,0 +1,194 @@
+================================================================================
+                                 nSnake README
+================================================================================
+--------------------------------------------------------------------------------
+Index
+--------------------------------------------------------------------------------
+	1)  Introduction
+	2)  Controls
+	3)  Installation
+	4)  Installation Informations
+	5)  Advanced Installation
+	6)  Uninstallation
+	7)  Advanced Uninstallation
+	8)  Dependencies
+	9)  Main Directory Structure
+	10) Credits/Contact
+	11) License
+
+***
+Note:  Make sure you have libncurses5-dev. See 'Dependences' for more details.
+Note2: In case you don't have libncurses5-dev, this package comes with a
+       compiled binary under /bin for testing purposes. Go for 'make run'!
+***
+--------------------------------------------------------------------------------
+1) Introduction
+--------------------------------------------------------------------------------
+
+nSnake is a implementation of the classic snake game with textual interface.
+It is playable at command-line and uses the nCurses C library for graphics.
+The rules are the same of any snake game:
+
+You control a hungry snake and the objective is to eat as many fruits you can.
+Each fruit eaten increases it's size by two units.
+
+The game ends when the snake collides with the walls or itself. Currently,
+nSnake has two modes: With Borders and without borders.
+
+To each fruit is given a bonus value, which decreases over time. So the
+challenge is to earn the biggest score possible by eating as many fruits as
+you can.
+
+Good luck!
+
+--------------------------------------------------------------------------------
+2) Controls
+--------------------------------------------------------------------------------
+
+	Numbers (1~9)       Changes the game speed at the main menu
+	Arrow Keys, WASD    Moves the snake
+	q                   Quits the game at any time
+	p                   Pauses/Unpauses the game
+
+--------------------------------------------------------------------------------
+3) Installation
+--------------------------------------------------------------------------------
+
+see INSTALL file
+
+--------------------------------------------------------------------------------
+4) Installation Informations
+--------------------------------------------------------------------------------
+
+see INSTALL file
+
+--------------------------------------------------------------------------------
+5) Advanced Installation
+--------------------------------------------------------------------------------
+
+see INSTALL file
+
+--------------------------------------------------------------------------------
+6) Uninstallation
+--------------------------------------------------------------------------------
+
+see INSTALL file
+
+--------------------------------------------------------------------------------
+7) Advanced Uninstallation
+--------------------------------------------------------------------------------
+
+see INSTALL file
+
+--------------------------------------------------------------------------------
+8) Dependences
+--------------------------------------------------------------------------------
+
+see INSTALL file
+
+--------------------------------------------------------------------------------
+9) Main Directory Structure
+--------------------------------------------------------------------------------
+
+General game information                                             README file
+Installation instructions and information                           INSTALL file
+Copyright and warranty info                                         COPYING file
+Doxygen file for generating the documentation                      Doxyfile file
+Instructions to the 'make' program                                 Makefile file
+Work that needs to be done or ideas for future versions                TODO file
+Known bugs and information about where to submit new ones              BUGS file
+
+Location of the executable generated after compilation               bin/ folder
+The documentation files (explaining the source code) and manpage     doc/ folder
+Location of resulting object files after compilation                 obj/ folder
+All of the source code files                                         src/ folder
+
+Complete source code documentation                           doc/nsnake_doc file
+The nsnake manpage                                          doc/nsnake.6.gz file
+
+--------------------------------------------------------------------------------
+10) Contact
+--------------------------------------------------------------------------------
+
+Hello, there! I'm Alexandre Dantas (kure)!
+You can send me comments, bugs, ideas or anything else by email.
+And if you have time, please visit my blog!
+
+My email:           alex.dantas92@gmail.com
+My homepage:        alexdantasblog.wordpress.com
+nSnake main page:   sourceforge.net/projects/nsnake
+
+I'd appreciate any commentary - even if it's just "Hello, i play your game!".
+
+--------------------------------------------------------------------------------
+10) Credits
+--------------------------------------------------------------------------------
+
+First, i want to thank YOU for playing this game. I hope you liked it!
+
+The whole game design, coding, documenting, packaging and testing were all
+made by me.
+
+But i didn't do everything! Throughout the nSnake coding, i found very
+interesting sources of ideas. Such as games who also uses nCurses for
+displaying games. They have simple, short and commented source-codes that
+can be used as references to learn C programming.
+
+Special thanks to:
+
+	nInvaders:	A space invaders-like game using ncurses.
+		homepage:	http://ninvaders.sourceforge.net
+		comments:	"Thanks for the inspiration. If i
+		             haven't installed this in first place,
+		             i'd never have the idea for nSnake"
+
+	pacman4console: A console-based pacman game.
+		homepage:  http://doctormike.googlepages.com/pacman.html
+		comments:  "The way this package was organized
+		            is incredible. Thanks for the
+		            general packaging ideas"
+
+	vadorz: An addicting ncurses space-invaders game.
+		homepage:	http://code.google.com/p/vadorz/
+		comments:	"This package is awesome, 'cause it
+		             uses ncurses AND pdcurses to be able
+		             to play in Windows and GNU/Linux"
+
+	snake4: Fruit-eating snake game
+		homepage:	http://shh.thathost.com/
+		comments:	"Thanks for the Makefile ideas. It's
+		             very well-written."
+
+	ASCII Generator: A generator of awesome ASCII text arts
+		homepage:  http://www.network-science.de/ascii/
+
+	Text ASCII Art Generator:	Another awesome ASCII text generator
+		homepage:  http://patorjk.com/software/taag/
+		comments:  "I've used the Modular font to display
+		            the Game Over screen"
+
+--------------------------------------------------------------------------------
+11) License
+--------------------------------------------------------------------------------
+
+ nSnake - The classic snake game with ncurses.
+ Copyright (C) 2011  Alexandre Dantas (kure)
+
+ nSnake is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+ homepage: http://sourceforge.net/projects/nsnake/
+ mailto:   alex.dantas92@gmail.com
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------

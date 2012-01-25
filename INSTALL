@@ -1,0 +1,126 @@
+================================================================================
+                                nSnake INSTALL
+================================================================================
+--------------------------------------------------------------------------------
+Index
+--------------------------------------------------------------------------------
+Starting from the README file:
+
+	3)  Installation
+	4)  Installation Informations
+	5)  Advanced Installation
+	6)  Uninstallation
+	7)  Advanced Uninstallation
+	8)  Dependencies
+
+--------------------------------------------------------------------------------
+3) Installation
+--------------------------------------------------------------------------------
+
+   Briefly, the following shell commands should configure, build, and
+install this package on the default directories:
+
+        $ make
+        $ sudo make install
+
+--------------------------------------------------------------------------------
+4) Installation Informations
+--------------------------------------------------------------------------------
+
+   By default, 'make install' installs the package on the following
+directories:
+
+        /usr/local/bin/                   Executable files
+        /usr/local/share/man/man6/        Man page
+        /var/games/                       HighScore files
+
+
+--------------------------------------------------------------------------------
+5) Advanced Installation
+--------------------------------------------------------------------------------
+
+   You can specify a custom root directory for the installation (other
+than '/'). To do this, give 'make install' the option DESTDIR=CUSTOM_ROOT,
+where CUSTOM_ROOT must be an absolute directory name.
+   For example:
+
+        $ make install DESTDIR=test/dir
+
+   This way, the file hierarchy will be:
+
+        test/dir/usr/local/bin/            Executable files
+        test/dir/usr/local/share/man/man6/ Man page
+        test/dir/var/games/nsnake/         HighScore files
+
+   You can also specify an installation prefix other than '/usr/local' by
+giving 'make' the option PREFIX=CUSTOM_PREFIX, where CUSTOM_PREFIX must be an
+absolute directory name.
+   For example:
+
+	$ make install PREFIX=test/dir
+
+   This way, the file hierarchy will be:
+
+        test/dir/bin/                      Executable files
+        test/dir/share/                    Man page
+        /var/games/nsnake/                 HighScore files
+
+   To customize the highscores directory, modify SCOREDIR:
+
+	$ make install SCOREDIR=test/dir
+
+	This way, the highscore directory will be:
+
+        test/dir/                          HighScore files
+
+--------------------------------------------------------------------------------
+6) Uninstallation
+--------------------------------------------------------------------------------
+
+   To uninstall this package, by default:
+
+	$ sudo make uninstall
+
+   If you also want to remove the HighScore files and Man page:
+
+	$ sudo make purge
+
+--------------------------------------------------------------------------------
+7) Advanced Uninstallation
+--------------------------------------------------------------------------------
+
+   If you specified a custom root directory for installation, 'make' needs to
+know about it to uninstall properly:
+
+	$ make uninstall DESTDIR=test/dir
+
+   The same logic applies to purging:
+
+	$ make purge DESTDIR=test/dir
+
+   If you installed it with a custom prefix, do the same:
+
+	$ make uninstall PREFIX=test/dir
+
+	$ make purge PREFIX=test/dir
+
+	$ make purge SCOREDIR=test/dir
+
+--------------------------------------------------------------------------------
+8) Dependences
+--------------------------------------------------------------------------------
+
+   To build nSnake from source, it requires the ncurses developer library:
+      libncurses5-dev (>= 5.7)
+
+   Note that this is not the one that comes by default with the distribution.
+
+   If you can't build nSnake, get ncurses-dev on your favorite package manager.
+
+	$ sudo apt-get install libncurses5-dev
+
+	or
+
+	$ sudo apt-get install ncurses-dev
+
+================================================================================

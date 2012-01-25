@@ -1,0 +1,21 @@
+I usually have lots of ideas that would take a loong time to implement.
+So i rely on friends and testers to give me their opinion about it.
+What do you think about those?
+--------------------------------------------------------------------------------
+
+<random_ideas>
+
+*	Campaign Mode? Change levels? > way ahead
+
+***	Increase or decrease movement speed according to the game
+
+*	Possibility to change the controls (add config option - add controls.bin file)
+
+****	Include libncurses with the source?
+
+*****	True Highscore Support:	For each mode, its own Highscore
+
+***	Windows support:	PDCurses!
+
+</random_ideas>
+
