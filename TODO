@@ -44,17 +44,28 @@ Change the way highscores exist.
 Maybe implement a highscore screen, with the names of the players.
 Assume default name as getenv("USER") and such.
 
+
+		Ta em portugues porque vai ser rapidooooooo
+
 [simple]
 Deixar nsnake com o fundo do terminal onde estava, em vez de COLOR_BLACK.
 	Como use_default_colors e uma extensao de ncurses, a man page recomenda
 	deixar ele condicionado a NCURSES_VERSION. O que significa isso?
 		Usar tambem default color pra foreground?
 
+[simple]
+Lidar com o sinal caso alguem aperte Ctrl+C.
+	Ele vai sair de ncurses e limpar toda a memoria da cobra :D
 
 
+[simple]
+Criar funcao que vai verificar se apertou alguma tecla (kbhit())
+Caso sim, vai pros inputs
+	Isso salva memoria 8D
 
-
-
+[simple]
+Quando remover highscores, mostrar se falhou ou nao
+	Mostrar o diretorio?
 
 
 <random_ideas>

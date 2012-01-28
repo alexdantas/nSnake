@@ -242,15 +242,13 @@ void engine_init ()
 	screen.width  = FIXED_WIDTH;
 	screen.height = FIXED_HEIGHT;
 
-	// Starts the ncurses mode
-	initscr ();
+	initscr (); // Starts the ncurses mode
 
 	if (has_colors () == TRUE)
 	{
 		int bg_color;
 
-		// Start color support
-		start_color ();
+		start_color (); // Start color support
 
 		// Let's try grabbing the current terminal background color
 		if (use_default_colors () == ERR)
@@ -275,23 +273,12 @@ void engine_init ()
 		nsnake_abort ("Your console screen is smaller than 80x24\n"
 		               "Please resize your window and try again\n\n");
 
-	// Character input doesnt require the <enter> key anymore
-	raw ();
-
-	// Makes the cursor invisible
-	curs_set (0);
-
-	// Support for extra keys (life F1, F2, ... )
-	keypad (stdscr, true);
-
-	// Wont print the input received
-	noecho ();
-
-	// Wont wait for input - the game will run instantaneously
-	nodelay (stdscr, true);
-
-	// Refresh the screen (prints whats in the buffer)
-	refresh ();
+	raw ();       // Character input doesnt require the <enter> key anymore
+	curs_set (0); // Makes the blinking cursor invisible
+	noecho ();    // Wont print the keys received through input
+	nodelay (stdscr, TRUE); // Wont wait for input - the game will run instantaneously
+	keypad (stdscr, TRUE);  // Support for extra keys (life F1, F2, ... )
+	refresh ();   // Refresh the screen (prints whats in the screen buffer)
 
 	/// @todo There must have a game init function or something
 	///       where i could put this
@@ -305,27 +292,34 @@ void engine_init ()
  */
 void engine_show_game_over ()
 {
+	int   game_over_logo_height = 16;
+	char* game_over_logo[] =
+	{
+		" _______  _______  __   __  _______ ",
+		"|       ||   _   ||  |_|  ||       |",
+		"|    ___||  |_|  ||       ||    ___|",
+		"|   | __ |       ||       ||   |___ ",
+		"|   ||  ||       ||       ||    ___|",
+		"|   |_| ||   _   || ||_|| ||   |___ ",
+		"|_______||__| |__||_|   |_||_______|",
+		" _______  __   __  _______  ______  ",
+		"|       ||  | |  ||       ||    _ | ",
+		"|   _   ||  |_|  ||    ___||   | || ",
+		"|  | |  ||       ||   |___ |   |_|| ",
+		"|  |_|  ||       ||    ___||    __ |",
+		"|       | |     | |   |___ |   |  ||",
+		"|_______|  |___|  |_______||___|  ||",
+		"       Press <enter> to retry",
+		"          <m> to Main Menu"
+	};
+	int i;
+
 	start_atrribute (COLOR_PAIR (RED_BLACK));
 	mvaddch (snake.body[0].y, snake.body[0].x, 'x');
+	for (i = 0; i < game_over_logo_height; i++)
+		mvaddstr (3 + i, 22,  game_over_logo[i]);
 
-	mvprintw (3, 22,  " _______  _______  __   __  _______ ");
-	mvprintw (4, 22,  "|       ||   _   ||  |_|  ||       |");
-	mvprintw (5, 22,  "|    ___||  |_|  ||       ||    ___|");
-	mvprintw (6, 22,  "|   | __ |       ||       ||   |___ ");
-	mvprintw (7, 22,  "|   ||  ||       ||       ||    ___|");
-	mvprintw (8, 22,  "|   |_| ||   _   || ||_|| ||   |___ ");
-	mvprintw (9, 22,  "|_______||__| |__||_|   |_||_______|");
-	mvprintw (10, 22, " _______  __   __  _______  ______  ");
-	mvprintw (11, 22, "|       ||  | |  ||       ||    _ | ");
-	mvprintw (12, 22, "|   _   ||  |_|  ||    ___||   | || ");
-	mvprintw (13, 22, "|  | |  ||       ||   |___ |   |_|| ");
-	mvprintw (14, 22, "|  |_|  ||       ||    ___||    __ |");
-	mvprintw (15, 22, "|       | |     | |   |___ |   |  ||");
-	mvprintw (16, 22, "|_______|  |___|  |_______||___|  ||");
-	mvprintw (17, 28,       "Press <enter> to retry");
-	mvprintw (18, 31,          "<m> to Main Menu");
 	draw_score ();
-
 	refresh ();
 }
 
@@ -337,13 +331,15 @@ void engine_show_game_over ()
  */
 void engine_show_main_menu ()
 {
+	int  speed_cur_option     = 1;
+	char speed_cur_options[9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+	int menu_row_pos   = 13;
+	int option_row_pos = menu_row_pos + 17;
+
 	int wait = TRUE;
-
-	int speed_option = 1;
-	char speed_options[9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
-
-	int menu_x_padding = 13;
-	int option_x_padding = menu_x_padding + 17;
+	int i;
+	int j;
 
 	clear ();
 
@@ -351,7 +347,6 @@ void engine_show_main_menu ()
 	{
 		// The borders
 		start_atrribute (COLOR_PAIR (WHITE_BLACK));
-		int i;
 		for (i = 0; i < screen.width; i++)
 		{
 			mvaddch (0, i, MENU_BORDER_CHAR);
@@ -388,42 +383,41 @@ void engine_show_main_menu ()
 		mvprintw (17, 5, "|                                                   |");
 		mvprintw (18, 5, "|                                                   |");
 		mvprintw (19, 5, "|___________________________________________________|");
-		mvprintw (12, menu_x_padding, "Press <enter> or <space> to start game");
-		mvprintw (13, menu_x_padding, "Press <q> to quit game");
+		mvprintw (12, menu_row_pos, "Press <enter> or <space> to start game");
+		mvprintw (13, menu_row_pos, "Press <q> to quit game");
 
 		// Here we draw the game mode
-		mvprintw (15, menu_x_padding, "Game Mode:");
+		mvprintw (15, menu_row_pos, "Game Mode:");
 		if (game.mode == BORDERS_ON)
 		{
 			start_atrribute (COLOR_PAIR (WHITE_BLACK));
-			mvprintw (15, option_x_padding, "Borders On");
+			mvprintw (15, option_row_pos, "Borders On");
 
 			start_atrribute (COLOR_PAIR (BLUE_BLACK));
-			mvprintw (16, option_x_padding, "Borders Off");
+			mvprintw (16, option_row_pos, "Borders Off");
 		}
 		else
 		{
 			start_atrribute (COLOR_PAIR (BLUE_BLACK));
-			mvprintw (15, option_x_padding, "Borders On");
+			mvprintw (15, option_row_pos, "Borders On");
 
 			start_atrribute (COLOR_PAIR (WHITE_BLACK));
-			mvprintw (16, option_x_padding, "Borders Off");
+			mvprintw (16, option_row_pos, "Borders Off");
 		}
 
 		// And here we draw the level numbers
 		start_atrribute (COLOR_PAIR (BLUE_BLACK));
-		mvprintw (18, menu_x_padding, "Starting speed:");
+		mvprintw (18, menu_row_pos, "Starting speed:");
 
 		// Tricky, draw the options with the right colors
-		int j;
 		for (i = 0, j = 0; i < 9; i++)
 		{
-			if (i == (speed_option-1))
+			if (i == (speed_cur_option-1))
 				start_atrribute (COLOR_PAIR (WHITE_BLACK));
 			else
 				start_atrribute (COLOR_PAIR (BLUE_BLACK));
 
-			mvprintw (18, option_x_padding+j, "%c", speed_options [i]);
+			mvprintw (18, option_row_pos+j, "%c", speed_cur_options [i]);
 			j += 2;
 		}
 
@@ -431,13 +425,13 @@ void engine_show_main_menu ()
 		mvprintw (screen.height-2, 2, "Use --help for guidelines");
 
 		// Now we wait for orders
-		wait = get_main_menu_input (&speed_option);
+		wait = get_main_menu_input (&speed_cur_option);
 
 		// This function is so refreshing...
 		refresh ();
 	}
 
-	game.level = speed_option;
+	game.level = speed_cur_option;
 }
 
 
@@ -483,16 +477,13 @@ void get_game_over_input ()
 {
 	int wait = TRUE;
 
+	nodelay (stdscr, FALSE);
 	while (wait == TRUE)
 	{
 		int input = getch();
 
 		switch (input)
 		{
-		case ERR:
-			// if we get no input
-			break;
-
 		case 'q':	case 'Q':
 			engine_exit ();
 			nsnake_exit ();
@@ -510,22 +501,21 @@ void get_game_over_input ()
 			break;
 		}
 	}
+	nodelay (stdscr, TRUE);
 }
 
 
 /**	Gets the input for the main menu.
  */
-int get_main_menu_input (int* speed_option)
+int get_main_menu_input (int* speed_cur_option)
 {
-	int input = getch();
+	nodelay (stdscr, FALSE);
 
+	int input = getch();
 	switch (input)
 	{
-	case ERR:
-		// if we get no input
-		break;
-
 	case '\n':	case ' ':
+		nodelay (stdscr, TRUE);
 		return FALSE;
 		break;
 
@@ -545,41 +535,18 @@ int get_main_menu_input (int* speed_option)
 		break;
 
 	case KEY_LEFT:
-		if (*speed_option > 1)
-			(*speed_option)--;
+		if (*speed_cur_option > 1)
+			(*speed_cur_option)--;
 		break;
 
 	case KEY_RIGHT:
-		if (*speed_option < 9)
-			(*speed_option)++;
+		if (*speed_cur_option < 9)
+			(*speed_cur_option)++;
 		break;
 
-	case '1':
-		*speed_option = 1;
-		break;
-	case '2':
-		*speed_option = 2;
-		break;
-	case '3':
-		*speed_option = 3;
-		break;
-	case '4':
-		*speed_option = 4;
-		break;
-	case '5':
-		*speed_option = 5;
-		break;
-	case '6':
-		*speed_option = 6;
-		break;
-	case '7':
-		*speed_option = 7;
-		break;
-	case '8':
-		*speed_option = 8;
-		break;
-	case '9':
-		*speed_option = 9;
+	case '1': case '2': case '3': case '4': case '5':
+	case '6': case '7': case '8': case '9':
+		*speed_cur_option = (input - '0'); // ASCII table value
 		break;
 
 	default:
@@ -596,8 +563,8 @@ void get_pause_input ()
 {
 	int paused = TRUE;
 
-	// Makes the cursor visible
-	curs_set (1);
+	curs_set (1); // Makes the cursor visible
+	nodelay (stdscr, FALSE); // We'll wait for input again
 
 	while (paused == TRUE)
 	{
@@ -605,10 +572,6 @@ void get_pause_input ()
 
 		switch (input)
 		{
-		// If we get no input
-		case ERR:
-			break;
-
 		case 'p':	case 'P':
 			paused = FALSE;
 			break;
@@ -623,8 +586,8 @@ void get_pause_input ()
 		}
 	}
 
-	// And here it becomes invisible again
-	curs_set (0);
+	nodelay (stdscr, TRUE); // We'll no longer wait for input
+	curs_set (0); // And here it becomes invisible again
 }
 
 
