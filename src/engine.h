@@ -64,5 +64,6 @@ void engine_get_game_input ();
 void get_game_over_input ();
 void get_pause_input ();
 
+void start_atrribute (int attr);
 
 #endif

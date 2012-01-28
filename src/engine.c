@@ -91,7 +91,7 @@ void draw_borders ()
 {
 	int i;
 
-	attron (COLOR_PAIR (WHITE_BLACK));
+	start_atrribute (COLOR_PAIR (WHITE_BLACK));
 	if (game.mode == BORDERS_ON)
 	{
 		for (i = 0; i <= (screen.width-1); i++)	//upper
@@ -125,7 +125,7 @@ void draw_borders ()
  */
 void draw_fruit ()
 {
-	attron (COLOR_PAIR (CYAN_BLACK));
+	start_atrribute (COLOR_PAIR (CYAN_BLACK));
 	mvaddch (fruit.y, fruit.x, FRUIT_CHAR);
 }
 
@@ -134,7 +134,7 @@ void draw_fruit ()
  */
 void draw_fruit_bonus ()
 {
-	attron (COLOR_PAIR (WHITE_BLACK));
+	start_atrribute (COLOR_PAIR (WHITE_BLACK));
 	mvprintw (0, (screen.width-1)/2, "Bonus: %d", fruit.bonus);
 }
 
@@ -143,7 +143,7 @@ void draw_fruit_bonus ()
 */
 void draw_player ()
 {
-	attron (COLOR_PAIR (GREEN_BLACK));
+	start_atrribute (COLOR_PAIR (GREEN_BLACK));
 	mvaddch (snake.body[0].y, snake.body[0].x, PLAYER_HEAD_CHAR);
 
 	int i;
@@ -156,11 +156,11 @@ void draw_player ()
  */
 void draw_score ()
 {
-	attron (COLOR_PAIR (CYAN_BLACK));
+	start_atrribute (COLOR_PAIR (CYAN_BLACK));
 	mvprintw (0, 0, "nSnake v");
 	mvprintw (0, 9, VERSION);
 
-	attron (COLOR_PAIR (WHITE_BLACK));
+	start_atrribute (COLOR_PAIR (WHITE_BLACK));
 	mvprintw (0, 17, "Lv%d", game.level);
 	mvprintw (0, 23, "Score: %d", snake.score);
 
@@ -245,17 +245,17 @@ void engine_init ()
 	// Starts the ncurses mode
 	initscr ();
 
-	if (has_colors() == FALSE)
-		nsnake_abort ("Your terminal does not support colors.\n");
-
-	// Start support for colors ( Name, Foreground, Background )
-	start_color ();
-	init_pair (GREEN_BLACK, COLOR_GREEN, COLOR_BLACK);
-	init_pair (CYAN_BLACK,  COLOR_CYAN,  COLOR_BLACK);
-	init_pair (WHITE_BLACK, COLOR_WHITE, COLOR_BLACK);
-	init_pair (RED_BLACK,   COLOR_RED,   COLOR_BLACK);
-	init_pair (BLUE_BLACK,  COLOR_BLUE,  COLOR_BLACK);
-	init_pair (BLACK_WHITE, COLOR_BLACK, COLOR_WHITE);
+	if (has_colors () == TRUE)
+	{
+		// Start support for colors ( Name, Foreground, Background )
+		start_color ();
+		init_pair (GREEN_BLACK, COLOR_GREEN, COLOR_BLACK);
+		init_pair (CYAN_BLACK,  COLOR_CYAN,  COLOR_BLACK);
+		init_pair (WHITE_BLACK, COLOR_WHITE, COLOR_BLACK);
+		init_pair (RED_BLACK,   COLOR_RED,   COLOR_BLACK);
+		init_pair (BLUE_BLACK,  COLOR_BLUE,  COLOR_BLACK);
+		init_pair (BLACK_WHITE, COLOR_BLACK, COLOR_WHITE);
+	}
 
 	int current_height, current_width;
 	// Gets the current width and height of the terminal
@@ -283,6 +283,8 @@ void engine_init ()
 	// Refresh the screen (prints whats in the buffer)
 	refresh ();
 
+	/// @todo There must have a game init function or something
+	///       where i could put this
 	game.mode = BORDERS_ON;
 }
 
@@ -293,7 +295,7 @@ void engine_init ()
  */
 void engine_show_game_over ()
 {
-	attron (COLOR_PAIR (RED_BLACK));
+	start_atrribute (COLOR_PAIR (RED_BLACK));
 	mvaddch (snake.body[0].y, snake.body[0].x, 'x');
 
 	mvprintw (3, 22,  " _______  _______  __   __  _______ ");
@@ -338,7 +340,7 @@ void engine_show_main_menu ()
 	while (wait == TRUE)
 	{
 		// The borders
-		attron (COLOR_PAIR (WHITE_BLACK));
+		start_atrribute (COLOR_PAIR (WHITE_BLACK));
 		int i;
 		for (i = 0; i < screen.width; i++)
 		{
@@ -351,7 +353,7 @@ void engine_show_main_menu ()
 			mvaddch (i, screen.width - 1, MENU_BORDER_CHAR);
 		}
 
-		attron (COLOR_PAIR (GREEN_BLACK));
+		start_atrribute (COLOR_PAIR (GREEN_BLACK));
 		mvprintw(1, 3,  "         ,d8888b.                     888");
 		mvprintw(2, 3,  "        d88P  Y88b                    888");
 		mvprintw(3, 3,  "         Y88b.                        888");
@@ -361,11 +363,11 @@ void engine_show_main_menu ()
 		mvprintw(7, 3,  "888  888 Y88b  d88P 888  888 888  888 888  88b Y8b.");
 		mvprintw(8, 3,  "888  888   Y8888P   888  888  Y888888 888  888  Y88888");
 
-		attron (COLOR_PAIR (CYAN_BLACK));
+		start_atrribute (COLOR_PAIR (CYAN_BLACK));
 		mvaddch (8, 59, 'v');
 		mvprintw (8, 60, VERSION);
 
-		attron (COLOR_PAIR (BLUE_BLACK));
+		start_atrribute (COLOR_PAIR (BLUE_BLACK));
 		mvprintw (10, 5, " ___________________________________________________ ");
 		mvprintw (11, 5, "|                                                   |");
 		mvprintw (12, 5, "|                                                   |");
@@ -383,23 +385,23 @@ void engine_show_main_menu ()
 		mvprintw (15, menu_x_padding, "Game Mode:");
 		if (game.mode == BORDERS_ON)
 		{
-			attron (COLOR_PAIR (WHITE_BLACK));
+			start_atrribute (COLOR_PAIR (WHITE_BLACK));
 			mvprintw (15, option_x_padding, "Borders On");
 
-			attron (COLOR_PAIR (BLUE_BLACK));
+			start_atrribute (COLOR_PAIR (BLUE_BLACK));
 			mvprintw (16, option_x_padding, "Borders Off");
 		}
 		else
 		{
-			attron (COLOR_PAIR (BLUE_BLACK));
+			start_atrribute (COLOR_PAIR (BLUE_BLACK));
 			mvprintw (15, option_x_padding, "Borders On");
 
-			attron (COLOR_PAIR (WHITE_BLACK));
+			start_atrribute (COLOR_PAIR (WHITE_BLACK));
 			mvprintw (16, option_x_padding, "Borders Off");
 		}
 
 		// And here we draw the level numbers
-		attron (COLOR_PAIR (BLUE_BLACK));
+		start_atrribute (COLOR_PAIR (BLUE_BLACK));
 		mvprintw (18, menu_x_padding, "Starting speed:");
 
 		// Tricky, draw the options with the right colors
@@ -407,15 +409,15 @@ void engine_show_main_menu ()
 		for (i = 0, j = 0; i < 9; i++)
 		{
 			if (i == (speed_option-1))
-				attron (COLOR_PAIR (WHITE_BLACK));
+				start_atrribute (COLOR_PAIR (WHITE_BLACK));
 			else
-				attron (COLOR_PAIR (BLUE_BLACK));
+				start_atrribute (COLOR_PAIR (BLUE_BLACK));
 
 			mvprintw (18, option_x_padding+j, "%c", speed_options [i]);
 			j += 2;
 		}
 
-		attron (COLOR_PAIR (WHITE_BLACK));
+		start_atrribute (COLOR_PAIR (WHITE_BLACK));
 		mvprintw (screen.height-2, 2, "Use --help for guidelines");
 
 		// Now we wait for orders
@@ -433,7 +435,7 @@ void engine_show_main_menu ()
  */
 void engine_show_pause ()
 {
-	attron (COLOR_PAIR (RED_BLACK));
+	start_atrribute (COLOR_PAIR (RED_BLACK));
 
 	mvprintw ((screen.height-1)/2, ((screen.width-1)/2)-5, "Game Paused ");
 	mvprintw (((screen.height-1)/2)+1, ((screen.width-1)/2)-11, "Press <p> to Continue...");
@@ -614,3 +616,16 @@ void get_pause_input ()
 	// And here it becomes invisible again
 	curs_set (0);
 }
+
+
+/** Wrapper to the attron() function, in case the current terminal
+ *  doesn't support colors.
+ */
+void start_atrribute (int attr)
+{
+	if (has_colors () == TRUE)
+	{
+		attron (attr);
+	}
+}
+
