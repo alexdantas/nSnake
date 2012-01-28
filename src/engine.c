@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
  * nSnake - The classic snake game with ncurses.                              *
- * Copyright (C) 2011  Alexandre Dantas (kure)                                *
+ * Copyright (C) 2011-2012  Alexandre Dantas (kure)                           *
  *                                                                            *
  * This file is part of nSnake.                                               *
  *                                                                            *
@@ -22,6 +22,7 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /** @file engine.c
+ *
  *	Definition of the graphical engine functions
  *
  *	This file presents the nCurses specifical implementation of the game`s
@@ -40,6 +41,10 @@
 #include "fruit.h"
 #include "player.h"
 #include "hscores.h"
+
+
+#define FIXED_WIDTH   48
+#define FIXED_HEIGHT  24
 
 
 /** This formula determines a time (in microseconds) the game must wait
@@ -234,8 +239,8 @@ void engine_get_game_input ()
  */
 void engine_init ()
 {
-	screen.width  = 80;
-	screen.height = 24;
+	screen.width  = FIXED_WIDTH;
+	screen.height = FIXED_HEIGHT;
 
 	// Starts the ncurses mode
 	initscr ();

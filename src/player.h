@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
  * nSnake - The classic snake game with ncurses.                              *
- * Copyright (C) 2011  Alexandre Dantas (kure)                                *
+ * Copyright (C) 2011-2012  Alexandre Dantas (kure)                           *
  *                                                                            *
  * This file is part of nSnake.                                               *
  *                                                                            *
@@ -22,6 +22,7 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /**	@file   player.h
+ *
  *	Declaration of the player functions, defines and globals
  */
 
@@ -32,52 +33,44 @@
 #include "nsnake.h"
 
 
-/**	The structure of each segmentation of the player.
+/**	The structure of each part of the player.
  */
-struct player_pieces_t
+struct player_pieces
 {
-	/** The x position of this piece */
-	int x;
-	/** The y position of this piece */
-	int y;
+	int x; /**< x position of this part */
+	int y; /**< y position of this part */
 };
 
 
-/** A simple enum to make the directions of the player easier to read.
+/** Simple enum to make the directions of the player easier to read.
  */
 enum directions { UP = 0, LEFT, DOWN, RIGHT };
 
 
 /**	Represent the snake itself.
+ *
+ *  @todo Currently the snake have no physical limit. Must implement one.
+ *        Maybe something like if the snake occupies the whole screen, a pop-up
+ *        says 'congratulations' or the size resets but not the score...
  */
 struct player_t
 {
-	/** Indicates if the player is alive */
-	int is_alive;
+	int is_alive;   /**< Indicates if the player is alive */
+	int	speed;      /**< How many chars will the player move by frame */
+	int	size;       /**< Current size of the snake's body */
+	int score;      /**< The player's score :D */
+	int direction;  /**< Which direction shoud the player go */
 
-	/** How many chars will the player move by frame */
-	int	speed;
-
-	/** The current size of the snake.pieces's body */
-	int	size;
-
-	/** The score :D */
-	int score;
-
-	/** Which direction shoud the player go */
-	int direction;
-
-	/** All pieces of the snake (including the head) */
-	struct player_pieces_t* body;
+	struct player_pieces* body; /**< All pieces of the snake (including the head) */
 };
 
 
-/** The player himself */
+/** Global player structure */
 extern struct player_t snake;
 
 
 void player_change_direction (int new_direction);
-int player_collided_with_borders ();
+int  player_collided_with_borders ();
 void player_exit ();
 int  player_hit_borders ();
 int  player_hit_fruit ();

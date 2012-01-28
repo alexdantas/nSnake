@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
  * nSnake - The classic snake game with ncurses.                              *
- * Copyright (C) 2011  Alexandre Dantas (kure)                                *
+ * Copyright (C) 2011-2012  Alexandre Dantas (kure)                           *
  *                                                                            *
  * This file is part of nSnake.                                               *
  *                                                                            *
@@ -22,6 +22,7 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /**	@file engine.h
+ *
  *	Declaration of the graphical engine functions, defines and globals
  */
 
@@ -34,16 +35,13 @@
  */
 struct screen_t
 {
-	/** The fixed width of the game area */
-	int width;
-	/** The fixed height of the game area */
-	int height;
-	/** The time (in microsseconds) that the game */
-	int delay;
+	int width;  /**< The fixed width of the game area */
+	int height; /**< The fixed height of the game area */
+	int delay;  /**< The time (in microsseconds) that the game */
 };
 
 
-/** The global screen structure */
+/** Global screen structure */
 extern struct screen_t screen;
 
 

@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
  * nSnake - The classic snake game with ncurses.                              *
- * Copyright (C) 2011  Alexandre Dantas (kure)                                *
+ * Copyright (C) 2011-2012  Alexandre Dantas (kure)                           *
  *                                                                            *
  * This file is part of nSnake.                                               *
  *                                                                            *
@@ -22,14 +22,15 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /**	@file fruit.h
- * 	Declaration of the fruit functions, defines and globals
+ *
+ *  Declaration of the fruit functions, defines and globals
  */
 
 #ifndef FRUIT_DEFINED
 #define FRUIT_DEFINED
 
 
-/**	The fruit structure
+/**	The fruit structure.
  *
  * 	Each fruit has it x and y positions
  * 	and a bonus score - indicating how many extra points
@@ -37,12 +38,9 @@
  */
 struct fruit_t
 {
-	/** The x position of the fruit on stage */
-	int x;
-	/** The y position of the fruit on stage */
-	int y;
-	/** The bonus that the fruit adds to the score */
-	int bonus;
+	int x;     /** x position of the fruit on stage */
+	int y;     /** y position of the fruit on stage */
+	int bonus; /** Bonus that the fruit adds to the score when eaten */
 
 };
 

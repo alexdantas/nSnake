@@ -1,6 +1,6 @@
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *\
  * nSnake - The classic snake game with ncurses.                              *
- * Copyright (C) 2011  Alexandre Dantas (kure)                                *
+ * Copyright (C) 2011-2012  Alexandre Dantas (kure)                           *
  *                                                                            *
  * This file is part of nSnake.                                               *
  *                                                                            *
@@ -22,6 +22,7 @@
 \* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /**	@file player.c
+ *
  *	Definition of the player functions
  */
 
@@ -157,7 +158,7 @@ void player_increase_score (int add)
  */
 void player_increase_size (int size)
 {
-	int piece_size = sizeof (struct player_pieces_t);
+	int piece_size = sizeof (struct player_pieces);
 
 	snake.size += size;
 
@@ -179,7 +180,7 @@ void player_init ()
 	snake.direction = RIGHT;
 
 	snake.size = 3;
-	snake.body = malloc (snake.size * sizeof (struct player_pieces_t));
+	snake.body = malloc (snake.size * sizeof (struct player_pieces));
 	if (snake.body == NULL)
 		nsnake_abort ("Memory Error!\n");
 

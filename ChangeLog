@@ -1,3 +1,7 @@
+______________________________________________________________________________
+XX-XX-XXXX  VX.X
+	* nSnake now uses Git for version control.
+_______________________________________________________________________________
 11-01-2012  V1.5
 	* Added arguments.c/.h: Now nSnake uses GNU getopt_long! See files for info.
 	* Code changes: The main documentation page has a separate file now.
