@@ -247,14 +247,24 @@ void engine_init ()
 
 	if (has_colors () == TRUE)
 	{
-		// Start support for colors ( Name, Foreground, Background )
+		int bg_color;
+
+		// Start color support
 		start_color ();
-		init_pair (GREEN_BLACK, COLOR_GREEN, COLOR_BLACK);
-		init_pair (CYAN_BLACK,  COLOR_CYAN,  COLOR_BLACK);
-		init_pair (WHITE_BLACK, COLOR_WHITE, COLOR_BLACK);
-		init_pair (RED_BLACK,   COLOR_RED,   COLOR_BLACK);
-		init_pair (BLUE_BLACK,  COLOR_BLUE,  COLOR_BLACK);
-		init_pair (BLACK_WHITE, COLOR_BLACK, COLOR_WHITE);
+
+		// Let's try grabbing the current terminal background color
+		if (use_default_colors () == ERR)
+			bg_color = COLOR_BLACK;
+		else
+			bg_color = -1;
+
+		// Start support for colors (Name, Foreground, Background)
+		init_pair (GREEN_BLACK, COLOR_GREEN, bg_color);
+		init_pair (CYAN_BLACK,  COLOR_CYAN,  bg_color);
+		init_pair (WHITE_BLACK, COLOR_WHITE, bg_color);
+		init_pair (RED_BLACK,   COLOR_RED,   bg_color);
+		init_pair (BLUE_BLACK,  COLOR_BLUE,  bg_color);
+		init_pair (BLACK_WHITE, COLOR_BLACK, bg_color);
 	}
 
 	int current_height, current_width;

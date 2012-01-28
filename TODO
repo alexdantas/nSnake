@@ -3,6 +3,60 @@ So i rely on friends and testers to give me their opinion about it.
 What do you think about those?
 --------------------------------------------------------------------------------
 
+[medium]
+Attribute that changes the snake color
+	Like -c [0 ~ 4], changes colors from 0 to 4
+	Change more colors?
+Key 'c' changes the color in-game
+
+[simple]
+Make the game speed changing more balanced
+Make the fruit give score equal to game level
+
+[medium]
+Make attribute that changes the game level size?
+Follow the other 'nsnake' path and handle the SIGWINCH signal?
+	This way, whenever someone resize the window, i could do whatever
+	i want, like resize the game window or move the screen...
+
+[hard]
+Change level to be a big char grid.
+Each cell will be able to be EMPTY, FRUIT, WALL or SNAKE.
+When checking collision, simply watch if snake's head is in a WALL cell
+Same for when snake's head is in a FRUIT cell
+And same when creating a fruit! Instead of checking each and every snake
+position, check only if the grid is a SNAKE. (the only exception would
+be the snake head. how can i check collision with it if it's a SNAKE cell?)
+	This will make possible to create LEVELS for the game!
+	Just read a text file with real grids on it, parse and voila!
+		I wonder if this would be the game be complicated...
+		Need to check other game's examples.
+
+[simple]
+Insert header when writing to score file so i can check if it is corrupted.
+Whenever i read from the score file, check if the header is ok.
+Maybe some special number like 666 or a string like "nSnAkE_sCoReFiLe"
+	What will i do if i find a corrupted score file?
+	Erase the score? Rewrite it? I need to warn the player, right?
+
+[hard as hell]
+Change the way highscores exist.
+Maybe implement a highscore screen, with the names of the players.
+Assume default name as getenv("USER") and such.
+
+[simple]
+Deixar nsnake com o fundo do terminal onde estava, em vez de COLOR_BLACK.
+	Como use_default_colors e uma extensao de ncurses, a man page recomenda
+	deixar ele condicionado a NCURSES_VERSION. O que significa isso?
+		Usar tambem default color pra foreground?
+
+
+
+
+
+
+
+
 <random_ideas>
 
 *	Campaign Mode? Change levels? > way ahead
