@@ -64,18 +64,20 @@ SCORE_PATH = $(SCOREDIR)/$(SCORE_FILE)
 #-------Compile-----------------------------------------------------------------
 CC	    = gcc
 EXE	    = nsnake
-CDEBUG	=
-CFLAGS	= $(CDEBUG) -Wall -Wextra -O2
-LIBS	= -lncurses
+CDEBUG	    =
+CFLAGS	    = $(CDEBUG) -Wall -Wextra -O2
+LIBS	    = -lncurses
+INCLUDESDIR = 
+LIBSDIR     =
 OBJ	    = $(LOBJ)/fruit.o      \
-          $(LOBJ)/main.o       \
-          $(LOBJ)/player.o     \
-          $(LOBJ)/nsnake.o     \
-          $(LOBJ)/engine.o     \
-          $(LOBJ)/hscores.o    \
-          $(LOBJ)/arguments.o
-MANFILE = $(PACKAGE).6.gz
-MANPAGE = $(LDOC)/$(MANFILE)
+              $(LOBJ)/main.o       \
+              $(LOBJ)/player.o     \
+              $(LOBJ)/nsnake.o     \
+              $(LOBJ)/engine.o     \
+              $(LOBJ)/hscores.o    \
+              $(LOBJ)/arguments.o
+MANFILE     = $(PACKAGE).6.gz
+MANPAGE     = $(LDOC)/$(MANFILE)
 
 DEFINES	= -DVERSION=\"$(VERSION)\"        \
           -DDATE=\"$(DATE)\"              \
@@ -131,12 +133,12 @@ purge: uninstall
 #	To make the executable file
 $(EXE): $(OBJ)
 	@echo "* Linking..."
-	$(MUTE)$(CC) $(OBJ) -o $(LBIN)/$(EXE) $(LIBS)
+	$(MUTE)$(CC) $(OBJ) -o $(LBIN)/$(EXE) $(LIBSDIR) $(LIBS)
 
 #	All the object files
 $(LOBJ)/%.o: $(LSRC)/%.c
 	@echo "* Compiling $<..."
-	$(MUTE)$(CC) $(CFLAGS) $< -c -o $@ $(DEFINES)
+	$(MUTE)$(CC) $(CFLAGS) $< -c -o $@ $(DEFINES) $(INCLUDEDIR)
 
 #	Make the 'tarball'
 dist: $(DISTDIR).tar.gz

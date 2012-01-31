@@ -32,10 +32,18 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#include <ncurses.h> // the actual game engine
-
 #include <unistd.h>  // for the usleep () function
+
+
+// Let's use the game engine, depending on the OS
+#if (defined __WIN32__) && (!defined __CYGWIN__)
+	// Ugh... windows...
+	#include <curses.h>
+#else
+	// Yay! Anything else!
+	#include <ncurses.h>
+#endif
+
 
 #include "engine.h"
 #include "fruit.h"
@@ -43,8 +51,16 @@
 #include "hscores.h"
 
 
-#define FIXED_WIDTH   48
-#define FIXED_HEIGHT  24
+#if (defined __WIN32__) && (!defined __CYGWIN__)
+	// In Windows, the console has fixed width
+	#define FIXED_WIDTH   80
+	#define FIXED_HEIGHT  25
+#else
+	// Now here we don't have to worry about that
+	#define FIXED_WIDTH   80
+	#define FIXED_HEIGHT  24
+#endif
+
 
 
 /** This formula determines a time (in microseconds) the game must wait
@@ -309,7 +325,11 @@ void engine_show_game_over ()
 		"|  |_|  ||       ||    ___||    __ |",
 		"|       | |     | |   |___ |   |  ||",
 		"|_______|  |___|  |_______||___|  ||",
+#if (defined __WIN32__) && (!defined __CYGWIN__)
+		"       Press <space> to retry",
+#else
 		"       Press <enter> to retry",
+#endif
 		"          <m> to Main Menu"
 	};
 	int i;
@@ -383,7 +403,11 @@ void engine_show_main_menu ()
 		mvprintw (17, 5, "|                                                   |");
 		mvprintw (18, 5, "|                                                   |");
 		mvprintw (19, 5, "|___________________________________________________|");
+#if (defined __WIN32__) && (!defined __CYGWIN__)
+		mvprintw (12, menu_row_pos, "Press <space> to start game");
+#else
 		mvprintw (12, menu_row_pos, "Press <enter> or <space> to start game");
+#endif
 		mvprintw (13, menu_row_pos, "Press <q> to quit game");
 
 		// Here we draw the game mode
@@ -493,7 +517,11 @@ void get_game_over_input ()
 			wait = FALSE;
 			engine_show_main_menu ();
 
+#if (defined __WIN32__) && (!defined __CYGWIN__)
+		case ' ':
+#else
 		case '\n':
+#endif
 			wait = FALSE;
 			break;
 
