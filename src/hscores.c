@@ -31,6 +31,15 @@
 //	By default, it is /var/games/nsnake/high.scores
 //	but it depends on the installation directory set by the user
 
+
+// If we're on Windows, there's no /var/games!
+// So we create the file on the same directory as the .exe
+#if (defined __WIN32__) && (!defined __CYGWIN__)
+	#undef  SCORE_PATH
+	#define SCORE_PATH "hscores.bin"
+#endif
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

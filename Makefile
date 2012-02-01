@@ -138,7 +138,7 @@ $(EXE): $(OBJ)
 #	All the object files
 $(LOBJ)/%.o: $(LSRC)/%.c
 	@echo "* Compiling $<..."
-	$(MUTE)$(CC) $(CFLAGS) $< -c -o $@ $(DEFINES) $(INCLUDEDIR)
+	$(MUTE)$(CC) $(CFLAGS) $< -c -o $@ $(DEFINES) $(INCLUDESDIR)
 
 #	Make the 'tarball'
 dist: $(DISTDIR).tar.gz
@@ -166,7 +166,7 @@ newversion: dist
 
 #-------Phonys-----------------------------------------------------------------
 dirs:	
-	mkdir -p $(LOBJ) $(LBIN)
+	-mkdir -p $(LOBJ) $(LBIN)
 
 run: all
 	@echo "* Running..."
