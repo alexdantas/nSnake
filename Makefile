@@ -104,7 +104,7 @@ endif
 
 #-------Standard Makes----------------------------------------------------------
 
-all: $(EXE)
+all: dirs $(EXE)
 	@echo "* Ready to Play!"
 
 install: all
@@ -165,6 +165,9 @@ newversion: dist
 	$(MUTE)tar $(VTAG) -xzf $(TARNAME)
 
 #-------Phonys-----------------------------------------------------------------
+dirs:	
+	mkdir -p $(LOBJ) $(LBIN)
+
 run: all
 	@echo "* Running..."
 	$(MUTE)./$(LBIN)/$(EXE)
