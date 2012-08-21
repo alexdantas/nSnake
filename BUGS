@@ -1,8 +1,15 @@
-            Please send bug reports to <alex.dantas92@gmail.com>
---------------------------------------------------------------------------------
+BUGS
+====
+List of known bugs. I plan to fix them as soon as possible.
+Please send bug reports to <alex.dantas92@gmail.com>
 
-(Mon, 16 Jan 2012 11:38:16 -0200)
+(Mon Jan 16 11:38:16 BRT 2012)
 If you try to run nSnake with parameters that don't start with '-', they are
 completely ignored.
 (Fix probably at getopt_long at arguments.c)
 
+(Thu Jul 26 10:38:21 BRT 2012)
+When the fruit is at the bottom of the screen and the snake tries to eat it
+on the borderless mode teleporting from above, it doesn't get eaten - the
+snake goes through it.
+(Fix at collision detection)

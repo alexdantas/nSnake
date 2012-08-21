@@ -3,6 +3,10 @@ So i rely on friends and testers to give me their opinion about it.
 What do you think about those?
 --------------------------------------------------------------------------------
 
+[easy]
+When the snake eats a frut, modify its body so that the place where
+the fruit was becomes big.. Just like when a snake eats it gets stuffed
+
 [medium]
 Attribute that changes the snake color
 	Like -c [0 ~ 4], changes colors from 0 to 4
