@@ -1,6 +1,7 @@
 nSnake README
 =============
 nSnake is the classic snake game playable on the console.
+It has two modes (with or without borders) and 9 speed levels.
 It uses the nCurses C library for text-like interface.
 
 README Index

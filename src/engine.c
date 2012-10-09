@@ -34,17 +34,6 @@
 #include <stdlib.h>
 #include <unistd.h>  // for the usleep () function
 
-
-// Let's use the game engine, depending on the OS
-#if (defined __WIN32__) && (!defined __CYGWIN__)
-	// Ugh... windows...
-	#include <curses.h>
-#else
-	// Yay! Anything else!
-	#include <ncurses.h>
-#endif
-
-
 #include "engine.h"
 #include "fruit.h"
 #include "player.h"
@@ -97,7 +86,8 @@ struct screen_t screen;
  */
 void draw_background ()
 {
-	clear();
+	/* clear(); */
+	erase();
 }
 
 
@@ -191,7 +181,8 @@ void draw_score ()
  */
 void engine_exit ()
 {
-	clear ();
+	/* clear (); */
+	erase();
 	refresh ();
 	// Effectively ends ncurses mode
 	endwin ();
@@ -200,52 +191,10 @@ void engine_exit ()
 
 /**	Get the user input during game and make the right decisions
  */
-void engine_get_game_input ()
+int engine_get_game_input ()
 {
 	// The input variable MUST be int to accept non-ascii characters
-	int input = getch ();
-
-	switch (input)
-	{
-
-	case ERR:
-		// If we get no input
-		break;
-
-	case KEY_UP:    case 'w': case 'W':
-		player_change_direction (UP);
-		break;
-
-	case KEY_LEFT:  case 'a': case 'A':
-		player_change_direction (LEFT);
-		break;
-
-	case KEY_DOWN:  case 's': case 'S':
-		player_change_direction (DOWN);
-		break;
-
-	case KEY_RIGHT: case 'd': case 'D':
-		player_change_direction (RIGHT);
-		break;
-
-	case 'q':	case 'Q':
-		engine_exit ();
-		nsnake_exit ();
-		break;
-
-#ifdef DEBUG //debug key to increase score and size (gcc -DDEBUG)
-	case 'e':	case 'E':
-		player_increase_score (100);
-		player_increase_size (2);
-		break;
-#endif
-	case 'p':	case 'P':
-		engine_show_pause ();
-		break;
-
-	default:
-		break;
-	}
+	return getch ();
 }
 
 
@@ -341,8 +290,13 @@ void engine_show_game_over ()
 
 	draw_score ();
 	refresh ();
+	nodelay (stdscr, FALSE);
 }
 
+void engine_clean_game_over ()
+{
+	nodelay (stdscr, TRUE);
+}
 
 /**	Displays the main menu and gets the user input from it.
  *
@@ -463,12 +417,13 @@ void engine_show_main_menu ()
  */
 void engine_show_pause ()
 {
+	curs_set (1); // Makes the cursor visible
+	nodelay (stdscr, FALSE); // We'll wait for input again
+
 	start_atrribute (COLOR_PAIR (RED_BLACK));
 
 	mvprintw ((screen.height-1)/2, ((screen.width-1)/2)-5, "Game Paused ");
 	mvprintw (((screen.height-1)/2)+1, ((screen.width-1)/2)-11, "Press <p> to Continue...");
-
-	get_pause_input ();
 }
 
 
@@ -585,35 +540,10 @@ int get_main_menu_input (int* speed_cur_option)
 }
 
 
-/**	Just waits untill the user either unpauses the game or exits
+/**	Cleans the pause menu effects
  */
-void get_pause_input ()
+void engine_clean_pause ()
 {
-	int paused = TRUE;
-
-	curs_set (1); // Makes the cursor visible
-	nodelay (stdscr, FALSE); // We'll wait for input again
-
-	while (paused == TRUE)
-	{
-		int input = getch ();
-
-		switch (input)
-		{
-		case 'p':	case 'P':
-			paused = FALSE;
-			break;
-
-		case 'q':	case 'Q':
-			engine_exit ();
-			nsnake_exit ();
-			break;
-
-		default:
-			break;
-		}
-	}
-
 	nodelay (stdscr, TRUE); // We'll no longer wait for input
 	curs_set (0); // And here it becomes invisible again
 }

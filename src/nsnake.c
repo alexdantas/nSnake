@@ -72,32 +72,6 @@ void nsnake_exit ()
 	exit (EXIT_SUCCESS);
 }
 
-
-/**	Finish the game after the snake have lost a life.
- *
- * 	@see	engine_show_game_over()
- * 	@see	get_game_over_input()
- */
-void nsnake_game_over ()
-{
-	if (game.mode == BORDERS_ON)
-	{
-		if (snake.score > HIGH_SCORE_BORDERS)
-			hscore_store ();
-	}
-	else if (game.mode == BORDERS_OFF)
-	{
-		if (snake.score > HIGH_SCORE_BORDERS_OFF)
-			hscore_store ();
-	}
-
-	engine_show_game_over ();
-	get_game_over_input ();
-
-	nsnake_init ();
-}
-
-
 /**	Starts all the necessairy stuff.
  *
  *	Sets all the global variables and call the initial functions so the

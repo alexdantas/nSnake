@@ -12,4 +12,10 @@ completely ignored.
 When the fruit is at the bottom of the screen and the snake tries to eat it
 on the borderless mode teleporting from above, it doesn't get eaten - the
 snake goes through it.
+The same when the fruit is at the top left and the snake goes through the
+right.
 (Fix at collision detection)
+
+Wed Aug 22 10:17:51 BRT 2012
+When the player holds a directional key, the snake keeps going for a while.
+Maybe holding the key fills the input buffer or something.

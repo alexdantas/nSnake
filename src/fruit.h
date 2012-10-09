@@ -38,9 +38,9 @@
  */
 struct fruit_t
 {
-	int x;     /** x position of the fruit on stage */
-	int y;     /** y position of the fruit on stage */
-	int bonus; /** Bonus that the fruit adds to the score when eaten */
+	int x;     /**< x position of the fruit on stage */
+	int y;     /**< y position of the fruit on stage */
+	int bonus; /**< Bonus that the fruit adds to the score when eaten */
 
 };
 

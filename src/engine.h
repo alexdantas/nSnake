@@ -30,6 +30,16 @@
 #ifndef ENGINE_DEFINED
 #define ENGINE_DEFINED
 
+/** Let's use the game engine, depending on the OS */
+#define OS_IS_WINDOWS ((defined __WIN32__) && (!defined __CYGWIN__))
+
+#if OS_IS_WINDOWS
+	// Ugh... windows...
+	#include <curses.h>
+#else
+	// Yay! Anything else!
+	#include <ncurses.h>
+#endif
 
 /** Global definitions related to the game screen
  */
@@ -60,9 +70,9 @@ void engine_show_pause ();
 void engine_show_screen ();
 
 int  get_main_menu_input (int* current_option);
-void engine_get_game_input ();
-void get_game_over_input ();
-void get_pause_input ();
+int  engine_get_game_input ();
+void engine_clean_game_over ();
+void engine_clean_pause ();
 
 void start_atrribute (int attr);
 
