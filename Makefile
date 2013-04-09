@@ -60,7 +60,7 @@ EXE	    = nsnake
 CDEBUG	    =
 CFLAGS	    = $(CDEBUG) -Wall -Wextra -O2
 LIBS	    = -lncurses
-INCLUDESDIR = 
+INCLUDESDIR =
 LIBSDIR     =
 OBJ	    = $(LOBJ)/fruit.o      \
               $(LOBJ)/main.o       \
@@ -69,7 +69,7 @@ OBJ	    = $(LOBJ)/fruit.o      \
               $(LOBJ)/engine.o     \
               $(LOBJ)/hscores.o    \
               $(LOBJ)/arguments.o
-MANFILE     = $(PACKAGE).6.gz
+MANFILE     = $(PACKAGE).6
 MANPAGE     = $(LDOC)/man/$(MANFILE)
 
 DEFINES	= -DVERSION=\"$(VERSION)\"        \
@@ -147,7 +147,7 @@ $(DISTDIR):
 	-$(MUTE)cp -r $(LDOC)/* $(DISTDIR)/$(LDOC)
 
 # Phony targets
-dirs:	
+dirs:
 	-mkdir -p $(LOBJ) $(LBIN)
 
 run: all
