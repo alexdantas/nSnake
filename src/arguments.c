@@ -138,7 +138,7 @@ void print_help ()
 	printf("Commandline arguments:\n\n");
 	printf("\t-h, --help         Displays the help guidelines.\n");
 	printf("\t-l, --license      Displays this program's license and warranty.\n");
-	printf("\t-v, --version      Displays the version and general informations.\n");
+	printf("\t-v, --version      Displays the version and general information.\n");
 	printf("\t-r, --reset-scores Resets all the Highscores to default.\n");
 	printf("Type 'man nsnake' for more information.\n");
 	printf("\n");
@@ -177,7 +177,7 @@ void print_usage ()
 	printf("Commandline arguments:\n\n");
 	printf("\t-h, --help         Displays the help guidelines.\n");
 	printf("\t-l, --license      Displays this program's license and warranty.\n");
-	printf("\t-v, --version      Displays the version and general informations.\n");
+	printf("\t-v, --version      Displays the version and general information.\n");
 	printf("\t-r, --reset-scores Resets all the Highscores to default.\n");
 	printf("\n");
 }
