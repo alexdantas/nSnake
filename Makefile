@@ -29,7 +29,7 @@ SHELL	= /bin/sh
 # General Info
 PACKAGE = nsnake
 VERSION = 1.5
-DATE	= Jan2012
+DATE	= `date '+%b%Y'`
 
 # Local source code information
 LBIN    = bin
@@ -40,14 +40,15 @@ LFILES  = BUGS ChangeLog COPYING Doxyfile INSTALL Makefile README TODO
 
 # Install
 DESTDIR =
-PREFIX	= $(DESTDIR)/usr/local
+PREFIX	= $(DESTDIR)/usr
 
 EXEC_PREFIX = $(PREFIX)
 DATAROOTDIR = $(PREFIX)/share
-MANDIR      = $(DATAROOTDIR)/man
+MANROOT     = $(DATAROOTDIR)/man
 
-BINDIR	= $(EXEC_PREFIX)/$(LBIN)
-MAN6DIR = $(MANDIR)/man6
+BINDIR	  = $(EXEC_PREFIX)/$(LBIN)
+MANDIR    = $(MANROOT)/man6
+MANNUMBER = 6
 
 # Package configuration files
 SCORE_FILE = nsnake.scores
@@ -55,21 +56,21 @@ SCOREDIR   = $(DESTDIR)/var/games
 SCORE_PATH = $(SCOREDIR)/$(SCORE_FILE)
 
 # Compiling information
-CC	    = gcc
-EXE	    = nsnake
+CC          = gcc
+EXE         = nsnake
 CDEBUG	    =
 CFLAGS	    = $(CDEBUG) -Wall -Wextra -O2
 LIBS	    = -lncurses
 INCLUDESDIR =
 LIBSDIR     =
-OBJ	    = $(LOBJ)/fruit.o      \
+OBJ         = $(LOBJ)/fruit.o      \
               $(LOBJ)/main.o       \
               $(LOBJ)/player.o     \
               $(LOBJ)/nsnake.o     \
               $(LOBJ)/engine.o     \
               $(LOBJ)/hscores.o    \
               $(LOBJ)/arguments.o
-MANFILE     = $(PACKAGE).6
+MANFILE     = $(PACKAGE).$(MANNUMBER)
 MANPAGE     = $(LDOC)/man/$(MANFILE)
 
 DEFINES	= -DVERSION=\"$(VERSION)\"        \
@@ -97,37 +98,35 @@ endif
 
 # Make targets
 all: dirs $(EXE)
-	@echo "* Build successful!"
+	# Build successful!
 
 install: all
-	@echo "* Installing..."
+	# Installing...
 	$(MUTE)install -d $(SCOREDIR)
 	$(MUTE)install -d --mode=755 $(BINDIR)
 	$(MUTE)install --mode=755 $(LBIN)/$(EXE) $(BINDIR)
-#	$(ROOT)$(MUTE)chown root:games $(BINDIR)/$(EXE)
-#	$(ROOT)$(MUTE)chmod u+s $(BINDIR)/$(EXE)
 	-$(MUTE)chown root:games $(BINDIR)/$(EXE)
 	-$(MUTE)chmod u+s $(BINDIR)/$(EXE)
-	$(MUTE)install -d $(MAN6DIR)
-	$(MUTE)install $(MANPAGE) $(MAN6DIR)
+	$(MUTE)install -d $(MANDIR)
+	$(MUTE)install $(MANPAGE) $(MANDIR)
 	@echo
-	@echo "* $(PACKAGE) successfuly installed!"
+	# $(PACKAGE) successfuly installed!
 
 uninstall:
-	@echo "* Uninstalling..."
+	# Uninstalling...
 	$(MUTE)rm -f $(BINDIR)/$(EXE)
 
 purge: uninstall
-	@echo "* Purging configuration files..."
+	# Purging configuration files...
 	$(MUTE)rm -f $(SCORE_PATH)
-	$(MUTE)rm -f $(MAN6DIR)/$(MANFILE)
+	$(MUTE)rm -f $(MANDIR)/$(MANFILE)
 
 $(EXE): $(OBJ)
-	@echo "* Linking..."
+	# Linking...
 	$(MUTE)$(CC) $(OBJ) -o $(LBIN)/$(EXE) $(LIBSDIR) $(LIBS)
 
 $(LOBJ)/%.o: $(LSRC)/%.c
-	@echo "* Compiling $<..."
+	# Compiling $<...
 	$(MUTE)$(CC) $(CFLAGS) $< -c -o $@ $(DEFINES) $(INCLUDESDIR)
 
 dist: $(DISTDIR).tar.gz
@@ -151,20 +150,20 @@ dirs:
 	-mkdir -p $(LOBJ) $(LBIN)
 
 run: all
-	@echo "* Running..."
+	# Running...
 	$(MUTE)./$(LBIN)/$(EXE)
 
 clean:
-	@echo "* Cleaning files..."
+	# Cleaning files...
 	$(MUTE)rm $(VTAG) -f $(LOBJ)/*.o
 	$(MUTE)rm $(VTAG) -f $(LBIN)/*
 
 doc:
-	@echo "* Generating documentation..."
+	# Generating documentation...
 	$(MUTE)doxygen Doxyfile
 
 docclean:
-	@echo "* Removing documentation..."
+	# Removing documentation...
 	-$(MUTE)rm $(VTAG) -rf $(LDOC)/html
 
 .PHONY: clean doc docclean uninstall
