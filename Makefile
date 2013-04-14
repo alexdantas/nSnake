@@ -104,9 +104,7 @@ install: all
 	# Installing...
 	$(MUTE)install -d $(SCOREDIR)
 	$(MUTE)install -d --mode=755 $(BINDIR)
-	$(MUTE)install --mode=755 $(LBIN)/$(EXE) $(BINDIR)
-	-$(MUTE)chown root:games $(BINDIR)/$(EXE)
-	-$(MUTE)chmod u+s $(BINDIR)/$(EXE)
+	$(MUTE)install -g games -o root -m 2755 $(LBIN)/$(EXE) $(BINDIR)
 	$(MUTE)install -d $(MANDIR)
 	$(MUTE)install $(MANPAGE) $(MANDIR)
 	@echo

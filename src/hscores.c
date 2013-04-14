@@ -28,7 +28,7 @@
 
 //	We also get a define from the Makefile called SCORE_PATH
 //	It indicates the whole path to the scores file.
-//	By default, it is /var/games/nsnake/high.scores
+//	By default, it is /var/games/nsnake.scores
 //	but it depends on the installation directory set by the user
 
 
@@ -64,7 +64,7 @@ void hscore_clean ()
 {
 	FILE* file = fopen (SCORE_PATH, "wb");
 
-	HIGH_SCORE_BORDERS = HIGH_SCORE_DEFAULT;
+	HIGH_SCORE_BORDERS     = HIGH_SCORE_DEFAULT;
 	HIGH_SCORE_BORDERS_OFF = HIGH_SCORE_DEFAULT;
 
 	if (file != NULL)
