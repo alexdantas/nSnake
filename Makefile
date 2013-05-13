@@ -11,6 +11,7 @@
 #  SCORE_PATH  Path to the highscore file. Defaults to /var/games
 #  DESTDIR Installs the package on a custom sysroot (other than /)
 #  CFLAGS  Changes the C flags used on compilation
+#  LDFLAGS Specify additional linker flags
 #  CDEBUG  If you wish to build on debug mode, add 'CDEBUG=-g'
 #
 # Makefile Targets:
@@ -116,7 +117,7 @@ purge: uninstall
 
 $(EXE): $(OBJ)
 	# Linking...
-	$(MUTE)$(CC) $(OBJ) -o $(LBIN)/$(EXE) $(LIBSDIR) $(LIBS)
+	$(MUTE)$(CC) $(LDFLAGS) $(OBJ) -o $(LBIN)/$(EXE) $(LIBSDIR) $(LIBS)
 
 $(LOBJ)/%.o: $(LSRC)/%.c
 	# Compiling $<...
