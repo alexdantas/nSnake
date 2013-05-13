@@ -99,7 +99,7 @@ install: all
 	# Installing...
 	$(MUTE)install -d $(DESTDIR)$(SCOREDIR)
 	$(MUTE)install -d --mode=755 $(DESTDIR)$(BINDIR)
-	$(MUTE)install -g games -o root -m 2755 $(LBIN)/$(EXE) $(DESTDIR)$(BINDIR)
+	$(MUTE)install -g games -m 2755 $(LBIN)/$(EXE) $(DESTDIR)$(BINDIR)
 	$(MUTE)install -d $(DESTDIR)$(MANDIR)
 	$(MUTE)install $(MANPAGE) $(DESTDIR)$(MANDIR)
 	@echo
