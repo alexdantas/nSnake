@@ -51,9 +51,9 @@
 /** The Default HighScore */
 int HIGH_SCORE_DEFAULT = 500;
 /** The separate Highscore for the game mode with borders */
-int HIGH_SCORE_BORDERS;
+int HIGH_SCORE_BORDERS = 0;
 /** The separate Highscore for the game mode without borders */
-int HIGH_SCORE_BORDERS_OFF;
+int HIGH_SCORE_BORDERS_OFF = 0;
 
 
 /** Restore the Highscores to the default.
@@ -64,8 +64,13 @@ void hscore_clean ()
 {
 	FILE* file = fopen (SCORE_PATH, "wb");
 
-	HIGH_SCORE_BORDERS     = HIGH_SCORE_DEFAULT;
-	HIGH_SCORE_BORDERS_OFF = HIGH_SCORE_DEFAULT;
+	/* Set highscores to default only if it's not already
+	 * set. This way, scores are not reset between turns
+	 * when the highscore file isn't available. */
+	if (HIGH_SCORE_BORDERS == 0)
+		HIGH_SCORE_BORDERS     = HIGH_SCORE_DEFAULT;
+	if (HIGH_SCORE_BORDERS_OFF == 0)
+		HIGH_SCORE_BORDERS_OFF = HIGH_SCORE_DEFAULT;
 
 	if (file != NULL)
 	{
