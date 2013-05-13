@@ -39,7 +39,7 @@ LSRC    = src
 LFILES  = BUGS ChangeLog COPYING Doxyfile INSTALL Makefile README TODO
 
 # Install
-PREFIX	= /usr
+PREFIX	= /usr/local
 
 EXEC_PREFIX = $(PREFIX)
 DATAROOTDIR = $(PREFIX)/share
