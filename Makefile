@@ -1,12 +1,14 @@
 # nSnake Makefile (2011-2012)  Alexandre Dantas (kure) <alex.dantas92@gmail.com>
 #
-# Makefile Commandlines:
+# Environment variables:
 #  V       Print all commands as they are called.
 #          To turn on for the current make, add 'V=1' on the
 #          commandline.
 #          To turn on permanently, uncomment the line specified below
 #  PREFIX  Installs the package on a custom directory (overwrites root)
-#          For example 'PREFIX=~/'.
+#          For example 'PREFIX=~/' would install the program to
+#          ~/bin/nsnake.
+#  SCORE_PATH  Path to the highscore file. Defaults to /var/games
 #  DESTDIR Installs the package on a custom sysroot (other than /)
 #  CFLAGS  Changes the C flags used on compilation
 #  CDEBUG  If you wish to build on debug mode, add 'CDEBUG=-g'
@@ -39,7 +41,7 @@ LSRC    = src
 LFILES  = BUGS ChangeLog COPYING Doxyfile INSTALL Makefile README TODO
 
 # Install
-PREFIX	= /usr/local
+PREFIX ?= /usr/local
 
 EXEC_PREFIX = $(PREFIX)
 DATAROOTDIR = $(PREFIX)/share
@@ -51,14 +53,14 @@ MANNUMBER = 6
 
 # Package configuration files
 SCORE_FILE = nsnake.scores
-SCOREDIR   = /var/games
+SCOREDIR  ?= /var/games
 SCORE_PATH = $(SCOREDIR)/$(SCORE_FILE)
 
 # Compiling information
-CC          = gcc
+CC         ?= gcc
 EXE         = nsnake
 CDEBUG	    =
-CFLAGS	    = $(CDEBUG) -Wall -Wextra -O2
+CFLAGS	   += $(CDEBUG) -Wall -Wextra -O2
 LIBS	    = -lncurses
 INCLUDESDIR =
 LIBSDIR     =
