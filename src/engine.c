@@ -507,22 +507,22 @@ int get_main_menu_input (int* speed_cur_option)
 		nsnake_exit();
 		break;
 
-	case KEY_UP:
+	case KEY_UP: case 'k':
 		if (game.mode == BORDERS_OFF)
 			game.mode = BORDERS_ON;
 		break;
 
-	case KEY_DOWN:
+	case KEY_DOWN: case 'j':
 		if (game.mode == BORDERS_ON)
 			game.mode = BORDERS_OFF;
 		break;
 
-	case KEY_LEFT:
+	case KEY_LEFT: case 'h':
 		if (*speed_cur_option > 1)
 			(*speed_cur_option)--;
 		break;
 
-	case KEY_RIGHT:
+	case KEY_RIGHT: case 'l':
 		if (*speed_cur_option < 9)
 			(*speed_cur_option)++;
 		break;
