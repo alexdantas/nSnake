@@ -80,19 +80,19 @@
 				// If we get no input
 				break;
 
-			case KEY_UP:    case 'w': case 'W':
+			case KEY_UP:    case 'w': case 'W': case 'k':
 				player_change_direction (UP);
 				break;
 
-			case KEY_LEFT:  case 'a': case 'A':
+			case KEY_LEFT:  case 'a': case 'A': case 'h':
 				player_change_direction (LEFT);
 				break;
 
-			case KEY_DOWN:  case 's': case 'S':
+			case KEY_DOWN:  case 's': case 'S': case 'j':
 				player_change_direction (DOWN);
 				break;
 
-			case KEY_RIGHT: case 'd': case 'D':
+			case KEY_RIGHT: case 'd': case 'D': case 'l':
 				player_change_direction (RIGHT);
 				break;
 
