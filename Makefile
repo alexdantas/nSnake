@@ -1,14 +1,17 @@
 # nSnake Makefile (2011-2012)  Alexandre Dantas (kure) <alex.dantas92@gmail.com>
 #
-# Makefile Commandlines:
+# Environment variables:
 #  V       Print all commands as they are called.
 #          To turn on for the current make, add 'V=1' on the
 #          commandline.
 #          To turn on permanently, uncomment the line specified below
-#  DESTDIR Installs the package on a custom root directory (other than /)
-#          For example 'DESTDIR=~/'.
 #  PREFIX  Installs the package on a custom directory (overwrites root)
+#          For example 'PREFIX=~/' would install the program to
+#          ~/bin/nsnake.
+#  SCORE_PATH  Path to the highscore file. Defaults to /var/games
+#  DESTDIR Installs the package on a custom sysroot (other than /)
 #  CFLAGS  Changes the C flags used on compilation
+#  LDFLAGS Specify additional linker flags
 #  CDEBUG  If you wish to build on debug mode, add 'CDEBUG=-g'
 #
 # Makefile Targets:
@@ -39,8 +42,7 @@ LSRC    = src
 LFILES  = BUGS ChangeLog COPYING Doxyfile INSTALL Makefile README TODO
 
 # Install
-DESTDIR =
-PREFIX	= $(DESTDIR)/usr
+PREFIX ?= /usr/local
 
 EXEC_PREFIX = $(PREFIX)
 DATAROOTDIR = $(PREFIX)/share
@@ -52,14 +54,14 @@ MANNUMBER = 6
 
 # Package configuration files
 SCORE_FILE = nsnake.scores
-SCOREDIR   = $(DESTDIR)/var/games
+SCOREDIR  ?= /var/games
 SCORE_PATH = $(SCOREDIR)/$(SCORE_FILE)
 
 # Compiling information
-CC          = gcc
+CC         ?= gcc
 EXE         = nsnake
 CDEBUG	    =
-CFLAGS	    = $(CDEBUG) -Wall -Wextra -O2
+CFLAGS	   += $(CDEBUG) -Wall -Wextra -O2
 LIBS	    = -lncurses
 INCLUDESDIR =
 LIBSDIR     =
@@ -90,38 +92,32 @@ else
 MUTE = @
 endif
 
-ifdef DESTDIR
-ROOT = -
-else
-ROOT =
-endif
-
 # Make targets
 all: dirs $(EXE)
 	# Build successful!
 
 install: all
 	# Installing...
-	$(MUTE)install -d $(SCOREDIR)
-	$(MUTE)install -d --mode=755 $(BINDIR)
-	$(MUTE)install -g games -o root -m 2755 $(LBIN)/$(EXE) $(BINDIR)
-	$(MUTE)install -d $(MANDIR)
-	$(MUTE)install $(MANPAGE) $(MANDIR)
+	$(MUTE)install -d $(DESTDIR)$(SCOREDIR)
+	$(MUTE)install -d --mode=755 $(DESTDIR)$(BINDIR)
+	$(MUTE)install -g games -m 2755 $(LBIN)/$(EXE) $(DESTDIR)$(BINDIR)
+	$(MUTE)install -d $(DESTDIR)$(MANDIR)
+	$(MUTE)install $(MANPAGE) $(DESTDIR)$(MANDIR)
 	@echo
 	# $(PACKAGE) successfuly installed!
 
 uninstall:
 	# Uninstalling...
-	$(MUTE)rm -f $(BINDIR)/$(EXE)
+	$(MUTE)rm -f $(DESTDIR)$(BINDIR)/$(EXE)
 
 purge: uninstall
 	# Purging configuration files...
-	$(MUTE)rm -f $(SCORE_PATH)
-	$(MUTE)rm -f $(MANDIR)/$(MANFILE)
+	$(MUTE)rm -f $(DESTDIR)$(SCORE_PATH)
+	$(MUTE)rm -f $(DESTDIR)$(MANDIR)/$(MANFILE)
 
 $(EXE): $(OBJ)
 	# Linking...
-	$(MUTE)$(CC) $(OBJ) -o $(LBIN)/$(EXE) $(LIBSDIR) $(LIBS)
+	$(MUTE)$(CC) $(LDFLAGS) $(OBJ) -o $(LBIN)/$(EXE) $(LIBSDIR) $(LIBS)
 
 $(LOBJ)/%.o: $(LSRC)/%.c
 	# Compiling $<...
