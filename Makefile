@@ -31,7 +31,7 @@ SHELL	= /bin/sh
 
 # General Info
 PACKAGE = nsnake
-VERSION = 1.5
+VERSION = 1.7
 DATE	= `date '+%b%Y'`
 
 # Local source code information
@@ -122,10 +122,9 @@ $(LOBJ)/%.o: $(LSRC)/%.c
 dist: clean $(DISTDIR).tar.gz
 
 $(DISTDIR).tar.gz: $(DISTDIR)
+	# Creating distribution tarball...
 	$(MUTE)tar czf $(DISTDIR).tar.gz $(DISTDIR)
 	$(MUTE)rm -rf $(DISTDIR)
-	$(MUTE)cp $(DISTDIR).tar.gz ..
-	$(MUTE)rm -f $(DISTDIR).tar.gz
 
 $(DISTDIR):
 	$(MUTE)mkdir -p $(DISTDIR)/$(LSRC) $(DISTDIR)/$(LDOC)
