@@ -1,4 +1,4 @@
-XX-XX-XXXX  VX.X
+20-01-2012  V1.6
 	* nSnake now uses Git for version control.
 	* Changed all the root files (README, INSTALL, ChangeLog...)
 	* Smoothed screen refresh

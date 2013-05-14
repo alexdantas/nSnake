@@ -1,24 +1,22 @@
-nSnake README
+nsnake README
 =============
-nSnake is the classic snake game playable on the console.
+nsnake is the classic snake game playable on the console.
 It has two modes (with or without borders) and 9 speed levels.
-It uses the nCurses C library for text-like interface.
+Uses the nCurses C library for text-like interface.
 
 README Index
 ------------
 	1)  Introduction
 	2)  Controls
-	3)  Installation
-	4)  Installation Informations
-	5)  Advanced Installation
-	6)  Uninstallation
-	7)  Advanced Uninstallation
-	8)  Dependencies
-	9)  Main Directory Structure
+	3)  Dependencies
+	4)  Installation
+	5)  Installation Informations
+	6)  Advanced Installation
+	7)  Uninstallation
+	8)  Advanced Uninstallation
+	9)  Source Directory Structure
 	10) Credits/Contact
 	11) License
-
-Note:  Make sure you have libncurses5-dev. See 'Dependences' for more details.
 
 1) Introduction
 ---------------
@@ -28,7 +26,7 @@ You control a hungry snake and the objective is to eat as many fruits you can.
 Each fruit eaten increases it's size by two units.
 
 The game ends when the snake collides with the walls or itself. Currently,
-nSnake has two modes: With Borders and without borders.
+nsnake has two modes: With Borders and without borders.
 
 To each fruit is given a bonus value, which decreases over time. So the
 challenge is to earn the biggest score possible by eating as many fruits as
@@ -43,7 +41,11 @@ Good luck!
 	q                   Quits the game at any time
 	p                   Pauses/Unpauses the game
 
-3) Installation
+3) Dependences
+--------------
+Make sure you have libncurses5-dev. See INSTALL file for more details.
+
+4) Installation
 ---------------
 Briefly, the following shell commands should configure, build and install
 this package on the default directories:
@@ -51,33 +53,32 @@ this package on the default directories:
        $ make
        $ sudo make install
 
-4) Installation Informations
+See INSTALL file for more details.
+
+5) Installation Informations
 ----------------------------
 see INSTALL file
 
-5) Advanced Installation
+6) Advanced Installation
 ------------------------
 see INSTALL file
 
-6) Uninstallation
+7) Uninstallation
 -----------------
 see INSTALL file
 
-7) Advanced Uninstallation
+8) Advanced Uninstallation
 --------------------------
 see INSTALL file
 
-8) Dependences
---------------
-see INSTALL file
-
-9) Main Directory Structure
+9) Source Directory Structure
 ---------------------------
 README    General game information
 INSTALL   Installation instructions and information
 COPYING   Copyright and warranty info
 Doxyfile  Doxygen file for generating the documentation
 Makefile  Instructions to the 'make' program
+AUTHORS   People who worked on and helped the project
 TODO      Work that needs to be done or ideas for future versions
 BUGS      Known bugs and information about where to submit new ones
 
@@ -100,7 +101,7 @@ And if you have time, please visit my blog!
 
 My email:           alex.dantas92@gmail.com
 My homepage:        http://www.alexdantas.net/
-nSnake main page:   http://www.alexdantas.net/projects/nsnake/
+nsnake main page:   http://www.alexdantas.net/projects/nsnake/
 
 I'd appreciate any commentary - even if it's just "Hello, I play your game!".
 
@@ -111,7 +112,7 @@ Firstly, I'd like to thank you for playing this game. Hope you liked it!
 The whole game design, coding, documenting, packaging and testing were all
 made by me, on my free time.
 
-But I didn't do everything! Throughout the nSnake development, I found very
+But I didn't do everything! Throughout the nsnake development, I found very
 interesting sources of ideas - such as games who also uses nCurses for
 displaying graphics. They have simple, short and commented source-codes that
 can be used as references to learn C programming.
@@ -122,7 +123,7 @@ Special thanks to:
         homepage:	http://ninvaders.sourceforge.net
         comments:	"Thanks for the inspiration. If I
                      haven't installed this in first place,
-                     I'd never have the idea for nSnake"
+                     I'd never have the idea for nsnake"
 
     pacman4console: A console-based pacman game.
         homepage:  http://doctormike.googlepages.com/pacman.html
@@ -152,10 +153,10 @@ Special thanks to:
 
 11) License
 -----------
- nSnake - The classic snake game with ncurses.
+ nsnake - The classic snake game with ncurses.
  Copyright (C) 2011  Alexandre Dantas (kure)
 
- nSnake is free software: you can redistribute it and/or modify
+ nsnake is free software: you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  any later version.

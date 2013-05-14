@@ -1,20 +1,34 @@
 nSnake INSTALL
 ==============
-Installing information for the game nSnake. This applies to GNU/Linux systems.
-Microsoft Windows users have a precompiled executable.
+Installing information for the game nSnake.
+This applies to GNU/Linux systems and presumably to similar ones.
 
 INSTALL Index
 -------------
 Continuing from the README file:
 
-        3)  Installation
-        4)  Installation Informations
-        5)  Advanced Installation
-        6)  Uninstallation
-        7)  Advanced Uninstallation
-        8)  Dependencies
+        3)  Dependencies
+        4)  Installation
+        5)  Installation Informations
+        6)  Advanced Installation
+        7)  Uninstallation
+        8)  Advanced Uninstallation
 
-3) Installation
+3) Dependences
+--------------
+
+To build nSnake from source, it requires the ncurses developer library:
+      libncurses5-dev (>= 5.7)
+
+Note that this is not the one that comes by default with the distribution.
+To get ncurses-dev, use your favorite package manager.
+An 'apt' example:
+
+        $ sudo apt-get install libncurses5-dev
+or
+        $ sudo apt-get install ncurses-dev
+
+4) Installation
 ---------------
 Briefly, the following shell commands should configure, build, and install
 this package on the default directories:
@@ -22,16 +36,16 @@ this package on the default directories:
         $ make
         $ sudo make install
 
-4) Installation Informations
+5) Installation Informations
 ----------------------------
 By default, 'make install' installs the package on the following
 directories:
 
-        /usr/local/bin/                   Executable files
-        /usr/local/share/man/man6/        Man page
-        /var/games/                       HighScore files
+        /usr/local/games/                    Executable files
+        /usr/local/share/man/man6/           Man page
+        /home/$USER/.nsnake/high-scores.bin  HighScore file
 
-5) Advanced Installation
+6) Advanced Installation
 ------------------------
 You can specify a custom root directory for the installation (other
 than '/'). To do this, give 'make install' the option DESTDIR=CUSTOM_ROOT,
@@ -42,9 +56,9 @@ For example:
 
 This way, the file hierarchy will be:
 
-        test/dir/usr/local/bin/             Executable files
-        test/dir/usr/local/share/man/man6/  Man page
-        test/dir/var/games/nsnake/          HighScore files
+        test/dir/usr/local/games/            Executable files
+        test/dir/usr/local/share/man/man6/   Man page
+        /home/$USER/.nsnake/high-scores.bin  HighScore file
 
 You can also specify an installation prefix other than '/usr/local' by
 giving 'make' the option PREFIX=CUSTOM_PREFIX, where CUSTOM_PREFIX must be an
@@ -55,29 +69,29 @@ For example:
 
 This way, the file hierarchy will be:
 
-        test/dir/bin/                      Executable files
-        test/dir/share/                    Man page
-        /var/games/nsnake/                 HighScore files
+        test/dir/games/                      Executable files
+        test/dir/share/man/man6/             Man page
+        /home/$USER/.nsnake/high-scores.bin  HighScore file
 
-To customize the highscores directory, modify SCOREDIR:
+To customize the highscores file, modify SCORE_FILE:
 
-	$ make install SCOREDIR=test/dir
+	$ make install SCORE_FILE=my-scores.data
 
-This way, the highscore directory will be:
+This way, the highscore file will be:
 
-        test/dir/                          HighScore files
+        /home/$USER/.nsnake/my-scores.data
 
-6) Uninstallation
+7) Uninstallation
 -----------------
 To uninstall this package, by default:
 
         $ sudo make uninstall
 
-To purge (remove also the HighScore files and Man page) go for:
+To purge (remove also the HighScore file and Man page) go for:
 
         $ sudo make purge
 
-7) Advanced Uninstallation
+8) Advanced Uninstallation
 --------------------------
 
 If you specified a custom root directory for installation, 'make' needs to
@@ -95,19 +109,5 @@ If you installed it with a custom prefix, do the same:
 
         $ make purge PREFIX=test/dir
 
-        $ make purge SCOREDIR=test/dir
+        $ make purge SCORE_FILE=my-score.data
 
-8) Dependences
---------------
-
-To build nSnake from source, it requires the ncurses developer library:
-      libncurses5-dev (>= 5.7)
-
-Note that this is not the one that comes by default with the distribution.
-To get ncurses-dev, use your favorite package manager. An 'apt' example:
-
-        $ sudo apt-get install libncurses5-dev
-
-or
-
-        $ sudo apt-get install ncurses-dev

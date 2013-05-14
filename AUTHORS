@@ -1,0 +1,11 @@
+Alexandre Dantas <alex.dantas92@gmail.com>
+* Main upstream.
+
+Christopher Meng <cickumqt@gmail.com>
+* Warned about man page errors.
+
+Olof Johansson <olof@ethup.se>
+* Added vim directional key-bindings.
+* Fixed high-score reset between turns.
+* Fixed some Makefile issues.
+
