@@ -36,7 +36,7 @@ extern int HIGH_SCORE_BORDERS;
 extern int HIGH_SCORE_BORDERS_OFF;
 
 
-void hscore_clean ();
+int  hscore_clean ();
 void hscore_init ();
 void hscore_store ();
 

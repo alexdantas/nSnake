@@ -52,10 +52,8 @@ BINDIR	  = $(EXEC_PREFIX)/games
 MANDIR    = $(MANROOT)/man6
 MANNUMBER = 6
 
-# Package configuration files
-SCORE_FILE = nsnake.scores
-SCOREDIR  ?= /var/games
-SCORE_PATH = $(SCOREDIR)/$(SCORE_FILE)
+# Package score file name
+SCORE_FILE = high-scores.bin
 
 # Compiling information
 CC         ?= gcc
@@ -75,9 +73,9 @@ OBJ         = $(LOBJ)/fruit.o      \
 MANFILE     = $(PACKAGE).$(MANNUMBER)
 MANPAGE     = $(LDOC)/man/$(MANFILE)
 
-DEFINES	= -DVERSION=\"$(VERSION)\"        \
-          -DDATE=\"$(DATE)\"              \
-          -DSCORE_PATH=\"$(SCORE_PATH)\"
+DEFINES	= -DVERSION=\""$(VERSION)"\"	   \
+		  -DDATE=\""$(DATE)"\"			   \
+		  -DSCORE_FILE=\""$(SCORE_FILE)"\"
 
 # Distribution tarball
 TARNAME = $(PACKAGE)
@@ -98,7 +96,6 @@ all: dirs $(EXE)
 
 install: all
 	# Installing...
-	$(MUTE)install -d $(DESTDIR)$(SCOREDIR)
 	$(MUTE)install -d --mode=755 $(DESTDIR)$(BINDIR)
 	$(MUTE)install -g games -m 2755 $(LBIN)/$(EXE) $(DESTDIR)$(BINDIR)
 	$(MUTE)install -d $(DESTDIR)$(MANDIR)
@@ -112,7 +109,6 @@ uninstall:
 
 purge: uninstall
 	# Purging configuration files...
-	$(MUTE)rm -f $(DESTDIR)$(SCORE_PATH)
 	$(MUTE)rm -f $(DESTDIR)$(MANDIR)/$(MANFILE)
 
 $(EXE): $(OBJ)
@@ -123,7 +119,7 @@ $(LOBJ)/%.o: $(LSRC)/%.c
 	# Compiling $<...
 	$(MUTE)$(CC) $(CFLAGS) $< -c -o $@ $(DEFINES) $(INCLUDESDIR)
 
-dist: $(DISTDIR).tar.gz
+dist: clean $(DISTDIR).tar.gz
 
 $(DISTDIR).tar.gz: $(DISTDIR)
 	$(MUTE)tar czf $(DISTDIR).tar.gz $(DISTDIR)
