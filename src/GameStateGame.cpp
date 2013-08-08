@@ -1,16 +1,16 @@
-#include "GameStateMainMenu.hpp"
+#include "GameStateGame.hpp"
 #include "Input.hpp"
 #include "Ncurses.hpp"
 
-GameStateMainMenu::GameStateMainMenu()
+GameStateGame::GameStateGame()
 { }
-GameStateMainMenu::~GameStateMainMenu()
+GameStateGame::~GameStateGame()
 { }
-void GameStateMainMenu::load(int stack)
+void GameStateGame::load(int stack)
 {
     UNUSED(stack);
 }
-int GameStateMainMenu::unload()
+int GameStateGame::unload()
 {
 // Time to delete!
 // This macro deletes a thing only if it's non-NULL,
@@ -26,7 +26,7 @@ int GameStateMainMenu::unload()
 
     return 0;
 }
-GameState::StateCode GameStateMainMenu::update(float dt)
+GameState::StateCode GameStateGame::update(float dt)
 {
     UNUSED(dt);
 
@@ -36,13 +36,13 @@ GameState::StateCode GameStateMainMenu::update(float dt)
     if (input->isKeyDown('q'))
         return GameState::QUIT;
 
-    if (input->isKeyDown('\n'))
+    if (input->isKeyDown(KEY_ENTER))
         return GameState::GAME_START;
 
     return GameState::CONTINUE;
 }
-void GameStateMainMenu::render()
+void GameStateGame::render()
 {
-    Ncurses::print("this is awesome", 20, 10);
+    Ncurses::print("this is GAEM", 30, 30);
 }
 

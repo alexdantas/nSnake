@@ -4,6 +4,7 @@
 #include "Ncurses.hpp"
 #include "Log.hpp"
 #include "GameStateMainMenu.hpp"
+#include "GameStateGame.hpp"
 
 StateManager::StateManager(int width, int height)
 {
@@ -85,11 +86,11 @@ void StateManager::run()
             break;
 
         case GameState::GAME_START: // yay, the actual game!
-            // this->sharedInfo = this->currentState->unload();
-            // delete (this->currentState);
+            this->sharedInfo = this->currentState->unload();
+            delete (this->currentState);
 
-            // this->currentState = new GameStateGame();
-            // this->currentState->load(this->sharedInfo);
+            this->currentState = new GameStateGame();
+            this->currentState->load(this->sharedInfo);
             break;
 
         default:
