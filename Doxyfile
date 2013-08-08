@@ -99,8 +99,8 @@ WARN_LOGFILE           =
 INPUT                  = ./src/ \
                          ./doc/doxygen_mainpage.h
 INPUT_ENCODING         = UTF-8
-FILE_PATTERNS          = *.c \
-                         *.h
+FILE_PATTERNS          = *.cpp \
+                         *.hpp
 RECURSIVE              = NO
 EXCLUDE                =
 EXCLUDE_SYMLINKS       = NO

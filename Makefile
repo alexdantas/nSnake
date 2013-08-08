@@ -101,4 +101,13 @@ libclean: clean
 dirs:
 	$(MUTE)mkdir -p src/lib
 
+doc:
+	# Generating documentation...
+	$(MUTE)doxygen Doxyfile
+
+docclean:
+	# Removing documentation...
+	-$(MUTE)rm $(VTAG) -rf $(LDOC)/html
+
+.PHONY: clean doc docclean
 

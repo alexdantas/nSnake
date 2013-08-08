@@ -1,6 +1,11 @@
+//
+//
 
-#include "Ncurses.hpp"
+#include "StateManager.hpp"
 #include "Log.hpp"
+
+// Shuts up the compiler about unused parameters.
+#define UNUSED(x) ((void)(x))
 
 int main(int argc, char* argv[])
 {
@@ -8,23 +13,17 @@ int main(int argc, char* argv[])
     UNUSED(argc);
     UNUSED(argv);
 
-    Log::logToFiles();
-    Log::debugMode(true);
+    try
+    {
+        StateManager manager(80, 20);
 
-    Ncurses::init(80, 20);
-    Log::debug("Started Ncurses");
-
-    Ncurses::print("this is awesome", 20, 10);
-    Ncurses::refresh();
-
-    Ncurses::delay_us(1000000);
-    Log::debug("Delay sent");
-
-    Ncurses::exit();
-
-    Log::logToFiles(false);
-    Log::log("test");
-
+        manager.run();
+    }
+    catch (...)
+    {
+        Log::error("Exception caught! Quitting...");
+        return -1;
+    }
     return 0;
 }
 

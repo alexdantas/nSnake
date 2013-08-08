@@ -10,6 +10,29 @@
 // Shuts up the compiler about unused parameters.
 #define UNUSED(x) ((void)(x))
 
+/// Possible ncurses color pairs (FOREGROUND_BACKGROUND).
+///  This defines all possible combinations of color pairs on ncurses.
+///  Note that the order of definition is important, also the intial value
+///  of 1.
+///
+///  To access a specific color pair, use this formula:
+///    pair(n) = (foreground * 8) + background
+///
+///  Just like
+///    pair    = (COLOR_RED * 8) + COLOR_BLUE
+///
+enum Colors
+{
+	BLACK_BLACK = 1, BLACK_RED,   BLACK_GREEN,   BLACK_YELLOW,   BLACK_BLUE,   BLACK_MAGENTA,   BLACK_CYAN,   BLACK_WHITE,
+	RED_BLACK,       RED_RED,     RED_GREEN,     RED_YELLOW,     RED_BLUE,     RED_MAGENTA,     RED_CYAN,     RED_WHITE,
+	GREEN_BLACK,     GREEN_RED,   GREEN_GREEN,   GREEN_YELLOW,   GREEN_BLUE,   GREEN_MAGENTA,   GREEN_CYAN,   GREEN_WHITE,
+	YELLOW_BLACK,    YELLOW_RED,  YELLOW_GREEN,  YELLOW_YELLOW,  YELLOW_BLUE,  YELLOW_MAGENTA,  YELLOW_CYAN,  YELLOW_WHITE,
+	BLUE_BLACK,      BLUE_RED,    BLUE_GREEN,    BLUE_YELLOW,    BLUE_BLUE,    BLUE_MAGENTA,    BLUE_CYAN,    BLUE_WHITE,
+	MAGENTA_BLACK,   MAGENTA_RED, MAGENTA_GREEN, MAGENTA_YELLOW, MAGENTA_BLUE, MAGENTA_MAGENTA, MAGENTA_CYAN, MAGENTA_WHITE,
+	CYAN_BLACK,      CYAN_RED,    CYAN_GREEN,    CYAN_YELLOW,    CYAN_BLUE,    CYAN_MAGENTA,    CYAN_CYAN,    CYAN_WHITE,
+	WHITE_BLACK,     WHITE_RED,   WHITE_GREEN,   WHITE_YELLOW,   WHITE_BLUE,   WHITE_MAGENTA,   WHITE_CYAN,  WHITE_WHITE
+};
+
 /// Big wrapper class thath handles all direct Ncurses
 /// calls.
 ///
@@ -45,8 +68,8 @@ public:
     /// Returns a random integer between *min* and *max* (inclusive).
     static int randomNumberBetween(int min, int max);
 
-    /// Makes the blinking cursor invisible.
-    static void hideCursor();
+    /// Makes the blinking cursor invisible or visible.
+    static void hideCursor(bool option);
 
     // /// Hides the mouse cursor.
     // static void hideCursor();
@@ -101,13 +124,15 @@ public:
     // /// sizes on *clip*.
     // static Ncurses_Surface* clip(Ncurses_Surface* original, Ncurses_Rect* clip);
 
-    /// Shows *what* on *x*/*y*.
+    /// Shows *what* on *x* *y*.
     static void print(std::string what, int x, int y);
 
     /// Updates the screen, commiting all changes made to it.
     ///
     /// @note Must be called to apply the changes on the screen.
     static void refresh();
+
+    static void clearScreen();
 
     /// Pauses the program's execution for *delay* microseconds
     /// (1/1000000 of a second).
@@ -120,6 +145,13 @@ public:
     ///
     /// Obviously, Can be called independently of any class instance.
     static void delay_ms(int delay);
+
+    /// How much time we wait for getting an input.
+    ///
+    /// If *delay* is negative, will wait forever for input.
+    /// If *delay* is zero, won't wait for input.
+    /// If *delay* is positive, will wait *delay* miliseconds.
+    static void inputDelay(int delay);
 
     // Public variables
     // (please don't change them during the game)

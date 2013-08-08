@@ -94,3 +94,4 @@ private:
 };
 
 #endif /* LOG_H_DEFINED */
+

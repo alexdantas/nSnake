@@ -81,18 +81,19 @@ bool Ncurses::init(int width, int height, int frameRate)
 
 	cbreak();    // Character input doesnt require the <enter> key anymore
 	noecho();    // Wont print the keys received through input
-	nodelay(stdscr, TRUE); // Wont wait for input
+//	nodelay(stdscr, TRUE); // Wont wait for input
 	keypad(stdscr, TRUE);  // Support for extra keys (F1, F2, ... )
-    timeout(0);  // Won't wait for input.
+//    timeout(0);  // Won't wait for input.
 	refresh();   // Refresh the screen (prints whats in the screen buffer)
-
-    Ncurses::hideCursor();
 
     return true;
 }
-void Ncurses::hideCursor()
+void Ncurses::hideCursor(bool willHide)
 {
-	curs_set(0);
+    if (willHide)
+        curs_set(0);
+    else
+        curs_set(1);
 }
 void Ncurses::exit()
 {
@@ -156,6 +157,10 @@ void Ncurses::refresh()
 {
     wrefresh(Ncurses::screen);
 }
+void Ncurses::clearScreen()
+{
+    erase();
+}
 void Ncurses::delay_us(suseconds_t delay)
 {
     usleep(delay);
@@ -163,6 +168,10 @@ void Ncurses::delay_us(suseconds_t delay)
 void Ncurses::delay_ms(int delay)
 {
     Ncurses::delay_us(delay * 1000);
+}
+void Ncurses::inputDelay(int delay)
+{
+    timeout(delay);
 }
 
 
