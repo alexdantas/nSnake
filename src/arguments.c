@@ -195,7 +195,7 @@ void print_version ()
 	printf("This is free software, and you are welcome to redistribute it\n");
 	printf("under certain conditions; type 'nsnake --license' for license details.\n");
 	printf("\n");
-	printf("Mailto:   alex.dantas92@gmail.com\n");
+	printf("Mailto:   eu@alexdantas.net\n");
 	printf("Homepage: http://sourceforge.net/projects/nsnake\n");
 	printf("\n");
 }

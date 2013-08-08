@@ -1,8 +1,21 @@
 nsnake README
 =============
+
 nsnake is the classic snake game playable on the console.
 It has two modes (with or without borders) and 9 speed levels.
-Uses the nCurses C library for text-like interface.
+Has text-like interface, using the nCurses C library.
+
+This is the README for nsnake (also known as "nsnake classic").
+It was entirely coded in C, with a simple and documented source
+code, to serve as a reference to beginning game programmers.
+
+The development for this version is halted.
+I've only kept it for historical reasons.
+
+I recommend you to check the new version of nsnake
+(also known as "nsnake++"), that was entirely rewritten in C++
+with new game mechanics and features.
+That's where I'm more focused on.
 
 README Index
 ------------
@@ -99,7 +112,7 @@ this project.
 You can send me comments, bugs, ideas or anything else by email.
 And if you have time, please visit my blog!
 
-My email:           alex.dantas92@gmail.com
+My email:           eu@alexdantas.net
 My homepage:        http://www.alexdantas.net/
 nsnake main page:   http://www.alexdantas.net/projects/nsnake/
 
@@ -170,4 +183,5 @@ Special thanks to:
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
  homepage: http://www.alexdantas.net/projects/nsnake/
- mailto:   alex.dantas92@gmail.com
+ mailto:   eu@alexdantas.net
+

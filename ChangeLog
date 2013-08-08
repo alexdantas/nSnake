@@ -1,4 +1,9 @@
-14-05-2013 V1.7
+08-08-2013 V1.7
+	* Abandoned development - nsnake is now deprecated in favor of
+	"nsnake++", the new master branch on git. The old version will still be
+	kept on the "nsnake-classic" branch.
+
+05-14-2013 V1.7
 
 	* Changed: High-score file stays on the user's home directory.
 	* Added: vim-like control keys (hjkl).
