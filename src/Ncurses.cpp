@@ -1,5 +1,6 @@
-#include <sstream> // intToString()
+#include <sstream>  // allows me to have intToString()
 #include <stdlib.h> // srand()
+#include <unistd.h> // usleep()
 #include "Ncurses.hpp"
 #include "Log.hpp"
 
@@ -20,10 +21,9 @@ bool Ncurses::init(int width, int height, int frameRate)
     Ncurses::width  = width;
     Ncurses::height = height;
 
-	// Starting ncurses!
-    Ncurses::screen = initscr();
+    Ncurses::screen = initscr(); // Starting ncurses!
 
-	if ((has_colors() == TRUE)) //  && (global.screen_use_colors))
+	if (has_colors() == TRUE) // && (global.screen_use_colors))
 	{
         Ncurses::hasColors = true;
 
@@ -58,7 +58,7 @@ bool Ncurses::init(int width, int height, int frameRate)
 		}
 	}
 
-	// Gets the current width and height
+	// Gets the current width and height of the terminal
 	int current_height, current_width;
 	getmaxyx(stdscr, current_height, current_width);
 
@@ -156,4 +156,13 @@ void Ncurses::refresh()
 {
     wrefresh(Ncurses::screen);
 }
+void Ncurses::delay_us(suseconds_t delay)
+{
+    usleep(delay);
+}
+void Ncurses::delay_ms(int delay)
+{
+    Ncurses::delay_us(delay * 1000);
+}
+
 

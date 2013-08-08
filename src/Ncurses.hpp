@@ -101,8 +101,25 @@ public:
     // /// sizes on *clip*.
     // static Ncurses_Surface* clip(Ncurses_Surface* original, Ncurses_Rect* clip);
 
+    /// Shows *what* on *x*/*y*.
     static void print(std::string what, int x, int y);
+
+    /// Updates the screen, commiting all changes made to it.
+    ///
+    /// @note Must be called to apply the changes on the screen.
     static void refresh();
+
+    /// Pauses the program's execution for *delay* microseconds
+    /// (1/1000000 of a second).
+    ///
+    /// Obviously, Can be called independently of any class instance.
+    static void delay_us(suseconds_t delay);
+
+    /// Pauses the program's execution for *delay* miliseconds
+    /// (1/1000 of a second).
+    ///
+    /// Obviously, Can be called independently of any class instance.
+    static void delay_ms(int delay);
 
     // Public variables
     // (please don't change them during the game)

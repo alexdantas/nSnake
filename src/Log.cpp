@@ -1,11 +1,13 @@
 #include "Log.hpp"
 
-bool Log::isDebugMode  = false;
-// std::ostream& Log::stdout       = std::cout;
-// std::ostream& Log::stderr       = std::cout;
-// bool          Log::isUsingFiles = false;
+bool Log::isDebugMode = false;
+bool Log::usingFiles  = false;
+bool Log::openedFiles = false;
+std::ofstream Log::fileout;
+std::ofstream Log::fileerr;
 
-// Terminal scape codes
+// Terminal escape codes.
+// They're used to make special effects on terminals.
 // Don't use this to print on files!
 std::string bold_red     = "\e[1;31m";
 std::string bold_cyan    = "\e[1;36m";
@@ -17,26 +19,60 @@ std::string bold_yellow  = "\e[1;33m";
 std::string reset_color  = "\e[0m";
 std::string clear_screen = "[H[2J";
 
+void Log::logToFiles(bool option, std::string filenameOut, std::string filenameErr)
+{
+    if (option) // Will open files
+    {
+        Log::fileout.open(filenameOut.c_str(), std::ios::out | std::ios::trunc);
+        Log::fileerr.open(filenameErr.c_str(), std::ios::out | std::ios::trunc);
+        Log::usingFiles = true;
+
+        if (!(Log::fileout.is_open()) ||
+            !(Log::fileerr.is_open()))
+            Log::openedFiles = false;
+        else
+            Log::openedFiles = true;
+    }
+    else // Will close files
+    {
+        if (!(Log::openedFiles))
+            return;
+
+        Log::fileout.close();
+        Log::fileerr.close();
+
+        Log::usingFiles = false;
+    }
+}
 void Log::error(std::string msg)
 {
-    // if (isUsingFiles)
-    //     stderr    << "Error:   " << msg << std::endl;
-    // else
-    std::cerr << bold_red << "Error:   " << msg << reset_color << std::endl;
+    if (usingFiles)
+    {
+        Log::fileerr << "Error:   " << msg <<  std::endl;
+        Log::fileerr.flush();
+    }
+    else
+        std::cerr << bold_red << "Error:   " << msg << reset_color << std::endl;
 }
 void Log::warning(std::string msg)
 {
-    // if (isUsingFiles)
-    //     stderr    << "Warning: " << msg << std::endl;
-    // else
-    std::cerr << bold_yellow << "Warning: " << msg << reset_color << std::endl;
+    if (usingFiles)
+    {
+        Log::fileerr << "Warning: " << msg << std::endl;
+        Log::fileerr.flush();
+    }
+    else
+        std::cerr << bold_yellow << "Warning: " << msg << reset_color << std::endl;
 }
 void Log::log(std::string msg)
 {
-    // if (isUsingFiles)
-    //     stdout    << msg << std::endl;
-    // else
-    std::cout << bold_green << msg << reset_color << std::endl;
+    if (usingFiles)
+    {
+        Log::fileout << msg << std::endl;
+        Log::fileout.flush();
+    }
+    else
+        std::cout << bold_green << msg << reset_color << std::endl;
 }
 void Log::debug(std::string msg)
 {
