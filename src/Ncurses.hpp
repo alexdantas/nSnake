@@ -7,6 +7,7 @@
 #include <ncurses.h>
 #include <unistd.h> // usleep(), suseconds_t
 #include "Timer.hpp"
+#include "Color.hpp"
 
 // Shuts up the compiler about unused parameters.
 #define UNUSED(x) ((void)(x))
@@ -161,6 +162,8 @@ public:
 
     /// Shows *what* on *x* *y*.
     static void print(std::string what, int x, int y);
+
+    static void setStyle(unsigned long pair);
 
     /// Updates the screen, commiting all changes made to it.
     ///

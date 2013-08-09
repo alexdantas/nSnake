@@ -43,6 +43,7 @@ GameState::StateCode GameStateGame::update(float dt)
 }
 void GameStateGame::render()
 {
+    Ncurses::setStyle(Color::pair("yellow", "cyan"));
     Ncurses::print("this is GAEM", 30, 30);
 }
 

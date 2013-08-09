@@ -43,6 +43,7 @@ GameState::StateCode GameStateMainMenu::update(float dt)
 }
 void GameStateMainMenu::render()
 {
+    Ncurses::setStyle(Color::pair("blue", "red"));
     Ncurses::print("this is awesome", 20, 10);
 
 //    Ncurses::print("Delta: " + Ncurses::intToString(Ncurses::getDelta()), 1, 1);

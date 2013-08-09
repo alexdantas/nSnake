@@ -27,40 +27,8 @@ bool Ncurses::init(int width, int height, int frameRate)
         throw "Ncurses failed to initialize.";
 	}
 
-	if (has_colors() == TRUE) // && (global.screen_use_colors))
-	{
-        Ncurses::hasColors = true;
-
-		start_color();
-
-		// This is a big hack to initialize all possible colors
-		// in ncurses. The thing is, all colors are between
-		// COLOR_BLACK and COLOR_WHITE.
-		// Since I've set a large number of enums covering
-		// all possibilities, I can do it all in a for loop.
-		// Check 'man init_pair' for more details.
-		//
-		// This was taken straight from <curses.h>:
-		//
-		// #define COLOR_BLACK	 0
-		// #define COLOR_RED	 1
-		// #define COLOR_GREEN	 2
-		// #define COLOR_YELLOW	 3
-		// #define COLOR_BLUE	 4
-		// #define COLOR_MAGENTA 5
-		// #define COLOR_CYAN	 6
-		// #define COLOR_WHITE	 7
-
-		int i, j, k = 1;
-		for (i = (COLOR_BLACK); i <= (COLOR_WHITE); i++)
-		{
-			for (j = (COLOR_BLACK); j <= (COLOR_WHITE); j++)
-			{
-				init_pair(k, i, j);
-				k++;
-			}
-		}
-	}
+    // Starts color support if the terminal allows it
+    Color::init();
 
 	// Gets the current width and height of the terminal
 	int current_height, current_width;
@@ -167,6 +135,10 @@ void Ncurses::print(std::string what, int x, int y)
 {
     mvaddstr(y, x, what.c_str());
 }
+void Ncurses::setStyle(unsigned long pair)
+{
+    attrset(pair);
+}
 void Ncurses::refresh()
 {
     wrefresh(Ncurses::screen);
@@ -175,7 +147,7 @@ void Ncurses::clearScreen()
 {
     erase();
 }
-void Ncurses::delay_us(suseconds_t delay)
+void Ncurses::delay_us(useconds_t delay)
 {
     usleep(delay);
 }
