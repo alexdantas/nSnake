@@ -1,30 +1,23 @@
-
 #ifndef TIMER_H_DEFINED
 #define TIMER_H_DEFINED
 
 #include <string>
 #include <sstream>
-#include <sys/time.h>
-#include "stdint.h" // for suseconds_t
 
-/// A timer measured in milisseconds.
-//
-//	This class implements a timer that counts in milisseconds.
-//
-//	How-to-use:
-//
-//	Timer timer;
-//	timer.start();
-//	...
-//	timer.pause();
-//	...
-//	timer.unpause();
-//	...
-//	timer.stop();
-//	int delta = timer.delta();
-//
-//	For example:
-//
+/// General-purpose timer, measured in milisseconds.
+///
+///	## How to use:
+///
+///	    Timer timer;
+///	    timer.start();
+///	    // ...
+///	    timer.pause();
+///	    // ...
+///	    timer.unpause();
+///	    // ...
+///	    timer.stop();
+///	    int delta = timer.delta();
+///
 class Timer
 {
 public:
@@ -51,28 +44,26 @@ public:
 	/// Tells if the timer's paused.
 	bool isPaused();
 
-	/// Returns the whole timer's difference in microseconds.
+	/// Returns the whole timer's difference in milisseconds.
 	//	@note If the timer's not started, will return 0.
-	suseconds_t delta();
+	int delta();
 
 	/// Returns the milisseconds part of the timer's difference.
-	suseconds_t delta_ms();
+	int delta_ms();
 
 	/// Returns the seconds part of the timer's difference.
-	suseconds_t delta_s();
-
-    /// Returns the minutes part of the timer's differente.
-    suseconds_t delta_m();
+	int delta_s();
 
 	/// Returns the difference between timer's start point and now.
-	suseconds_t currentTime();
+	int currentTime();
 
-private:
-	suseconds_t startMark;
-	suseconds_t stopMark;
-	suseconds_t pausedMark;
-	bool        running;
-	bool        paused;
+protected:
+	int startMark;
+	int stopMark;
+	int pausedMark;
+
+	bool running;
+	bool paused;
 };
 
 #endif /* TIMER_H_DEFINED */

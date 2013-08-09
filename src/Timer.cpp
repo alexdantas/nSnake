@@ -1,3 +1,5 @@
+#include <unistd.h> // usleep()
+#include <sys/time.h>
 #include "Timer.hpp"
 
 #define MICROSSECONDS_IN_SECONDS 1000000
@@ -63,39 +65,35 @@ void Timer::unpause()
 }
 bool Timer::isRunning()
 {
-    return (this->running);
+    return this->running;
 }
 bool Timer::isPaused()
 {
-    return (this->paused);
+    return this->paused;
 }
-suseconds_t Timer::delta()
+int Timer::delta()
 {
     if (this->isRunning())
-        return (this->currentTime());
+        return this->currentTime();
 
     if (this->paused)
-        return (this->pausedMark);
+        return this->pausedMark;
 
     // Something went wrong here
     if (this->startMark == 0)
         return 0;
 
-    return ((this->stopMark) - (this->startMark));
+    return (this->stopMark) - (this->startMark);
 }
-suseconds_t Timer::delta_ms()
+int Timer::delta_ms()
 {
-    return (this->delta() % 1000);
+    return this->delta() % 1000;
 }
-suseconds_t Timer::delta_s()
+int Timer::delta_s()
 {
-    return (this->delta_ms() / 1000);
+    return this->delta() / 1000;
 }
-suseconds_t Timer::delta_m()
-{
-    return (this->delta_s() / 60);
-}
-suseconds_t Timer::currentTime()
+int Timer::currentTime()
 {
     return (getTicks()) - (this->startMark);
 }

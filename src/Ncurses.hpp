@@ -5,6 +5,7 @@
 #include <iostream>
 #include <stdint.h>
 #include <ncurses.h>
+#include <unistd.h> // usleep(), suseconds_t
 #include "Timer.hpp"
 
 // Shuts up the compiler about unused parameters.
@@ -62,6 +63,40 @@ public:
 
     /// Returns the ammount of time the last frame had.
     static int getDelta();
+
+    /// Returns the number of seconds since the last frame.
+    ///
+    /// @note It's _float_, mate.
+    ///
+    /// ## For developers
+    ///
+    /// The FPS on a powerful machine is fast and the FPS is slow
+    /// on a poor computer.
+    ///
+    /// If on our code we have a movement like this:
+    ///
+    ///     Player.x += 1;
+    ///
+    /// Then it will move 30 pixels per second on a machine with
+    /// 30 FPS and 60 pixels per second on a machine with 60 FPS
+    /// (slow and fast machines, respectivelly).
+    ///
+    /// Now if we have a movement like this:
+    ///
+    ///     Player.x += 45 * dt;
+    ///
+    /// Then the player will move 45 pixels per second INDEPENDENT
+    /// of the machine's FPS.
+    ///
+    /// That's because if *dt* is the ammount of seconds since last
+    /// frame, if we keep doing this every frame:
+    ///
+    ///     float var += 1 * dt;
+    ///
+    /// Then after 1 second the variable will have 1 INDEPENDENT
+    /// of the machine's FPS.
+    ///
+    static float getDeltaSeconds();
 
     /// Misc/Fun METHODS
 
@@ -137,13 +172,14 @@ public:
     /// Pauses the program's execution for *delay* microseconds
     /// (1/1000000 of a second).
     ///
-    /// Obviously, Can be called independently of any class instance.
-    static void delay_us(suseconds_t delay);
+    /// ## For developers
+    ///
+    /// *useconds_t* is defined on *<unistd.h>* and it's used for
+    /// *usleep()*.
+    static void delay_us(useconds_t delay);
 
     /// Pauses the program's execution for *delay* miliseconds
     /// (1/1000 of a second).
-    ///
-    /// Obviously, Can be called independently of any class instance.
     static void delay_ms(int delay);
 
     /// How much time we wait for getting an input.

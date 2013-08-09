@@ -53,19 +53,17 @@ void StateManager::run()
 
     while (!letsQuit)
     {
-        // The delta time from the last frame
-//        uint32_t delta = SDL::getDelta();
-
-        // How many seconds have passed between last frame and this one?
-        float delta = 10.0;//SDL::getDeltaSeconds();
+        // How many seconds have passed between last
+        // frame and this one?
+        float delta = Ncurses::getDeltaSeconds();
 
         // Little hack to avoid things jumping around on the
         // first frame.
-//        if (firstFrame)
-//        {
-//            delta = 1000.0/30.0;
-//            firstFrame = false;
-//        }
+        if (firstFrame)
+        {
+            delta = 1000.0/30.0;
+            firstFrame = false;
+        }
 
         // Just a reminder that every state handles input
         // individually, so no need to do that here.
@@ -100,10 +98,11 @@ void StateManager::run()
         // Printing everything on the screen.
         Ncurses::clearScreen();
         this->currentState->render();
+
         Ncurses::refresh();
 
         // Let's wait a bit if the framerate is too low.
-//        SDL::framerateWait();
+        Ncurses::framerateWait();
     }
 }
 

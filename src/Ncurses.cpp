@@ -1,6 +1,5 @@
 #include <sstream>  // allows me to have intToString()
 #include <stdlib.h> // srand()
-#include <unistd.h> // usleep()
 #include "Ncurses.hpp"
 #include "Log.hpp"
 
@@ -22,6 +21,11 @@ bool Ncurses::init(int width, int height, int frameRate)
     Ncurses::height = height;
 
     Ncurses::screen = initscr(); // Starting ncurses!
+    if (Ncurses::screen == NULL)
+    {
+        Log::error("Error! Failed initializing ncurses!");
+        throw "Ncurses failed to initialize.";
+	}
 
 	if (has_colors() == TRUE) // && (global.screen_use_colors))
 	{
@@ -73,10 +77,10 @@ bool Ncurses::init(int width, int height, int frameRate)
                    "\n" +
                    "Please resize your window and try again\n");
 
-        throw "Ncurses failed.";
+        throw "Ncurses failed to initialize.";
 	}
 
-    Ncurses::currentWidth = current_width;
+    Ncurses::currentWidth  = current_width;
     Ncurses::currentHeight = current_height;
 
 	cbreak();    // Character input doesnt require the <enter> key anymore
@@ -85,6 +89,14 @@ bool Ncurses::init(int width, int height, int frameRate)
 	keypad(stdscr, TRUE);  // Support for extra keys (F1, F2, ... )
 //    timeout(0);  // Won't wait for input.
 	refresh();   // Refresh the screen (prints whats in the screen buffer)
+
+    // Now we handle the framerate.
+    // If we don't do this correctly, the game will always
+    // spend 100% CPU usage doing.. nothing
+    framerate       = frameRate;
+    framerate_delay = (1000/framerate); // 1 second in miliseconds
+
+    framerate_timer.start();
 
     return true;
 }
@@ -103,6 +115,7 @@ void Ncurses::exit()
 }
 std::string Ncurses::intToString(int num)
 {
+    // little hack to convert from integer to string
     std::stringstream ss;
     ss.str("");
     ss << num;
@@ -110,45 +123,46 @@ std::string Ncurses::intToString(int num)
     std::string numStr = ss.str();
     return numStr;
 }
-// void Ncurses::framerateWait()
-// {
-//     frame_delta = framerate_timer.delta();
+void Ncurses::framerateWait()
+{
+    frame_delta = framerate_timer.delta_ms();
 
-//     if ((frame_delta) < (framerate_delay))
-//         Ncurses::delay_ms((framerate_delay) - frame_delta);
+    if ((frame_delta) < (framerate_delay))
+        Ncurses::delay_ms(framerate_delay - frame_delta);
 
-//     framerate_timer.restart();
+    framerate_timer.restart();
+}
+int Ncurses::getFramerateDelay()
+{
+    return framerate_delay;
+}
+int Ncurses::getDelta()
+{
+    return frame_delta;
+}
+float Ncurses::getDeltaSeconds()
+{
+    // frame_delta is the number of miliseconds between last
+    // frame and this one.
+    //
+    // We'll transform it in floaty SECONDS.
 
-// // Ncurses's framerate manager SUCKS
-// //    Ncurses_framerateDelay(&(fpsManager));
-// }
-// Uint32 Ncurses::getFramerateDelay()
-// {
-//     return framerate_delay;
-// }
-// int Ncurses::getDelta()
-// {
-//     return frame_delta;
-// }
+    return ((float)(frame_delta))/1000.0;
+}
 int Ncurses::randomNumberBetween(int min, int max)
 {
+    // Just in case the caller didn't read
+    // the method's documentation.
+    if (min > max)
+    {
+        // swap
+        int tmp = max;
+        max = min;
+        min = tmp;
+    }
+
     return (rand() % (max - min + 1) + min);
 }
-// void Ncurses::showCursor()
-// {
-//     Ncurses_ShowCursor(Ncurses_ENABLE);
-// }
-// void Ncurses::hideCursor()
-// {
-//     Ncurses_ShowCursor(Ncurses_DISABLE);
-// }
-// void Ncurses::toggleCursor()
-// {
-//     if (Ncurses_ShowCursor(Ncurses_QUERY) == Ncurses_ENABLE)
-//         Ncurses::hideCursor();
-//     else
-//         Ncurses::showCursor();
-// }
 void Ncurses::print(std::string what, int x, int y)
 {
     mvaddstr(y, x, what.c_str());
@@ -173,5 +187,4 @@ void Ncurses::inputDelay(int delay)
 {
     timeout(delay);
 }
-
 
