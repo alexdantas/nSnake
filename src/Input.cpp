@@ -1,4 +1,5 @@
 #include "Input.hpp"
+#include "Ncurses.hpp"
 
 Input* Input::instance = NULL;
 
@@ -22,7 +23,9 @@ void Input::update(float cameraX, float cameraY)
         this->mouseUp[i]   = false;
     }
 
-    int c = getch();
+    /// HACK figure out how to make things work out more
+    ///      independently.
+    int c = wgetch(Ncurses::window->getWin());
 
     // I had an idea of using `while (c != ERR)` to get all input
     // from the supposely existing input queue.

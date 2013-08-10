@@ -14,6 +14,7 @@ int     Ncurses::currentWidth    = 0;
 int     Ncurses::currentHeight   = 0;
 bool    Ncurses::hasColors       = false;
 WINDOW* Ncurses::screen          = NULL;
+Window* Ncurses::window          = NULL;
 
 bool Ncurses::init(int width, int height, int frameRate)
 {
@@ -38,7 +39,7 @@ bool Ncurses::init(int width, int height, int frameRate)
 	    (current_height < Ncurses::height))
 	{
 		endwin();
-        Log::error("Error! Your console screen is smaller than" +
+        Log::error("Error! Your console screen is smaller than " +
                    Ncurses::intToString(Ncurses::width) +
                    "x" +
                    Ncurses::intToString(Ncurses::height) +
@@ -48,15 +49,46 @@ bool Ncurses::init(int width, int height, int frameRate)
         throw "Ncurses failed to initialize.";
 	}
 
+    // If we got here, the terminal is already at our control.
+    // Let's create the window on which we will change stuff.
+
+    // Independently of the user's desire, we can have a bigger
+    // window that it expected.
+    // So here we hold it's value just in case.
     Ncurses::currentWidth  = current_width;
     Ncurses::currentHeight = current_height;
 
-	cbreak();    // Character input doesnt require the <enter> key anymore
-	noecho();    // Wont print the keys received through input
-//	nodelay(stdscr, TRUE); // Wont wait for input
-	keypad(stdscr, TRUE);  // Support for extra keys (F1, F2, ... )
-//    timeout(0);  // Won't wait for input.
-	refresh();   // Refresh the screen (prints whats in the screen buffer)
+    // Creating the main window on which everything will be
+    // based on.
+    Ncurses::window = new Window(0, 0, Ncurses::width, Ncurses::height);
+
+    // Allowing mouse input
+    if (has_mouse() == TRUE)
+        mousemask(ALL_MOUSE_EVENTS, NULL);
+
+    // WHY DOES THIS GIVES ME A SEGFAULT?
+    // // Disable special treatment of the <Enter> key.
+    // nonl();
+
+    // Disables text-processing input (like erasing chars).
+    // We'll get straight up every key the user presses.
+	cbreak();
+
+    // I.. don't quite know what it does, didn't understand
+    // the manpage quite well...
+    intrflush(Ncurses::screen, FALSE);
+
+    // Disable <ESC> timer.
+    notimeout(Ncurses::screen, TRUE);
+
+    // Wont print the keys received through input
+	noecho();
+
+    // Support for extra keys (arrow keys, F1, F2, ... )
+	keypad(Ncurses::screen, TRUE);
+
+    // Refresh the screen (prints whats in the screen buffer)
+	refresh();
 
     // Now we handle the framerate.
     // If we don't do this correctly, the game will always
@@ -77,8 +109,12 @@ void Ncurses::hideCursor(bool willHide)
 }
 void Ncurses::exit()
 {
-	erase();
-	refresh();
+    erase();
+    refresh();
+    Ncurses::window->clear();
+    Ncurses::window->refresh();
+
+    if (Ncurses::window) delete (Ncurses::window);
 	endwin();
 }
 std::string Ncurses::intToString(int num)
@@ -133,19 +169,23 @@ int Ncurses::randomNumberBetween(int min, int max)
 }
 void Ncurses::print(std::string what, int x, int y)
 {
-    mvaddstr(y, x, what.c_str());
+    Ncurses::window->print(what, x, y);
+//    mvaddstr(y, x, what.c_str());
 }
 void Ncurses::setStyle(unsigned long pair)
 {
-    attrset(pair);
+    Ncurses::window->setStyle(pair);
+//    attrset(pair);
 }
 void Ncurses::refresh()
 {
-    wrefresh(Ncurses::screen);
+    Ncurses::window->refresh();
+//    wrefresh(Ncurses::screen);
 }
 void Ncurses::clearScreen()
 {
-    erase();
+    Ncurses::window->clear();
+//    erase();
 }
 void Ncurses::delay_us(useconds_t delay)
 {
@@ -157,6 +197,7 @@ void Ncurses::delay_ms(int delay)
 }
 void Ncurses::inputDelay(int delay)
 {
-    timeout(delay);
+    wtimeout(Ncurses::window->getWin(), delay);
+//    timeout(delay);
 }
 

@@ -1,7 +1,7 @@
 #include <map>
 #include <utility>   // pair
 #include <algorithm> // transform()
-#include "Ncurses.hpp"
+#include <ncurses.h>
 #include "Color.hpp"
 
 bool Color::hasColors       = false;
@@ -135,8 +135,12 @@ bool Color::init()
 short byName(const std::string& f,
              const std::string& b)
 {
-    std::string fore = f;
-    std::string back = b;
+    // TODO BUG HACK WHATEVER
+    // I don't know why I have to switch these, but it
+    // seems that if I don't do this things will go backwards.
+    // Someday I must find a fix for this.
+    std::string fore = b;
+    std::string back = f;
 
     std::transform(fore.begin(), fore.end(),
                    fore.begin(), (int(*)(int)) std::toupper);

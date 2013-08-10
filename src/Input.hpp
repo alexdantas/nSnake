@@ -6,7 +6,6 @@
 #include <iostream> // for NULL
 #include <stdint.h>
 
-
 /// What is the smallest value that we can obtain for a key
 //  KEY_MIN is a constant defined on curses.h that tells us the
 #define KEY_MINIMUM KEY_MIN

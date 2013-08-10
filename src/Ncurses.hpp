@@ -8,32 +8,10 @@
 #include <unistd.h> // usleep(), suseconds_t
 #include "Timer.hpp"
 #include "Color.hpp"
+#include "Window.hpp"
 
 // Shuts up the compiler about unused parameters.
 #define UNUSED(x) ((void)(x))
-
-/// Possible ncurses color pairs (FOREGROUND_BACKGROUND).
-///  This defines all possible combinations of color pairs on ncurses.
-///  Note that the order of definition is important, also the intial value
-///  of 1.
-///
-///  To access a specific color pair, use this formula:
-///    pair(n) = (foreground * 8) + background
-///
-///  Just like
-///    pair    = (COLOR_RED * 8) + COLOR_BLUE
-///
-enum Colors
-{
-	BLACK_BLACK = 1, BLACK_RED,   BLACK_GREEN,   BLACK_YELLOW,   BLACK_BLUE,   BLACK_MAGENTA,   BLACK_CYAN,   BLACK_WHITE,
-	RED_BLACK,       RED_RED,     RED_GREEN,     RED_YELLOW,     RED_BLUE,     RED_MAGENTA,     RED_CYAN,     RED_WHITE,
-	GREEN_BLACK,     GREEN_RED,   GREEN_GREEN,   GREEN_YELLOW,   GREEN_BLUE,   GREEN_MAGENTA,   GREEN_CYAN,   GREEN_WHITE,
-	YELLOW_BLACK,    YELLOW_RED,  YELLOW_GREEN,  YELLOW_YELLOW,  YELLOW_BLUE,  YELLOW_MAGENTA,  YELLOW_CYAN,  YELLOW_WHITE,
-	BLUE_BLACK,      BLUE_RED,    BLUE_GREEN,    BLUE_YELLOW,    BLUE_BLUE,    BLUE_MAGENTA,    BLUE_CYAN,    BLUE_WHITE,
-	MAGENTA_BLACK,   MAGENTA_RED, MAGENTA_GREEN, MAGENTA_YELLOW, MAGENTA_BLUE, MAGENTA_MAGENTA, MAGENTA_CYAN, MAGENTA_WHITE,
-	CYAN_BLACK,      CYAN_RED,    CYAN_GREEN,    CYAN_YELLOW,    CYAN_BLUE,    CYAN_MAGENTA,    CYAN_CYAN,    CYAN_WHITE,
-	WHITE_BLACK,     WHITE_RED,   WHITE_GREEN,   WHITE_YELLOW,   WHITE_BLUE,   WHITE_MAGENTA,   WHITE_CYAN,  WHITE_WHITE
-};
 
 /// Big wrapper class thath handles all direct Ncurses
 /// calls.
@@ -200,6 +178,14 @@ public:
     static int currentHeight;
     static bool hasColors;
 
+    /// Main window of the program.
+    ///
+    /// This is the user-definable program screen.
+    ///
+    /// HACK I made this public so the Input could grab it.
+    /// TODO Figure out how to make things more modular.
+    static Window* window;
+
 private:
     /// The framerate. By default, 60 frames per second.
     static int framerate;
@@ -213,6 +199,10 @@ private:
     /// How much time has passed between this and last frame (milisseconds).
     static int frame_delta;
 
+    /// Main screen of the program.
+    ///
+    /// When you start ncurses, this represents the whole terminal screen.
+    /// Whenever you change the terminal's size, this will be changed too.
     static WINDOW* screen;
 };
 
