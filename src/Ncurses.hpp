@@ -10,10 +10,10 @@
 #include "Color.hpp"
 #include "Window.hpp"
 
-// Shuts up the compiler about unused parameters.
+/// Shuts up the compiler about unused parameters.
 #define UNUSED(x) ((void)(x))
 
-/// Big wrapper class thath handles all direct Ncurses
+/// Big wrapper class that handles all direct Ncurses
 /// calls.
 ///
 class Ncurses
@@ -79,37 +79,12 @@ public:
 
     /// Misc/Fun METHODS
 
-    /// Returns a random integer between *min* and *max* (inclusive).
+    /// Returns a random integer between *min* and *max*
+    /// (inclusive).
     static int randomNumberBetween(int min, int max);
 
     /// Makes the blinking cursor invisible or visible.
     static void hideCursor(bool option);
-
-    // /// Hides the mouse cursor.
-    // static void hideCursor();
-
-    // /// Shows the mouse cursor if hidden.
-    // static void showCursor();
-
-    // /// Toggles The cursor's visible state (shown/hidden).
-    // static void toggleCursor();
-
-    // /// Ejects the CD tray.
-    // /// This function fails if there's not a default CD-ROM drive.
-    // /// @return Bool representing success/fail.
-    // static bool ejectCDTray();
-
-    // /// Grabs (almost) all input from keyboard and mouse to the Window.
-    // static void grabInput();
-
-    // /// Releases the exclusive input from keyboard and mouse to the Window.
-    // static void releaseInput();
-
-    // /// Toggles the input-grabbed state.
-    // ///
-    // /// @see grabInput()
-    // /// @see releaseInput()
-    // static void toggleGrabInput();
 
     // /// Warps the mouse to the new position *x*/*y*.
     // ///
@@ -172,6 +147,7 @@ public:
 
     // Public variables
     // (please don't change them during the game)
+
     static int width;
     static int height;
     static int currentWidth;

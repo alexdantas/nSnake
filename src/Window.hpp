@@ -15,11 +15,15 @@ public:
     Window(Rectangle* rect);
     virtual ~Window();
 
-//        virtual void move(int x, int y);
+//    virtual void move(int x, int y);
     virtual void resize(int w, int h);
 
     void print(std::string str, int x, int y);
 
+    /// Sets the current style to *pair*.
+    ///
+    /// This means that anything that gets printed from now on
+    /// will follow this style.
     void setStyle(unsigned long pair);
 
     /// Sets the window's background to *ch* with *pair*.
@@ -35,6 +39,7 @@ public:
     ///
     /// @see setBackground()
     void clear();
+
     // int getW() const;
     // int getH() const;
     // int getX() const;
@@ -50,7 +55,7 @@ public:
 
 protected:
     /// Ncurses' internal data structure that represents a window.
-    WINDOW*    win;
+    WINDOW* win;
 
     /// The logical position and size of the window.
     Rectangle* box;

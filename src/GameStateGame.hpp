@@ -2,6 +2,7 @@
 #define GAMESTATEGAME_H_DEFINED
 
 #include "GameState.hpp"
+#include "Sprite.hpp"
 //#include "Menu.hpp"
 //#include "Music.hpp"
 
@@ -31,7 +32,7 @@ public:
 private:
 //    Music* music;     ///< Menu's background music.
 //    Menu* menu;       ///< The actual game menu.
-
+    Sprite* player;
 };
 
 #endif //GAMESTATEGAME_H_DEFINED

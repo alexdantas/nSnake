@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 
     try
     {
-        StateManager manager(100, 40);
+        StateManager manager(80, 24);
 
         manager.run();
     }
