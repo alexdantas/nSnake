@@ -23,9 +23,10 @@ bool TimerCounter::isDone()
 
     this->pause();
 
-    if (this->delta() > this->delay)
+    if ((this->delta_ms()) > (this->delay))
     {
         this->stop();
+        this->done = true;
         return true;
     }
 

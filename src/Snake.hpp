@@ -10,8 +10,8 @@ struct SnakeBody
         x(x), y(y)
     { }
 
-    int x;
-    int y;
+    int x; /// X position
+    int y; /// Y position
 };
 
 /// The initial size of every snake.
@@ -25,16 +25,15 @@ struct SnakeBody
 class Snake
 {
 public:
-    enum Directions
-    {
-        UP, DOWN, LEFT, RIGHT
-    };
+    /// All the directions the snake can move.
+    enum Directions { UP, DOWN, LEFT, RIGHT };
 
     /// Creates a snake at *board* on *x* *y*.
     Snake(Board* board, int x, int y);
 
     virtual ~Snake();
 
+    /// Updates the snake input.
     void update();
 
     /// Commits the snake movement based on *currentDirection*.
@@ -45,7 +44,13 @@ public:
     /// sets it on *previousDirection*.
     void move(bool willIncrease=false);
 
+    /// Tells if this snake is alive.
+    bool isAlive();
+
 private:
+    /// Tells if this snake is alive.
+    bool alive;
+
     /// The board where this snake is inserted.
     Board* board;
 

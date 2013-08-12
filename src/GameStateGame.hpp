@@ -5,6 +5,8 @@
 #include "Sprite.hpp"
 #include "Board.hpp"
 #include "Snake.hpp"
+#include "TimerCounter.hpp"
+
 //#include "Music.hpp"
 
 /// Everything that happens on the game.
@@ -34,6 +36,7 @@ private:
 //    Music* music;     ///< Menu's background music.
     Snake* player;
     Board* board;
+    TimerCounter* gameTimer;
 };
 
 #endif //GAMESTATEGAME_H_DEFINED

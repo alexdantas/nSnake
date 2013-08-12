@@ -3,7 +3,8 @@
 
 #include "Timer.hpp"
 
-/// Counter that tells us if a certain time has elapsed.
+/// Counter that tells us if a certain time has elapsed, with
+/// milisecond precision.
 ///
 /// ## How to use:
 ///

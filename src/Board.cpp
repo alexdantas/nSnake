@@ -1,8 +1,9 @@
 #include "Board.hpp"
 
-Board::Board(int width, int height):
+Board::Board(int width, int height, bool haveBorders):
     width(width),
-    height(height)
+    height(height),
+    borders(haveBorders)
 {
     // 1st dimension
     this->board.resize(this->width);
@@ -21,7 +22,12 @@ Board::Board(int width, int height):
             // All the borders of the board
             if ((i == 0) || (i == (width  - 1)) ||
                 (j == 0) || (j == (height - 1)))
-                this->board[i][j]->set(Tile::BORDER);
+            {
+                if (this->borders)
+                    this->board[i][j]->set(Tile::BORDER);
+                else
+                    this->board[i][j]->set(Tile::TELEPORT_BORDER);
+            }
         }
     }
 }
@@ -52,5 +58,9 @@ int Board::getWidth()
 int Board::getHeight()
 {
     return (this->height);
+}
+bool Board::hasBorders()
+{
+    return (this->borders);
 }
 

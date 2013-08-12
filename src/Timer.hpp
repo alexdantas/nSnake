@@ -4,7 +4,7 @@
 #include <string>
 #include <sstream>
 
-/// General-purpose timer, measured in milisseconds.
+/// General-purpose timer with milisecond precision.
 ///
 ///	## How to use:
 ///
@@ -58,9 +58,9 @@ public:
 	int currentTime();
 
 protected:
-	int startMark;
-	int stopMark;
-	int pausedMark;
+	unsigned int startMark;
+	unsigned int stopMark;
+	unsigned int pausedMark;
 
 	bool running;
 	bool paused;

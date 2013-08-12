@@ -1,17 +1,19 @@
-#include <unistd.h> // usleep()
-#include <sys/time.h>
 #include "Timer.hpp"
+#include <unistd.h>
+#include <sys/time.h>
 
-#define MICROSSECONDS_IN_SECONDS 1000000
+#define MICROSECONDS_IN_SECONDS 1000000
 
-/// Local function that returns the ticks (number of microsseconds)
-//  since the Epoch.
-static suseconds_t getTicks()
+// Local function that returns number of miliseconds (1/1000)
+// since the Epoch.
+static unsigned int getTicks()
 {
     struct timeval tmp;
-    gettimeofday (&(tmp), NULL);
+    gettimeofday(&(tmp), NULL);
 
-    return tmp.tv_usec + (tmp.tv_sec * MICROSSECONDS_IN_SECONDS);
+    // microseconds
+    return (tmp.tv_usec / 1000) + (tmp.tv_sec * 1000);
+    // suseconds_t
 }
 
 Timer::Timer()
@@ -87,11 +89,12 @@ int Timer::delta()
 }
 int Timer::delta_ms()
 {
-    return this->delta() % 1000;
+    return (this->delta());
+//    return (this->delta() % 1000);
 }
 int Timer::delta_s()
 {
-    return this->delta() / 1000;
+    return (this->delta() / 1000);
 }
 int Timer::currentTime()
 {

@@ -27,19 +27,27 @@ void Tile::set(TileContents newContent)
         this->sprite = new Sprite("#", 1, 1, Color::pair("white", "default"));
         break;
 
+    case Tile::TELEPORT_BORDER:
+        this->sprite = new Sprite(".", 1, 1, Color::pair("white", "default"));
+        break;
+
     case Tile::WALL:
         this->sprite = new Sprite("#", 1, 1, Color::pair("white", "default", "bold"));
         break;
 
     case Tile::FOOD:
-        this->sprite = new Sprite("F", 1, 1, Color::pair("red"));
+        this->sprite = new Sprite("F", 1, 1, Color::pair("yellow"));
         break;
 
     case Tile::SNAKE_HEAD:
         this->sprite = new Sprite("@", 1, 1, Color::pair("green", "default", "bold"));
         break;
 
-    case Tile::SNAKE:
+    case Tile::SNAKE_DEAD_HEAD:
+        this->sprite = new Sprite("x", 1, 1, Color::pair("red"));
+        break;
+
+    case Tile::SNAKE_BODY:
         this->sprite = new Sprite("o", 1, 1, Color::pair("green"));
         break;
 

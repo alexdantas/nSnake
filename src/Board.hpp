@@ -9,7 +9,7 @@
 class Board
 {
 public:
-    Board(int width, int height);
+    Board(int width, int height, bool hasBorders);
     virtual ~Board();
 
     /// Returns the pointer to the tile at index *x* *y*.
@@ -18,6 +18,10 @@ public:
     void render(int x, int y);
     int getWidth();
     int getHeight();
+
+    /// Tells if the player dies or teleports when colliding
+    /// with the border of this Board.
+    bool hasBorders();
 
     // TODO find out how to overload operators
     //      to make *board* access intuitive
@@ -30,6 +34,11 @@ private:
 
     int width;
     int height;
+
+    /// Tells if the borders are solid or teleportable.
+    ///
+    /// @note Does this word even exists?
+    bool borders;
 };
 
 #endif //BOARD_H_DEFINED

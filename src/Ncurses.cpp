@@ -109,12 +109,12 @@ void Ncurses::hideCursor(bool willHide)
 }
 void Ncurses::exit()
 {
-    erase();
-    refresh();
-    Ncurses::window->clear();
-    Ncurses::window->refresh();
+   erase();
+   refresh();
+   Ncurses::window->clear();
+   Ncurses::window->refresh();
 
-    if (Ncurses::window) delete (Ncurses::window);
+   if (Ncurses::window) delete (Ncurses::window);
 	endwin();
 }
 std::string Ncurses::intToString(int num)
