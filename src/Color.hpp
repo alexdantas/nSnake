@@ -16,147 +16,81 @@ class Color
 {
 public:
 
-    // Possible engine color pairs (FOREGROUND_BACKGROUND).
-    // This defines all possible combinations of color pairs
-    // on ncurses.
-    // Note that the order of definition is important, also
-    // the intial value of 1.
-    //
-    // To access a specific color pair, use this formula:
-    //   pair(n) = (foreground * 8) + background
-    //
-    // Just like
-    //   pair    = (COLOR_RED * 8) + COLOR_BLUE
+    /// Possible engine color pairs (FOREGROUND_BACKGROUND).
+    ///
+    /// This defines all possible combinations of color pairs
+    /// on ncurses.
+    ///
+    /// ## For developers
+    ///
+    /// The order of definition is important, also is
+    /// the intial value of 1.
+    ///
+    /// To access a specific color pair, use this formula:
+    ///     pair(n) = (foreground * 8) + background
+    ///
+    /// Just like
+    ///     pair    = (COLOR_RED * 8) + COLOR_BLUE
     enum Colors
     {
-        BLACK_BLACK = 1, BLACK_RED,   BLACK_GREEN,   BLACK_YELLOW,   BLACK_BLUE,   BLACK_MAGENTA,   BLACK_CYAN,   BLACK_WHITE,
-        RED_BLACK,       RED_RED,     RED_GREEN,     RED_YELLOW,     RED_BLUE,     RED_MAGENTA,     RED_CYAN,     RED_WHITE,
-        GREEN_BLACK,     GREEN_RED,   GREEN_GREEN,   GREEN_YELLOW,   GREEN_BLUE,   GREEN_MAGENTA,   GREEN_CYAN,   GREEN_WHITE,
-        YELLOW_BLACK,    YELLOW_RED,  YELLOW_GREEN,  YELLOW_YELLOW,  YELLOW_BLUE,  YELLOW_MAGENTA,  YELLOW_CYAN,  YELLOW_WHITE,
-        BLUE_BLACK,      BLUE_RED,    BLUE_GREEN,    BLUE_YELLOW,    BLUE_BLUE,    BLUE_MAGENTA,    BLUE_CYAN,    BLUE_WHITE,
-        MAGENTA_BLACK,   MAGENTA_RED, MAGENTA_GREEN, MAGENTA_YELLOW, MAGENTA_BLUE, MAGENTA_MAGENTA, MAGENTA_CYAN, MAGENTA_WHITE,
-        CYAN_BLACK,      CYAN_RED,    CYAN_GREEN,    CYAN_YELLOW,    CYAN_BLUE,    CYAN_MAGENTA,    CYAN_CYAN,    CYAN_WHITE,
-        WHITE_BLACK,     WHITE_RED,   WHITE_GREEN,   WHITE_YELLOW,   WHITE_BLUE,   WHITE_MAGENTA,   WHITE_CYAN,  WHITE_WHITE
+        BLACK_BLACK = 1, RED_BLACK,   GREEN_BLACK,   YELLOW_BLACK,   BLUE_BLACK,   MAGENTA_BLACK,   CYAN_BLACK,   WHITE_BLACK,
+        BLACK_RED,       RED_RED,     GREEN_RED,     YELLOW_RED,     BLUE_RED,     MAGENTA_RED,     CYAN_RED,     WHITE_RED,
+        BLACK_GREEN,     RED_GREEN,   GREEN_GREEN,   YELLOW_GREEN,   BLUE_GREEN,   MAGENTA_GREEN,   CYAN_GREEN,   WHITE_GREEN,
+        BLACK_YELLOW,    RED_YELLOW,  GREEN_YELLOW,  YELLOW_YELLOW,  BLUE_YELLOW,  MAGENTA_YELLOW,  CYAN_YELLOW,  WHITE_YELLOW,
+        BLACK_BLUE,      RED_BLUE,    GREEN_BLUE,    YELLOW_BLUE,    BLUE_BLUE,    MAGENTA_BLUE,    CYAN_BLUE,    WHITE_BLUE,
+        BLACK_MAGENTA,   RED_MAGENTA, GREEN_MAGENTA, YELLOW_MAGENTA, BLUE_MAGENTA, MAGENTA_MAGENTA, CYAN_MAGENTA, WHITE_MAGENTA,
+        BLACK_CYAN,      RED_CYAN,    GREEN_CYAN,    YELLOW_CYAN,    BLUE_CYAN,    MAGENTA_CYAN,    CYAN_CYAN,    WHITE_CYAN,
+        BLACK_WHITE,     RED_WHITE,   GREEN_WHITE,   YELLOW_WHITE,   BLUE_WHITE,   MAGENTA_WHITE,   CYAN_WHITE,   WHITE_WHITE,
+
+        // The following color pairs are not supported on all terminals.
+        //
+        // But when they are, the background is the terminal's custom
+        // background, as defined by the user before running the program.
+        //
+        // They're initialized on Color::init() and can be called on
+        // Color::pair() with the "default" attribute.
+        //
+        // If default backgrounds are not supported by the terminal, it
+        // will fall back to BLACK.
+        BLACK_DEFAULT,   RED_DEFAULT, GREEN_DEFAULT, YELLOW_DEFAULT, BLUE_DEFAULT, MAGENTA_DEFAULT, CYAN_DEFAULT, WHITE_DEFAULT
     };
 
-    /// Starts all support for colors
-    //
-    //  Sets up a full 64-color palette.
-    //  Note that NCursesWindow uses the global functions
-    //  and stdscr for setting up colors, so the colors set
-    //  up here affect all linked-in curses code which uses
-    //  COLOR_PAIR(number).
-    //
-    //  For each BG/FG combination of the following colors:
-    //
-    // COLOR_BLACK
-    // COLOR_RED
-    // COLOR_GREEN
-    // COLOR_YELLOW
-    // COLOR_BLUE
-    // COLOR_MAGENTA
-    // COLOR_CYAN
-    // COLOR_WHITE
-    //
-    // in that order, A palette entry is made. The entries
-    // are grouped by background, not foreground. That is,
-    // colors 1..7 habe a bg of COLOR_BLACK, 8..15 have
-    // a bg of COLOR_RED, etc...
-    //
-    // The full list of colors is here:
-    //
-    // <pre>
-    //
-    // Background BLACK:
-    // 1 = BLACK on BLACK
-    // 2 = RED on BLACK
-    // 3 = GREEN on BLACK
-    // 4 = YELLOW on BLACK
-    // 5 = BLUE on BLACK
-    // 6 = MAGENTA on BLACK
-    // 7 = CYAN on BLACK
-    // 8 = WHITE on BLACK
-    //
-    // Background RED:
-    // 9 = BLACK on RED
-    // 10 = RED on RED
-    // 11 = GREEN on RED
-    // 12 = YELLOW on RED
-    // 13 = BLUE on RED
-    // 14 = MAGENTA on RED
-    // 15 = CYAN on RED
-    // 16 = WHITE on RED
-    //
-    // Background GREEN:
-    // 17 = BLACK on GREEN
-    // 18 = RED on GREEN
-    // 19 = GREEN on GREEN
-    // 20 = YELLOW on GREEN
-    // 21 = BLUE on GREEN
-    // 22 = MAGENTA on GREEN
-    // 23 = CYAN on GREEN
-    // 24 = WHITE on GREEN
-    //
-    // Background YELLOW:
-    // 25 = BLACK on YELLOW
-    // 26 = RED on YELLOW
-    // 27 = GREEN on YELLOW
-    // 28 = YELLOW on YELLOW
-    // 29 = BLUE on YELLOW
-    // 30 = MAGENTA on YELLOW
-    // 31 = CYAN on YELLOW
-    // 32 = WHITE on YELLOW
-    //
-    // Background BLUE:
-    // 33 = BLACK on BLUE
-    // 34 = RED on BLUE
-    // 35 = GREEN on BLUE
-    // 36 = YELLOW on BLUE
-    // 37 = BLUE on BLUE
-    // 38 = MAGENTA on BLUE
-    // 39 = CYAN on BLUE
-    // 40 = WHITE on BLUE
-    //
-    // Background MAGENTA:
-    // 41 = BLACK on MAGENTA
-    // 42 = RED on MAGENTA
-    // 43 = GREEN on MAGENTA
-    // 44 = YELLOW on MAGENTA
-    // 45 = BLUE on MAGENTA
-    // 46 = MAGENTA on MAGENTA
-    // 47 = CYAN on MAGENTA
-    // 48 = WHITE on MAGENTA
-    //
-    // Background CYAN:
-    // 49 = BLACK on CYAN
-    // 50 = RED on CYAN
-    // 51 = GREEN on CYAN
-    // 52 = YELLOW on CYAN
-    // 53 = BLUE on CYAN
-    // 54 = MAGENTA on CYAN
-    // 55 = CYAN on CYAN
-    // 56 = WHITE on CYAN
-    //
-    // Background WHITE:
-    // 57 = BLACK on WHITE
-    // 58 = RED on WHITE
-    // 59 = GREEN on WHITE
-    // 60 = YELLOW on WHITE
-    // 61 = BLUE on WHITE
-    // 62 = MAGENTA on WHITE
-    // 63 = CYAN on WHITE
-    // 64 = WHITE on WHITE
-    // </pre>
+    /// Starts all support for colors, setting up a full
+    /// 64-color palette.
+    ///
     static bool init();
 
-    /// Returns the color pair according to it's names.
+    /// Returns a color pair according to it's names and attributes.
+    ///
+    /// Color names are case insensitive and can be:
+    ///
+    ///     black, red, green, yellow, blue, magenta, cyan, white
+    ///
+    /// Attributes are case sensitive and can be:
+    ///
+    ///     bold, underline, reverse, blink
+    ///
+    /// For example:
+    ///
+    ///     unsigned long c = Color::pair("blue", "black", "bold");
+    ///
+    ///     c = Color::pair("yellow", "magenta", "underline");
+    ///
     static unsigned long pair(const std::string& fore,
                               const std::string& back,
                               const std::string& attr="");
 
 private:
+    /// Tells if we can use colors on the current terminal.
     static bool hasColors;
+
+    /// Tells if we can have (up to 255) custom colors on the current
+    /// terminal.
     static bool canChangeColors;
+
+    /// Tells if we can use the background this terminal had before
+    /// running the program (whatever color it might be).
+    static bool hasDefaultBackground;
 };
 
 /****

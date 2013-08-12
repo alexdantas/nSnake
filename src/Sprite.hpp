@@ -8,9 +8,13 @@
 class Sprite
 {
 public:
+    ///
     Sprite(std::string sprite, int width, int height, unsigned long color);
 
-    void draw(int x, int y);
+    /// Shows sprite at *x* *y*.
+    void render(int x, int y);
+
+    void setStyle(unsigned long style);
 
 private:
     std::string sprite;

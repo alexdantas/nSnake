@@ -46,7 +46,7 @@ void GameStateMainMenu::render()
     // need to create a method to print a matrix of strings
     // or at least print a string divided with \n s
 
-    Ncurses::setStyle(Color::pair("green", "black"));
+    Ncurses::setStyle(Color::pair("green", "default"));
     Ncurses::print(  "         ,d8888b.                     888", 3, 1);
     Ncurses::print(  "        d88P  Y88b                    888", 3, 2);
     Ncurses::print(  "         Y88b.                        888", 3, 3);

@@ -7,9 +7,13 @@ Sprite::Sprite(std::string sprite, int width, int height, unsigned long color):
     height(height),
     color(color)
 { }
-void Sprite::draw(int x, int y)
+void Sprite::render(int x, int y)
 {
     Ncurses::setStyle(this->color);
     Ncurses::print(this->sprite, x, y);
+}
+void Sprite::setStyle(unsigned long style)
+{
+    this->color = style;
 }
 

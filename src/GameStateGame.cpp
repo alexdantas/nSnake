@@ -50,6 +50,6 @@ void GameStateGame::render()
     Ncurses::setStyle(Color::pair("magenta", "black"));
     Ncurses::print("Press <q> to quit.", 30, 6);
 
-    this->player->draw(20, 20);
+    this->player->render(20, 20);
 }
 
