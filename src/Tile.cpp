@@ -4,9 +4,7 @@
 Tile::Tile():
     sprite(NULL),
     content(Tile::NOTHING)
-{
-
-}
+{ }
 Tile::~Tile()
 {
     if (this->sprite) delete this->sprite;
@@ -22,14 +20,23 @@ void Tile::set(TileContents newContent)
 
     switch (newContent)
     {
-    case NOTHING:
+    case Tile::NOTHING:
         break;
 
-    case FOOD:
-        this->sprite = new Sprite("F", 1, 1, Color::pair("red"));
+    case Tile::FOOD:
+        this->sprite = new Sprite("F", 1, 1, Color::pair("red", "black"));
         break;
 
-    default:
+    case Tile::SNAKE_HEAD:
+        this->sprite = new Sprite("@", 1, 1, Color::pair("green", "black", "bold"));
+        break;
+
+    case Tile::SNAKE:
+        this->sprite = new Sprite("o", 1, 1, Color::pair("green", "black", "bold"));
+        break;
+
+    default: // invalid shit
+        this->content = Tile::NOTHING;
         break;
     }
 }
@@ -44,8 +51,12 @@ void Tile::clear()
 }
 void Tile::render(int x, int y)
 {
-    if ((this->content != Tile::NOTHING) &&
-        (this->sprite  != NULL))
+    if (!(this->isEmpty()))
         this->sprite->render(x, y);
+}
+bool Tile::isEmpty()
+{
+    return ((this->content == Tile::NOTHING) &&
+            (this->sprite  == NULL));
 }
 

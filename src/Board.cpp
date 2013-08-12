@@ -8,7 +8,7 @@ Board::Board(int width, int height):
     this->board.resize(this->width);
 
     // 2nd dimension
-    for (int i = 0; i < (this->board.size()); i++)
+    for (unsigned int i = 0; i < (this->board.size()); i++)
         this->board[i].resize(this->height);
 
     for (int i = 0; i < (this->width); i++)
@@ -23,6 +23,10 @@ Board::~Board()
 }
 Tile* Board::at(int x, int y)
 {
+    if ((x < 0) || (x > this->width) ||
+        (y < 0) || (y > this->height))
+        throw "Board::at Access to invalid index.";
+
     return (this->board[x][y]);
 }
 void Board::render(int x, int y)

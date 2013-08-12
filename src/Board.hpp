@@ -24,8 +24,8 @@ public:
     //      (just like at())
 
 private:
+
     /// Matrix containing all the tiles of the game.
-    ///
     std::vector<std::vector<Tile*> > board;
 
     int width;

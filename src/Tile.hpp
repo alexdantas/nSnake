@@ -10,15 +10,19 @@ public:
 
     enum TileContents
     {
-        NOTHING, FOOD
+        NOTHING, FOOD, SNAKE_HEAD, SNAKE
     };
 
     Tile();
     virtual ~Tile();
 
     void set(TileContents newContent);
+
     void clear();
+
     void render(int x, int y);
+
+    bool isEmpty();
 
 private:
     Sprite* sprite;

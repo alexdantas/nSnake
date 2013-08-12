@@ -2,6 +2,7 @@
 //
 
 #include "StateManager.hpp"
+#include "Ncurses.hpp"
 #include "Log.hpp"
 
 // Shuts up the compiler about unused parameters.
@@ -21,6 +22,7 @@ int main(int argc, char* argv[])
     }
     catch (...)
     {
+        Ncurses::exit();
         Log::error("Exception caught! Quitting...");
         return -1;
     }

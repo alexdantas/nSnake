@@ -11,12 +11,14 @@ GameStateGame::~GameStateGame()
 void GameStateGame::load(int stack)
 {
     UNUSED(stack);
-    this->player = new Sprite("[]", 2, 1, Color::pair("red", "black"));
-    this->board = new Board(10, 10);
+
+    this->board = new Board(20, 11);
     this->board->at(2, 2)->set(Tile::FOOD);
     this->board->at(1, 2)->set(Tile::FOOD);
     this->board->at(3, 2)->set(Tile::FOOD);
     this->board->at(1, 2)->clear();
+
+    this->player = new Snake(this->board, 5, 5);
 }
 int GameStateGame::unload()
 {
@@ -58,7 +60,6 @@ void GameStateGame::render()
     Ncurses::setStyle(Color::pair("magenta", "black"));
     Ncurses::print("Press <q> to quit.", 30, 6);
 
-    this->player->render(20, 20);
     this->board->render(0, 0);
 }
 

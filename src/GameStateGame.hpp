@@ -4,25 +4,25 @@
 #include "GameState.hpp"
 #include "Sprite.hpp"
 #include "Board.hpp"
-//#include "Menu.hpp"
+#include "Snake.hpp"
 //#include "Music.hpp"
 
-/// Everything that happens on the main menu.
+/// Everything that happens on the game.
 class GameStateGame: public GameState
 {
 public:
     GameStateGame();
     virtual ~GameStateGame();
 
-    /// Constructs everything necessary for the menu.
+    /// Constructs everything necessary for the game.
     void load(int stack=0);
 
-    /// Destroys anything builded during the menu.
+    /// Destroys anything builded during the game.
     int unload();
 
-    /// Updates all possible things on the menu.
+    /// Updates all possible things on the game.
     ///
-    /// @return A status code indicating what t odo (should we
+    /// @return A status code indicating what to do (should we
     ///         change states/quit the game?). The codes are
     ///         defined on GameState.hpp.
     GameState::StateCode update(float dt);
@@ -32,8 +32,7 @@ public:
 
 private:
 //    Music* music;     ///< Menu's background music.
-//    Menu* menu;       ///< The actual game menu.
-    Sprite* player;
+    Snake* player;
     Board* board;
 };
 
