@@ -42,10 +42,15 @@ public:
     /// input.
     /// This method actually moves the snake based on that and
     /// sets it on *previousDirection*.
-    void move(bool willIncrease=false);
+    void move();
 
     /// Tells if this snake is alive.
     bool isAlive();
+
+    /// Does all the effects of eating a fruit.
+    ///
+    /// Makes the snake grow and affects score.
+    void eatFood();
 
 private:
     /// Tells if this snake is alive.
@@ -73,6 +78,11 @@ private:
     /// When this frame ends, this direction will be commited
     /// to *previousDirection*.
     Snake::Directions currentDirection;
+
+    /// Tells if at this frame the snake has eaten a fruit.
+    ///
+    /// In this case, it will grow up.
+    bool eatenFood;
 };
 
 #endif //SNAKE_H_DEFINED

@@ -6,7 +6,8 @@ Snake::Snake(Board* board, int x, int y):
     board(NULL),
     size(INITIAL_SIZE),
     previousDirection(INITIAL_DIRECTION),
-    currentDirection(previousDirection)
+    currentDirection(previousDirection),
+    eatenFood(false)
 {
     if ((x > board->getWidth()) ||
         (y > board->getHeight()))
@@ -55,10 +56,14 @@ void Snake::update()
         if (this->previousDirection != Snake::LEFT)
             this->currentDirection = Snake::RIGHT;
 }
-void Snake::move(bool willIncrease)
+void Snake::move()
 {
     if (!(this->alive))
         return;
+
+    // If we uncomment this, we turn our game into TRON!
+    // How awesome is that?
+//    this->eatFood();
 
     // Remember, we're assuming there are no constraints
     // on moving the snake.
@@ -72,9 +77,14 @@ void Snake::move(bool willIncrease)
     // piece currently is.
     // Note that if the player has eaten a food,
     // this will not happen and the snake will increase.
-    if (!willIncrease)
+    if (!(this->eatenFood))
+    {
         this->board->at(this->body[this->size - 1]->x,
                         this->body[this->size - 1]->y)->set(Tile::NOTHING);
+    }
+    else
+        this->eatenFood = false; // by doing this we visually increase
+                                 // the snake size on the screen!
 
     // All the pieces must move to the
     // position of the next one.
@@ -143,5 +153,16 @@ void Snake::move(bool willIncrease)
 bool Snake::isAlive()
 {
     return (this->alive);
+}
+void Snake::eatFood()
+{
+    this->score++; // whatever
+    this->eatenFood = true;
+
+    // Add new body part
+    SnakeBody* body = new SnakeBody(this->body[this->size - 1]->x,
+                                    this->body[this->size - 1]->y);
+    this->body.push_back(body);
+    this->size++;
 }
 

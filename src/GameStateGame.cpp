@@ -22,7 +22,7 @@ void GameStateGame::load(int stack)
     // Again, this is the game speed.
     // This is the timer that says when the snake will be
     // updated.
-    this->gameTimer = new TimerCounter(1000);
+    this->gameTimer = new TimerCounter(800);
     this->gameTimer->startCounting();
 }
 int GameStateGame::unload()
@@ -55,6 +55,9 @@ GameState::StateCode GameStateGame::update(float dt)
 
     if (input->isKeyDown('r')) // restart the game!
         return GameState::GAME_START;
+
+    if (input->isKeyDown('i')) // restart the game!
+        this->player->eatFood();
 
     this->player->update();
 
