@@ -36,7 +36,7 @@ void Timer::start()
 }
 void Timer::stop()
 {
-    if (!this->running) return;
+    if (!(this->running)) return;
 
     this->stopMark = getTicks();
     this->running  = false;
@@ -67,19 +67,19 @@ void Timer::unpause()
 }
 bool Timer::isRunning()
 {
-    return this->running;
+    return (this->running);
 }
 bool Timer::isPaused()
 {
-    return this->paused;
+    return (this->paused);
 }
 int Timer::delta()
 {
     if (this->isRunning())
-        return this->currentTime();
+        return (getTicks()) - (this->startMark);
 
     if (this->paused)
-        return this->pausedMark;
+        return (this->pausedMark);
 
     // Something went wrong here
     if (this->startMark == 0)
@@ -89,15 +89,14 @@ int Timer::delta()
 }
 int Timer::delta_ms()
 {
-    return (this->delta());
-//    return (this->delta() % 1000);
+    return (this->delta() % 1000);
 }
 int Timer::delta_s()
 {
     return (this->delta() / 1000);
 }
-int Timer::currentTime()
+float Timer::delta_sf()
 {
-    return (getTicks()) - (this->startMark);
+    return (float)(this->delta() / 1000);
 }
 

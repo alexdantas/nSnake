@@ -44,18 +44,23 @@ public:
 	/// Tells if the timer's paused.
 	bool isPaused();
 
-	/// Returns the whole timer's difference in milisseconds.
-	//	@note If the timer's not started, will return 0.
+	/// Returns how many _miliseconds_ have passed.
+	///
+	///	@note If the timer's not started, will return 0.
 	int delta();
 
 	/// Returns the milisseconds part of the timer's difference.
+	///
+	/// Don't confuse this method with delta().
+	///
+	/// @note This is the same as *(delta() % 1000)*.
 	int delta_ms();
 
-	/// Returns the seconds part of the timer's difference.
+	/// Returns how many _seconds_ have passed.
 	int delta_s();
 
-	/// Returns the difference between timer's start point and now.
-	int currentTime();
+    /// Returns how many _seconds_ have passed in _float_.
+	float delta_sf();
 
 protected:
 	unsigned int startMark;

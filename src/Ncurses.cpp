@@ -129,7 +129,7 @@ std::string Ncurses::intToString(int num)
 }
 void Ncurses::framerateWait()
 {
-    frame_delta = framerate_timer.delta_ms();
+    frame_delta = framerate_timer.delta();
 
     if ((frame_delta) < (framerate_delay))
         Ncurses::delay_ms(framerate_delay - frame_delta);

@@ -12,6 +12,7 @@ void TimerCounter::setDelay(int delay)
 void TimerCounter::startCounting()
 {
     this->restart();
+    this->done = false;
 }
 bool TimerCounter::isDone()
 {
@@ -23,7 +24,7 @@ bool TimerCounter::isDone()
 
     this->pause();
 
-    if ((this->delta_ms()) > (this->delay))
+    if ((this->delta()) > (this->delay))
     {
         this->stop();
         this->done = true;

@@ -22,7 +22,7 @@ void GameStateGame::load(int stack)
     // Again, this is the game speed.
     // This is the timer that says when the snake will be
     // updated.
-    this->gameTimer = new TimerCounter(800);
+    this->gameTimer = new TimerCounter(100);
     this->gameTimer->startCounting();
 }
 int GameStateGame::unload()
