@@ -62,6 +62,7 @@ public:
 
     /// Returns a color pair according to it's names and attributes.
     ///
+    /// If the color is invalid, returns 0.
     /// Color names are case insensitive and can be:
     ///
     ///     black, red, green, yellow, blue, magenta, cyan, white
@@ -77,7 +78,7 @@ public:
     ///     c = Color::pair("yellow", "magenta", "underline");
     ///
     static unsigned long pair(const std::string& fore,
-                              const std::string& back,
+                              const std::string& back="default",
                               const std::string& attr="");
 
 private:
@@ -92,37 +93,6 @@ private:
     /// running the program (whatever color it might be).
     static bool hasDefaultBackground;
 };
-
-/****
-
-     color_pairnum_for_names() accepts to string-form color names, forground
-     and background color, and tries to find a matching COLOR_PAIR number.
-     It returns 0 if it does not find a match. The color names are
-     case-insensitive, and must be one of:
-
-
-     BLACK
-     RED
-     GREEN
-     YELLOW
-     BLUE
-     MAGENTA
-     CYAN
-     WHITE
-
-
-     You can get the curses attribute values from the return value by passing
-     it to the curses COLOR_PAIR(pairnumber) macro.
-
-****/
-
-short color_pairnum_for_names( const std::string & fore, const std::string & back );
-
-/**
-   unsigned long color_pair() returns the same as COLOR_PAIR(color_pairnum_for_names(fore,back)),
-   or returns 0 if no such pair is found.
-*/
-unsigned long color_pair( const std::string & fore, const std::string & back );
 
 #endif /* COLOR_H_DEFINED */
 

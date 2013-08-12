@@ -3,6 +3,7 @@
 
 #include "GameState.hpp"
 #include "Sprite.hpp"
+#include "Board.hpp"
 //#include "Menu.hpp"
 //#include "Music.hpp"
 
@@ -33,7 +34,7 @@ private:
 //    Music* music;     ///< Menu's background music.
 //    Menu* menu;       ///< The actual game menu.
     Sprite* player;
+    Board* board;
 };
 
 #endif //GAMESTATEGAME_H_DEFINED
-
