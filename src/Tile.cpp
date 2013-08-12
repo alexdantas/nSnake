@@ -23,16 +23,24 @@ void Tile::set(TileContents newContent)
     case Tile::NOTHING:
         break;
 
+    case Tile::BORDER:
+        this->sprite = new Sprite("#", 1, 1, Color::pair("white", "default"));
+        break;
+
+    case Tile::WALL:
+        this->sprite = new Sprite("#", 1, 1, Color::pair("white", "default", "bold"));
+        break;
+
     case Tile::FOOD:
-        this->sprite = new Sprite("F", 1, 1, Color::pair("red", "black"));
+        this->sprite = new Sprite("F", 1, 1, Color::pair("red"));
         break;
 
     case Tile::SNAKE_HEAD:
-        this->sprite = new Sprite("@", 1, 1, Color::pair("green", "black", "bold"));
+        this->sprite = new Sprite("@", 1, 1, Color::pair("green", "default", "bold"));
         break;
 
     case Tile::SNAKE:
-        this->sprite = new Sprite("o", 1, 1, Color::pair("green", "black", "bold"));
+        this->sprite = new Sprite("o", 1, 1, Color::pair("green"));
         break;
 
     default: // invalid shit

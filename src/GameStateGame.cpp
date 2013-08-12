@@ -15,8 +15,6 @@ void GameStateGame::load(int stack)
     this->board = new Board(20, 11);
     this->board->at(2, 2)->set(Tile::FOOD);
     this->board->at(1, 2)->set(Tile::FOOD);
-    this->board->at(3, 2)->set(Tile::FOOD);
-    this->board->at(1, 2)->clear();
 
     this->player = new Snake(this->board, 5, 5);
 }
@@ -47,6 +45,8 @@ GameState::StateCode GameStateGame::update(float dt)
 
     if (input->isKeyDown('q'))
         return GameState::QUIT;
+
+    this->player->update();
 
     return GameState::CONTINUE;
 }

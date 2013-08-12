@@ -17,17 +17,33 @@ struct SnakeBody
 /// The initial size of every snake.
 #define INITIAL_SIZE 3
 
+/// The initial direction of every snake
+#define INITIAL_DIRECTION Snake::RIGHT
+
 /// The snake controlled by the player.
 ///
 class Snake
 {
 public:
+    enum Directions
+    {
+        UP, DOWN, LEFT, RIGHT
+    };
+
     /// Creates a snake at *board* on *x* *y*.
     Snake(Board* board, int x, int y);
 
     virtual ~Snake();
 
     void update();
+
+    /// Commits the snake movement based on *currentDirection*.
+    ///
+    /// *currentDirection* gets changed by the player based on
+    /// input.
+    /// This method actually moves the snake based on that and
+    /// sets it on *previousDirection*.
+    void move(bool willIncrease=false);
 
 private:
     /// The board where this snake is inserted.
@@ -36,8 +52,22 @@ private:
     /// All the pieces of the snake, including the head.
     std::vector<SnakeBody*> body;
 
+    /// The snake's body current size.
+    int size;
+
     /// This snake's current score.
     unsigned int score;
+
+    /// The direction the snake had right at the start of this
+    /// frame.
+    Snake::Directions previousDirection;
+
+    /// The direction the snake currently has, modifiable by
+    /// the player.
+    ///
+    /// When this frame ends, this direction will be commited
+    /// to *previousDirection*.
+    Snake::Directions currentDirection;
 };
 
 #endif //SNAKE_H_DEFINED

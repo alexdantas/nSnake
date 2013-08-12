@@ -11,9 +11,19 @@ Board::Board(int width, int height):
     for (unsigned int i = 0; i < (this->board.size()); i++)
         this->board[i].resize(this->height);
 
+    // creating tiles and setting the borders
     for (int i = 0; i < (this->width); i++)
+    {
         for (int j = 0; j < (this->height); j++)
+        {
             this->board[i][j] = new Tile();
+
+            // All the borders of the board
+            if ((i == 0) || (i == (width  - 1)) ||
+                (j == 0) || (j == (height - 1)))
+                this->board[i][j]->set(Tile::BORDER);
+        }
+    }
 }
 Board::~Board()
 {
@@ -23,8 +33,8 @@ Board::~Board()
 }
 Tile* Board::at(int x, int y)
 {
-    if ((x < 0) || (x > this->width) ||
-        (y < 0) || (y > this->height))
+    if ((x < 0) || (x >= this->width) ||
+        (y < 0) || (y >= this->height))
         throw "Board::at Access to invalid index.";
 
     return (this->board[x][y]);

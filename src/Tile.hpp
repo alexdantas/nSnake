@@ -10,7 +10,7 @@ public:
 
     enum TileContents
     {
-        NOTHING, FOOD, SNAKE_HEAD, SNAKE
+        NOTHING, BORDER, WALL, FOOD, SNAKE_HEAD, SNAKE
     };
 
     Tile();
