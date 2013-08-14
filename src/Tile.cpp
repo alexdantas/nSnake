@@ -3,76 +3,151 @@
 
 Tile::Tile():
     sprite(NULL),
-    content(Tile::NOTHING)
-{ }
+    spriteIndex(Tile::NOTHING)
+{
+    this->clear();
+}
 Tile::~Tile()
 {
-    if (this->sprite) delete this->sprite;
+    if (this->sprite)
+        delete this->sprite;
 }
 void Tile::set(TileContents newContent)
 {
-    this->content = newContent;
+    this->clear();
+    this->add(newContent);
+    // this->content[newContent] = true;
+}
+void Tile::clear()
+{
+    // I suffered a lot here
+    // std::vector::resize only sets default values
+    // if the size is greater than it currently is
+
+    this->content.resize(TILE_CONTENTS_MAX);
+    for (int i = 0; i < (TILE_CONTENTS_MAX); i++)
+        this->content[i] = false;
+
+    this->content[Tile::NOTHING] = true;
+
+    this->spriteIndex = Tile::NOTHING;
+    this->spriteRefresh();
+}
+void Tile::add(TileContents newContent)
+{
+    if (this->has(newContent))
+        return;
+
+    this->content[Tile::NOTHING] = false;
+    this->content[newContent] = true;
+
+    this->spriteIndex = newContent;
+    this->spriteRefresh();
+}
+void Tile::remove(TileContents newContent)
+{
+    if (!(this->has(newContent)))
+        return;
+
+    this->content[newContent] = false;
+
+    if (this->isEmpty())
+    {
+        this->clear();
+        return;
+    }
+
+    // If the sprite is the thing we'll remove right now,
+    // let's look for other thing to print
+    if (this->spriteIndex == newContent)
+    {
+        for (unsigned int i = 0; i < (TILE_CONTENTS_MAX); i++)
+        {
+            if (this->content[i])
+            {
+                this->spriteIndex = (TileContents)(i);
+                this->spriteRefresh();
+                break;
+            }
+        }
+    }
+}
+bool Tile::has(TileContents newContent)
+{
+    if (this->content[newContent])
+        return true;
+    else
+        return false;
+
+    // if (std::find(this->content.begin(),
+    //               this->content.end(),
+    //               newContent) != this->content.end())
+    //     return true; // aight, nigga
+    // else
+    //     return false; // damn no
+}
+void Tile::render(int x, int y)
+{
+    if (this->isEmpty())
+        return;
+
+    if (this->sprite)
+    this->sprite->render(x, y);
+}
+bool Tile::isEmpty()
+{
+    for (int i = 0; i < TILE_CONTENTS_MAX; i++)
+        if ((this->content[i]) && (i != Tile::NOTHING))
+            return false;
+
+    return true;
+    // return ((this->content[0] == Tile::NOTHING) &&
+    //         (this->sprite  == NULL));
+}
+void Tile::spriteRefresh()
+{
     if (this->sprite)
     {
         delete this->sprite;
         this->sprite = NULL;
     }
 
-    switch (newContent)
+    switch (this->spriteIndex)
     {
     case Tile::NOTHING:
         break;
 
     case Tile::BORDER:
-        this->sprite = new Sprite("#", 1, 1, Color::pair("white", "default"));
+        this->sprite = new Sprite("#", Color::pair("white", "default"));
         break;
 
     case Tile::TELEPORT_BORDER:
-        this->sprite = new Sprite(".", 1, 1, Color::pair("white", "default"));
+        this->sprite = new Sprite(".", Color::pair("white", "default"));
         break;
 
     case Tile::WALL:
-        this->sprite = new Sprite("#", 1, 1, Color::pair("white", "default", "bold"));
+        this->sprite = new Sprite("#", Color::pair("white", "default", "bold"));
         break;
 
     case Tile::FOOD:
-        this->sprite = new Sprite("F", 1, 1, Color::pair("yellow"));
+        this->sprite = new Sprite("F", Color::pair("yellow"));
         break;
 
     case Tile::SNAKE_HEAD:
-        this->sprite = new Sprite("@", 1, 1, Color::pair("green", "default", "bold"));
+        this->sprite = new Sprite("@", Color::pair("green", "default", "bold"));
         break;
 
     case Tile::SNAKE_DEAD_HEAD:
-        this->sprite = new Sprite("x", 1, 1, Color::pair("red"));
+        this->sprite = new Sprite("x", Color::pair("red"));
         break;
 
     case Tile::SNAKE_BODY:
-        this->sprite = new Sprite("o", 1, 1, Color::pair("green"));
+        this->sprite = new Sprite("o", Color::pair("green"));
         break;
 
     default: // invalid shit
-        this->content = Tile::NOTHING;
+        this->clear();
         break;
     }
-}
-void Tile::clear()
-{
-    this->content = Tile::NOTHING;
-    if (this->sprite)
-    {
-        delete this->sprite;
-        this->sprite = NULL;
-    }
-}
-void Tile::render(int x, int y)
-{
-    if (!(this->isEmpty()))
-        this->sprite->render(x, y);
-}
-bool Tile::isEmpty()
-{
-    return ((this->content == Tile::NOTHING) &&
-            (this->sprite  == NULL));
 }
 

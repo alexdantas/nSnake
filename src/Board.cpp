@@ -17,27 +17,23 @@ Board::Board(int width, int height, bool haveBorders):
     {
         for (int j = 0; j < (this->height); j++)
         {
-            this->board[i][j] = new Tile();
+//            this->board[i][j] = new Tile();
 
             // All the borders of the board
             if ((i == 0) || (i == (width  - 1)) ||
                 (j == 0) || (j == (height - 1)))
             {
                 if (this->borders)
-                    this->board[i][j]->set(Tile::BORDER);
+                    this->board[i][j].set(Tile::BORDER);
                 else
-                    this->board[i][j]->set(Tile::TELEPORT_BORDER);
+                    this->board[i][j].set(Tile::TELEPORT_BORDER);
             }
         }
     }
 }
 Board::~Board()
-{
-    for (int i = 0; i < (this->width); i++)
-        for (int j = 0; j < (this->height); j++)
-            if (this->board[i][j]) delete this->board[i][j];
-}
-Tile* Board::at(int x, int y)
+{ }
+Tile& Board::at(int x, int y)
 {
     if ((x < 0) || (x >= this->width) ||
         (y < 0) || (y >= this->height))
@@ -49,7 +45,7 @@ void Board::render(int x, int y)
 {
     for (int i = 0; i < (this->width); i++)
         for (int j = 0; j < (this->height); j++)
-            this->board[i][j]->render(x + i, y + j);
+            this->board[i][j].render(x + i, y + j);
 }
 int Board::getWidth()
 {
@@ -62,5 +58,10 @@ int Board::getHeight()
 bool Board::hasBorders()
 {
     return (this->borders);
+}
+int Board::maxLengthInsideMe()
+{
+    // We have a 1x1 border
+    return (this->width - 1) * (this->height - 1);
 }
 

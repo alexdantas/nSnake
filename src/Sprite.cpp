@@ -1,7 +1,7 @@
 #include "Sprite.hpp"
 #include "Ncurses.hpp"
 
-Sprite::Sprite(std::string sprite, int width, int height, unsigned long color):
+Sprite::Sprite(std::string sprite, unsigned long color, int width, int height):
     sprite(sprite),
     width(width),
     height(height),

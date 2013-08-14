@@ -1,6 +1,7 @@
 //
 //
 
+#include <iostream>
 #include "StateManager.hpp"
 #include "Ncurses.hpp"
 #include "Log.hpp"
@@ -22,8 +23,9 @@ int main(int argc, char* argv[])
     }
     catch (...)
     {
-        Ncurses::exit();
         Log::error("Exception caught! Quitting...");
+        std::cout << "coisa" << std::endl;
+        Ncurses::exit();
         return -1;
     }
     return 0;

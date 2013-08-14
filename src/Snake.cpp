@@ -80,7 +80,7 @@ void Snake::move()
     if (!(this->eatenFood))
     {
         this->board->at(this->body[this->size - 1]->x,
-                        this->body[this->size - 1]->y)->set(Tile::NOTHING);
+                        this->body[this->size - 1]->y)->clear();
     }
     else
         this->eatenFood = false; // by doing this we visually increase
@@ -142,7 +142,7 @@ void Snake::move()
 
     if (this->alive)
         this->board->at(this->body[0]->x,
-                        this->body[0]->y)->set(Tile::SNAKE_HEAD);
+                        this->body[0]->y)->add(Tile::SNAKE_HEAD);
     else
         this->board->at(this->body[0]->x,
                         this->body[0]->y)->set(Tile::SNAKE_DEAD_HEAD);

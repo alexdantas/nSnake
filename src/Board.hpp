@@ -13,11 +13,13 @@ public:
     virtual ~Board();
 
     /// Returns the pointer to the tile at index *x* *y*.
-    Tile* at(int x, int y);
+    Tile& at(int x, int y);
 
+    /// Shows the whole board starting on *x* *y*, from top-left.
     void render(int x, int y);
-    int getWidth();
-    int getHeight();
+
+    int getWidth();  ///< Returns the board's width.
+    int getHeight(); ///< Returns the board's height.
 
     /// Tells if the player dies or teleports when colliding
     /// with the border of this Board.
@@ -27,13 +29,18 @@ public:
     //      to make *board* access intuitive
     //      (just like at())
 
+    /// Returns the max length any snake may have inside this board.
+    ///
+    /// Obviously it's the "usable" size inside the board.
+    int maxLengthInsideMe();
+
 private:
 
     /// Matrix containing all the tiles of the game.
-    std::vector<std::vector<Tile*> > board;
+    std::vector<std::vector<Tile> > board;
 
-    int width;
-    int height;
+    int width;  ///< Width
+    int height; ///< Height
 
     /// Tells if the borders are solid or teleportable.
     ///
