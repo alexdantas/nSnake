@@ -17,18 +17,15 @@ Snake::Snake(Board* board, int x, int y):
     this->body.resize(INITIAL_SIZE);
 
     for (int i = 0; i < INITIAL_SIZE; i++)
-        this->body[i] = new SnakeBody(x, y);
+        this->body[i] = SnakeBody(x, y);
 
-    if (this->board->at(x, y)->isEmpty())
-        this->board->at(x, y)->set(Tile::SNAKE_HEAD);
+    if (this->board->at(x, y).isEmpty())
+        this->board->at(x, y).set(Tile::SNAKE_HEAD);
     else
         throw "Snake cannot be placed on a non-empty tile.";
 }
 Snake::~Snake()
-{
-    for (unsigned int i = 0; i < (this->body.size()); i++)
-        if (this->body[i]) delete this->body[i];
-}
+{ }
 void Snake::update()
 {
     if (!(this->alive))
@@ -79,8 +76,8 @@ void Snake::move()
     // this will not happen and the snake will increase.
     if (!(this->eatenFood))
     {
-        this->board->at(this->body[this->size - 1]->x,
-                        this->body[this->size - 1]->y)->clear();
+        this->board->at(this->body[this->size - 1].x,
+                        this->body[this->size - 1].y).clear();
     }
     else
         this->eatenFood = false; // by doing this we visually increase
@@ -90,18 +87,18 @@ void Snake::move()
     // position of the next one.
     for (int i = (this->size - 1); i > 0; i--)
     {
-        this->body[i]->x = this->body[i - 1]->x;
-        this->body[i]->y = this->body[i - 1]->y;
+        this->body[i].x = this->body[i - 1].x;
+        this->body[i].y = this->body[i - 1].y;
     }
 
     // And now we move the head according to the
     // current direction
     switch (this->currentDirection)
     {
-    case Snake::UP:    this->body[0]->y -= 1; break;
-    case Snake::DOWN:  this->body[0]->y += 1; break;
-    case Snake::LEFT:  this->body[0]->x -= 1; break;
-    case Snake::RIGHT: this->body[0]->x += 1; break;
+    case Snake::UP:    this->body[0].y -= 1; break;
+    case Snake::DOWN:  this->body[0].y += 1; break;
+    case Snake::LEFT:  this->body[0].x -= 1; break;
+    case Snake::RIGHT: this->body[0].x += 1; break;
 
     default: break;
     }
@@ -112,40 +109,40 @@ void Snake::move()
     if (this->board->hasBorders())
     {
         // Dies if collided with board extremes.
-        if ((this->body[0]->x < 1) ||
-            (this->body[0]->x > this->board->getWidth() - 2) ||
-            (this->body[0]->y < 1) ||
-            (this->body[0]->y > this->board->getHeight() - 2))
+        if ((this->body[0].x < 1) ||
+            (this->body[0].x > this->board->getWidth() - 2) ||
+            (this->body[0].y < 1) ||
+            (this->body[0].y > this->board->getHeight() - 2))
             this->alive = false;
     }
     else
     {
         // Teleports if collided with board extremes.
-        if (this->body[0]->x < 1)
-            this->body[0]->x = this->board->getWidth() - 2;
+        if (this->body[0].x < 1)
+            this->body[0].x = this->board->getWidth() - 2;
 
-        if (this->body[0]->x > this->board->getWidth() - 2)
-            this->body[0]->x = 1;
+        if (this->body[0].x > this->board->getWidth() - 2)
+            this->body[0].x = 1;
 
-        if (this->body[0]->y < 1)
-            this->body[0]->y = this->board->getHeight() - 2;
+        if (this->body[0].y < 1)
+            this->body[0].y = this->board->getHeight() - 2;
 
-        if (this->body[0]->y > this->board->getHeight() - 2)
-            this->body[0]->y = 1;
+        if (this->body[0].y > this->board->getHeight() - 2)
+            this->body[0].y = 1;
     }
 
     // Finally, we refresh the board's contents
     // according to the snake's position.
     for (int i = 1; i < (this->size); i++)
-        this->board->at(this->body[i]->x,
-                        this->body[i]->y)->set(Tile::SNAKE_BODY);
+        this->board->at(this->body[i].x,
+                        this->body[i].y).set(Tile::SNAKE_BODY);
 
     if (this->alive)
-        this->board->at(this->body[0]->x,
-                        this->body[0]->y)->add(Tile::SNAKE_HEAD);
+        this->board->at(this->body[0].x,
+                        this->body[0].y).add(Tile::SNAKE_HEAD);
     else
-        this->board->at(this->body[0]->x,
-                        this->body[0]->y)->set(Tile::SNAKE_DEAD_HEAD);
+        this->board->at(this->body[0].x,
+                        this->body[0].y).set(Tile::SNAKE_DEAD_HEAD);
 
     // Saving this for the next frame
     this->previousDirection = this->currentDirection;
@@ -160,9 +157,31 @@ void Snake::eatFood()
     this->eatenFood = true;
 
     // Add new body part
-    SnakeBody* body = new SnakeBody(this->body[this->size - 1]->x,
-                                    this->body[this->size - 1]->y);
+    SnakeBody body(this->body[this->size - 1].x,
+                   this->body[this->size - 1].y);
     this->body.push_back(body);
     this->size++;
+}
+void Snake::die()
+{
+    if (!(this->alive))
+        return;
+
+    this->alive = false;
+    this->board->at(this->body[0].x,
+                    this->body[0].y).set(Tile::SNAKE_DEAD_HEAD);
+}
+
+void Snake::checkCollision()
+{
+    int  headX    = this->body[0].x;
+    int  headY    = this->body[0].y;
+//    Tile headTile = this->board->at(headX, headY);
+
+    if (this->board->at(headX, headY).has(Tile::FOOD))
+        this->eatFood();
+
+    if (this->board->at(headX, headY).has(Tile::WALL))
+        this->die();
 }
 

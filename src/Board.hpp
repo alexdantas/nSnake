@@ -9,6 +9,10 @@
 class Board
 {
 public:
+    /// Creates a new board with *width* and *height*.
+    ///
+    /// @note *hasBorders* defines if the board will kill
+    ///       the snake or teleport it.
     Board(int width, int height, bool hasBorders);
     virtual ~Board();
 

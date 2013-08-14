@@ -6,19 +6,19 @@
 /// Each piece of the snake body.
 struct SnakeBody
 {
-    SnakeBody(int x, int y):
+    SnakeBody(int x=0, int y=0):
         x(x), y(y)
     { }
 
-    int x; /// X position
-    int y; /// Y position
+    int x;
+    int y;
 };
 
 /// The initial size of every snake.
 #define INITIAL_SIZE 3
 
 /// The initial direction of every snake
-#define INITIAL_DIRECTION Snake::RIGHT
+#define INITIAL_DIRECTION (Snake::RIGHT)
 
 /// The snake controlled by the player.
 ///
@@ -52,6 +52,12 @@ public:
     /// Makes the snake grow and affects score.
     void eatFood();
 
+    /// Makes the snake die.
+    void die();
+
+    /// Checks collisions (to food and walls) and reacts to them.
+    void checkCollision();
+
 private:
     /// Tells if this snake is alive.
     bool alive;
@@ -60,7 +66,7 @@ private:
     Board* board;
 
     /// All the pieces of the snake, including the head.
-    std::vector<SnakeBody*> body;
+    std::vector<SnakeBody> body;
 
     /// The snake's body current size.
     int size;

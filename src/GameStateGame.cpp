@@ -13,9 +13,10 @@ void GameStateGame::load(int stack)
 {
     UNUSED(stack);
 
-    this->board = new Board(20, 10, false);
-    this->board->at(2, 2)->set(Tile::FOOD);
-    this->board->at(1, 2)->set(Tile::FOOD);
+    this->board = new Board(80, 24, false);
+    this->board->at(2, 2).set(Tile::FOOD);
+    this->board->at(1, 2).set(Tile::FOOD);
+    this->board->at(9, 3).set(Tile::WALL);
 
     this->player = new Snake(this->board, 5, 5);
 
@@ -69,6 +70,7 @@ GameState::StateCode GameStateGame::update(float dt)
     if (this->gameTimer->isDone())
     {
         this->player->move();
+        this->player->checkCollision();
         this->gameTimer->startCounting();
     }
 
