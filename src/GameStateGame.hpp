@@ -6,6 +6,7 @@
 #include "Board.hpp"
 #include "Snake.hpp"
 #include "TimerCounter.hpp"
+#include "FoodManager.hpp"
 
 //#include "Music.hpp"
 
@@ -37,6 +38,7 @@ private:
     Snake* player;
     Board* board;
     TimerCounter* gameTimer;
+    FoodManager* foods;
 };
 
 #endif //GAMESTATEGAME_H_DEFINED

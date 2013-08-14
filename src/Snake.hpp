@@ -58,6 +58,8 @@ public:
     /// Checks collisions (to food and walls) and reacts to them.
     void checkCollision();
 
+    int getScore();
+
 private:
     /// Tells if this snake is alive.
     bool alive;

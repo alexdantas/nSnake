@@ -176,12 +176,19 @@ void Snake::checkCollision()
 {
     int  headX    = this->body[0].x;
     int  headY    = this->body[0].y;
+
+    // DOESNT WORK
 //    Tile headTile = this->board->at(headX, headY);
 
     if (this->board->at(headX, headY).has(Tile::FOOD))
         this->eatFood();
 
-    if (this->board->at(headX, headY).has(Tile::WALL))
+    if (this->board->at(headX, headY).has(Tile::WALL) ||
+        this->board->at(headX, headY).has(Tile::SNAKE_BODY))
         this->die();
+}
+int Snake::getScore()
+{
+    return (this->score);
 }
 

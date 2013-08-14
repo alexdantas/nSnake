@@ -5,7 +5,8 @@
 GameStateGame::GameStateGame():
     player(NULL),
     board(NULL),
-    gameTimer(NULL)
+    gameTimer(NULL),
+    foods(NULL)
 { }
 GameStateGame::~GameStateGame()
 { }
@@ -13,10 +14,11 @@ void GameStateGame::load(int stack)
 {
     UNUSED(stack);
 
-    this->board = new Board(80, 24, false);
-    this->board->at(2, 2).set(Tile::FOOD);
-    this->board->at(1, 2).set(Tile::FOOD);
+    this->board = new Board(80, 23, false);
     this->board->at(9, 3).set(Tile::WALL);
+
+    this->foods = new FoodManager(this->board);
+    this->foods->addAtRandom();
 
     this->player = new Snake(this->board, 5, 5);
 
@@ -60,6 +62,7 @@ GameState::StateCode GameStateGame::update(float dt)
     if (input->isKeyDown('i')) // restart the game!
         this->player->eatFood();
 
+    this->foods->update();
     this->player->update();
 
     // If the game speed time has passed, we'll force
@@ -78,14 +81,16 @@ GameState::StateCode GameStateGame::update(float dt)
 }
 void GameStateGame::render()
 {
-    Ncurses::setStyle(Color::pair("yellow", "black"));
-    Ncurses::print("This is where the game would be.", 30, 2);
-    Ncurses::print("Just wait a while, things are being.", 30, 3);
-    Ncurses::print("actively developed.", 30, 4);
+    Ncurses::setStyle(Color::pair("cyan"));
+    Ncurses::print("nSnake v2.0", 0, 0);
 
-    Ncurses::setStyle(Color::pair("magenta", "black"));
-    Ncurses::print("Press <q> to quit.", 30, 6);
+    Ncurses::print("score: " +
+                   Ncurses::intToString(this->player->getScore()),
+                   20, 0);
 
-    this->board->render(0, 0);
+    Ncurses::setStyle(Color::pair("magenta"));
+    Ncurses::print("| <q> quit | <r> restart |", 50, 0);
+
+    this->board->render(0, 1);
 }
 

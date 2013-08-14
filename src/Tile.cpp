@@ -16,7 +16,6 @@ void Tile::set(TileContents newContent)
 {
     this->clear();
     this->add(newContent);
-    // this->content[newContent] = true;
 }
 void Tile::clear()
 {
@@ -74,17 +73,7 @@ void Tile::remove(TileContents newContent)
 }
 bool Tile::has(TileContents newContent)
 {
-    if (this->content[newContent])
-        return true;
-    else
-        return false;
-
-    // if (std::find(this->content.begin(),
-    //               this->content.end(),
-    //               newContent) != this->content.end())
-    //     return true; // aight, nigga
-    // else
-    //     return false; // damn no
+    return (this->content[newContent]);
 }
 void Tile::render(int x, int y)
 {
@@ -101,8 +90,6 @@ bool Tile::isEmpty()
             return false;
 
     return true;
-    // return ((this->content[0] == Tile::NOTHING) &&
-    //         (this->sprite  == NULL));
 }
 void Tile::spriteRefresh()
 {
@@ -130,7 +117,7 @@ void Tile::spriteRefresh()
         break;
 
     case Tile::FOOD:
-        this->sprite = new Sprite("F", Color::pair("yellow"));
+        this->sprite = new Sprite("$", Color::pair("yellow"));
         break;
 
     case Tile::SNAKE_HEAD:

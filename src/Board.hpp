@@ -43,8 +43,8 @@ private:
     /// Matrix containing all the tiles of the game.
     std::vector<std::vector<Tile> > board;
 
-    int width;  ///< Width
-    int height; ///< Height
+    int width;
+    int height;
 
     /// Tells if the borders are solid or teleportable.
     ///
