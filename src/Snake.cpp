@@ -1,6 +1,39 @@
 #include "Snake.hpp"
 #include "Input.hpp"
 
+Snake::Snake(Board* board):
+    alive(true),
+    board(NULL),
+    size(INITIAL_SIZE),
+    previousDirection(INITIAL_DIRECTION),
+    currentDirection(previousDirection),
+    eatenFood(false)
+{
+    // I KNOW this is a hell of a bad practice,
+    // but I've copied and pasted the two constructors,
+    //
+
+    /// TODO I NEED to find a way to fix them constructors
+
+    this->board = board;
+    int x = this->board->getLevel()->getStartingX();
+    int y = this->board->getLevel()->getStartingY();
+
+    if ((x > board->getWidth()) ||
+        (y > board->getHeight()))
+        throw "Cannot place Snake on Board - invalid position.";
+
+
+    this->body.resize(INITIAL_SIZE);
+
+    for (int i = 0; i < INITIAL_SIZE; i++)
+        this->body[i] = SnakeBody(x, y);
+
+    if (this->board->at(x, y).isEmpty())
+        this->board->at(x, y).set(Tile::SNAKE_HEAD);
+    else
+        throw "Snake cannot be placed on a non-empty tile.";
+}
 Snake::Snake(Board* board, int x, int y):
     alive(true),
     board(NULL),

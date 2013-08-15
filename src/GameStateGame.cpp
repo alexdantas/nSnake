@@ -14,13 +14,15 @@ void GameStateGame::load(int stack)
 {
     UNUSED(stack);
 
-    this->board = new Board(80, 23, false);
-    this->board->at(9, 3).set(Tile::WALL);
+    this->board = new Board(80, 23);
+//    this->board->setBorders(true);
+    this->board->loadFile("levels/01.nsnake");
+//    this->board->at(9, 3).set(Tile::WALL);
 
     this->foods = new FoodManager(this->board);
     this->foods->addAtRandom();
 
-    this->player = new Snake(this->board, 5, 5);
+    this->player = new Snake(this->board);
 
     // Again, this is the game speed.
     // This is the timer that says when the snake will be
@@ -59,7 +61,7 @@ GameState::StateCode GameStateGame::update(float dt)
     if (input->isKeyDown('r')) // restart the game!
         return GameState::GAME_START;
 
-    if (input->isKeyDown('i')) // restart the game!
+    if (input->isKeyDown('i')) // increase the player
         this->player->eatFood();
 
     this->foods->update();
@@ -84,9 +86,9 @@ void GameStateGame::render()
     Ncurses::setStyle(Color::pair("cyan"));
     Ncurses::print("nSnake v2.0", 0, 0);
 
-    Ncurses::print("score: " +
-                   Ncurses::intToString(this->player->getScore()),
-                   20, 0);
+    Ncurses::print("score:", 20, 0);
+    Ncurses::print(Ncurses::intToString(this->player->getScore()),
+                   28, 0);
 
     Ncurses::setStyle(Color::pair("magenta"));
     Ncurses::print("| <q> quit | <r> restart |", 50, 0);

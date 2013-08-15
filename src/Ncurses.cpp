@@ -107,15 +107,19 @@ void Ncurses::hideCursor(bool willHide)
     else
         curs_set(1);
 }
-void Ncurses::exit()
+void Ncurses::exit(bool emergency)
 {
-   erase();
-   refresh();
-   Ncurses::window->clear();
-   Ncurses::window->refresh();
+    if (!emergency)
+    {
+        erase();
+        refresh();
+        Ncurses::window->clear();
+        Ncurses::window->refresh();
 
-   if (Ncurses::window) delete (Ncurses::window);
-	endwin();
+        if (Ncurses::window)
+            delete (Ncurses::window);
+    }
+    endwin();
 }
 std::string Ncurses::intToString(int num)
 {

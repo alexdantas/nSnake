@@ -21,11 +21,23 @@ int main(int argc, char* argv[])
 
         manager.run();
     }
+    // Several ways of quitting and logging the error
+    catch (const char* e)
+    {
+        Ncurses::exit(true);
+        Log::error("Exception: " + std::string(e));
+        return -1;
+    }
+    catch (std::string e)
+    {
+        Ncurses::exit(true);
+        Log::error("Exception: " + e);
+        return -1;
+    }
     catch (...)
     {
+        Ncurses::exit(true);
         Log::error("Exception caught! Quitting...");
-        std::cout << "coisa" << std::endl;
-        Ncurses::exit();
         return -1;
     }
     return 0;

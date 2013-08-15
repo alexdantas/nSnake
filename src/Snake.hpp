@@ -28,6 +28,10 @@ public:
     /// All the directions the snake can move.
     enum Directions { UP, DOWN, LEFT, RIGHT };
 
+    /// Creates a snake at *board* on the board's specific initial
+    /// x and y positions.
+    Snake(Board* board);
+
     /// Creates a snake at *board* on *x* *y*.
     Snake(Board* board, int x, int y);
 

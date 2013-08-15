@@ -28,7 +28,15 @@ public:
     static bool init(int width=80, int height=24, int frameRate=30);
 
     /// Destroys anything related to ncurses.
-    static void exit();
+    ///
+    /// @note If *emergency* is true, will leak memory and
+    ///       not clean up right, but will certainly be faster
+    ///       and less bug-prone.
+    ///       The thing is when something on Ncurses bugs and we
+    ///       try to exit properly, it generates a segmentation
+    ///       fault.
+    ///       Setting *emergency* to true will prevent this.
+    static void exit(bool emergency=false);
 
     // FRAMERATE CONTROL
 

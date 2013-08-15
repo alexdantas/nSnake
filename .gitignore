@@ -4,3 +4,4 @@ TMPCHANGES
 src/*.o
 stdout.txt
 stderr.txt
+levels/*

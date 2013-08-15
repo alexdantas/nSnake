@@ -3,18 +3,28 @@
 
 #include <vector>
 #include "Tile.hpp"
+#include "Level.hpp"
+
 
 /// The game board, where all the action happens.
 ///
 class Board
 {
 public:
-    /// Creates a new board with *width* and *height*.
+    /// Creates a new empty board with *width* and *height*.
     ///
     /// @note *hasBorders* defines if the board will kill
     ///       the snake or teleport it.
-    Board(int width, int height, bool hasBorders);
+    Board(int width, int height);
+
     virtual ~Board();
+
+    /// Empties the inner board, getting a fresh new one of
+    /// *width* and *height*.
+    ///
+    /// @note *hasBorders* defines if the board will kill
+    ///       the snake or teleport it.
+    void clear(int width, int height, bool haveBorders=false);
 
     /// Returns the pointer to the tile at index *x* *y*.
     Tile& at(int x, int y);
@@ -24,6 +34,8 @@ public:
 
     int getWidth();  ///< Returns the board's width.
     int getHeight(); ///< Returns the board's height.
+
+    void setBorders(bool option);
 
     /// Tells if the player dies or teleports when colliding
     /// with the border of this Board.
@@ -38,10 +50,23 @@ public:
     /// Obviously it's the "usable" size inside the board.
     int maxLengthInsideMe();
 
+    /// Loads the level on *filename*, populating the board.
+    bool loadFile(std::string filename);
+
+    /// Returns the *Level* related to the board.
+    ///
+    /// @note This is a BAD practice. I only use it on
+    ///       the snake constructor, to place it at the
+    ///       starting positions of the level.
+    Level* getLevel();
+
 private:
 
     /// Matrix containing all the tiles of the game.
     std::vector<std::vector<Tile> > board;
+
+    /// The currently loaded level.
+    Level level;
 
     int width;
     int height;
