@@ -11,6 +11,7 @@ struct Point
     int x;
     int y;
 
+    Point();
     Point(int x, int y);
 };
 
@@ -20,8 +21,7 @@ struct Rectangle
     int y;
     int w;
     int h;
-    int centerX;
-    int centerY;
+    Point center;
 
     Rectangle(int x, int y, int w, int h);
 };

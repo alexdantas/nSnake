@@ -13,18 +13,22 @@ class Board
 public:
     /// Creates a new empty board with *width* and *height*.
     ///
-    /// @note *hasBorders* defines if the board will kill
-    ///       the snake or teleport it.
-    Board(int width, int height);
+    /// @note *haveBorders* defines if the board will kill
+    ///       the snake or teleport it upon collision.
+    ///       By default it teleports.
+    Board(int width, int height, bool haveBorders=false);
 
     virtual ~Board();
 
     /// Empties the inner board, getting a fresh new one of
     /// *width* and *height*.
+    void clear(int width, int height);
+
+    /// Loads the default level.
     ///
-    /// @note *hasBorders* defines if the board will kill
-    ///       the snake or teleport it.
-    void clear(int width, int height, bool haveBorders=false);
+    /// It is simply a box of borders, with *this->width* and
+    /// *this->height*.
+    void loadDefaultLevel();
 
     /// Returns the pointer to the tile at index *x* *y*.
     Tile& at(int x, int y);

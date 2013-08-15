@@ -1,20 +1,23 @@
 #include "Shapes.hpp"
 
-Point::Point(int x, int y)
-{
-    this->x = x;
-    this->y = y;
-}
+Point::Point(int x, int y):
+    x(x),
+    y(y)
+{ }
 
-Rectangle::Rectangle(int x, int y, int w, int h)
-{
-    this->x = x;
-    this->y = y;
-    this->w = w;
-    this->h = h;
+Point::Point():
+    x(0),
+    y(0)
+{ }
 
-    this->centerX = x + (w/2);
-    this->centerY = y + (h/2);
+
+Rectangle::Rectangle(int x, int y, int w, int h):
+    x(x),
+    y(y),
+    w(w),
+    h(h)
+{
+    this->center = Point(x + (w/2), y + (h/2));
 }
 
 Circle::Circle(int x, int y, int r)

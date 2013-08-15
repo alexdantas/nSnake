@@ -1,5 +1,6 @@
 #include "Snake.hpp"
 #include "Input.hpp"
+#include "Shapes.hpp"
 
 Snake::Snake(Board* board):
     alive(true),
@@ -139,29 +140,18 @@ void Snake::move()
     // Here's the collision test with the board extremes.
     // On our case we can both be killed or be teleported
     // when collided.
-    if (this->board->hasBorders())
+    if (this->board->at(this->body[0].x,
+                        this->body[0].y).has(Tile::BORDER))
     {
         // Dies if collided with board extremes.
-        if ((this->body[0].x < 1) ||
-            (this->body[0].x > this->board->getWidth() - 2) ||
-            (this->body[0].y < 1) ||
-            (this->body[0].y > this->board->getHeight() - 2))
-            this->alive = false;
+        // Don't call this->die() on purpose!
+        this->alive = false;
     }
-    else
+
+    if (this->board->at(this->body[0].x,
+                        this->body[0].y).has(Tile::TELEPORT_BORDER))
     {
-        // Teleports if collided with board extremes.
-        if (this->body[0].x < 1)
-            this->body[0].x = this->board->getWidth() - 2;
-
-        if (this->body[0].x > this->board->getWidth() - 2)
-            this->body[0].x = 1;
-
-        if (this->body[0].y < 1)
-            this->body[0].y = this->board->getHeight() - 2;
-
-        if (this->body[0].y > this->board->getHeight() - 2)
-            this->body[0].y = 1;
+        this->teleport();
     }
 
     // Finally, we refresh the board's contents
@@ -223,5 +213,67 @@ void Snake::checkCollision()
 int Snake::getScore()
 {
     return (this->score);
+}
+void Snake::teleport()
+{
+    Point valid, border;
+
+    switch (this->currentDirection)
+    {
+    case Snake::RIGHT:
+        valid  = Point((this->body[0].x - 1), this->body[0].y);
+        border = valid;
+
+        while (!(this->board->at(border.x, border.y).has(Tile::TELEPORT_BORDER)))
+        {
+            border.x--;
+
+            if (this->board->at(border.x, border.y).isEmpty())
+                valid = border;
+        }
+
+        break;
+    case Snake::LEFT:
+        valid  = Point((this->body[0].x + 1), this->body[0].y);
+        border = valid;
+
+        while (!(this->board->at(border.x, border.y).has(Tile::TELEPORT_BORDER)))
+        {
+            border.x++;
+
+            if (this->board->at(border.x, border.y).isEmpty())
+                valid = border;
+        }
+
+        break;
+
+    case Snake::UP:
+        valid  = Point(this->body[0].x, (this->body[0].y + 1));
+        border = valid;
+
+        while (!(this->board->at(border.x, border.y).has(Tile::TELEPORT_BORDER)))
+        {
+            border.y++;
+
+            if (this->board->at(border.x, border.y).isEmpty())
+                valid = border;
+        }
+        break;
+
+    case Snake::DOWN:
+        valid  = Point(this->body[0].x, (this->body[0].y - 1));
+        border = valid;
+
+        while (!(this->board->at(border.x, border.y).has(Tile::TELEPORT_BORDER)))
+        {
+            border.y--;
+
+            if (this->board->at(border.x, border.y).isEmpty())
+                valid = border;
+        }
+        break;
+    }
+    this->body[0].x = valid.x;
+    this->body[0].y = valid.y;
 }
 

@@ -17,7 +17,6 @@ void GameStateGame::load(int stack)
     this->board = new Board(80, 23);
 //    this->board->setBorders(true);
     this->board->loadFile("levels/01.nsnake");
-//    this->board->at(9, 3).set(Tile::WALL);
 
     this->foods = new FoodManager(this->board);
     this->foods->addAtRandom();

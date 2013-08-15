@@ -64,6 +64,10 @@ public:
 
     int getScore();
 
+    /// Swiches the snake from the current border to the next,
+    /// based on it's *currentDirection*.
+    void teleport();
+
 private:
     /// Tells if this snake is alive.
     bool alive;

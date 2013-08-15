@@ -1,12 +1,14 @@
 #include "Board.hpp"
 
-Board::Board(int width, int height)
+Board::Board(int width, int height, bool haveBorders)
 {
     this->clear(width, height);
+    this->loadDefaultLevel();
+    this->setBorders(haveBorders);
 }
 Board::~Board()
 { }
-void Board::clear(int width, int height, bool haveBorders)
+void Board::clear(int width, int height)
 {
     // Clearing board if it had any elements.
     for (unsigned int i = 0; i < (this->board.size()); i++)
@@ -24,28 +26,25 @@ void Board::clear(int width, int height, bool haveBorders)
     for (unsigned int i = 0; i < (this->board.size()); i++)
         this->board[i].resize(this->height);
 
-    // Initializing tiles and placing the borders.
+    // All the tiles are initialized by default with Tile::EMPTY
+}
+void Board::loadDefaultLevel()
+{
+    // The default level is simply a map with this->width and
+    // this->height, boxed in with borders.
     for (int i = 0; i < (this->width); i++)
     {
         for (int j = 0; j < (this->height); j++)
         {
-            // All the borders of the board
+            // All the borders at the extremes of the board
             if ((i == 0) || (i == (width  - 1)) ||
                 (j == 0) || (j == (height - 1)))
             {
-                if (haveBorders)
-                    this->board[i][j].set(Tile::BORDER);
-                else
-                    this->board[i][j].set(Tile::TELEPORT_BORDER);
+                this->board[i][j].set(Tile::BORDER);
             }
         }
     }
-
-    // Not using setBorders() because it will iterate through
-    // the whole board again.
-    this->borders = haveBorders;
 }
-
 Tile& Board::at(int x, int y)
 {
     if ((x < 0) || (x >= this->width) ||
@@ -110,6 +109,7 @@ bool Board::loadFile(std::string filename)
         for (int j = 0; j < (this->height); j++)
             this->board[i][j].set(this->level.at(i, j));
 
+    this->setBorders(this->borders);
     return true;
 }
 Level* Board::getLevel()
