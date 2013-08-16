@@ -32,7 +32,10 @@ void GameStateGame::load(int stack)
     this->foods->addAtRandom();
 
     this->player = new Snake(this->board);
+    this->player->setKeys('w', 's', 'a', 'd');
+
     this->player2 = new Snake(this->board, 30, 7);
+    this->player2->setKeys(KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT);
 
     // Again, this is the game speed.
     // This is the timer that says when the snake will be

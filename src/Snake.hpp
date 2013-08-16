@@ -14,6 +14,21 @@ struct SnakeBody
     int y;
 };
 
+/// The keys that control a player.
+struct Controls
+{
+    int up;
+    int down;
+    int left;
+    int right;
+
+    /// Creates a control set with default arrow keys.
+    Controls();
+
+    /// Creates a control set with specified keys.
+    Controls(int up, int down, int left, int right);
+};
+
 /// The initial size of every snake.
 #define INITIAL_SIZE 3
 
@@ -71,6 +86,9 @@ public:
     /// based on it's *currentDirection*.
     void teleport();
 
+    /// Sets the control keys of this snake.
+    void setKeys(int up, int down, int left, int right);
+
 private:
     /// This player's index.
     int player;
@@ -105,6 +123,9 @@ private:
     ///
     /// In this case, it will grow up.
     bool eatenFood;
+
+    /// The keys that control this player.
+    Controls control;
 };
 
 #endif //SNAKE_H_DEFINED

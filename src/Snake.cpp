@@ -4,6 +4,15 @@
 
 int Snake::playerCount = 0;
 
+
+Controls::Controls():
+    up(KEY_UP), down(KEY_DOWN), left(KEY_LEFT), right(KEY_RIGHT)
+{ }
+
+Controls::Controls(int up, int down, int left, int right):
+    up(up), down(down), left(left), right(right)
+{ }
+
 Snake::Snake(Board* board):
     alive(true),
     board(NULL),
@@ -12,8 +21,9 @@ Snake::Snake(Board* board):
     currentDirection(previousDirection),
     eatenFood(false)
 {
-    Snake::playerCount++;
+    // Setting up players 0, 1, 2 or 3
     this->player = Snake::playerCount;
+    Snake::playerCount++;
 
     // I KNOW this is a hell of a bad practice,
     // but I've copied and pasted the two constructors,
@@ -39,6 +49,8 @@ Snake::Snake(Board* board):
         this->board->at(x, y).set(Tile::SNAKE_HEAD);
     else
         throw "Snake cannot be placed on a non-empty tile.";
+
+    this->control = Controls('w', 's', 'a', 'd');
 }
 Snake::Snake(Board* board, int x, int y):
     alive(true),
@@ -72,42 +84,21 @@ void Snake::update()
 
     Input* input = Input::getInstance();
 
-    if (this->player == 1)
-    {
-        if (input->isKeyDown('w'))
-            if (this->previousDirection != Snake::DOWN)
-                this->currentDirection = Snake::UP;
+    if (input->isKeyDown(this->control.up))
+        if (this->previousDirection != Snake::DOWN)
+            this->currentDirection = Snake::UP;
 
-        if (input->isKeyDown('s'))
-            if (this->previousDirection != Snake::UP)
-                this->currentDirection = Snake::DOWN;
+    if (input->isKeyDown(this->control.down))
+        if (this->previousDirection != Snake::UP)
+            this->currentDirection = Snake::DOWN;
 
-        if (input->isKeyDown('a'))
-            if (this->previousDirection != Snake::RIGHT)
-                this->currentDirection = Snake::LEFT;
+    if (input->isKeyDown(this->control.left))
+        if (this->previousDirection != Snake::RIGHT)
+            this->currentDirection = Snake::LEFT;
 
-        if (input->isKeyDown('d'))
-            if (this->previousDirection != Snake::LEFT)
-                this->currentDirection = Snake::RIGHT;
-    }
-    else
-    {
-        if (input->isKeyDown(KEY_UP)) // make h,j,k,l
-            if (this->previousDirection != Snake::DOWN)
-                this->currentDirection = Snake::UP;
-
-        if (input->isKeyDown(KEY_DOWN))
-            if (this->previousDirection != Snake::UP)
-                this->currentDirection = Snake::DOWN;
-
-        if (input->isKeyDown(KEY_LEFT))
-            if (this->previousDirection != Snake::RIGHT)
-                this->currentDirection = Snake::LEFT;
-
-        if (input->isKeyDown(KEY_RIGHT))
-            if (this->previousDirection != Snake::LEFT)
-                this->currentDirection = Snake::RIGHT;
-    }
+    if (input->isKeyDown(this->control.right))
+        if (this->previousDirection != Snake::LEFT)
+            this->currentDirection = Snake::RIGHT;
 }
 void Snake::move()
 {
@@ -303,5 +294,9 @@ void Snake::teleport()
     }
     this->body[0].x = valid.x;
     this->body[0].y = valid.y;
+}
+void Snake::setKeys(int up, int down, int left, int right)
+{
+    this->control = Controls(up, down, left, right);
 }
 
