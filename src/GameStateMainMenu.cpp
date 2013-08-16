@@ -46,15 +46,18 @@ void GameStateMainMenu::render()
     // need to create a method to print a matrix of strings
     // or at least print a string divided with \n s
 
+    std::string logoLongestLine = "888  888       888b 888  888 .d888888 888888K  88888888";
+    int logoX = Ncurses::currentWidth/2 - logoLongestLine.length()/2;
+
     Ncurses::setStyle(Color::pair("green", "default"));
-    Ncurses::print(  "         ,d8888b.                     888", 3, 1);
-    Ncurses::print(  "        d88P  Y88b                    888", 3, 2);
-    Ncurses::print(  "         Y88b.                        888", 3, 3);
-    Ncurses::print(  "88888b.   Y888b.    88888b.    8888b. 888  888  .d88b.", 3, 4);
-    Ncurses::print(  "888  88b     8Y88b. 888  88b      88b 888 .88P d8P  Y8b", 3, 5);
-    Ncurses::print(  "888  888       888b 888  888 .d888888 888888K  88888888", 3, 6);
-    Ncurses::print(  "888  888 Y88b  d88P 888  888 888  888 888  88b Y8b.", 3, 7);
-    Ncurses::print(  "888  888   Y8888P   888  888  Y888888 888  888  Y88888", 3, 8);
+    Ncurses::print(  "         ,d8888b.                     888", logoX, 1);
+    Ncurses::print(  "        d88P  Y88b                    888", logoX, 2);
+    Ncurses::print(  "         Y88b.                        888", logoX, 3);
+    Ncurses::print(  "88888b.   Y888b.    88888b.    8888b. 888  888  .d88b.", logoX, 4);
+    Ncurses::print(  "888  88b     8Y88b. 888  88b      88b 888 .88P d8P  Y8b", logoX, 5);
+    Ncurses::print(  "888  888       888b 888  888 .d888888 888888K  88888888", logoX, 6);
+    Ncurses::print(  "888  888 Y88b  d88P 888  888 888  888 888  88b Y8b.", logoX, 7);
+    Ncurses::print(  "888  888   Y8888P   888  888  Y888888 888  888  Y88888", logoX, 8);
 
     Ncurses::setStyle(Color::pair("red", "black"));
     Ncurses::print("Press <enter> to start", 20, 10);
