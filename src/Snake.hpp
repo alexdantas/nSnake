@@ -28,6 +28,9 @@ public:
     /// All the directions the snake can move.
     enum Directions { UP, DOWN, LEFT, RIGHT };
 
+    /// How many players exist.
+    static int playerCount;
+
     /// Creates a snake at *board* on the board's specific initial
     /// x and y positions.
     Snake(Board* board);
@@ -69,6 +72,9 @@ public:
     void teleport();
 
 private:
+    /// This player's index.
+    int player;
+
     /// Tells if this snake is alive.
     bool alive;
 

@@ -36,6 +36,7 @@ public:
 private:
 //    Music* music;     ///< Menu's background music.
     Snake* player;
+    Snake* player2;
 
     Board* board;
     int boardX; /// Custom on-the-fly changeable board X position

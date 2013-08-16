@@ -2,6 +2,8 @@
 #include "Input.hpp"
 #include "Shapes.hpp"
 
+int Snake::playerCount = 0;
+
 Snake::Snake(Board* board):
     alive(true),
     board(NULL),
@@ -10,6 +12,9 @@ Snake::Snake(Board* board):
     currentDirection(previousDirection),
     eatenFood(false)
 {
+    Snake::playerCount++;
+    this->player = Snake::playerCount;
+
     // I KNOW this is a hell of a bad practice,
     // but I've copied and pasted the two constructors,
     //
@@ -67,25 +72,42 @@ void Snake::update()
 
     Input* input = Input::getInstance();
 
-    if (input->isKeyDown('w') ||
-        input->isKeyDown(KEY_UP)) // make h,j,k,l
-        if (this->previousDirection != Snake::DOWN)
-            this->currentDirection = Snake::UP;
+    if (this->player == 1)
+    {
+        if (input->isKeyDown('w'))
+            if (this->previousDirection != Snake::DOWN)
+                this->currentDirection = Snake::UP;
 
-    if (input->isKeyDown('s') ||
-        input->isKeyDown(KEY_DOWN))
-        if (this->previousDirection != Snake::UP)
-            this->currentDirection = Snake::DOWN;
+        if (input->isKeyDown('s'))
+            if (this->previousDirection != Snake::UP)
+                this->currentDirection = Snake::DOWN;
 
-    if (input->isKeyDown('a') ||
-        input->isKeyDown(KEY_LEFT))
-        if (this->previousDirection != Snake::RIGHT)
-            this->currentDirection = Snake::LEFT;
+        if (input->isKeyDown('a'))
+            if (this->previousDirection != Snake::RIGHT)
+                this->currentDirection = Snake::LEFT;
 
-    if (input->isKeyDown('d') ||
-        input->isKeyDown(KEY_RIGHT))
-        if (this->previousDirection != Snake::LEFT)
-            this->currentDirection = Snake::RIGHT;
+        if (input->isKeyDown('d'))
+            if (this->previousDirection != Snake::LEFT)
+                this->currentDirection = Snake::RIGHT;
+    }
+    else
+    {
+        if (input->isKeyDown(KEY_UP)) // make h,j,k,l
+            if (this->previousDirection != Snake::DOWN)
+                this->currentDirection = Snake::UP;
+
+        if (input->isKeyDown(KEY_DOWN))
+            if (this->previousDirection != Snake::UP)
+                this->currentDirection = Snake::DOWN;
+
+        if (input->isKeyDown(KEY_LEFT))
+            if (this->previousDirection != Snake::RIGHT)
+                this->currentDirection = Snake::LEFT;
+
+        if (input->isKeyDown(KEY_RIGHT))
+            if (this->previousDirection != Snake::LEFT)
+                this->currentDirection = Snake::RIGHT;
+    }
 }
 void Snake::move()
 {

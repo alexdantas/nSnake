@@ -5,6 +5,7 @@
 
 GameStateGame::GameStateGame():
     player(NULL),
+    player2(NULL),
     board(NULL),
     gameTimer(NULL),
     foods(NULL)
@@ -31,6 +32,7 @@ void GameStateGame::load(int stack)
     this->foods->addAtRandom();
 
     this->player = new Snake(this->board);
+    this->player2 = new Snake(this->board, 5, 5);
 
     // Again, this is the game speed.
     // This is the timer that says when the snake will be
@@ -53,6 +55,7 @@ int GameStateGame::unload()
 }
 
     safe_delete(this->player);
+    safe_delete(this->player2);
     safe_delete(this->board);
     return 0;
 }
@@ -74,6 +77,7 @@ GameState::StateCode GameStateGame::update(float dt)
 
 //    this->foods->update();
     this->player->update();
+    this->player2->update();
 
     // If the game speed time has passed, we'll force
     // the snake to move.
@@ -84,6 +88,10 @@ GameState::StateCode GameStateGame::update(float dt)
     {
         this->player->move();
         this->player->checkCollision();
+
+        this->player2->move();
+        this->player2->checkCollision();
+
         this->foods->update();
         this->gameTimer->startCounting();
     }
