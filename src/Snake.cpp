@@ -110,8 +110,10 @@ void Snake::move()
     // this will not happen and the snake will increase.
     if (!(this->eatenFood))
     {
+//        this->board->at(this->body[this->size - 1].x,
+//                        this->body[this->size - 1].y).clear();
         this->board->at(this->body[this->size - 1].x,
-                        this->body[this->size - 1].y).clear();
+                        this->body[this->size - 1].y).remove(Tile::SNAKE_BODY);
     }
     else
         this->eatenFood = false; // by doing this we visually increase
@@ -158,7 +160,11 @@ void Snake::move()
     // according to the snake's position.
     for (int i = 1; i < (this->size); i++)
         this->board->at(this->body[i].x,
-                        this->body[i].y).set(Tile::SNAKE_BODY);
+                        this->body[i].y).add(Tile::SNAKE_BODY);
+
+    // Removing the previous head
+    this->board->at(this->body[1].x,
+                    this->body[1].y).remove(Tile::SNAKE_HEAD);
 
     if (this->alive)
         this->board->at(this->body[0].x,
@@ -228,7 +234,7 @@ void Snake::teleport()
         {
             border.x--;
 
-            if (this->board->at(border.x, border.y).isEmpty())
+            if (!(this->board->at(border.x, border.y).isInvalidForPlayer()))
                 valid = border;
         }
 
@@ -241,7 +247,7 @@ void Snake::teleport()
         {
             border.x++;
 
-            if (this->board->at(border.x, border.y).isEmpty())
+            if (!(this->board->at(border.x, border.y).isInvalidForPlayer()))
                 valid = border;
         }
 
@@ -255,7 +261,7 @@ void Snake::teleport()
         {
             border.y++;
 
-            if (this->board->at(border.x, border.y).isEmpty())
+            if (!(this->board->at(border.x, border.y).isInvalidForPlayer()))
                 valid = border;
         }
         break;
@@ -268,7 +274,7 @@ void Snake::teleport()
         {
             border.y--;
 
-            if (this->board->at(border.x, border.y).isEmpty())
+            if (!(this->board->at(border.x, border.y).isInvalidForPlayer()))
                 valid = border;
         }
         break;

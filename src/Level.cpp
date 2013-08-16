@@ -130,6 +130,13 @@ bool Level::load(std::string filename)
     this->width  = levelWidth;
     this->height = this->rawLevel.size();
 
+    // And now we fill the whole level until all the lines
+    // have this->width
+    for (int i = 0; i < (this->height); i++)
+        for (int j = 0; j < (this->width); j++)
+            if (j > (this->level[i].size()))
+                this->level[i].push_back(Tile::NOTHING);
+
     return true;
 }
 void Level::clear()

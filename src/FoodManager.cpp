@@ -23,6 +23,8 @@ void FoodManager::update()
         // is eating the fruit
         if (tile->has(Tile::SNAKE_HEAD))
         {
+            tile->remove(Tile::FOOD);
+
             // Remove the tile from the list
             // and add a new fruit
 
@@ -51,12 +53,15 @@ void FoodManager::addAtRandom()
     int w = this->board->getWidth();
     int h = this->board->getHeight();
 
+    // Will keep getting new x and y while the point formed
+    // with them is _not empty_ OR _not inside the map_.
     do
     {
         x = Ncurses::randomNumberBetween(1, (w - 2)); // borders
         y = Ncurses::randomNumberBetween(1, (h - 2)); // borders
 
-    } while (!(this->board->at(x, y).isEmpty()));
+    } while (!(this->board->at(x, y).isEmpty()) ||
+             !(this->board->isInsideMap(x, y)));
 
     this->add(x, y);
 }

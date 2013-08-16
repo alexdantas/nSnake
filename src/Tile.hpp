@@ -25,6 +25,8 @@ public:
         SNAKE_HEAD, // The head of the snake
         SNAKE_DEAD_HEAD, // Appears where the snake has died
         SNAKE_BODY, // Pieces of the snake body
+        FOOD_INVALID, // Flag that tells no food should be placed
+                      // there
 
         TILE_CONTENTS_MAX // This arbitrary value exists so the
                           // content vector can be safely resized
@@ -56,6 +58,12 @@ public:
 
     /// Tells if the tile is empty, has no contents.
     bool isEmpty();
+
+    /// Tells if this tile is invalid for the player to step into.
+    bool isInvalidForPlayer();
+
+    /// Tells if this tile is any kind of border.
+    bool isBorder();
 
 private:
     /// Refreshes the sprite of the tile, based on

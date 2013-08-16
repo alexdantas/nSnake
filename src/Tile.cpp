@@ -91,6 +91,17 @@ bool Tile::isEmpty()
 
     return true;
 }
+bool Tile::isInvalidForPlayer()
+{
+    if (this->has(Tile::WALL) ||
+        this->has(Tile::BORDER) ||
+        this->has(Tile::TELEPORT_BORDER) ||
+        this->has(Tile::SNAKE_BODY) ||
+        this->has(Tile::SNAKE_HEAD))
+        return true;
+
+    return false;
+}
 void Tile::spriteRefresh()
 {
     if (this->sprite)
@@ -136,5 +147,10 @@ void Tile::spriteRefresh()
         this->clear();
         break;
     }
+}
+bool Tile::isBorder()
+{
+    return (this->has(Tile::BORDER) ||
+            this->has(Tile::TELEPORT_BORDER));
 }
 

@@ -16,7 +16,7 @@ void GameStateGame::load(int stack)
 
     this->board = new Board(80, 23);
 //    this->board->setBorders(true);
-    this->board->loadFile("levels/01.nsnake");
+    this->board->loadFile("levels/00.nsnake");
 
     this->foods = new FoodManager(this->board);
     this->foods->addAtRandom();
@@ -63,7 +63,7 @@ GameState::StateCode GameStateGame::update(float dt)
     if (input->isKeyDown('i')) // increase the player
         this->player->eatFood();
 
-    this->foods->update();
+//    this->foods->update();
     this->player->update();
 
     // If the game speed time has passed, we'll force
@@ -75,6 +75,7 @@ GameState::StateCode GameStateGame::update(float dt)
     {
         this->player->move();
         this->player->checkCollision();
+        this->foods->update();
         this->gameTimer->startCounting();
     }
 

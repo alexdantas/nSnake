@@ -64,6 +64,11 @@ public:
     ///       starting positions of the level.
     Level* getLevel();
 
+    /// Tells if a point *x* *y* is inside the game map.
+    ///
+    /// @note It fails under very strange maps!
+    bool isInsideMap(int x, int y);
+
 private:
 
     /// Matrix containing all the tiles of the game.

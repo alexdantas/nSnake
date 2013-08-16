@@ -1,4 +1,5 @@
 #include "Board.hpp"
+#include "Shapes.hpp"
 
 Board::Board(int width, int height, bool haveBorders)
 {
@@ -115,5 +116,67 @@ bool Board::loadFile(std::string filename)
 Level* Board::getLevel()
 {
     return &(this->level);
+}
+bool Board::isInsideMap(int x, int y)
+{
+    Tile* tile = &(this->board[x][y]);
+
+    if (tile->has(Tile::BORDER) ||
+        tile->has(Tile::TELEPORT_BORDER))
+        return true;
+
+    // I will walk in all directions.
+    // If I don't find a border in any of them, it's outside
+    // the game map.
+    //
+    // (I know there are strange exceptions to this, but
+    //  I can't find a simple way to do this.)
+    //
+
+    /// TODO A general pathfinding algorighm (A*?)
+
+    Point origin(x, y);
+    Point current = origin;
+
+    // walking right
+    while (!(this->board[current.x][current.y].isBorder()))
+    {
+        current.x++;
+        if (current.x >= this->width)
+            return false;
+    }
+    current = origin;
+
+    // walking left
+    while (!(this->board[current.x][current.y].isBorder()))
+    {
+        current.x--;
+        if (current.x < 0)
+            return false;
+    }
+    current = origin;
+
+    // walking up
+    while (!(this->board[current.x][current.y].isBorder()))
+    {
+        current.y--;
+        if (current.y < 0)
+            return false;
+    }
+    current = origin;
+
+    // walking down
+    while (!(this->board[current.x][current.y].isBorder()))
+    {
+        current.y++;
+        if (current.y >= this->height)
+            return false;
+    }
+
+    // Whew! If it got here, it means that exists borders
+    // in ALL 4 sides of this point!
+    //
+    // Basically, it's in!
+    return true;
 }
 
