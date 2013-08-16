@@ -15,6 +15,7 @@ int     Ncurses::currentHeight   = 0;
 bool    Ncurses::hasColors       = false;
 WINDOW* Ncurses::screen          = NULL;
 Window* Ncurses::window          = NULL;
+CDKSCREEN* Ncurses::CDKScreen = NULL;
 
 bool Ncurses::init(int width, int height, int frameRate)
 {
@@ -27,6 +28,8 @@ bool Ncurses::init(int width, int height, int frameRate)
         Log::error("Error! Failed initializing ncurses!");
         throw "Ncurses failed to initialize.";
 	}
+
+    Ncurses::CDKScreen = initCDKScreen(Ncurses::screen); // Starting CDK!
 
     // Starts color support if the terminal allows it
     Color::init();

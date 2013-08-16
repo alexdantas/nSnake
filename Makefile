@@ -9,7 +9,7 @@ VERSION  = 2.0
 EXE		 = nsnake
 
 CXXFLAGS = -Wall -Wextra -g
-LDFLAGS  = -lncurses
+LDFLAGS  = -lncurses -lcdk
 INCLUDE  =
 
 LIBS_CXXFILES = $(shell find src/lib -maxdepth 1 -type f -name '*.cpp')

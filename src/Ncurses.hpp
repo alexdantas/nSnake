@@ -5,6 +5,7 @@
 #include <iostream>
 #include <stdint.h>
 #include <ncurses.h>
+#include <cdk.h>
 #include <unistd.h> // usleep(), suseconds_t
 #include "Timer.hpp"
 #include "Color.hpp"
@@ -188,6 +189,9 @@ private:
     /// When you start ncurses, this represents the whole terminal screen.
     /// Whenever you change the terminal's size, this will be changed too.
     static WINDOW* screen;
+
+    /// CDK's internal data structure.
+    static CDKSCREEN* CDKScreen;
 };
 
 #endif /* NCURSES_H_DEFINED */
