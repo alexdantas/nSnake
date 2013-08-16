@@ -60,7 +60,7 @@ bool Ncurses::init(int width, int height, int frameRate)
 
     // Creating the main window on which everything will be
     // based on.
-    Ncurses::window = new Window(0, 0, Ncurses::width, Ncurses::height);
+    Ncurses::window = new Window(0, 0, Ncurses::currentWidth, Ncurses::currentHeight);
 
     // Allowing mouse input
     if (has_mouse() == TRUE)

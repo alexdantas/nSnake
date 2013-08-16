@@ -1,6 +1,7 @@
 #include "GameStateGame.hpp"
 #include "Input.hpp"
 #include "Ncurses.hpp"
+#include "Config.hpp"
 
 GameStateGame::GameStateGame():
     player(NULL),
@@ -14,9 +15,17 @@ void GameStateGame::load(int stack)
 {
     UNUSED(stack);
 
+    this->boardX = 0;
+    this->boardY = 1;
     this->board = new Board(80, 23);
 //    this->board->setBorders(true);
     this->board->loadFile("levels/00.nsnake");
+
+    if (Config::centerGameScreenHorizontally)
+        this->boardX = Ncurses::currentWidth/2 - this->board->getWidth()/2;
+
+    if (Config::centerGameScreenVertically)
+        this->boardY = Ncurses::currentHeight/2 - this->board->getHeight()/2;
 
     this->foods = new FoodManager(this->board);
     this->foods->addAtRandom();
@@ -83,16 +92,31 @@ GameState::StateCode GameStateGame::update(float dt)
 }
 void GameStateGame::render()
 {
-    Ncurses::setStyle(Color::pair("cyan"));
-    Ncurses::print("nSnake v2.0", 0, 0);
+    std::string logo("nSnake v2.0");
 
-    Ncurses::print("score:", 20, 0);
+    Ncurses::setStyle(Color::pair("cyan"));
+    Ncurses::print(logo, 0, 0);
+
+    std::string level("level");
+    int levelX = (Ncurses::currentWidth/8);
+
+    Ncurses::print(level, levelX, 0);
+    Ncurses::print(Ncurses::intToString(2),
+                   levelX + 3 + level.length(), 0);
+
+    std::string score("score");
+    int scoreX = (Ncurses::currentWidth/8 * 2);
+
+    Ncurses::print(score, scoreX, 0);
     Ncurses::print(Ncurses::intToString(this->player->getScore()),
-                   28, 0);
+                   scoreX + 3 + score.length(), 0);
+
+    std::string info("| <q> quit | <r> restart |");
+    int infoX = Ncurses::currentWidth - info.length();
 
     Ncurses::setStyle(Color::pair("magenta"));
-    Ncurses::print("| <q> quit | <r> restart |", 50, 0);
+    Ncurses::print(info, infoX, 0);
 
-    this->board->render(0, 1);
+    this->board->render(this->boardX, this->boardY);
 }
 

@@ -36,7 +36,11 @@ public:
 private:
 //    Music* music;     ///< Menu's background music.
     Snake* player;
+
     Board* board;
+    int boardX; /// Custom on-the-fly changeable board X position
+    int boardY; /// Custom on-the-fly changeable board Y position.
+
     TimerCounter* gameTimer;
     FoodManager* foods;
 };
