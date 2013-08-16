@@ -121,6 +121,30 @@ void Ncurses::exit(bool emergency)
     }
     endwin();
 }
+template<typename T>
+T Ncurses::fromString(std::string s)
+{
+    T var;
+    std::stringstream ss;
+    ss.str("");
+
+    ss << s;
+    ss >> var;
+
+    return var;
+}
+template<typename T>
+std::string Ncurses::toString(T s)
+{
+    std::string var;
+    std::stringstream ss;
+    ss.str("");
+
+    ss << s;
+    ss >> var;
+
+    return var;
+}
 std::string Ncurses::intToString(int num)
 {
     // little hack to convert from integer to string

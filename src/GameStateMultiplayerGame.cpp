@@ -79,7 +79,7 @@ GameState::StateCode GameStateMultiplayerGame::update(float dt)
         return GameState::QUIT;
 
     if (input->isKeyDown('r')) // restart the game!
-        return GameState::GAME_START;
+        return GameState::GAME_START_MULTIPLAYER;
 
     this->player1->update();
     this->player2->update();

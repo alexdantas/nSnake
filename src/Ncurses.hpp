@@ -113,6 +113,15 @@ public:
     /// stuff to it.
     static std::string intToString(int num);
 
+    // what about this?
+
+    template<typename T>
+    static T fromString(std::string s);
+
+    template<typename T>
+    static std::string toString(T s);
+
+
     // /// Rotates and/or zooms surface *src*, with *angle*, *scaleX* and
     // /// *scaleY*.
     // static Ncurses_Surface* rotoZoom(Ncurses_Surface* surface, float angle, float scaleX=1.0, float scaleY=1.0);
