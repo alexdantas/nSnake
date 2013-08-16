@@ -20,6 +20,8 @@ void Board::clear(int width, int height)
     this->width  = width;
     this->height = height;
 
+    this->setSpeed(0);
+
     // Setting up 1st dimension
     this->board.resize(this->width);
 
@@ -182,5 +184,41 @@ bool Board::isInsideMap(int x, int y)
 int Board::getSupportedPlayers()
 {
     return (this->level.getPlayers());
+}
+void Board::setSpeed(int speed)
+{
+    this->speed = speed;
+    switch (speed)
+    {
+    case 0:  this->timeout = 800; break;
+    case 1:  this->timeout = 600; break;
+    case 2:  this->timeout = 400; break;
+    case 3:  this->timeout = 300; break;
+    case 4:  this->timeout = 250; break;
+    case 5:  this->timeout = 200; break;
+    case 6:  this->timeout = 150; break;
+    case 7:  this->timeout = 100; break;
+    case 8:  this->timeout = 75; break;
+    case 9:  this->timeout = 25; break;
+    case 10: this->timeout = 0; break;
+    default: break;
+    }
+}
+int Board::getSpeed()
+{
+    return (this->speed);
+}
+
+void Board::increaseSpeed()
+{
+    this->setSpeed(this->speed + 1);
+}
+int Board::getTimeout()
+{
+    return (this->timeout);
+}
+std::string Board::getLevelName()
+{
+    return (this->level.getName());
 }
 

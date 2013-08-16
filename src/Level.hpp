@@ -50,6 +50,8 @@ public:
     /// Returns how many players the current level supports.
     int getPlayers();
 
+    std::string getName();
+
 private:
     /// The level's loaded filename.
     std::string filename;

@@ -15,22 +15,23 @@ public:
     ///
     /// There can be multiple things inside it, so you should
     /// check it out on your code.
+    ///
     enum TileContents
     {
-        NOTHING, // Empty tile
-        BORDER,  // Solid border around Board, player dies if hit
-        TELEPORT_BORDER, // Soft border, Player teleports if hit
-        WALL, // Solid wall inside the Board, player dies if hit
-        FOOD, // Thing that the snake eats and grows
-        SNAKE_HEAD, // The head of the snake
-        SNAKE_DEAD_HEAD, // Appears where the snake has died
-        SNAKE_BODY, // Pieces of the snake body
-        FOOD_INVALID, // Flag that tells no food should be placed
-                      // there
+        NOTHING,         // Empty tile.
+        BORDER,          // Solid border, player dies if hit.
+        TELEPORT_BORDER, // Soft border, Player teleports if hit.
+        WALL,            // Solid wall, player dies if hit.
+        FOOD,            // Thing that the snake eats and grows.
+        SNAKE_HEAD,      // The head of the snake.
+        SNAKE_DEAD_HEAD, // Appears where the snake has died.
+        SNAKE_BODY,      // Pieces of the snake body.
+        FOOD_INVALID,    // Flag that tells no food should be placed
+                         // here.
 
         TILE_CONTENTS_MAX // This arbitrary value exists so the
                           // content vector can be safely resized
-                          // to contain all possible things
+                          // to contain all possible things.
     };
 
     /// Creates an empty tile.
@@ -38,7 +39,7 @@ public:
 
     virtual ~Tile();
 
-    /// Sets the tile to only *newContent*.
+    /// Makes the tile have only *newContent*.
     void set(TileContents newContent);
 
     /// Erases any content that may be inside the tile.
@@ -47,13 +48,13 @@ public:
     /// Adds *newContent* to the tile.
     void add(TileContents newContent);
 
-    /// Removes, is possible, *newContent* from the tile.
+    /// Removes, if possible, *newContent* from the tile.
     void remove(TileContents newContent);
 
     /// Tells if the tile contains *newContent*.
     bool has(TileContents newContent);
 
-    /// Shows the tile onscreen, based on it's *sprite*.
+    /// Shows the tile onscreen, based on it's internal *sprite*.
     void render(int x, int y);
 
     /// Tells if the tile is empty, has no contents.

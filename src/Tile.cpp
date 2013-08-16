@@ -97,7 +97,8 @@ bool Tile::isInvalidForPlayer()
         this->has(Tile::BORDER) ||
         this->has(Tile::TELEPORT_BORDER) ||
         this->has(Tile::SNAKE_BODY) ||
-        this->has(Tile::SNAKE_HEAD))
+        this->has(Tile::SNAKE_HEAD) ||
+        this->has(Tile::SNAKE_DEAD_HEAD))
         return true;
 
     return false;

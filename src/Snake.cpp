@@ -216,8 +216,8 @@ void Snake::die()
 
 void Snake::checkCollision()
 {
-    int  headX    = this->body[0].x;
-    int  headY    = this->body[0].y;
+    int headX = this->body[0].x;
+    int headY = this->body[0].y;
 
     // DOESNT WORK
 //    Tile headTile = this->board->at(headX, headY);

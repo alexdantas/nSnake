@@ -95,21 +95,6 @@ bool Level::load(std::string filename)
                     levelLine.push_back(Tile::WALL);
                     break;
 
-                // case 'S':
-                //     // get snake starting position
-                //     this->startingX = i;
-
-                //     // Y of the current line is the rawLevel size
-                //     // minus 1 because we'll pretty soon add it to
-                //     // rawLevel and it's size will increase by 1.
-                //     this->startingY = (this->rawLevel.size() - 1);
-
-                //     // note that multiple "S" on the file
-                //     // will always fall back to the last one
-
-                //     levelLine.push_back(Tile::NOTHING);
-                //     break;
-
                 case '1':
                     // get snake starting position
                     this->startingPosition[0].x = i;
@@ -182,7 +167,7 @@ bool Level::load(std::string filename)
 }
 void Level::clear()
 {
-    this->filename = "";
+    this->filename.clear();
     this->rawLevel.clear();
 
     for (unsigned int i = 0; i < (this->level.size()); i++)
@@ -248,5 +233,9 @@ int Level::getStartingY(int player)
 int Level::getPlayers()
 {
     return (this->players);
+}
+std::string Level::getName()
+{
+    return (this->name);
 }
 

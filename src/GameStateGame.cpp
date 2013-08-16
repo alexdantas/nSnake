@@ -41,7 +41,7 @@ void GameStateGame::load(int stack)
     // Again, this is the game speed.
     // This is the timer that says when the snake will be
     // updated.
-    this->gameTimer = new TimerCounter(100);
+    this->gameTimer = new TimerCounter(this->board->getTimeout());
     this->gameTimer->startCounting();
 }
 int GameStateGame::unload()
@@ -78,6 +78,13 @@ GameState::StateCode GameStateGame::update(float dt)
     if (input->isKeyDown('i')) // increase the player
         this->player->eatFood();
 
+    if (input->isKeyDown('u'))
+    {
+        this->board->increaseSpeed();
+        this->gameTimer->setDelay(this->board->getTimeout());
+        this->gameTimer->startCounting();
+    }
+
 //    this->foods->update();
     this->player->update();
 
@@ -104,12 +111,12 @@ void GameStateGame::render()
     Ncurses::setStyle(Color::pair("cyan"));
     Ncurses::print(logo, 0, 0);
 
-    std::string level("level");
-    int levelX = (Ncurses::currentWidth/8);
+    std::string speed("speed");
+    int speedX = (Ncurses::currentWidth/8);
 
-    Ncurses::print(level, levelX, 0);
-    Ncurses::print(Ncurses::intToString(2),
-                   levelX + 3 + level.length(), 0);
+    Ncurses::print(speed, speedX, 0);
+    Ncurses::print(Ncurses::intToString(this->board->getSpeed()),
+                   speedX + 3 + speed.length(), 0);
 
     std::string score("score");
     int scoreX = (Ncurses::currentWidth/8 * 2);
@@ -117,6 +124,13 @@ void GameStateGame::render()
     Ncurses::print(score, scoreX, 0);
     Ncurses::print(Ncurses::intToString(this->player->getScore()),
                    scoreX + 3 + score.length(), 0);
+
+    std::string level("level");
+    int levelX = (Ncurses::currentWidth/8 * 3);
+
+    Ncurses::print(level, levelX, 0);
+    Ncurses::print(this->board->getLevelName(),
+                   levelX + 3 + level.length(), 0);
 
     std::string info("| <q> quit | <r> restart |");
     int infoX = Ncurses::currentWidth - info.length();

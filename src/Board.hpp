@@ -72,6 +72,15 @@ public:
     /// Returns how many players the current board supports.
     int getSupportedPlayers();
 
+    void setSpeed(int speed);
+    int getSpeed();
+
+    void increaseSpeed();
+
+    int getTimeout();
+
+    std::string getLevelName();
+
 private:
 
     /// Matrix containing all the tiles of the game.
@@ -79,6 +88,13 @@ private:
 
     /// The currently loaded level.
     Level level;
+
+    /// The current game's speed (how fast the snake goes).
+    int speed;
+
+    /// How much miliseconds we have to wait to update the
+    /// snake,  according to *this->speed*.
+    int timeout;
 
     int width;
     int height;
