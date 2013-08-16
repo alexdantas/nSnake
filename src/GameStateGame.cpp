@@ -20,7 +20,7 @@ void GameStateGame::load(int stack)
     this->boardY = 1;
     this->board = new Board(80, 23);
 //    this->board->setBorders(true);
-    this->board->loadFile("levels/00.nsnake");
+    this->board->loadFile("levels/arena.nsnake");
 
     if (Config::centerGameScreenHorizontally)
         this->boardX = Ncurses::currentWidth/2 - this->board->getWidth()/2;
@@ -32,7 +32,7 @@ void GameStateGame::load(int stack)
     this->foods->addAtRandom();
 
     this->player = new Snake(this->board);
-    this->player2 = new Snake(this->board, 5, 5);
+    this->player2 = new Snake(this->board, 30, 7);
 
     // Again, this is the game speed.
     // This is the timer that says when the snake will be
