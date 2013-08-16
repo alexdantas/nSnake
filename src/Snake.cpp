@@ -32,8 +32,8 @@ Snake::Snake(Board* board):
     /// TODO I NEED to find a way to fix them constructors
 
     this->board = board;
-    int x = this->board->getLevel()->getStartingX();
-    int y = this->board->getLevel()->getStartingY();
+    int x = this->board->getLevel()->getStartingX(this->player);
+    int y = this->board->getLevel()->getStartingY(this->player);
 
     if ((x > board->getWidth()) ||
         (y > board->getHeight()))

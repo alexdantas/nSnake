@@ -95,19 +95,56 @@ bool Level::load(std::string filename)
                     levelLine.push_back(Tile::WALL);
                     break;
 
-                case 'S':
+                // case 'S':
+                //     // get snake starting position
+                //     this->startingX = i;
+
+                //     // Y of the current line is the rawLevel size
+                //     // minus 1 because we'll pretty soon add it to
+                //     // rawLevel and it's size will increase by 1.
+                //     this->startingY = (this->rawLevel.size() - 1);
+
+                //     // note that multiple "S" on the file
+                //     // will always fall back to the last one
+
+                //     levelLine.push_back(Tile::NOTHING);
+                //     break;
+
+                case '1':
                     // get snake starting position
-                    this->startingX = i;
+                    this->startingPosition[0].x = i;
 
                     // Y of the current line is the rawLevel size
                     // minus 1 because we'll pretty soon add it to
                     // rawLevel and it's size will increase by 1.
-                    this->startingY = (this->rawLevel.size() - 1);
-
-                    // note that multiple "S" on the file
-                    // will always fall back to the last one
+                    this->startingPosition[0].y = (this->rawLevel.size() - 1);
 
                     levelLine.push_back(Tile::NOTHING);
+
+                    // This map supports a player!
+                    this->players++;
+                    break;
+
+                    // And now we repeat this for all the 4 supported players
+                case '2':
+                    this->startingPosition[1].x = i;
+                    this->startingPosition[1].y = (this->rawLevel.size() - 1);
+                    levelLine.push_back(Tile::NOTHING);
+                    this->players++;
+                    break;
+
+                case '3':
+                    this->startingPosition[2].x = i;
+                    this->startingPosition[2].y = (this->rawLevel.size() - 1);
+                    levelLine.push_back(Tile::NOTHING);
+                    this->players++;
+                    break;
+
+                case '4':
+                    this->startingPosition[3].x = i;
+                    this->startingPosition[3].y = (this->rawLevel.size() - 1);
+                    levelLine.push_back(Tile::NOTHING);
+                    this->players++;
                     break;
 
                 default:
@@ -125,6 +162,10 @@ bool Level::load(std::string filename)
     } // while (std::getline(file, line))
 
     if (!(file.eof())) // Finished reading due to some error
+        return false;
+
+    if ((this->players > MAX_NUMBER_OF_PLAYERS) ||
+        (this->players < 1))
         return false;
 
     this->width  = levelWidth;
@@ -149,16 +190,18 @@ void Level::clear()
 
     this->level.clear();
 
-    this->width = 0;
+    this->width  = 0;
     this->height = 0;
 
-    this->startingX = 1; // by default starting the player at
-    this->startingY = 1; // position (1, 1) on the level
+    this->players = 0;
+    for (int i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
+        this->startingPosition[i] = Point(1, 1); // by default starting the players at
+                                                 // position (1, 1) on the level
 
-    this->name = "";
-    this->author = "";
-    this->date = "";
-    this->comment = "";
+    this->name.clear();
+    this->author.clear();
+    this->date.clear();
+    this->comment.clear();
 }
 int Level::getWidth()
 {
@@ -188,11 +231,22 @@ Tile::TileContents& Level::at(int x, int y)
 
     return (this->level[x][y]);
 }
-int Level::getStartingX()
+int Level::getStartingX(int player)
 {
-    return (this->startingX);
+    if (player >= MAX_NUMBER_OF_PLAYERS)
+        return 0;
+
+    return (this->startingPosition[player].x);
 }
-int Level::getStartingY()
+int Level::getStartingY(int player)
 {
-    return (this->startingY);
+    if (player >= MAX_NUMBER_OF_PLAYERS)
+        return 0;
+
+    return (this->startingPosition[player].y);
 }
+int Level::getPlayers()
+{
+    return (this->players);
+}
+

@@ -4,6 +4,10 @@
 #include <string>
 #include <vector>
 #include "Tile.hpp"
+#include "Shapes.hpp"
+
+/// Hard-coded limit of players that can appear at once on a level.
+#define MAX_NUMBER_OF_PLAYERS 4
 
 /// Single level of the game.
 ///
@@ -33,8 +37,18 @@ public:
     /// Returns the *LevelContent* on *x* *y*.
     Tile::TileContents& at(int x, int y);
 
-    int getStartingX();
-    int getStartingY();
+    /// Gets starting x of *player*.
+    ///
+    /// @return 0 if the player is invalid.
+    int getStartingX(int player);
+
+    /// Gets starting x of *player*.
+    ///
+    /// @return 0 if the player is invalid.
+    int getStartingY(int player);
+
+    /// Returns how many players the current level supports.
+    int getPlayers();
 
 private:
     /// The level's loaded filename.
@@ -54,8 +68,15 @@ private:
     /// Level's height.
     int height;
 
-    int startingX; /// X position on where the player should start.
-    int startingY; /// Y position on where the player should start.
+    /// How many players are supported by this map?
+    ///
+    /// @note We have a hard-coded limit of players.
+    int players;
+
+    /// All the starting positions for the players.
+    ///
+    /// @note We have a hard-coded limit of players.
+    Point startingPosition[MAX_NUMBER_OF_PLAYERS];
 
     // optional metadata on the level
 

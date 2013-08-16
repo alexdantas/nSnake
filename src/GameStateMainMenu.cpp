@@ -36,8 +36,11 @@ GameState::StateCode GameStateMainMenu::update(float dt)
     if (input->isKeyDown('q'))
         return GameState::QUIT;
 
-    if (input->isKeyDown('\n'))
+    if (input->isKeyDown('1'))
         return GameState::GAME_START;
+
+    if (input->isKeyDown('2'))
+        return GameState::GAME_START_MULTIPLAYER;
 
     return GameState::CONTINUE;
 }
@@ -60,7 +63,8 @@ void GameStateMainMenu::render()
     Ncurses::print(  "888  888   Y8888P   888  888  Y888888 888  888  Y88888", logoX, 8);
 
     Ncurses::setStyle(Color::pair("red", "black"));
-    Ncurses::print("Press <enter> to start", 20, 10);
+    Ncurses::print("Press <1> to start single player game", logoX, 10);
+    Ncurses::print("Press <2> to start multiplayer game", logoX, 12);
 
 //    Ncurses::print("Delta: " + Ncurses::intToString(Ncurses::getDelta()), 1, 1);
 }

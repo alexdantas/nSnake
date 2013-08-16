@@ -1,5 +1,5 @@
-#ifndef GAMESTATEGAME_H_DEFINED
-#define GAMESTATEGAME_H_DEFINED
+#ifndef GAMESTATEMULTIPLAYERGAME_H_DEFINED
+#define GAMESTATEMULTIPLAYERGAME_H_DEFINED
 
 #include "GameState.hpp"
 #include "Sprite.hpp"
@@ -11,11 +11,11 @@
 //#include "Music.hpp"
 
 /// Everything that happens on the game.
-class GameStateGame: public GameState
+class GameStateMultiplayerGame: public GameState
 {
 public:
-    GameStateGame();
-    virtual ~GameStateGame();
+    GameStateMultiplayerGame();
+    virtual ~GameStateMultiplayerGame();
 
     /// Constructs everything necessary for the game.
     void load(int stack=0);
@@ -35,7 +35,8 @@ public:
 
 private:
 //    Music* music;     ///< Menu's background music.
-    Snake* player;
+    Snake* player1;
+    Snake* player2;
 
     Board* board;
     int boardX; /// Custom on-the-fly changeable board X position
@@ -45,4 +46,4 @@ private:
     FoodManager* foods;
 };
 
-#endif //GAMESTATEGAME_H_DEFINED
+#endif //GAMESTATEMULTIPLAYERGAME_H_DEFINED

@@ -69,6 +69,9 @@ public:
     /// @note It fails under very strange maps!
     bool isInsideMap(int x, int y);
 
+    /// Returns how many players the current board supports.
+    int getSupportedPlayers();
+
 private:
 
     /// Matrix containing all the tiles of the game.

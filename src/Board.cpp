@@ -179,4 +179,8 @@ bool Board::isInsideMap(int x, int y)
     // Basically, it's in!
     return true;
 }
+int Board::getSupportedPlayers()
+{
+    return (this->level.getPlayers());
+}
 

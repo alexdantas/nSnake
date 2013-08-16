@@ -1,30 +1,32 @@
-#include "GameStateGame.hpp"
+#include "GameStateMultiplayerGame.hpp"
 #include "Input.hpp"
 #include "Ncurses.hpp"
 #include "Config.hpp"
 
-GameStateGame::GameStateGame():
-    player(NULL),
+GameStateMultiplayerGame::GameStateMultiplayerGame():
+    player1(NULL),
+    player2(NULL),
     board(NULL),
     gameTimer(NULL),
     foods(NULL)
 { }
-GameStateGame::~GameStateGame()
+GameStateMultiplayerGame::~GameStateMultiplayerGame()
 { }
-void GameStateGame::load(int stack)
+void GameStateMultiplayerGame::load(int stack)
 {
     UNUSED(stack);
 
     this->boardX = 0;
     this->boardY = 1;
     this->board = new Board(80, 23);
+    this->board->setBorders(true);
 
-    bool result = this->board->loadFile("levels/00.nsnake");
+    bool result = this->board->loadFile("levels/arena.nsnake");
     if (!result)
-        throw "GameStateGame: Couldn't load the level.";
+        throw "GameStateMultiplayerGame: Couldn't load the level.";
 
-    if (this->board->getSupportedPlayers() > 1)
-        throw "GameStateGame: Not a single-player level.";
+    if (this->board->getSupportedPlayers() < 2)
+        throw "GameStateGame: Not a multiplayer level.";
 
     if (Config::centerGameScreenHorizontally)
         this->boardX = Ncurses::currentWidth/2 - this->board->getWidth()/2;
@@ -35,8 +37,11 @@ void GameStateGame::load(int stack)
     this->foods = new FoodManager(this->board);
     this->foods->addAtRandom();
 
-    this->player = new Snake(this->board);
-    this->player->setKeys('w', 's', 'a', 'd');
+    this->player1 = new Snake(this->board);
+    this->player1->setKeys('w', 's', 'a', 'd');
+
+    this->player2 = new Snake(this->board, 30, 7);
+    this->player2->setKeys(KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT);
 
     // Again, this is the game speed.
     // This is the timer that says when the snake will be
@@ -44,7 +49,7 @@ void GameStateGame::load(int stack)
     this->gameTimer = new TimerCounter(100);
     this->gameTimer->startCounting();
 }
-int GameStateGame::unload()
+int GameStateMultiplayerGame::unload()
 {
 // Time to delete!
 // This macro deletes a thing only if it's non-NULL,
@@ -58,11 +63,12 @@ int GameStateGame::unload()
     }                  \
 }
 
-    safe_delete(this->player);
+    safe_delete(this->player1);
+    safe_delete(this->player2);
     safe_delete(this->board);
     return 0;
 }
-GameState::StateCode GameStateGame::update(float dt)
+GameState::StateCode GameStateMultiplayerGame::update(float dt)
 {
     UNUSED(dt);
 
@@ -75,21 +81,21 @@ GameState::StateCode GameStateGame::update(float dt)
     if (input->isKeyDown('r')) // restart the game!
         return GameState::GAME_START;
 
-    if (input->isKeyDown('i')) // increase the player
-        this->player->eatFood();
-
-//    this->foods->update();
-    this->player->update();
+    this->player1->update();
+    this->player2->update();
 
     // If the game speed time has passed, we'll force
-    // the snake to move.
+    // the snakes to move.
     //
     // Note that we always check for input on Snake::update(),
     // so don't worry about that.
     if (this->gameTimer->isDone())
     {
-        this->player->move();
-        this->player->checkCollision();
+        this->player1->move();
+        this->player1->checkCollision();
+
+        this->player2->move();
+        this->player2->checkCollision();
 
         this->foods->update();
         this->gameTimer->startCounting();
@@ -97,7 +103,7 @@ GameState::StateCode GameStateGame::update(float dt)
 
     return GameState::CONTINUE;
 }
-void GameStateGame::render()
+void GameStateMultiplayerGame::render()
 {
     std::string logo("nSnake v2.0");
 
@@ -111,12 +117,12 @@ void GameStateGame::render()
     Ncurses::print(Ncurses::intToString(2),
                    levelX + 3 + level.length(), 0);
 
-    std::string score("score");
-    int scoreX = (Ncurses::currentWidth/8 * 2);
+    // std::string score("score");
+    // int scoreX = (Ncurses::currentWidth/8 * 2);
 
-    Ncurses::print(score, scoreX, 0);
-    Ncurses::print(Ncurses::intToString(this->player->getScore()),
-                   scoreX + 3 + score.length(), 0);
+    // Ncurses::print(score, scoreX, 0);
+    // Ncurses::print(Ncurses::intToString(this->player->getScore()),
+    //                scoreX + 3 + score.length(), 0);
 
     std::string info("| <q> quit | <r> restart |");
     int infoX = Ncurses::currentWidth - info.length();

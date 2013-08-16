@@ -38,7 +38,11 @@ public:
     /// *StateManager* makes the appropriate changes.
     enum StateCode
     {
-        QUIT, CONTINUE, MAIN_MENU, GAME_START, GAME_INSTRUCTION,
+        QUIT, // Exit the game.
+        CONTINUE, // Continue on the current state.
+        MAIN_MENU,
+        GAME_START,
+        GAME_START_MULTIPLAYER,
         GAME_OVER
     };
 

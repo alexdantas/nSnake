@@ -5,6 +5,7 @@
 #include "Log.hpp"
 #include "GameStateMainMenu.hpp"
 #include "GameStateGame.hpp"
+#include "GameStateMultiplayerGame.hpp"
 
 StateManager::StateManager(int width, int height)
 {
@@ -88,6 +89,14 @@ void StateManager::run()
             delete (this->currentState);
 
             this->currentState = new GameStateGame();
+            this->currentState->load(this->sharedInfo);
+            break;
+
+        case GameState::GAME_START_MULTIPLAYER:
+            this->sharedInfo = this->currentState->unload();
+            delete (this->currentState);
+
+            this->currentState = new GameStateMultiplayerGame();
             this->currentState->load(this->sharedInfo);
             break;
 
