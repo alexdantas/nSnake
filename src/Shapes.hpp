@@ -23,6 +23,7 @@ struct Rectangle
     int h;
     Point center;
 
+    Rectangle();
     Rectangle(int x, int y, int w, int h);
 };
 

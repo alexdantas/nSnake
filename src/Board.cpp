@@ -1,15 +1,14 @@
 #include "Board.hpp"
-#include "Shapes.hpp"
 
-Board::Board(int width, int height, bool haveBorders)
+Board::Board(Rectangle box, bool haveBorders)
 {
-    this->clear(width, height);
+    this->clear(box);
     this->loadDefaultLevel();
     this->setBorders(haveBorders);
 }
 Board::~Board()
 { }
-void Board::clear(int width, int height)
+void Board::clear(Rectangle box)
 {
     // Clearing board if it had any elements.
     for (unsigned int i = 0; i < (this->board.size()); i++)
@@ -17,31 +16,30 @@ void Board::clear(int width, int height)
 
     this->board.clear();
 
-    this->width  = width;
-    this->height = height;
+    this->box = box;
 
     this->setSpeed(0);
 
     // Setting up 1st dimension
-    this->board.resize(this->width);
+    this->board.resize(this->box.w);
 
     // Setting up 2nd dimension
     for (unsigned int i = 0; i < (this->board.size()); i++)
-        this->board[i].resize(this->height);
+        this->board[i].resize(this->box.h);
 
     // All the tiles are initialized by default with Tile::EMPTY
 }
 void Board::loadDefaultLevel()
 {
-    // The default level is simply a map with this->width and
-    // this->height, boxed in with borders.
-    for (int i = 0; i < (this->width); i++)
+    // The default level is simply a map with this->box.w and
+    // this->box.h, boxed in with borders.
+    for (int i = 0; i < (this->box.w); i++)
     {
-        for (int j = 0; j < (this->height); j++)
+        for (int j = 0; j < (this->box.h); j++)
         {
             // All the borders at the extremes of the board
-            if ((i == 0) || (i == (width  - 1)) ||
-                (j == 0) || (j == (height - 1)))
+            if ((i == 0) || (i == (this->box.w - 1)) ||
+                (j == 0) || (j == (this->box.h - 1)))
             {
                 this->board[i][j].set(Tile::BORDER);
             }
@@ -50,34 +48,35 @@ void Board::loadDefaultLevel()
 }
 Tile& Board::at(int x, int y)
 {
-    if ((x < 0) || (x >= this->width) ||
-        (y < 0) || (y >= this->height))
+    if ((x < 0) || (x >= this->box.w) ||
+        (y < 0) || (y >= this->box.h))
         throw "Board::at Access to invalid index.";
 
     return (this->board[x][y]);
 }
-void Board::render(int x, int y)
+void Board::render()
 {
-    for (int i = 0; i < (this->width); i++)
-        for (int j = 0; j < (this->height); j++)
-            this->board[i][j].render(x + i, y + j);
+    for (int i = 0; i < (this->box.w); i++)
+        for (int j = 0; j < (this->box.h); j++)
+            this->board[i][j].render(this->box.x + i,
+                                     this->box.y + j);
 }
 int Board::getWidth()
 {
-    return (this->width);
+    return (this->box.w);
 }
 int Board::getHeight()
 {
-    return (this->height);
+    return (this->box.h);
 }
 void Board::setBorders(bool option)
 {
     this->borders = option;
 
     // Refreshing the borders.
-    for (int i = 0; i < (this->width); i++)
+    for (int i = 0; i < (this->box.w); i++)
     {
-        for (int j = 0; j < (this->height); j++)
+        for (int j = 0; j < (this->box.h); j++)
         {
             if (this->board[i][j].has(Tile::BORDER) ||
                 this->board[i][j].has(Tile::TELEPORT_BORDER))
@@ -97,7 +96,7 @@ bool Board::hasBorders()
 int Board::maxLengthInsideMe()
 {
     // We have a 1x1 border
-    return (this->width - 1) * (this->height - 1);
+    return (this->box.w - 1) * (this->box.h - 1);
 }
 bool Board::loadFile(std::string filename)
 {
@@ -105,11 +104,12 @@ bool Board::loadFile(std::string filename)
     if (!result)
         return false;
 
-    this->clear(this->level.getWidth(), this->level.getHeight());
+    this->clear(Rectangle(this->box.x, this->box.y,
+                          this->level.getWidth(), this->level.getHeight()));
 
     // now we parse the enum thingy into the actual board, nigga
-    for (int i = 0; i < (this->width); i++)
-        for (int j = 0; j < (this->height); j++)
+    for (int i = 0; i < (this->box.w); i++)
+        for (int j = 0; j < (this->box.h); j++)
             this->board[i][j].set(this->level.at(i, j));
 
     this->setBorders(this->borders);
@@ -144,7 +144,7 @@ bool Board::isInsideMap(int x, int y)
     while (!(this->board[current.x][current.y].isBorder()))
     {
         current.x++;
-        if (current.x >= this->width)
+        if (current.x >= this->box.w)
             return false;
     }
     current = origin;
@@ -171,7 +171,7 @@ bool Board::isInsideMap(int x, int y)
     while (!(this->board[current.x][current.y].isBorder()))
     {
         current.y++;
-        if (current.y >= this->height)
+        if (current.y >= this->box.h)
             return false;
     }
 
@@ -187,20 +187,22 @@ int Board::getSupportedPlayers()
 }
 void Board::setSpeed(int speed)
 {
+    if ((speed) > 10) return;
+
     this->speed = speed;
     switch (speed)
     {
-    case 0:  this->timeout = 800; break;
-    case 1:  this->timeout = 600; break;
-    case 2:  this->timeout = 400; break;
-    case 3:  this->timeout = 300; break;
-    case 4:  this->timeout = 250; break;
-    case 5:  this->timeout = 200; break;
-    case 6:  this->timeout = 150; break;
-    case 7:  this->timeout = 100; break;
-    case 8:  this->timeout = 75; break;
-    case 9:  this->timeout = 25; break;
-    case 10: this->timeout = 0; break;
+    case 0:  (this->timeout) = 800; break;
+    case 1:  (this->timeout) = 600; break;
+    case 2:  (this->timeout) = 400; break;
+    case 3:  (this->timeout) = 300; break;
+    case 4:  (this->timeout) = 250; break;
+    case 5:  (this->timeout) = 200; break;
+    case 6:  (this->timeout) = 150; break;
+    case 7:  (this->timeout) = 100; break;
+    case 8:  (this->timeout) = 75;  break;
+    case 9:  (this->timeout) = 25;  break;
+    case 10: (this->timeout) = 0;   break;
     default: break;
     }
 }
@@ -220,5 +222,13 @@ int Board::getTimeout()
 std::string Board::getLevelName()
 {
     return (this->level.getName());
+}
+void Board::setX(int x)
+{
+    this->box.x = x;
+}
+void Board::setY(int y)
+{
+    this->box.y = y;
 }
 

@@ -16,10 +16,14 @@ void GameStateMultiplayerGame::load(int stack)
 {
     UNUSED(stack);
 
-    this->boardX = 0;
-    this->boardY = 1;
-    this->board = new Board(80, 23);
+    this->board = new Board(Rectangle(0, 1, 80, 23));
     this->board->setBorders(true);
+
+    if (Config::centerGameScreenHorizontally)
+        this->board->setX(Ncurses::currentWidth/2 - this->board->getWidth()/2);
+
+    if (Config::centerGameScreenVertically)
+        this->board->setY(Ncurses::currentHeight/2 - this->board->getHeight()/2);
 
     bool result = this->board->loadFile("levels/arena.nsnake");
     if (!result)
@@ -27,12 +31,6 @@ void GameStateMultiplayerGame::load(int stack)
 
     if (this->board->getSupportedPlayers() < 2)
         throw "GameStateGame: Not a multiplayer level.";
-
-    if (Config::centerGameScreenHorizontally)
-        this->boardX = Ncurses::currentWidth/2 - this->board->getWidth()/2;
-
-    if (Config::centerGameScreenVertically)
-        this->boardY = Ncurses::currentHeight/2 - this->board->getHeight()/2;
 
     this->foods = new FoodManager(this->board);
     this->foods->addAtRandom();
@@ -130,6 +128,6 @@ void GameStateMultiplayerGame::render()
     Ncurses::setStyle(Color::pair("magenta"));
     Ncurses::print(info, infoX, 0);
 
-    this->board->render(this->boardX, this->boardY);
+    this->board->render();
 }
 

@@ -39,8 +39,6 @@ private:
     Snake* player2;
 
     Board* board;
-    int boardX; /// Custom on-the-fly changeable board X position
-    int boardY; /// Custom on-the-fly changeable board Y position.
 
     TimerCounter* gameTimer;
     FoodManager* foods;

@@ -56,15 +56,18 @@ void Tile::remove(TileContents newContent)
         return;
     }
 
-    // If the sprite is the thing we'll remove right now,
-    // let's look for other thing to print
+    // If the current sprite was the thing we just removed
+    // we've got a problem!
+    //
+    // Let's get the sprite of the other thing this tile has.
+
     if (this->spriteIndex == newContent)
     {
-        for (unsigned int i = 0; i < (TILE_CONTENTS_MAX); i++)
+        for (int i = 0; i < (TILE_CONTENTS_MAX); i++)
         {
-            if (this->content[i])
+            if (this->content[i]) // A-ha!
             {
-                this->spriteIndex = (TileContents)(i);
+                this->spriteIndex = (TileContents)(i); // ugh...
                 this->spriteRefresh();
                 break;
             }
@@ -81,10 +84,15 @@ void Tile::render(int x, int y)
         return;
 
     if (this->sprite)
-    this->sprite->render(x, y);
+        this->sprite->render(x, y);
 }
 bool Tile::isEmpty()
 {
+    // There are two cases on which a tile is empty.
+    //
+    // * All of it's contents are false.
+    // * All of it's contents are false except Tile::NOTHING.
+
     for (int i = 0; i < TILE_CONTENTS_MAX; i++)
         if ((this->content[i]) && (i != Tile::NOTHING))
             return false;
@@ -93,6 +101,13 @@ bool Tile::isEmpty()
 }
 bool Tile::isInvalidForPlayer()
 {
+    // The thing is...
+    // It's kinda hard to determine what's invalid for
+    // a player to step into.
+    // It depends on the circumstances.
+    // For example, sometimes you'd want it to step over
+    // a TELEPORT_BORDER, sometimes not.
+
     if (this->has(Tile::WALL) ||
         this->has(Tile::BORDER) ||
         this->has(Tile::TELEPORT_BORDER) ||
@@ -105,6 +120,11 @@ bool Tile::isInvalidForPlayer()
 }
 void Tile::spriteRefresh()
 {
+    // Since this will overwrite the current sprite, let's
+    // erase the current one.
+    // Note that this is the ONLY place (except on the destructor)
+    // where I explicitly use delete!
+
     if (this->sprite)
     {
         delete this->sprite;
@@ -114,6 +134,7 @@ void Tile::spriteRefresh()
     switch (this->spriteIndex)
     {
     case Tile::NOTHING:
+        // Keep it NULL
         break;
 
     case Tile::BORDER:

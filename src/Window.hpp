@@ -5,6 +5,19 @@
 #include <string>
 #include "Shapes.hpp"
 
+/// The borders around the window.
+struct Border
+{
+    int left;
+    int right;
+    int top;
+    int bottom;
+    int topLeft;
+    int topRight;
+    int bottomLeft;
+    int bottomRight;
+};
+
 /// A rectangular segment of the terminal screen.
 ///
 ///
@@ -53,6 +66,16 @@ public:
     /// behaviour may happen.
     WINDOW* getWin();
 
+    /// Sets the border of this window to the default values.
+    void setBorder();
+
+    /// Sets the border of this window do specified characters.
+    void setBorder(int horizontal, int vertical, int edges);
+
+    /// Sets the border of this window to specified characters.
+    void setBorder(int left, int right, int top, int bottom,
+                   int topLeft, int topRight, int bottomLeft, int bottomRight);
+
 protected:
     /// Ncurses' internal data structure that represents a window.
     WINDOW* win;
@@ -66,6 +89,10 @@ protected:
     /// Tells if we're using an external rectangle to delimit
     /// our window.
     bool usingExternalBox;
+
+    bool hasBorder;
+
+    Border border;
 };
 
 #endif /* WINDOW_H_DEFINED */

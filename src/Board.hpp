@@ -4,7 +4,7 @@
 #include <vector>
 #include "Tile.hpp"
 #include "Level.hpp"
-
+#include "Shapes.hpp"
 
 /// The game board, where all the action happens.
 ///
@@ -16,13 +16,13 @@ public:
     /// @note *haveBorders* defines if the board will kill
     ///       the snake or teleport it upon collision.
     ///       By default it teleports.
-    Board(int width, int height, bool haveBorders=false);
+    Board(Rectangle box, bool haveBorders=false);
 
     virtual ~Board();
 
     /// Empties the inner board, getting a fresh new one of
     /// *width* and *height*.
-    void clear(int width, int height);
+    void clear(Rectangle box);
 
     /// Loads the default level.
     ///
@@ -33,8 +33,9 @@ public:
     /// Returns the pointer to the tile at index *x* *y*.
     Tile& at(int x, int y);
 
-    /// Shows the whole board starting on *x* *y*, from top-left.
-    void render(int x, int y);
+    /// Shows the whole board on the screen based on it's
+    /// position at *box*.
+    void render();
 
     int getWidth();  ///< Returns the board's width.
     int getHeight(); ///< Returns the board's height.
@@ -81,6 +82,9 @@ public:
 
     std::string getLevelName();
 
+    void setX(int x);
+    void setY(int y);
+
 private:
 
     /// Matrix containing all the tiles of the game.
@@ -96,8 +100,8 @@ private:
     /// snake,  according to *this->speed*.
     int timeout;
 
-    int width;
-    int height;
+    /// The board's x/y position and width/height.
+    Rectangle box;
 
     /// Tells if the borders are solid or teleportable.
     ///

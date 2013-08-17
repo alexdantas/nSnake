@@ -15,9 +15,13 @@ void GameStateGame::load(int stack)
 {
     UNUSED(stack);
 
-    this->boardX = 0;
-    this->boardY = 1;
-    this->board = new Board(80, 23);
+    this->board = new Board(Rectangle(0, 1, 80, 23));
+
+    if (Config::centerGameScreenHorizontally)
+        this->board->setX(Ncurses::currentWidth/2 - this->board->getWidth()/2);
+
+    if (Config::centerGameScreenVertically)
+        this->board->setY(Ncurses::currentHeight/2 - this->board->getHeight()/2);
 
     bool result = this->board->loadFile("levels/00.nsnake");
     if (!result)
@@ -25,12 +29,6 @@ void GameStateGame::load(int stack)
 
     if (this->board->getSupportedPlayers() > 1)
         throw "GameStateGame: Not a single-player level.";
-
-    if (Config::centerGameScreenHorizontally)
-        this->boardX = Ncurses::currentWidth/2 - this->board->getWidth()/2;
-
-    if (Config::centerGameScreenVertically)
-        this->boardY = Ncurses::currentHeight/2 - this->board->getHeight()/2;
 
     this->foods = new FoodManager(this->board);
     this->foods->addAtRandom();
@@ -109,21 +107,21 @@ void GameStateGame::render()
     std::string logo("nSnake v2.0");
 
     Ncurses::setStyle(Color::pair("cyan"));
-    Ncurses::print(logo, 0, 0);
+    Ncurses::print(logo, 1, 0);
 
     std::string speed("speed");
     int speedX = (Ncurses::currentWidth/8);
 
     Ncurses::print(speed, speedX, 0);
     Ncurses::print(Ncurses::intToString(this->board->getSpeed()),
-                   speedX + 3 + speed.length(), 0);
+                   speedX + 1 + speed.length(), 0);
 
     std::string score("score");
     int scoreX = (Ncurses::currentWidth/8 * 2);
 
     Ncurses::print(score, scoreX, 0);
     Ncurses::print(Ncurses::intToString(this->player->getScore()),
-                   scoreX + 3 + score.length(), 0);
+                   scoreX + 1 + score.length(), 0);
 
     std::string level("level");
     int levelX = (Ncurses::currentWidth/8 * 3);
@@ -132,12 +130,12 @@ void GameStateGame::render()
     Ncurses::print(this->board->getLevelName(),
                    levelX + 3 + level.length(), 0);
 
-    std::string info("| <q> quit | <r> restart |");
-    int infoX = Ncurses::currentWidth - info.length();
+    std::string info("<q> quit | <r> restart");
+    int infoX = Ncurses::currentWidth - info.length() - 1;
 
     Ncurses::setStyle(Color::pair("magenta"));
     Ncurses::print(info, infoX, 0);
 
-    this->board->render(this->boardX, this->boardY);
+    this->board->render();
 }
 

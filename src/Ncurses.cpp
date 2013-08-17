@@ -61,6 +61,7 @@ bool Ncurses::init(int width, int height, int frameRate)
     // Creating the main window on which everything will be
     // based on.
     Ncurses::window = new Window(0, 0, Ncurses::currentWidth, Ncurses::currentHeight);
+    Ncurses::window->setBorder();
 
     // Allowing mouse input
     if (has_mouse() == TRUE)
@@ -198,22 +199,18 @@ int Ncurses::randomNumberBetween(int min, int max)
 void Ncurses::print(std::string what, int x, int y)
 {
     Ncurses::window->print(what, x, y);
-//    mvaddstr(y, x, what.c_str());
 }
 void Ncurses::setStyle(unsigned long pair)
 {
     Ncurses::window->setStyle(pair);
-//    attrset(pair);
 }
 void Ncurses::refresh()
 {
     Ncurses::window->refresh();
-//    wrefresh(Ncurses::screen);
 }
 void Ncurses::clearScreen()
 {
     Ncurses::window->clear();
-//    erase();
 }
 void Ncurses::delay_us(useconds_t delay)
 {
@@ -226,6 +223,5 @@ void Ncurses::delay_ms(int delay)
 void Ncurses::inputDelay(int delay)
 {
     wtimeout(Ncurses::window->getWin(), delay);
-//    timeout(delay);
 }
 
