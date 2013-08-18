@@ -16,7 +16,11 @@
 class Level
 {
 public:
+    /// Creates an empty level.
+    ///
+    /// I suggest you to call *load()* or something.
     Level();
+
     virtual ~Level();
 
     /// Loads and parses the level at *filename*.
@@ -24,6 +28,9 @@ public:
     /// @note If called multiple times, it erases the
     ///       previous loaded levels!
     bool load(std::string filename);
+
+    /// Reloads the current level.
+    bool reload();
 
     /// TODO
     bool save(std::string filename);
@@ -50,13 +57,24 @@ public:
     /// Returns how many players the current level supports.
     int getPlayers();
 
+    // returning level metadata
+
     std::string getName();
+    std::string getAuthor();
+    std::string getDate();
+    std::string getComment();
 
 private:
-    /// The level's loaded filename.
+
+    /// The filename, if properly loaded.
+    ///
+    /// @note If *load()* is not called, this is empty.
     std::string filename;
 
-    /// The raw contents of the level in string format.
+    /// The raw contents of the level in string format, if
+    /// properly loaded.
+    ///
+    /// @note If *load()* is not called, this is empty.
     std::vector<std::string> rawLevel;
 
     /// The actual level, in respect of *TileContents*.
@@ -64,7 +82,8 @@ private:
 
     /// Level's maximum width.
     ///
-    /// @note Not all lines may have this same width!
+    /// @note All lines are guaranteed to have this width.
+    ///       independently if the map file is not regular.
     int width;
 
     /// Level's height.

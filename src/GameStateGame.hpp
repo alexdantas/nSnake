@@ -37,7 +37,6 @@ private:
 //    Music* music;     ///< Menu's background music.
     Snake* player;
     Board* board;
-
     TimerCounter* gameTimer;
     FoodManager* foods;
 };

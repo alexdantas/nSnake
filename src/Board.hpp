@@ -24,12 +24,6 @@ public:
     /// *width* and *height*.
     void clear(Rectangle box);
 
-    /// Loads the default level.
-    ///
-    /// It is simply a box of borders, with *this->width* and
-    /// *this->height*.
-    void loadDefaultLevel();
-
     /// Returns the pointer to the tile at index *x* *y*.
     Tile& at(int x, int y);
 
@@ -57,6 +51,12 @@ public:
 
     /// Loads the level on *filename*, populating the board.
     bool loadFile(std::string filename);
+
+    /// Loads the default level.
+    ///
+    /// It is simply a box of borders, with *this->width* and
+    /// *this->height*.
+    void loadDefaultLevel();
 
     /// Returns the *Level* related to the board.
     ///

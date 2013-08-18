@@ -15,13 +15,7 @@ void GameStateGame::load(int stack)
 {
     UNUSED(stack);
 
-    this->board = new Board(Rectangle(0, 1, 80, 23));
-
-    if (Config::centerGameScreenHorizontally)
-        this->board->setX(Ncurses::currentWidth/2 - this->board->getWidth()/2);
-
-    if (Config::centerGameScreenVertically)
-        this->board->setY(Ncurses::currentHeight/2 - this->board->getHeight()/2);
+    this->board = new Board(Rectangle(1, 1, 80, 23));
 
     bool result = this->board->loadFile("levels/00.nsnake");
     if (!result)
@@ -29,6 +23,12 @@ void GameStateGame::load(int stack)
 
     if (this->board->getSupportedPlayers() > 1)
         throw "GameStateGame: Not a single-player level.";
+
+    if (Config::centerGameScreenHorizontally)
+        this->board->setX(Ncurses::currentWidth/2 - this->board->getWidth()/2);
+
+    if (Config::centerGameScreenVertically)
+        this->board->setY(Ncurses::currentHeight/2 - this->board->getHeight()/2);
 
     this->foods = new FoodManager(this->board);
     this->foods->addAtRandom();
@@ -58,6 +58,8 @@ int GameStateGame::unload()
 
     safe_delete(this->player);
     safe_delete(this->board);
+    safe_delete(this->gameTimer);
+    safe_delete(this->foods);
     return 0;
 }
 GameState::StateCode GameStateGame::update(float dt)

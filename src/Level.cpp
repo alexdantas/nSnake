@@ -20,8 +20,8 @@ bool Level::load(std::string filename)
 
 //    if (!(file.good())) what does it do?
 
-    std::string line("");
-    bool levelStarted(false);
+    std::string line(""); // current line we are parsing
+    bool levelStarted(false); // tells if we're not parsing metadata
     unsigned int levelWidth(0);
 
     // Parsing each line of the file
@@ -73,6 +73,7 @@ bool Level::load(std::string filename)
 
             // char-by-char level parsing
             std::vector<Tile::TileContents> levelLine;
+            levelLine.clear();
 
             for (unsigned int i = 0; i < (line.size()); i++)
             {
@@ -157,7 +158,7 @@ bool Level::load(std::string filename)
     this->height = this->rawLevel.size();
 
     // And now we fill the whole level until all the lines
-    // have this->width
+    // have this->width.
     for (int i = 0; i < (this->height); i++)
         for (int j = 0; j < (this->width); j++)
             if (j > (this->level[i].size()))
@@ -168,6 +169,10 @@ bool Level::load(std::string filename)
 void Level::clear()
 {
     this->filename.clear();
+
+    for (unsigned int i = 0; i < (this->rawLevel.size()); i++)
+        this->rawLevel[i].clear();
+
     this->rawLevel.clear();
 
     for (unsigned int i = 0; i < (this->level.size()); i++)
@@ -179,6 +184,7 @@ void Level::clear()
     this->height = 0;
 
     this->players = 0;
+
     for (int i = 0; i < MAX_NUMBER_OF_PLAYERS; i++)
         this->startingPosition[i] = Point(1, 1); // by default starting the players at
                                                  // position (1, 1) on the level
@@ -207,14 +213,13 @@ Tile::TileContents& Level::at(int x, int y)
             Ncurses::intToString(y);
     }
 
-    int a;
-    a = x; // we need to switch them
-    x = y; // because when we build the level matrix
-    y = a; // we made it on reverse:
-           // this->level[] are y and
-           // this->level[][] are x
+    // we need to switch them because when we built the
+    // level matrix we made it on reverse:
+    // this->level[] is y
+    // and
+    // this->level[][] is x
 
-    return (this->level[x][y]);
+    return (this->level[y][x]);
 }
 int Level::getStartingX(int player)
 {
