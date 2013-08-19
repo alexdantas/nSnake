@@ -1,38 +1,87 @@
-# nsnake Makefile
-# (2013) Alexandre Dantas (kure) <eu@alexdantas.net>
+# nSnake Makefile (2011-2012)  Alexandre Dantas (kure) <alex.dantas92@gmail.com>
+#
+# Environment variables:
+#  V       Print all commands as they are called.
+#          To turn on for the current make, add 'V=1' on the
+#          commandline.
+#          To turn on permanently, uncomment the line specified below
+#  PREFIX  Installs the package on a custom directory (overwrites root)
+#          For example 'PREFIX=~/' would install the program to
+#          ~/bin/nsnake.
+#  SCORE_PATH  Path to the highscore file. Defaults to /var/games
+#  DESTDIR Installs the package on a custom sysroot (other than /)
+#  CFLAGS  Changes the C flags used on compilation
+#  LDFLAGS Specify additional linker flags
+#  CDEBUG  If you wish to build on debug mode, add 'CDEBUG=-g'
+#
+# Makefile Targets:
+#  all        Compiles the package
+#  run        Compiles and runs the program
+#  install    Installs the package
+#  clean      Removes the binary and the resulting object files
+#  uninstall  Uninstalls the package
+#  dist       Creates the source code 'tarball' for distribution
+#  doc        Generates the documentation with doxygen
+#  docclean   Removes the documentation
 
-SHELL    = /bin/bash
-DATE     = $(shell date "+%B%Y")
+# Uncomment line below to tun on verbose mode permanently
+#V	= 1;
 
-PACKAGE  = nsnake
-VERSION  = 2.0
-EXE		 = nsnake
+SHELL	= /bin/sh
 
-CXXFLAGS = -Wall -Wextra -g
-LDFLAGS  = -lncurses
-INCLUDE  =
+# General Info
+PACKAGE = nsnake
+VERSION = 1.7
+DATE	= `date '+%b%Y'`
 
-LIBS_CXXFILES = $(shell find src/lib -maxdepth 1 -type f -name '*.cpp')
+# Local source code information
+LBIN    = bin
+LOBJ    = obj
+LDOC    = doc
+LSRC    = src
+LFILES  = BUGS ChangeLog COPYING Doxyfile INSTALL Makefile README TODO
 
-DEFINES  = -DVERSION=\""$(VERSION)"\" \
-           -DPACKAGE=\""$(PACKAGE)"\" \
-           -DDATE=\""$(DATE)"\"
+# Install
+PREFIX ?= /usr/local
 
-###################################################################
-########## Do NOT edit this
-CXX = g++
+EXEC_PREFIX = $(PREFIX)
+DATAROOTDIR = $(PREFIX)/share
+MANROOT     = $(DATAROOTDIR)/man
 
-# All C++ file sources of the projects
-CXXFILES   = $(shell find src -maxdepth 1 -type f -name '*.cpp')
-CXXOBJECTS = $(CXXFILES:.cpp=.o)
+BINDIR	  = $(EXEC_PREFIX)/games
+MANDIR    = $(MANROOT)/man6
+MANNUMBER = 6
 
-SOURCES    = $(CXXFILES)
-OBJECTS    = $(CXXOBJECTS)
+# Package score file name
+SCORE_FILE = high-scores.bin
 
-LIBS_CXXOBJECTS = $(LIBS_CXXFILES:.cpp=.o)
+# Compiling information
+CC         ?= gcc
+EXE         = nsnake
+CDEBUG	    =
+CFLAGS	   += $(CDEBUG) -Wall -Wextra -O2
+LIBS	    = -lncurses
+INCLUDESDIR =
+LIBSDIR     =
+OBJ         = $(LOBJ)/fruit.o      \
+              $(LOBJ)/main.o       \
+              $(LOBJ)/player.o     \
+              $(LOBJ)/nsnake.o     \
+              $(LOBJ)/engine.o     \
+              $(LOBJ)/hscores.o    \
+              $(LOBJ)/arguments.o
+MANFILE     = $(PACKAGE).$(MANNUMBER)
+MANPAGE     = $(LDOC)/man/$(MANFILE)
 
-LIBS_SOURCES = $(LIBS_CXXFILES)
-LIBS_OBJECTS = $(LIBS_CXXOBJECTS)
+DEFINES	= -DVERSION=\""$(VERSION)"\"	   \
+		  -DDATE=\""$(DATE)"\"			   \
+		  -DSCORE_FILE=\""$(SCORE_FILE)"\"
+
+# Distribution tarball
+TARNAME = $(PACKAGE)
+DISTDIR = $(TARNAME)-$(VERSION)
+
+# Verbose mode check
 
 ifdef V
 MUTE =
@@ -40,66 +89,63 @@ VTAG = -v
 else
 MUTE = @
 endif
-###################################################################
 
-# Don't try to understand this
-
-# BUILD is initially undefined
-ifndef BUILD
-
-# max equals 256 x's
-sixteen := x x x x x x x x x x x x x x x x
-MAX := $(foreach x,$(sixteen),$(sixteen))
-
-# T estimates how many targets we are building by replacing BUILD with
-# a special string
-T := $(shell $(MAKE) -nrRf $(firstword $(MAKEFILE_LIST)) $(MAKECMDGOALS) \
-            BUILD="COUNTTHIS" | grep -c "COUNTTHIS")
-
-# N is the number of pending targets in base 1, well in fact, base x
-# :-)
-N := $(wordlist 1,$T,$(MAX))
-
-# auto-decrementing counter that returns the number of pending targets
-# in base 10
-counter = $(words $N)$(eval N := $(wordlist 2,$(words $N),$N))
-
-# BUILD is now defined to show the progress, this also avoids
-# redefining T in loop
-BUILD = @echo $(counter) of $(T)
-endif
-###################################################################
-
+# Make targets
 all: dirs $(EXE)
 	# Build successful!
 
-$(EXE): $(OBJECTS) $(LIBS_OBJECTS)
+install: all
+	# Installing...
+	$(MUTE)install -d --mode=755 $(DESTDIR)$(BINDIR)
+	$(MUTE)install -g games -m 2755 $(LBIN)/$(EXE) $(DESTDIR)$(BINDIR)
+	$(MUTE)install -d $(DESTDIR)$(MANDIR)
+	$(MUTE)install $(MANPAGE) $(DESTDIR)$(MANDIR)
+	@echo
+	# $(PACKAGE) successfuly installed!
+
+uninstall:
+	# Uninstalling...
+	$(MUTE)rm -f $(DESTDIR)$(BINDIR)/$(EXE)
+
+purge: uninstall
+	# Purging configuration files...
+	$(MUTE)rm -f $(DESTDIR)$(MANDIR)/$(MANFILE)
+
+$(EXE): $(OBJ)
 	# Linking...
-	$(MUTE)$(CXX) $(OBJECTS) $(LIBS_OBJECTS) -o $(EXE) $(LDFLAGS)
+	$(MUTE)$(CC) $(LDFLAGS) $(OBJ) -o $(LBIN)/$(EXE) $(LIBSDIR) $(LIBS)
 
-src/%.o: src/%.cpp
+$(LOBJ)/%.o: $(LSRC)/%.c
 	# Compiling $<...
-	$(MUTE)$(CXX) $(CXXFLAGS) $(INCLUDE) $< -c -o $@
-	$(BUILD)
+	$(MUTE)$(CC) $(CFLAGS) $< -c -o $@ $(DEFINES) $(INCLUDESDIR)
 
-src/%.o: src/%.c
-	# Compiling $<...
-	$(MUTE)$(CC) $(CFLAGS) $(INCLUDE) $< -c -o $@
+dist: clean $(DISTDIR).tar.gz
+
+$(DISTDIR).tar.gz: $(DISTDIR)
+	# Creating distribution tarball...
+	$(MUTE)tar czf $(DISTDIR).tar.gz $(DISTDIR)
+	$(MUTE)rm -rf $(DISTDIR)
+
+$(DISTDIR):
+	$(MUTE)mkdir -p $(DISTDIR)/$(LSRC) $(DISTDIR)/$(LDOC)
+	$(MUTE)mkdir -p $(DISTDIR)/$(LBIN) $(DISTDIR)/$(LOBJ)
+	-$(MUTE)cp $(LFILES) -t $(DISTDIR)
+	-$(MUTE)cp -r $(LSRC)/* $(DISTDIR)/$(LSRC)
+	-$(MUTE)cp -r $(LBIN)/* $(DISTDIR)/$(LBIN)
+	-$(MUTE)cp -r $(LDOC)/* $(DISTDIR)/$(LDOC)
+
+# Phony targets
+dirs:
+	-mkdir -p $(LOBJ) $(LBIN)
 
 run: all
-	$(MUTE)./$(EXE)
+	# Running...
+	$(MUTE)./$(LBIN)/$(EXE)
 
 clean:
-	# Cleaning...
-	-$(MUTE)rm -f $(EXE) $(OBJECTS)
-
-libclean: clean
-	# Cleaning libs...
-	-$(MUTE)rm -f $(LIBS_OBJECTS)
-
-# Assure directories exist
-dirs:
-	$(MUTE)mkdir -p src/lib
+	# Cleaning files...
+	$(MUTE)rm $(VTAG) -f $(LOBJ)/*.o
+	$(MUTE)rm $(VTAG) -f $(LBIN)/*
 
 doc:
 	# Generating documentation...
@@ -109,5 +155,6 @@ docclean:
 	# Removing documentation...
 	-$(MUTE)rm $(VTAG) -rf $(LDOC)/html
 
-.PHONY: clean doc docclean
+.PHONY: clean doc docclean uninstall
 
+#------------------------------------------------------------------------------
