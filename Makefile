@@ -70,12 +70,12 @@ BUILD = @echo $(counter) of $(T)
 endif
 ###################################################################
 
-all: dirs $(EXE)
+all: dirs bin/$(EXE)
 	# Build successful!
 
-$(EXE): $(OBJECTS) $(LIBS_OBJECTS)
+bin/$(EXE): $(OBJECTS) $(LIBS_OBJECTS)
 	# Linking...
-	$(MUTE)$(CXX) $(OBJECTS) $(LIBS_OBJECTS) -o $(EXE) $(LDFLAGS)
+	$(MUTE)$(CXX) $(OBJECTS) $(LIBS_OBJECTS) -o bin/$(EXE) $(LDFLAGS)
 
 src/%.o: src/%.cpp
 	# Compiling $<...
@@ -87,11 +87,11 @@ src/%.o: src/%.c
 	$(MUTE)$(CC) $(CFLAGS) $(INCLUDE) $< -c -o $@
 
 run: all
-	$(MUTE)./$(EXE)
+	$(MUTE)./bin/$(EXE)
 
 clean:
 	# Cleaning...
-	-$(MUTE)rm -f $(EXE) $(OBJECTS)
+	-$(MUTE)rm -f bin/$(EXE) $(OBJECTS)
 
 libclean: clean
 	# Cleaning libs...

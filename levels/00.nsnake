@@ -1,0 +1,26 @@
+name=Hello, World!
+author=kure
+date=15/08/13
+comment=First level, for showing nsnake's map building features. Enjoy!
+start
++---------------------------------+
+|                                  +
+|                                   +----------------------------+
+|                                                                |
+|            #                                                   |
+|                               #                                |
+|                                                                |
+|                  1                                             |
+|                                                #               |
+|      #                                                      +--+
+|                                                             |
+|                                                             |
+|                                 +---------------------------+
+|            #         #          |
++----+                            |
+     |                            |
+     |                          +-+
+     |                          |
+     +--------------------------+
+end
+# Thank you for playing my game!

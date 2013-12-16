@@ -1,0 +1,18 @@
+# Everything that starts with a # is a comment
+name=Name of the Level
+author=Author
+date=Date
+comment=This is a level comment
+start
++---------------------------------+
+|                                 |
+|    1                            |
+|                                 |
+|                            #    |
++----+                            |
+     |           #                |
+     |          #               +-+
+     |         #                |
+     +--------------------------+
+end
+# any other things one may add on the future
