@@ -18,7 +18,8 @@ Game::Game():
 	isPaused(false),
 	showPauseMenu(false),
 	showHelp(false),
-	pauseMenu(nullptr)
+	pauseMenu(nullptr),
+	player(nullptr)
 { }
 
 void Game::start()
@@ -26,6 +27,7 @@ void Game::start()
 	// Cleaning things from the previous game (if any)
 	SAFE_DELETE(this->layout);
 	SAFE_DELETE(this->pauseMenu);
+	SAFE_DELETE(this->player);
 
 	this->userAskedToQuit     = false;
 	this->userAskedToGoToMenu = false;
@@ -56,6 +58,8 @@ void Game::start()
 
 	item = new MenuItem("Quit Game", QUIT_GAME);
 	this->pauseMenu->add(item);
+
+	this->player = new Player(5, 5);
 
 	// Starting timers
 	this->timerSnake.start();
@@ -120,19 +124,19 @@ void Game::handleInput(int c)
 
 	if (c == Globals::Input::left)
 	{
-
+		this->player->move(Player::LEFT);
 	}
 	else if (c == Globals::Input::right)
 	{
-
+		this->player->move(Player::RIGHT);
 	}
 	else if (c == Globals::Input::up)
 	{
-
+		this->player->move(Player::UP);
 	}
 	else if (c == Globals::Input::down)
 	{
-
+		this->player->move(Player::DOWN);
 	}
 }
 void Game::update()
@@ -171,8 +175,8 @@ void Game::update()
 
 	if (this->timerSnake.delta_ms() >= delta)
 	{
-		// Move player
-
+		// Actually move player
+		this->player->update();
 		this->timerSnake.start();
 	}
 	else

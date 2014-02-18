@@ -1,7 +1,9 @@
-bin
-obj
-TMPCHANGES
-src/*.o
-stdout.txt
-stderr.txt
-levels/*
+
+# Object files and binary
+bin/*
+*.o
+
+# local documentation
+doc/html
+
+tmp/

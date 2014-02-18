@@ -2,6 +2,7 @@
 #define GAME_H_DEFINED
 
 #include <Game/Score.hpp>
+#include <Game/Player.hpp>
 #include <Misc/Timer.hpp>
 #include <Interface/Menu/Menu.hpp>
 
@@ -69,6 +70,8 @@ protected:
 
 	/// Menu that's shown only when the user presses Pause.
 	Menu* pauseMenu;
+
+	Player* player;
 };
 
 #endif //GAME_H_DEFINED

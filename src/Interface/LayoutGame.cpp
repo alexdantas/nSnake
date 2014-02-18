@@ -210,6 +210,8 @@ void LayoutGame::draw(Menu* menu)
 	// Board and main game stuff
 	this->gamewin->clear();
 
+	this->game->player->draw(this->gamewin);
+
 	this->gamewin->refresh();
 
 	// NCURSES NEEDS THIS
