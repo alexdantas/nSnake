@@ -1,88 +1,99 @@
-# nSnake Makefile (2011-2012)  Alexandre Dantas (kure) <alex.dantas92@gmail.com>
+# nsnake Makefile
+# (2013) Alexandre Dantas <eu@alexdantas.net>
 #
-# Environment variables:
-#  V       Print all commands as they are called.
-#          To turn on for the current make, add 'V=1' on the
-#          commandline.
-#          To turn on permanently, uncomment the line specified below
-#  PREFIX  Installs the package on a custom directory (overwrites root)
-#          For example 'PREFIX=~/' would install the program to
-#          ~/bin/nsnake.
-#  SCORE_PATH  Path to the highscore file. Defaults to /var/games
-#  DESTDIR Installs the package on a custom sysroot (other than /)
-#  CFLAGS  Changes the C flags used on compilation
-#  LDFLAGS Specify additional linker flags
-#  CDEBUG  If you wish to build on debug mode, add 'CDEBUG=-g'
+# This is a rather complex Makefile, sorry about that.
+# It supports the following targets:
 #
-# Makefile Targets:
-#  all        Compiles the package
-#  run        Compiles and runs the program
-#  install    Installs the package
-#  clean      Removes the binary and the resulting object files
-#  uninstall  Uninstalls the package
-#  dist       Creates the source code 'tarball' for distribution
-#  doc        Generates the documentation with doxygen
-#  docclean   Removes the documentation
+# make all        Builds the package
+# make run        Builds and runs the program
+# make install    Installs the package on your system
+# make uninstall  Uninstalls the package from your system
+# make clean      Cleans results of building process
+# make dist       Creates source code "tarball"
+# make doc        Generates the documentation with doxygen
+# make docclean   Removes the documentation
+#
+# Also, the following commandline arguments customize
+# default actions:
+#
+#  V        Verbose mode, off by default.
+#           To turn on for the current command,
+#           add `V=1` when calling `make`.
+#           To turn on permanently, uncomment the line
+#           specified below
+#  DESTDIR  Installs the package on a custom root directory
+#           (other than `/`). For example `DESTDIR=~/`.
+#  PREFIX   Installs the package on a custom directory
+#           (overwrites root)
+#  CFLAGS   Changes the C flags used on compilation
+#  CDEBUG   If you wish to build on debug mode, add 'CDEBUG=-g'
+#  PLATFORM To force a specific architecture, set it as
+#           'PLATFORM=-m32' or 'PLATFORM=-m64' for 32 or 64 bits.
+#
 
 # Uncomment line below to tun on verbose mode permanently
-#V	= 1;
-
-SHELL	= /bin/sh
+#V = 1;
 
 # General Info
 PACKAGE = nsnake
-VERSION = 1.7
-DATE	= `date '+%b%Y'`
+VERSION = 2.0.0
+DATE    = $(shell date "+%b%Y")
 
 # Local source code information
-LBIN    = bin
-LOBJ    = obj
-LDOC    = doc
-LSRC    = src
-LFILES  = BUGS ChangeLog COPYING Doxyfile INSTALL Makefile README TODO
+FILES = BUGS ChangeLog COPYING Doxyfile \
+        INSTALL.md Makefile README.md TODO
 
-# Install
-PREFIX ?= /usr/local
+# Install dirs
+DESTDIR =
+PREFIX  = $(DESTDIR)/usr
 
 EXEC_PREFIX = $(PREFIX)
 DATAROOTDIR = $(PREFIX)/share
 MANROOT     = $(DATAROOTDIR)/man
 
-BINDIR	  = $(EXEC_PREFIX)/games
-MANDIR    = $(MANROOT)/man6
-MANNUMBER = 6
+MANNUMBER   = 6
 
-# Package score file name
-SCORE_FILE = high-scores.bin
+BINDIR      = $(EXEC_PREFIX)/games
+MANDIR      = $(MANROOT)/man$(MANNUMBER)
 
-# Compiling information
-CC         ?= gcc
-EXE         = nsnake
-CDEBUG	    =
-CFLAGS	   += $(CDEBUG) -Wall -Wextra -O2
-LIBS	    = -lncurses
-INCLUDESDIR =
-LIBSDIR     =
-OBJ         = $(LOBJ)/fruit.o      \
-              $(LOBJ)/main.o       \
-              $(LOBJ)/player.o     \
-              $(LOBJ)/nsnake.o     \
-              $(LOBJ)/engine.o     \
-              $(LOBJ)/hscores.o    \
-              $(LOBJ)/arguments.o
 MANFILE     = $(PACKAGE).$(MANNUMBER)
-MANPAGE     = $(LDOC)/man/$(MANFILE)
+MANPAGE     = doc/man/$(MANFILE)
 
-DEFINES	= -DVERSION=\""$(VERSION)"\"	   \
-		  -DDATE=\""$(DATE)"\"			   \
-		  -DSCORE_FILE=\""$(SCORE_FILE)"\"
+# Build info
+EXE         = $(PACKAGE)
+CDEBUG      = -O2
+PLATFORM    =
+CXXFLAGS    = $(CDEBUG) -Wall -Wextra -std=c++0x $(PLATFORM)
+LDFLAGS     = -lncurses $(PLATFORM)
+INCLUDESDIR = -I"src/" -I"deps/"
+LIBSDIR     =
+
+# All source files
+CFILES   = $(shell find src -type f -name '*.c')
+CXXFILES = $(shell find src -type f -name '*.cpp')
+OBJECTS  = $(CFILES:.c=.o) \
+           $(CXXFILES:.cpp=.o)
+
+DEFINES = -DVERSION=\""$(VERSION)"\" \
+          -DPACKAGE=\""$(PACKAGE)"\" \
+          -DDATE=\""$(DATE)"\"
+
+# iniparser stuff
+INIDIR     = deps/iniparser
+INI_CFLAGS = -O2 -fPIC -Wall -ansi -pedantic -Wextra $(PLATFORM)
+INI_OBJS   = $(INIDIR)/dictionary.o \
+             $(INIDIR)/iniparser.o
+
+# commander stuff
+COMMANDERDIR = deps/commander
+COMMANDER_CFLAGS = -O2 -Wall -Wextra $(PLATFORM)
+COMMANDER_OBJS = $(COMMANDERDIR)/commander.o
 
 # Distribution tarball
 TARNAME = $(PACKAGE)
 DISTDIR = $(TARNAME)-$(VERSION)
 
 # Verbose mode check
-
 ifdef V
 MUTE =
 VTAG = -v
@@ -90,62 +101,71 @@ else
 MUTE = @
 endif
 
+ifdef DESTDIR
+ROOT = -
+else
+ROOT =
+endif
+
+ifdef DEBUG
+CDEBUG = -D_NSNAKE_DEBUG
+else
+CDEBUG =
+endif
+
 # Make targets
-all: dirs $(EXE)
+all: $(EXE)
 	# Build successful!
 
 install: all
 	# Installing...
-	$(MUTE)install -d --mode=755 $(DESTDIR)$(BINDIR)
-	$(MUTE)install -g games -m 2755 $(LBIN)/$(EXE) $(DESTDIR)$(BINDIR)
-	$(MUTE)install -d $(DESTDIR)$(MANDIR)
-	$(MUTE)install $(MANPAGE) $(DESTDIR)$(MANDIR)
-	@echo
+	$(MUTE)install -d -m 755 $(BINDIR)
+	$(MUTE)install -m 755 bin/$(EXE) $(BINDIR)
+	-$(MUTE)cat $(MANPAGE) | sed -e "s|DATE|$(DATE)|g" -e "s|VERSION|$(VERSION)|g" >$(MANFILE)
+	$(MUTE)install -d $(MANDIR)
+	$(MUTE)install $(MANFILE) $(MANDIR)
+	$(MUTE)rm -f $(MANFILE)
 	# $(PACKAGE) successfuly installed!
 
 uninstall:
 	# Uninstalling...
-	$(MUTE)rm -f $(DESTDIR)$(BINDIR)/$(EXE)
+	$(MUTE)rm -f $(BINDIR)/$(EXE)
+	$(MUTE)rm -f $(MANDIR)/$(MANFILE)
 
 purge: uninstall
 	# Purging configuration files...
-	$(MUTE)rm -f $(DESTDIR)$(MANDIR)/$(MANFILE)
+	$(MUTE)rm -f $(MANDIR)/$(MANFILE)
 
-$(EXE): $(OBJ)
+$(EXE): $(OBJECTS) $(INI_OBJS) $(COMMANDER_OBJS)
 	# Linking...
-	$(MUTE)$(CC) $(LDFLAGS) $(OBJ) -o $(LBIN)/$(EXE) $(LIBSDIR) $(LIBS)
+	$(MUTE)$(CXX) $(OBJECTS) $(INI_OBJS) $(COMMANDER_OBJS) -o bin/$(EXE) $(LIBSDIR) $(LDFLAGS)
 
-$(LOBJ)/%.o: $(LSRC)/%.c
+src/%.o: src/%.cpp
 	# Compiling $<...
-	$(MUTE)$(CC) $(CFLAGS) $< -c -o $@ $(DEFINES) $(INCLUDESDIR)
+	$(MUTE)$(CXX) $(CXXFLAGS) $(CDEBUG) $< -c -o $@ $(DEFINES) $(INCLUDESDIR)
 
 dist: clean $(DISTDIR).tar.gz
 
 $(DISTDIR).tar.gz: $(DISTDIR)
-	# Creating distribution tarball...
 	$(MUTE)tar czf $(DISTDIR).tar.gz $(DISTDIR)
 	$(MUTE)rm -rf $(DISTDIR)
+	$(MUTE)cp $(DISTDIR).tar.gz ..
+	$(MUTE)rm -f $(DISTDIR).tar.gz
 
 $(DISTDIR):
-	$(MUTE)mkdir -p $(DISTDIR)/$(LSRC) $(DISTDIR)/$(LDOC)
-	$(MUTE)mkdir -p $(DISTDIR)/$(LBIN) $(DISTDIR)/$(LOBJ)
-	-$(MUTE)cp $(LFILES) -t $(DISTDIR)
-	-$(MUTE)cp -r $(LSRC)/* $(DISTDIR)/$(LSRC)
-	-$(MUTE)cp -r $(LBIN)/* $(DISTDIR)/$(LBIN)
-	-$(MUTE)cp -r $(LDOC)/* $(DISTDIR)/$(LDOC)
-
-# Phony targets
-dirs:
-	-mkdir -p $(LOBJ) $(LBIN)
+	$(MUTE)mkdir -p $(DISTDIR)/src $(DISTDIR)/doc $(DISTDIR)/bin
+	-$(MUTE)cp $(FILES) -t $(DISTDIR)
+	-$(MUTE)cp -r src/* $(DISTDIR)/src
+	-$(MUTE)cp -r doc/* $(DISTDIR)/doc
 
 run: all
 	# Running...
-	$(MUTE)./$(LBIN)/$(EXE)
+	$(MUTE)./bin/$(EXE)
 
 clean:
 	# Cleaning files...
-	$(MUTE)rm $(VTAG) -f $(LOBJ)/*.o
-	$(MUTE)rm $(VTAG) -f $(LBIN)/*
+	$(MUTE)rm $(VTAG) -f $(OBJECTS) $(INI_OBJS) $(COMMANDER_OBJS)
+	$(MUTE)rm $(VTAG) -f bin/$(EXE)
 
 doc:
 	# Generating documentation...
@@ -153,8 +173,24 @@ doc:
 
 docclean:
 	# Removing documentation...
-	-$(MUTE)rm $(VTAG) -rf $(LDOC)/html
+	-$(MUTE)rm $(VTAG) -rf doc/html
 
 .PHONY: clean doc docclean uninstall
 
-#------------------------------------------------------------------------------
+# iniparser stuff
+
+$(INIDIR)/dictionary.o: $(INIDIR)/dictionary.c
+	# Compiling $<...
+	$(MUTE)$(CC) $(INI_CFLAGS) $< -c -o $@
+
+$(INIDIR)/iniparser.o: $(INIDIR)/iniparser.c
+	# Compiling $<...
+	$(MUTE)$(CC) $(INI_CFLAGS) $< -c -o $@
+
+# commander stuf
+
+$(COMMANDERDIR)/commander.o: $(COMMANDERDIR)/commander.c
+	# Compiling $<...
+	$(MUTE)$(CC) $(COMMANDER_CFLAGS) $< -c -o $@
+
+
