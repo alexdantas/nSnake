@@ -8,7 +8,8 @@ LayoutGame::LayoutGame(Game* game, int width, int height):
 	gamewin(nullptr),
 	info(nullptr),
 	pause(nullptr),
-	help(nullptr)
+	help(nullptr),
+	boardwin(nullptr)
 {
 	this->windowsInit();
 }
@@ -20,20 +21,16 @@ void LayoutGame::windowsInit()
 {
 	Layout::windowsInit();
 
-	// We'll start all the windows inside the Layout
-	this->main->clear();
-
 	// Leftmost window
 	this->gamewin = new Window(this->main,
 	                           WINDOW_FILL,
 	                           WINDOW_FILL,
 	                           WINDOW_FILL,
-	                           this->main->getH() - 2);
-	this->gamewin->setTitle("nsnake");
+	                           this->main->getH() - 3);
 
 	this->info = new Window(this->main,
 	                        WINDOW_FILL,
-	                        this->main->getH() - 1,
+	                        this->main->getH() - 2,
 	                        WINDOW_FILL,
 	                        1);
 
@@ -71,8 +68,9 @@ void LayoutGame::windowsExit()
 {
 	SAFE_DELETE(this->gamewin);
 	SAFE_DELETE(this->info);
-	SAFE_DELETE(this->help);
 	SAFE_DELETE(this->pause);
+	SAFE_DELETE(this->help);
+	SAFE_DELETE(this->boardwin);
 
 	this->main->clear(); // clear() as in Window
 	this->main->refresh(); // clear() as in Window
@@ -83,6 +81,20 @@ void LayoutGame::draw(Menu* menu)
 {
 	if (! this->game)
 		return;
+
+	// This hack allows the game board to be centered
+	if (! this->boardwin)
+	{
+		// initializing for the first time
+		int x = this->gamewin->getW()/2 - this->game->board->getW()/2;
+		int y = this->gamewin->getH()/2 - this->game->board->getH()/2;
+		int w = this->game->board->getW();
+		int h = this->game->board->getH();
+
+		boardwin = new Window(this->gamewin, x, y, w, h);
+	}
+
+	this->main->clear();
 
 	// Will only show the requested windows then exit.
 	if (this->game->isPaused)
@@ -119,14 +131,13 @@ void LayoutGame::draw(Menu* menu)
 	// Statistics
 	// A mess of direct Ncurses calls - fix this later
 	this->info->clear();
+	this->info->print("a", 0, 0, 0);
 
-	// ColorPair hilite = Colors::pair(COLOR_BLUE, COLOR_DEFAULT, true);
+	ColorPair hilite = Globals::Theme::hilite_text;
 
-	// int lowest_y = this->score->getH() - 2; // border
-
-	// this->score->print("Hi-Score", 1, lowest_y - 7, hilite);
-	// this->score->print("Score",    1, lowest_y - 4, hilite);
-	// this->score->print("Level",    1, lowest_y - 1, hilite);
+	this->info->print("Hi-Score", 0, 0, hilite);
+	this->info->print("Score",    this->info->getW()/3, 0, hilite);
+	this->info->print("Level",    this->info->getW()/3 * 2, 0, hilite);
 
 	// // Default color
 	// wattrset(this->score->win, COLOR_PAIR(0));
@@ -210,9 +221,12 @@ void LayoutGame::draw(Menu* menu)
 	// Board and main game stuff
 	this->gamewin->clear();
 
-	this->game->player->draw(this->gamewin);
+	this->game->board->draw(boardwin);
+	this->game->player->draw(boardwin);
 
 	this->gamewin->refresh();
+
+	this->main->refresh();
 
 	// NCURSES NEEDS THIS
 	refresh();

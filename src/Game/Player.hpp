@@ -2,7 +2,6 @@
 #define PLAYER_H_DEFINED
 
 #include <Interface/Window.hpp>
-
 #include <vector>
 
 struct Body
@@ -32,15 +31,24 @@ public:
 	bool isAlive();
 	int getSize();
 
+	int getX(); ///< Returns the head's x position.
+	int getY(); ///< Returns the head's y position.
+
 	void move(Direction direction);
+	void kill();
 
 	void update();
 	void draw(Window* win);
 
+	bool collideWithItself();
+
 private:
 	std::vector<Body> body;
+
 	bool alive;
+
 	Direction currentDirection;
+	Direction nextDirection;
 };
 
 #endif //PLAYER_H_DEFINED

@@ -19,15 +19,25 @@ Game::Game():
 	showPauseMenu(false),
 	showHelp(false),
 	pauseMenu(nullptr),
-	player(nullptr)
+	player(nullptr),
+	board(nullptr)
 { }
-
+Game::~Game()
+{
+	SAFE_DELETE(this->layout);
+	SAFE_DELETE(this->score);
+	SAFE_DELETE(this->pauseMenu);
+	SAFE_DELETE(this->player);
+	SAFE_DELETE(this->board);
+}
 void Game::start()
 {
 	// Cleaning things from the previous game (if any)
 	SAFE_DELETE(this->layout);
+	SAFE_DELETE(this->score);
 	SAFE_DELETE(this->pauseMenu);
 	SAFE_DELETE(this->player);
+	SAFE_DELETE(this->board);
 
 	this->userAskedToQuit     = false;
 	this->userAskedToGoToMenu = false;
@@ -60,6 +70,7 @@ void Game::start()
 	this->pauseMenu->add(item);
 
 	this->player = new Player(5, 5);
+	this->board = new Board(20, 10, Board::SOLID);
 
 	// Starting timers
 	this->timerSnake.start();
@@ -175,8 +186,17 @@ void Game::update()
 
 	if (this->timerSnake.delta_ms() >= delta)
 	{
-		// Actually move player
-		this->player->update();
+		if (this->player->isAlive())
+		{
+			// Actually move the player
+			this->player->update();
+
+			// Seeing if it has died
+			if ((this->player->collideWithItself()) ||
+			    (this->board->isWall(this->player->getX(),
+			                         this->player->getY())))
+				this->player->kill();
+		}
 		this->timerSnake.start();
 	}
 	else
@@ -224,6 +244,8 @@ void Game::update()
 	// 	this->score->level = new_level;
 
 	// Checking if game over
+	if (! this->player->isAlive())
+		this->gameOver = true;
 }
 void Game::draw()
 {

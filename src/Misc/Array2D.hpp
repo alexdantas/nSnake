@@ -27,9 +27,14 @@ public:
 	virtual ~Array2D() { };
 
 	/// Returns element at `x` `y`.
-	T& at(int x, int y)
+	T at(int x, int y)
 	{
 		return contents[x][y];
+	}
+
+	void set(int x, int y, const T& value)
+	{
+		contents[x][y] = value;
 	}
 
 	/// Width size of the array.

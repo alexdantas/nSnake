@@ -3,6 +3,7 @@
 
 #include <Game/Score.hpp>
 #include <Game/Player.hpp>
+#include <Game/Board.hpp>
 #include <Misc/Timer.hpp>
 #include <Interface/Menu/Menu.hpp>
 
@@ -17,7 +18,7 @@ class Game
 
 public:
 	Game();
-	virtual ~Game() {};
+	virtual ~Game();
 
 	void start();
 	void handleInput(int c);
@@ -72,6 +73,7 @@ protected:
 	Menu* pauseMenu;
 
 	Player* player;
+	Board* board;
 };
 
 #endif //GAME_H_DEFINED

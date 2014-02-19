@@ -64,6 +64,8 @@ namespace Globals
 		extern std::string random_algorithm;
 
 		extern bool has_game_over_animation;
+
+		extern bool random_mode;
 	};
 
 	namespace Theme

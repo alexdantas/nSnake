@@ -38,6 +38,9 @@ public:
 
 	/// Contains the help screen.
 	Window* help;
+
+private:
+	Window* boardwin;
 };
 
 #endif //LAYOUTGAMEMODESURVIVAL_H_DEFINED

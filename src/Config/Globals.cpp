@@ -29,6 +29,7 @@ bool Globals::Screen::use_colors = true;
 unsigned int Globals::Game::starting_level          = 1;
 std::string  Globals::Game::random_algorithm        = "regular";
 bool         Globals::Game::has_game_over_animation = true;
+bool         Globals::Game::random_mode             = false;
 
 ColorPair Globals::Theme::text;
 ColorPair Globals::Theme::hilite_text;
