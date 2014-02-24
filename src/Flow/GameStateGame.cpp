@@ -14,6 +14,8 @@ void GameStateGame::load(int stack)
 {
 	UNUSED(stack);
 
+	Score::loadFile();
+
 	this->game = new Game();
 	this->game->start();
 }
@@ -33,7 +35,9 @@ GameState::StateCode GameStateGame::update()
 
 	if (this->game->isOver())
 	{
+		Score::saveFile();
 		Ncurses::delay_ms(500);
+
 		this->game->start();
 	}
 

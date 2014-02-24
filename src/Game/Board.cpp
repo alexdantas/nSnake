@@ -1,4 +1,5 @@
 #include <Game/Board.hpp>
+#include <Game/Player.hpp>
 #include <Config/Globals.hpp>
 #include <Misc/Utils.hpp>
 
@@ -9,25 +10,24 @@ Board::Board(int width, int height, Style style):
 
 	// Making it empty
 	for (size_t i = 0; i < this->board->width(); i++)
-	{
 		for (size_t j = 0; j < this->board->height(); j++)
-		{
-			if (Globals::Game::random_mode)
-				this->board->set(i, j, Utils::Random::booleanWithChance(10));
-			else
-				this->board->set(i, j, false);
-		}
-	}
+			this->board->set(i, j, false);
 }
 Board::~Board()
 {
 	delete this->board;
 }
+bool Board::isBorder(int x, int y)
+{
+	if ((x == 0) || (x == (int)this->board->width()  - 1) ||
+	    (y == 0) || (y == (int)this->board->height() - 1))
+		return true;
+
+	return false;
+}
 bool Board::isWall(int x, int y)
 {
-	// Special case - the borders
-	if ((x == 0) || (x == (int)this->board->width() - 1) ||
-	    (y == 0) || (y == (int)this->board->height() - 1))
+	if (isBorder(x, y))
 	{
 		// If we can teleport, the borders are
 		// not collidable - we'll just walk through them.
@@ -46,6 +46,11 @@ int Board::getH()
 }
 void Board::draw(Window* win)
 {
+	int teleport_appearance = '\'';
+	int solid_appearance = ((Globals::Screen::fancy_borders) ?
+	                        ACS_CKBOARD :
+	                        '#');
+
 	for (size_t i = 0; i < (this->board->width()); i++)
 	{
 		for (size_t j = 0; j < (this->board->height()); j++)
@@ -55,8 +60,8 @@ void Board::draw(Window* win)
 			    (j == 0) || (j == this->board->height() - 1))
 			{
 				win->printChar(((this->style == Style::TELEPORT) ?
-				                '.' :
-				                '#'),
+				                teleport_appearance :
+				                solid_appearance),
 				               i,
 				               j,
 				               0);
@@ -65,11 +70,53 @@ void Board::draw(Window* win)
 
 		    // Drawing the walls
 			if (this->board->at(i, j))
-				win->printChar('#',
+				win->printChar(solid_appearance,
 				               i,
 				               j,
 				               0);
 		}
 	}
+}
+void Board::randomlyFillExceptBy(int x, int y)
+{
+	for (size_t i = 0; i < (this->board->width()); i++)
+		for (size_t j = 0; j < (this->board->height()); j++)
+			if (Utils::Random::booleanWithChance(3.1415923))
+				this->board->set(i, j, true);
+
+	// Clearing some space for #x and #y
+	for (int i = -2; i != 7; i++)
+		this->board->set(x + i, y, false);
+}
+void Board::teleport(Player* player)
+{
+	int newx = player->getX();
+	int newy = player->getY();
+
+	int left  = 1;
+	int right = this->board->width() - 2;
+
+	if (player->getX() <= left)
+	{
+		newx = right;
+	}
+	else if (player->getX() >= right)
+	{
+		newx = left;
+	}
+
+	int top    = 1;
+	int bottom = this->board->height() - 2;
+
+	if (player->getY() <= top)
+	{
+		newy = bottom;
+	}
+	else if (player->getY() >= bottom)
+	{
+		newy = top;
+	}
+
+	player->moveTo(newx, newy);
 }
 

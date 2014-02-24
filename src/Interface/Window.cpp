@@ -161,10 +161,10 @@ void Window::borders(BorderType type)
 {
 	this->borderType = type;
 
-	if (type == BORDER_NONE)
+	if (type == BorderType::BORDER_NONE)
 		return;
 
-	if (type == BORDER_FANCY)
+	if (type == BorderType::BORDER_FANCY)
 	{
 		wborder(this->win,
 		        ACS_VLINE|Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
@@ -176,7 +176,7 @@ void Window::borders(BorderType type)
 		        ACS_LLCORNER|Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
 		        ACS_LRCORNER|Colors::pair(COLOR_BLACK, COLOR_DEFAULT, true));
 	}
-	else if (type == BORDER_REGULAR)
+	else if (type == BorderType::BORDER_REGULAR)
 	{
 		wattrset(this->win, Colors::pair(COLOR_BLACK, COLOR_DEFAULT, true));
 		wborder(this->win, '|', '|', '-', '-', '+', '+', '+', '+');

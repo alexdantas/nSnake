@@ -15,12 +15,17 @@ struct MenuItemNumberbox: public MenuItem
 
 	void increase();
 	void decrease();
+	void set(int value);
 	void reset();
 
 	int min;
 	int max;
 	int initial;
 	int current;
+
+private:
+	/// Assures the #current value will remain within boundaries.
+	void cap();
 };
 
 #endif //MENUITEMNUMBERBOX_H_DEFINED

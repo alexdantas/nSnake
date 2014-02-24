@@ -7,21 +7,26 @@
 
 int main(int argc, char *argv[])
 {
-	UNUSED(argc);
-	UNUSED(argv);
-
 	try
 	{
+		// Settings
 		Globals::init();
+		Globals::loadFile();
 		Arguments::parse(argc, argv);
+
+		// Misc Initializations
 		Utils::Random::seed();
 		Ncurses::init();
 		Colors::init();
 
+		// Actually running the game
 		StateManager states;
 		states.run();
 
+		// Finishing things
+		Globals::saveFile();
 		Ncurses::exit();
+		Globals::exit();
 	}
 	catch (...)
 	{
@@ -30,7 +35,6 @@ int main(int argc, char *argv[])
 		Ncurses::exit();
 		return 666;
 	}
-
 	return 0;
 }
 

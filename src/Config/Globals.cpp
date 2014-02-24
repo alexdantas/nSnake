@@ -3,6 +3,7 @@
 #include <Misc/Utils.hpp>
 
 #include <ncurses.h>
+#include <iostream>
 
 // VERSION is formatted like "0.0.1" - i'm skipping the dots
 int Globals::version[3] = { VERSION[0] - '0',
@@ -14,8 +15,9 @@ int Globals::version[3] = { VERSION[0] - '0',
 // \_\_, \_\_/ |_| \| |_|   |_| \_\_/
 
 // real initialization at init()
-std::string Globals::Config::directory = "";
-std::string Globals::Config::file      = "";
+std::string Globals::Config::directory  = "";
+std::string Globals::Config::file       = "";
+std::string Globals::Config::scoresFile = "";
 
 bool Globals::Screen::center_horizontally = true;
 bool Globals::Screen::center_vertically   = true;
@@ -24,12 +26,11 @@ bool Globals::Screen::show_borders  = true;
 bool Globals::Screen::fancy_borders = true;
 bool Globals::Screen::outer_border  = true;
 
-bool Globals::Screen::use_colors = true;
-
 unsigned int Globals::Game::starting_level          = 1;
-std::string  Globals::Game::random_algorithm        = "regular";
-bool         Globals::Game::has_game_over_animation = true;
-bool         Globals::Game::random_mode             = false;
+int          Globals::Game::fruits_at_once          = 1;
+bool         Globals::Game::random_walls            = false;
+bool         Globals::Game::teleport                = false;
+Score        Globals::Game::highScore;
 
 ColorPair Globals::Theme::text;
 ColorPair Globals::Theme::hilite_text;
@@ -42,6 +43,11 @@ int Globals::Input::down  = KEY_DOWN;
 int Globals::Input::pause = 'p';
 int Globals::Input::help  = 'h';
 int Globals::Input::quit  = 'q';
+
+bool Globals::Error::has_config_file = true;
+bool Globals::Error::has_score_file  = true;
+bool Globals::Error::old_version_score_file = false;
+bool Globals::Error::strange_score_file     = false;
 
 //  _   _      _  _____
 // | | | |\ | | |  | |
@@ -72,6 +78,9 @@ void Globals::init()
 	Globals::Config::file = (Globals::Config::directory +
 	                         "settings.ini");
 
+	Globals::Config::scoresFile = (Globals::Config::directory +
+	                               "scores.bin");
+
 	if (! Utils::File::isDirectory(Globals::Config::directory))
 		Utils::File::mkdir_p(Globals::Config::directory);
 
@@ -83,16 +92,99 @@ void Globals::init()
 		Globals::Config::file      = "/dev/null";
 		return;
 	}
-
-	// Getting default profile name - should be at the
-	// global settings file.
-	if (Utils::File::exists(Globals::Config::file))
+}
+void Globals::exit()
+{
+	if (! Globals::Error::has_config_file)
 	{
-		INI ini;
-		if (ini.load(Globals::Config::file))
-		{
-			// LOADING SetTINGS
-		}
+		std::cout << "Warning: We could not create the configuration file.\n"
+		          << "         Please check permissions to the path:\n"
+		          << "         " + Globals::Config::file
+		          << std::endl;
 	}
+	if (! Globals::Error::has_score_file)
+	{
+		std::cout << "Warning: We could not create the score file.\n"
+		          << "         Please check permissions to the path:\n"
+		          << "         " + Globals::Config::scoresFile
+		          << std::endl;
+	}
+	if (Globals::Error::old_version_score_file)
+	{
+		std::cout << "Warning: Your high score file is from an old nsnake version."
+		          << std::endl;
+	}
+	if (Globals::Error::strange_score_file)
+	{
+		// Erasing high scores...
+		Utils::File::create(Globals::Config::scoresFile);
+
+		std::cout << "Error: Corrupted high score file!\n"
+		          << "       We're sorry, but we had to erase it"
+		          << std::endl;
+	}
+}
+void Globals::loadFile()
+{
+	if (! Utils::File::exists(Globals::Config::file))
+		return;
+
+	INI ini;
+	if (! ini.load(Globals::Config::file))
+		return;
+
+// Small macro to avoid unnecessary typing.
+//
+// To get something from the ini file we send the
+// text (to identify some value) and the default
+// value in case it doesn't exist.
+//
+// For the last one I send the variable itself,
+// so we fallback to the default values.
+#define INI_GET(var, text) \
+	{ \
+		var = ini.get(text, var); \
+	}
+
+	INI_GET(Globals::Screen::center_horizontally, "screen:center_horizontal");
+	INI_GET(Globals::Screen::center_vertically,   "screen:center_vertical");
+
+	INI_GET(Globals::Screen::show_borders,  "screen:borders");
+	INI_GET(Globals::Screen::fancy_borders, "screen:fancy_borders");
+	INI_GET(Globals::Screen::outer_border,  "screen:outer_border");
+
+	INI_GET(Globals::Game::starting_level, "game:starting_level");
+	INI_GET(Globals::Game::random_walls,   "game:random_walls");
+	INI_GET(Globals::Game::fruits_at_once, "game:fruits_at_once");
+	INI_GET(Globals::Game::teleport,       "game:teleport");
+}
+void Globals::saveFile()
+{
+	// Even if the file doesn't exist, we'll create it.
+	INI ini;
+	if (! ini.load(Globals::Config::file))
+		ini.create();
+
+// Other macro to avoid typing, similar to the one
+// at loadFile()
+#define INI_SET(text, var) \
+	{ \
+		ini.set(text, Utils::String::toString(var)); \
+	}
+
+
+	INI_SET("screen:center_horizontal", Globals::Screen::center_horizontally);
+	INI_SET("screen:center_vertical",   Globals::Screen::center_vertically);
+
+	INI_SET("screen:borders",       Globals::Screen::show_borders);
+	INI_SET("screen:fancy_borders", Globals::Screen::fancy_borders);
+	INI_SET("screen:outer_border",  Globals::Screen::outer_border);
+
+	INI_SET("game:starting_level",   Globals::Game::starting_level);
+	INI_SET("game:random_walls",     Globals::Game::random_walls);
+	INI_SET("game:fruits_at_once",   Globals::Game::fruits_at_once);
+	INI_SET("game:teleport",         Globals::Game::teleport);
+
+	ini.save(Globals::Config::file);
 }
 

@@ -6,16 +6,18 @@
 /// Stores points the player made on the game.
 struct Score
 {
-	/// Name of the player.
-	/// An interesting thing is that we try to get the user
-	/// name first - then asking the user for a specific name.
-	std::string name;
-
 	unsigned int points;
-	unsigned int lines;
 	unsigned int level;
 
 	Score();
+
+	/// Loads the high score for the current game from global
+	/// file.
+	static void loadFile();
+
+	/// Saves the high score for the current game on global
+	/// file.
+	static void saveFile();
 };
 
 #endif //SCORE_H_DEFINED

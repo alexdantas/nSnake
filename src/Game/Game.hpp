@@ -4,6 +4,7 @@
 #include <Game/Score.hpp>
 #include <Game/Player.hpp>
 #include <Game/Board.hpp>
+#include <Game/FruitManager.hpp>
 #include <Misc/Timer.hpp>
 #include <Interface/Menu/Menu.hpp>
 
@@ -56,6 +57,7 @@ protected:
 	Timer timer;
 
 	Score* score;
+	Score* highScore;
 
 	/// If the game is paused.
 	/// May show other Windows while paused.
@@ -74,6 +76,7 @@ protected:
 
 	Player* player;
 	Board* board;
+	FruitManager* fruits;
 };
 
 #endif //GAME_H_DEFINED

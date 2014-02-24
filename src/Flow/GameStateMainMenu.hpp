@@ -30,8 +30,8 @@ private:
 	Menu* menu;
 
 	/// Single Player submenu.
-	Menu* menuSinglePlayer;
-	bool menuSinglePlayerActivated;
+	Menu* menuArcade;
+	bool menuArcadeActivated;
 
 	Menu* menuOptions;
 	bool menuOptionsActvated;
@@ -41,11 +41,11 @@ private:
 
 	// easily create internal menus
 	void createMainMenu();
-	void createSinglePlayerMenu();
+	void createArcadeMenu();
 	void createOptionsMenu();
 	void createProfilesMenu();
 	void saveSettingsMenuOptions();
-	void saveSettingsMenuSinglePlayer();
+	void saveSettingsMenuArcade();
 };
 
 #endif //GAMESTATEMAINMENU_H_DEFINED

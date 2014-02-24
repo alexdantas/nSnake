@@ -6,7 +6,7 @@
 enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 {
 	// Main Menu
-	SINGLE_PLAYER,
+	ARCADE,
 	OPTIONS,
 	QUIT_GAME,
 
@@ -14,6 +14,9 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 	START_GAME,
 	GO_BACK,
 	STARTING_LEVEL,
+	TELEPORT,
+	FRUITS,
+	RANDOM_WALLS,
 
 	// Options Submenu
 	SHOW_BORDERS,
@@ -22,14 +25,14 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 	USE_COLORS,
 	CENTER_HORIZONTAL,
 	CENTER_VERTICAL,
-	RANDOM_ALGORITHM
+	ERASE_HIGH_SCORES
 };
 
 GameStateMainMenu::GameStateMainMenu():
 	layout(nullptr),
 	menu(nullptr),
-	menuSinglePlayer(nullptr),
-	menuSinglePlayerActivated(false),
+	menuArcade(nullptr),
+	menuArcadeActivated(false),
 	menuOptions(nullptr),
 	menuOptionsActvated(false)
 { }
@@ -42,17 +45,17 @@ void GameStateMainMenu::load(int stack)
 	this->layout = new LayoutMainMenu(80, 24, this);
 
 	createMainMenu();
-	createSinglePlayerMenu();
+	createArcadeMenu();
 	createOptionsMenu();
 }
 
 int GameStateMainMenu::unload()
 {
-	saveSettingsMenuSinglePlayer();
+	saveSettingsMenuArcade();
 	saveSettingsMenuOptions();
 
 	SAFE_DELETE(this->layout);
-	SAFE_DELETE(this->menuSinglePlayer);
+	SAFE_DELETE(this->menuArcade);
 	SAFE_DELETE(this->menu);
 
 	return 0;
@@ -65,26 +68,26 @@ GameState::StateCode GameStateMainMenu::update()
 	if (input == 'q')
 		return GameState::QUIT;
 
-	if (this->menuSinglePlayerActivated)
+	if (this->menuArcadeActivated)
 	{
-		this->menuSinglePlayer->handleInput(input);
+		this->menuArcade->handleInput(input);
 
-		if (this->menuSinglePlayer->willQuit())
+		if (this->menuArcade->willQuit())
 		{
-			saveSettingsMenuSinglePlayer();
+			saveSettingsMenuArcade();
 
 			// And then exit based on the selected option.
-			switch (this->menuSinglePlayer->currentID())
+			switch (this->menuArcade->currentID())
 			{
 			case START_GAME:
 				return GameState::GAME_START;
 				break;
 
 			case GO_BACK:
-				this->menuSinglePlayerActivated = false;
+				this->menuArcadeActivated = false;
 				break;
 			}
-			this->menuSinglePlayer->reset();
+			this->menuArcade->reset();
 		}
 	}
 	else if (this->menuOptionsActvated)
@@ -103,6 +106,11 @@ GameState::StateCode GameStateMainMenu::update()
 				this->layout->windowsExit();
 				this->layout->windowsInit();
 				break;
+
+			case ERASE_HIGH_SCORES:
+				// Clearing the High Scores file...
+				Utils::File::create(Globals::Config::scoresFile);
+				break;
 			}
 			this->menuOptions->reset();
 		}
@@ -116,8 +124,8 @@ GameState::StateCode GameStateMainMenu::update()
 		{
 			switch(this->menu->currentID())
 			{
-			case SINGLE_PLAYER:
-				this->menuSinglePlayerActivated = true;
+			case ARCADE:
+				this->menuArcadeActivated = true;
 				break;
 
 			case OPTIONS:
@@ -138,8 +146,8 @@ GameState::StateCode GameStateMainMenu::update()
 
 void GameStateMainMenu::draw()
 {
-	if (this->menuSinglePlayerActivated)
-		this->layout->draw(this->menuSinglePlayer);
+	if (this->menuArcadeActivated)
+		this->layout->draw(this->menuArcade);
 
 	else if (this->menuOptionsActvated)
 		this->layout->draw(this->menuOptions);
@@ -162,7 +170,7 @@ void GameStateMainMenu::createMainMenu()
 
 	MenuItem* item;
 
-	item = new MenuItem("Single Player", SINGLE_PLAYER);
+	item = new MenuItem("Arcade", ARCADE);
 	menu->add(item);
 
 	item = new MenuItem("Options", OPTIONS);
@@ -171,11 +179,11 @@ void GameStateMainMenu::createMainMenu()
 	item = new MenuItem("Quit", QUIT_GAME);
 	menu->add(item);
 }
-void GameStateMainMenu::createSinglePlayerMenu()
+void GameStateMainMenu::createArcadeMenu()
 {
-	SAFE_DELETE(this->menuSinglePlayer);
+	SAFE_DELETE(this->menuArcade);
 
-	this->menuSinglePlayer = new Menu(1,
+	this->menuArcade = new Menu(1,
 	                                  1,
 	                                  this->layout->menu->getW() - 2,
 	                                  this->layout->menu->getH() - 2);
@@ -183,17 +191,28 @@ void GameStateMainMenu::createSinglePlayerMenu()
 	MenuItem* item;
 
 	item = new MenuItem("Start Game", START_GAME);
-	menuSinglePlayer->add(item);
+	menuArcade->add(item);
 
 	item = new MenuItem("Back", GO_BACK);
-	menuSinglePlayer->add(item);
+	menuArcade->add(item);
 
-	menuSinglePlayer->addBlank();
+	menuArcade->addBlank();
 
 	MenuItemNumberbox* number;
 
 	number = new MenuItemNumberbox("Starting Level", STARTING_LEVEL, 1, 22, Globals::Game::starting_level);
-	menuSinglePlayer->add(number);
+	menuArcade->add(number);
+
+	number = new MenuItemNumberbox("Fruits", FRUITS, 1, 99, Globals::Game::fruits_at_once);
+	menuArcade->add(number);
+
+	MenuItemCheckbox* check;
+
+	check = new MenuItemCheckbox("Teleport", TELEPORT, Globals::Game::teleport);
+	menuArcade->add(check);
+
+	check = new MenuItemCheckbox("Random Walls", RANDOM_WALLS, Globals::Game::random_walls);
+	menuArcade->add(check);
 
 	this->menuOptions = new Menu(1,
 	                             1,
@@ -246,6 +265,10 @@ void GameStateMainMenu::createOptionsMenu()
 	                             Globals::Screen::center_vertically);
 	menuOptions->add(check);
 
+	item = new MenuItem("Erase High Scores",
+	                    ERASE_HIGH_SCORES);
+	menuOptions->add(item);
+
 	// std::vector<std::string> options;
 	// options.push_back("regular");
 	// options.push_back("dumb");
@@ -270,16 +293,18 @@ void GameStateMainMenu::saveSettingsMenuOptions()
 	Globals::Screen::outer_border        = this->menuOptions->getBool(OUTER_BORDER);
 	Globals::Screen::center_horizontally = this->menuOptions->getBool(CENTER_HORIZONTAL);
 	Globals::Screen::center_vertically   = this->menuOptions->getBool(CENTER_VERTICAL);
-	Globals::Game::random_algorithm      = this->menuOptions->getString(RANDOM_ALGORITHM);
 }
-void GameStateMainMenu::saveSettingsMenuSinglePlayer()
+void GameStateMainMenu::saveSettingsMenuArcade()
 {
-	if (!this->menuSinglePlayer)
+	if (!this->menuArcade)
 		return;
 
 	// User selected an option
 	// Let's get ids from menu items
-	Globals::Game::starting_level = (unsigned int)this->menuSinglePlayer->getInt(STARTING_LEVEL);
+	Globals::Game::starting_level = (unsigned int)this->menuArcade->getInt(STARTING_LEVEL);
+	Globals::Game::fruits_at_once = this->menuArcade->getInt(FRUITS);
+	Globals::Game::random_walls = this->menuArcade->getBool(RANDOM_WALLS);
+	Globals::Game::teleport = this->menuArcade->getBool(TELEPORT);
 }
 
 

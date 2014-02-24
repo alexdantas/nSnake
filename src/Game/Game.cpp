@@ -15,12 +15,14 @@ Game::Game():
 	layout(nullptr),
 	gameOver(false),
 	score(nullptr),
+	highScore(nullptr),
 	isPaused(false),
 	showPauseMenu(false),
 	showHelp(false),
 	pauseMenu(nullptr),
 	player(nullptr),
-	board(nullptr)
+	board(nullptr),
+	fruits(nullptr)
 { }
 Game::~Game()
 {
@@ -29,6 +31,7 @@ Game::~Game()
 	SAFE_DELETE(this->pauseMenu);
 	SAFE_DELETE(this->player);
 	SAFE_DELETE(this->board);
+	SAFE_DELETE(this->fruits);
 }
 void Game::start()
 {
@@ -38,6 +41,7 @@ void Game::start()
 	SAFE_DELETE(this->pauseMenu);
 	SAFE_DELETE(this->player);
 	SAFE_DELETE(this->board);
+	SAFE_DELETE(this->fruits);
 
 	this->userAskedToQuit     = false;
 	this->userAskedToGoToMenu = false;
@@ -70,7 +74,16 @@ void Game::start()
 	this->pauseMenu->add(item);
 
 	this->player = new Player(5, 5);
-	this->board = new Board(20, 10, Board::SOLID);
+
+	this->board = new Board(78, 21, ((Globals::Game::teleport) ?
+	                                 Board::TELEPORT :
+	                                 Board::SOLID));
+	if (Globals::Game::random_walls)
+		this->board->randomlyFillExceptBy(this->player->getX(),
+		                                  this->player->getY());
+
+	this->fruits = new FruitManager(Globals::Game::fruits_at_once);
+	this->fruits->update(this->player, this->board);
 
 	// Starting timers
 	this->timerSnake.start();
@@ -175,7 +188,6 @@ void Game::update()
 			}
 			this->pauseMenu->reset();
 		}
-
 		return;
 	}
 
@@ -186,66 +198,39 @@ void Game::update()
 
 	if (this->timerSnake.delta_ms() >= delta)
 	{
-		if (this->player->isAlive())
+		// Checking if on the previous frame
+		// the Snake died.
+		if (! this->player->isAlive())
+		{
+			this->gameOver = true;
+
+			if (this->score->points > Globals::Game::highScore.points)
+			{
+				Globals::Game::highScore.points = this->score->points;
+				Globals::Game::highScore.level = this->score->level;
+			}
+		}
+		else
 		{
 			// Actually move the player
-			this->player->update();
+			this->player->update(this->board);
 
-			// Seeing if it has died
-			if ((this->player->collideWithItself()) ||
-			    (this->board->isWall(this->player->getX(),
-			                         this->player->getY())))
-				this->player->kill();
+			while (this->fruits->eatenFruit(this->player))
+			{
+				this->player->increase();
+
+				// Score formula is kinda random and
+				// scattered all over this file.
+				// TODO: Center it all on the Score class.
+				this->score->points += this->score->level * 2;
+			}
+
+			this->fruits->update(this->player, this->board);
 		}
 		this->timerSnake.start();
 	}
 	else
 		this->timerSnake.unpause();
-
-
-	// if (/* player eaten fruit */)
-	// {
-	// 	// Statistics
-	// 	this->stats.lines += lines;
-	// 	this->score->lines += lines;
-	// 	switch(lines)
-	// 	{
-	// 	case 1: this->stats.singles++; break;
-	// 	case 2: this->stats.doubles++; break;
-	// 	case 3: this->stats.triples++; break;
-	// 	case 4: this->stats.tetris++;  break;
-	// 	}
-
-	// 	// Applying score (kinda complex)
-
-	// 	// Score according to how many lines were cleared now
-	// 	int line_score = 0;
-	// 	switch (lines)
-	// 	{
-	// 	case 1:  line_score = 100; break;
-	// 	case 2:  line_score = 300; break;
-	// 	case 3:  line_score = 500; break;
-	// 	case 4:  line_score = 800; break;
-	// 	default: line_score = -1;  break; // someone's cheating...
-	// 	}
-
-	// 	this->score->points += line_score;
-	// }
-
-	// // Updating level based on total score.
-	// //
-	// // Will only update the level if it's greater than
-	// // what currently is.
-	// // It allows you to set a high current level even
-	// // without clearing enough lines to get there.
-	// unsigned int new_level = this->getLevel(this->score->lines);
-
-	// if (new_level > this->score->level)
-	// 	this->score->level = new_level;
-
-	// Checking if game over
-	if (! this->player->isAlive())
-		this->gameOver = true;
 }
 void Game::draw()
 {

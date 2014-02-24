@@ -2,6 +2,7 @@
 #define PLAYER_H_DEFINED
 
 #include <Interface/Window.hpp>
+
 #include <vector>
 
 struct Body
@@ -15,6 +16,8 @@ struct Body
 	{ }
 };
 
+// Avoiding circular #include hell.
+class Board;
 
 ///
 class Player
@@ -34,13 +37,25 @@ public:
 	int getX(); ///< Returns the head's x position.
 	int getY(); ///< Returns the head's y position.
 
+	void moveTo(int x, int y);
+
 	void move(Direction direction);
 	void kill();
 
-	void update();
+	void update(Board* board);
 	void draw(Window* win);
 
-	bool collideWithItself();
+	bool headHit(int x, int y);
+
+	/// Tells if something at #x and #y collides with
+	/// any part of the snake.
+	///
+	/// @note #isHead is a huge HACK to allow me to
+	///       check if the head collides with the body.
+	///       Ignore it.
+	bool bodyHit(int x, int y, bool isCheckingHead=false);
+
+	void increase();
 
 private:
 	std::vector<Body> body;

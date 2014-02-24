@@ -30,19 +30,13 @@ void LayoutMainMenu::windowsInit()
 	                        56,
 	                        9);
 
-	if (Globals::Screen::show_borders)
-	{
-		this->logo->borders(Globals::Screen::fancy_borders ?
-		                    Window::BORDER_FANCY :
-		                    Window::BORDER_REGULAR);
-	}
-
 	// MENU
 	this->menu = new Window(this->main,
+	                        56,
 	                        0,
-	                        this->logo->getH() + 1,
-	                        this->main->getW() / 3,
-	                        this->main->getH() - this->logo->getH() - 2);
+	                        23,
+	                        WINDOW_FILL);
+	this->menu->setTitle("Main Menu");
 
 	if (Globals::Screen::show_borders)
 	{
@@ -71,8 +65,8 @@ void LayoutMainMenu::draw(Menu* menu)
 	                            "|  _    ||_____  ||  _    ||       ||     |_ |    ___|\n"
 	                            "| | |   | _____| || | |   ||   _   ||    _  ||   |___ \n"
 	                            "|_|  |__||_______||_|  |__||__| |__||___| |_||_______|",
-	                            1,
-	                            1,
+	                            0,
+	                            0,
 	                            Colors::pair(COLOR_RED, COLOR_DEFAULT));
 
 	this->logo->refresh();

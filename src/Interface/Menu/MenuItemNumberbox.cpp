@@ -1,6 +1,7 @@
 #include <Interface/Menu/MenuItemNumberbox.hpp>
-#include <Misc/Utils.hpp>
 #include <Config/Globals.hpp>
+#include <Misc/Utils.hpp>
+#include <Misc/Timer.hpp>
 
 MenuItemNumberbox::MenuItemNumberbox(std::string label, int id, int min, int max, int initial):
 	MenuItem(label, id),
@@ -21,9 +22,65 @@ void MenuItemNumberbox::draw(Window* window, int x, int y, int width, bool hilit
 }
 void MenuItemNumberbox::handleInput(int input)
 {
+	// User pressed nothing.
 	if (input == ERR)
 		return;
 
+	// These will allow the user to type numbers
+	// and set the current value.
+	// It the user press numbers within a well-defined
+	// time delta, they'll add up to the current value
+	// until hit the maximum.
+	// If the user doesn't press a number for that
+	// period, the timer "resets".
+	static Timer lastKeyTimer;
+	static int   lastKeyDelay = 500;
+	static bool  firstDigit   = false;
+	static bool  secondDigit  = false;
+	static bool  thirdDigit   = false;
+
+	// Special case, input was a number
+	if (input >= '0' && input <= '9')
+	{
+		if (! firstDigit)
+		{
+			this->set(input - '0');
+			firstDigit = true;
+			lastKeyTimer.start();
+			return;
+		}
+
+		if (lastKeyTimer.delta_ms() < lastKeyDelay)
+		{
+			if (! secondDigit)
+			{
+				this->set(this->current * 10 + (input - '0'));
+				secondDigit = true;
+				lastKeyTimer.start();
+				return;
+			}
+			if (! thirdDigit)
+			{
+				this->set(this->current * 10 + (input - '0'));
+				thirdDigit = true;
+				lastKeyTimer.start();
+				return;
+			}
+		}
+		else
+		{
+			// reset everything
+			this->set(input - '0');
+			firstDigit  = true;
+			secondDigit = false;
+			thirdDigit  = false;
+			lastKeyTimer.start();
+
+		}
+		return;
+	}
+
+	// Anything else
 	switch(input)
 	{
 	case KEY_LEFT:
@@ -43,24 +100,31 @@ void MenuItemNumberbox::handleInput(int input)
 		break;
 	}
 }
-
+void MenuItemNumberbox::set(int value)
+{
+	this->current = value;
+	this->cap();
+}
 void MenuItemNumberbox::increase()
 {
 	this->current++;
-
-	if (this->current > this->max)
-		this->current = this->max;
+	this->cap();
 }
-
 void MenuItemNumberbox::decrease()
 {
 	this->current--;
-
-	if (this->current < this->min)
-		this->current = this->min;
+	this->cap();
 }
 void MenuItemNumberbox::reset()
 {
 	this->current = this->initial;
+}
+void MenuItemNumberbox::cap()
+{
+	if (this->current > this->max)
+		this->current = this->max;
+
+	if (this->current < this->min)
+		this->current = this->min;
 }
 

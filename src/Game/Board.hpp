@@ -4,6 +4,9 @@
 #include <Misc/Array2D.hpp>
 #include <Interface/Window.hpp>
 
+// Avoiding circular #include hell.
+class Player;
+
 ///
 class Board
 {
@@ -17,11 +20,19 @@ public:
 
 	/// Tells if there's a wall at #x #y.
 	bool isWall(int x, int y);
+	bool isBorder(int x, int y);
 
 	int getW();
 	int getH();
 
 	void draw(Window* win);
+
+	/// Places random walls all over the Board
+	/// except by #x and #y, allowing the Player
+	/// to move a little bit when starting.
+	void randomlyFillExceptBy(int x, int y);
+
+	void teleport(Player* player);
 
 	/// Tells if the player will teleport when
 	/// reaching the Board's limits or not.

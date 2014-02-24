@@ -20,6 +20,7 @@ LayoutGame::~LayoutGame()
 void LayoutGame::windowsInit()
 {
 	Layout::windowsInit();
+	this->main->setTitle("nsnake " VERSION);
 
 	// Leftmost window
 	this->gamewin = new Window(this->main,
@@ -139,57 +140,12 @@ void LayoutGame::draw(Menu* menu)
 	this->info->print("Score",    this->info->getW()/3, 0, hilite);
 	this->info->print("Level",    this->info->getW()/3 * 2, 0, hilite);
 
-	// // Default color
-	// wattrset(this->score->win, COLOR_PAIR(0));
+	// Default color
+	wattrset(this->info->win, COLOR_PAIR(0));
 
-	// mvwprintw(this->score->win, lowest_y - 6, 1, "%8u", 9000);
-	// mvwprintw(this->score->win, lowest_y - 3, 1, "%8u", this->game->score->points);
-	// mvwprintw(this->score->win, lowest_y    , 1, "%8d", this->game->score->level);
-
-	// this->score->refresh();
-
-	// / /// // // / / // / /
-
-	// 	this->rightmost->clear();
-
-	// 	// User name
-	// 	this->rightmost->print(this->game->score->name, this->rightmost->getW() - this->game->score->name.size() - 2, 01, Colors::pair(COLOR_BLUE, COLOR_DEFAULT));
-
-	// 	// Piece and Line Statistics
-	// 	this->rightmost->print("[I]", 2, 2, Globals::Theme::piece_I->color);
-	// 	this->rightmost->print("[T]", 2, 3, Globals::Theme::piece_T->color);
-	// 	this->rightmost->print("[L]", 2, 4, Globals::Theme::piece_L->color);
-	// 	this->rightmost->print("[J]", 2, 5, Globals::Theme::piece_J->color);
-	// 	this->rightmost->print("[S]", 2, 6, Globals::Theme::piece_S->color);
-	// 	this->rightmost->print("[Z]", 2, 7, Globals::Theme::piece_Z->color);
-	// 	this->rightmost->print("[O]", 2, 8, Globals::Theme::piece_O->color);
-
-	// 	int x_offset = this->rightmost->getW() - 15;
-
-	// 	this->rightmost->print("Singles", x_offset, 2, hilite);
-	// 	this->rightmost->print("Doubles", x_offset, 3, hilite);
-	// 	this->rightmost->print("Triples", x_offset, 4, hilite);
-	// 	this->rightmost->print("Tetris",  x_offset, 5, hilite);
-
-	// 	this->rightmost->print("Pieces", x_offset, 7, hilite);
-	// 	this->rightmost->print("Lines",  x_offset, 8, hilite);
-
-	// 	wattrset(this->rightmost->win, COLOR_PAIR(0));
-	// 	mvwprintw(this->rightmost->win, 2, 6, "x %3d", this->game->stats.I);
-	// 	mvwprintw(this->rightmost->win, 3, 6, "x %3d", this->game->stats.T);
-	// 	mvwprintw(this->rightmost->win, 4, 6, "x %3d", this->game->stats.L);
-	// 	mvwprintw(this->rightmost->win, 5, 6, "x %3d", this->game->stats.J);
-	// 	mvwprintw(this->rightmost->win, 6, 6, "x %3d", this->game->stats.S);
-	// 	mvwprintw(this->rightmost->win, 7, 6, "x %3d", this->game->stats.Z);
-	// 	mvwprintw(this->rightmost->win, 8, 6, "x %3d", this->game->stats.O);
-
-	// 	mvwprintw(this->rightmost->win, 2, x_offset + 8, "x %3d", this->game->stats.singles);
-	// 	mvwprintw(this->rightmost->win, 3, x_offset + 8, "x %3d", this->game->stats.doubles);
-	// 	mvwprintw(this->rightmost->win, 4, x_offset + 8, "x %3d", this->game->stats.triples);
-	// 	mvwprintw(this->rightmost->win, 5, x_offset + 8, "x %3d", this->game->stats.tetris);
-
-	// 	mvwprintw(this->rightmost->win, 7, x_offset + 7, "x %4d", this->game->stats.pieces);
-	// 	mvwprintw(this->rightmost->win, 8, x_offset + 7, "x %4d", this->game->stats.lines);
+	mvwprintw(this->info->win, 0, 9, "%u", Globals::Game::highScore.points);
+	mvwprintw(this->info->win, 0, this->info->getW()/3 + 6, "%u", this->game->score->points);
+	mvwprintw(this->info->win, 0, this->info->getW()/3 * 2 + 6, "%d", this->game->score->level);
 
 	// 	// Timer - how much time has passed since game start
 	// 	this->rightmost->print("Timer", 2, 10, hilite);
@@ -223,9 +179,10 @@ void LayoutGame::draw(Menu* menu)
 
 	this->game->board->draw(boardwin);
 	this->game->player->draw(boardwin);
+	this->game->fruits->draw(boardwin);
 
 	this->gamewin->refresh();
-
+	this->info->refresh();
 	this->main->refresh();
 
 	// NCURSES NEEDS THIS
