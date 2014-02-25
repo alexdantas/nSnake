@@ -4,6 +4,7 @@
 #include <Config/Globals.hpp>
 #include <Misc/Utils.hpp>
 #include <Flow/GameStateMainMenu.hpp>
+#include <Interface/Animation/AnimationSnakes.hpp>
 
 #include <iostream>
 
@@ -11,7 +12,9 @@ LayoutMainMenu::LayoutMainMenu(int width, int height, GameStateMainMenu* state):
 	Layout(width, height),
 	state(state),
 	logo(nullptr),
-	menu(nullptr)
+	menu(nullptr),
+	animationwin(nullptr),
+	animation(nullptr)
 {
 	this->windowsInit();
 }
@@ -28,7 +31,7 @@ void LayoutMainMenu::windowsInit()
 	                        0,
 	                        0,
 	                        56,
-	                        9);
+	                        7);
 
 	// MENU
 	this->menu = new Window(this->main,
@@ -45,17 +48,33 @@ void LayoutMainMenu::windowsInit()
 		                    Window::BORDER_REGULAR);
 	}
 	this->menu->refresh();
+
+	// ANIMATION
+	this->animationwin = new Window(this->main,
+	                                0,
+	                                this->logo->getH(),
+	                                this->logo->getW(),
+	                                this->main->getH() - this->logo->getH() - 1);
+
+	this->animation = new AnimationSnakes(this->animationwin);
+	this->animation->load();
 }
 void LayoutMainMenu::windowsExit()
 {
 	SAFE_DELETE(this->menu);
 	SAFE_DELETE(this->logo);
+	SAFE_DELETE(this->animationwin);
+	SAFE_DELETE(this->animation);
 
 	Layout::windowsExit();
 }
 void LayoutMainMenu::draw(Menu* menu)
 {
+	this->animation->update();
+
 	this->main->clear();
+
+	this->animation->draw();
 
 	this->logo->clear();
 	this->logo->print_multiline(" __    _  _______  __    _  _______  ___   _  _______\n"

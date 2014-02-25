@@ -4,6 +4,7 @@
 #include <Interface/Layout.hpp>
 #include <Interface/Window.hpp>
 #include <Interface/Menu/Menu.hpp>
+#include <Interface/Animation/Animation.hpp>
 
 // circular dependence on GameStateMainMenu
 class GameStateMainMenu;
@@ -38,6 +39,10 @@ public:
 
 	Window* logo;
 	Window* menu;
+	Window* animationwin;
+
+	/// Cure thing at the main menu.
+	Animation* animation;
 };
 
 #endif //LAYOUTMAINMENU_H_DEFINED
