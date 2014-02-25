@@ -1,5 +1,6 @@
 #include <Flow/GameStateMainMenu.hpp>
 #include <Interface/Ncurses.hpp>
+#include <Interface/Dialog.hpp>
 #include <Misc/Utils.hpp>
 #include <Config/Globals.hpp>
 
@@ -108,8 +109,13 @@ GameState::StateCode GameStateMainMenu::update()
 				break;
 
 			case ERASE_HIGH_SCORES:
-				// Clearing the High Scores file...
-				Utils::File::create(Globals::Config::scoresFile);
+				bool answer = Dialog::askBool("Are you sure?");
+
+				if (answer)
+				{
+					// Clearing the High Scores file...
+					Utils::File::create(Globals::Config::scoresFile);
+				}
 				break;
 			}
 			this->menuOptions->reset();
@@ -184,9 +190,9 @@ void GameStateMainMenu::createArcadeMenu()
 	SAFE_DELETE(this->menuArcade);
 
 	this->menuArcade = new Menu(1,
-	                                  1,
-	                                  this->layout->menu->getW() - 2,
-	                                  this->layout->menu->getH() - 2);
+	                            1,
+	                            this->layout->menu->getW() - 2,
+	                            this->layout->menu->getH() - 2);
 
 	MenuItem* item;
 

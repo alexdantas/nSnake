@@ -80,8 +80,6 @@ void MenuItemTextlist::handleInput(int input)
 	case 'r':
 	case 'R':
 	case ' ':
-	case '\n':
-	case KEY_ENTER:
 		this->reset();
 		break;
 	}

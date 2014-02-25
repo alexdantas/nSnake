@@ -13,6 +13,11 @@
 
 /// List of selectable items.
 ///
+/// @warning When adding items, make sure they're allocated
+///          dynamically! I mean POINTERS, damn it.
+///          Otherwise SEGFAULTS when trying to delete
+///          static stuff.
+///
 /// @warning If you create a menu full of null elements
 ///          (with #addBlank()), it'll probably get into
 ///          an infinite loop when you call #goNext()
