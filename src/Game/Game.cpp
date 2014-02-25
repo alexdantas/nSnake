@@ -73,15 +73,35 @@ void Game::start()
 	item = new MenuItem("Quit Game", QUIT_GAME);
 	this->pauseMenu->add(item);
 
-	this->player = new Player(5, 5);
+	// the player!
+	this->player = new Player(2, 2);
 
-	this->board = new Board(78, 21, ((Globals::Game::teleport) ?
-	                                 Board::TELEPORT :
-	                                 Board::SOLID));
+	// Defaults to large
+	int boardw = 78;
+	int boardh = 21;
+
+	if (Globals::Game::board_size == Globals::Game::SMALL)
+	{
+		boardw = 40;
+		boardh = 10;
+	}
+	else if (Globals::Game::board_size == Globals::Game::MEDIUM)
+	{
+		boardw = 55;
+		boardh = 14;
+	}
+
+	this->board = new Board(boardw,
+	                        boardh,
+	                        ((Globals::Game::teleport) ?
+	                         Board::TELEPORT :
+	                         Board::SOLID));
+
 	if (Globals::Game::random_walls)
 		this->board->randomlyFillExceptBy(this->player->getX(),
 		                                  this->player->getY());
 
+	// fruits beibeh
 	this->fruits = new FruitManager(Globals::Game::fruits_at_once);
 	this->fruits->update(this->player, this->board);
 

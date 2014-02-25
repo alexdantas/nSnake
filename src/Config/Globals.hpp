@@ -79,6 +79,16 @@ namespace Globals
 		extern bool random_walls;
 		extern bool teleport;
 
+		// The board size
+		enum BoardSize
+		{
+			SMALL, MEDIUM, LARGE
+		};
+		BoardSize intToBoardSize(int val);
+		int boardSizeToInt(BoardSize size);
+
+		extern BoardSize board_size;
+
 		/// Maximum high score obtained for the current game.
 		///
 		/// There's different high scores for different

@@ -62,11 +62,13 @@ void Score::loadFile()
 		int fruits;
 		bool random_walls;
 		bool teleport;
+		int board_size;
 		Score score;
 
 		READ(fruits);
 		READ(random_walls);
 		READ(teleport);
+		READ(board_size);
 
 		// Reading a high score
 		READ(score.level);
@@ -77,6 +79,7 @@ void Score::loadFile()
 		if (fruits         == Globals::Game::fruits_at_once &&
 		    random_walls   == Globals::Game::random_walls   &&
 		    teleport       == Globals::Game::teleport       &&
+		    board_size     == Globals::Game::boardSizeToInt(Globals::Game::board_size) &&
 		    score.level    == Globals::Game::starting_level)
 		{
 			found = true;
@@ -133,6 +136,9 @@ void Score::saveFile()
 		WRITE(Globals::Game::random_walls);
 		WRITE(Globals::Game::teleport);
 
+		int size = Globals::Game::boardSizeToInt(Globals::Game::board_size);
+		WRITE(size);
+
 		// Writing the high score
 		WRITE(Globals::Game::highScore.level);
 		WRITE(Globals::Game::highScore.points);
@@ -150,11 +156,13 @@ void Score::saveFile()
 		int fruits;
 		bool random_walls;
 		bool teleport;
+		int board_size;
 		Score score;
 
 		READ(fruits);
 		READ(random_walls);
 		READ(teleport);
+		READ(board_size);
 		READ(score.level);
 
 		// Will only care about the score if it's settings
@@ -162,6 +170,7 @@ void Score::saveFile()
 		if (fruits         == Globals::Game::fruits_at_once &&
 		    random_walls   == Globals::Game::random_walls   &&
 		    teleport       == Globals::Game::teleport       &&
+		    board_size     == Globals::Game::boardSizeToInt(Globals::Game::board_size) &&
 		    score.level    == Globals::Game::highScore.level)
 		{
 			found = true;
@@ -186,6 +195,10 @@ void Score::saveFile()
 		WRITE(Globals::Game::fruits_at_once);
 		WRITE(Globals::Game::random_walls);
 		WRITE(Globals::Game::teleport);
+
+		int size = Globals::Game::boardSizeToInt(Globals::Game::board_size);
+		WRITE(size);
+
 		WRITE(Globals::Game::highScore.level);
 		WRITE(Globals::Game::highScore.points);
 	}

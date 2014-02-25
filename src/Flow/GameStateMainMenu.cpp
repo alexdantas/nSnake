@@ -18,6 +18,7 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 	TELEPORT,
 	FRUITS,
 	RANDOM_WALLS,
+	BOARD_SIZE,
 
 	// Options Submenu
 	SHOW_BORDERS,
@@ -220,13 +221,29 @@ void GameStateMainMenu::createArcadeMenu()
 	check = new MenuItemCheckbox("Random Walls", RANDOM_WALLS, Globals::Game::random_walls);
 	menuArcade->add(check);
 
-	this->menuOptions = new Menu(1,
-	                             1,
-	                             this->layout->menu->getW() - 2,
-	                             this->layout->menu->getH() - 2);
+	// The board size
+	std::vector<std::string> options;
+	options.push_back("Small");
+	options.push_back("Medium");
+	options.push_back("Large");
 
-	item = new MenuItem("Back", GO_BACK);
-	menuOptions->add(item);
+	MenuItemTextlist* list;
+
+	// the default board size
+	std::string defaullt;
+
+	switch (Globals::Game::board_size)
+	{
+	case Globals::Game::SMALL:  defaullt = "Small";  break;
+	case Globals::Game::MEDIUM: defaullt = "Medium"; break;
+	default:                    defaullt = "Large";  break;
+	}
+
+	list = new MenuItemTextlist("Maze size",
+	                            BOARD_SIZE,
+	                            options,
+	                            defaullt);
+	menuArcade->add(list);
 }
 void GameStateMainMenu::createOptionsMenu()
 {
@@ -274,18 +291,6 @@ void GameStateMainMenu::createOptionsMenu()
 	item = new MenuItem("Erase High Scores",
 	                    ERASE_HIGH_SCORES);
 	menuOptions->add(item);
-
-	// std::vector<std::string> options;
-	// options.push_back("regular");
-	// options.push_back("dumb");
-
-	// MenuItemTextlist* list;
-
-	// list = new MenuItemTextlist("Random Fruits",
-	//                             RANDOM_ALGORITHM,
-	//                             options,
-	//                             Globals::Game::random_algorithm);
-	// menuOptions->add(list);
 }
 void GameStateMainMenu::saveSettingsMenuOptions()
 {
@@ -311,6 +316,16 @@ void GameStateMainMenu::saveSettingsMenuArcade()
 	Globals::Game::fruits_at_once = this->menuArcade->getInt(FRUITS);
 	Globals::Game::random_walls = this->menuArcade->getBool(RANDOM_WALLS);
 	Globals::Game::teleport = this->menuArcade->getBool(TELEPORT);
+
+	std::string tmp = this->menuArcade->getString(BOARD_SIZE);
+	if (tmp == "Small")
+		Globals::Game::board_size = Globals::Game::SMALL;
+
+	else if (tmp == "Medium")
+		Globals::Game::board_size = Globals::Game::MEDIUM;
+
+	else
+		Globals::Game::board_size = Globals::Game::LARGE;
 }
 
 

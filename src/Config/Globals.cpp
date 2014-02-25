@@ -30,6 +30,30 @@ unsigned int Globals::Game::starting_level          = 1;
 int          Globals::Game::fruits_at_once          = 1;
 bool         Globals::Game::random_walls            = false;
 bool         Globals::Game::teleport                = false;
+
+Globals::Game::BoardSize Globals::Game::board_size  = LARGE;
+
+Globals::Game::BoardSize Globals::Game::intToBoardSize(int val)
+{
+	if (val == 0)
+		return Globals::Game::SMALL;
+
+	if (val == 1)
+		return Globals::Game::MEDIUM;
+
+	return Globals::Game::LARGE;
+}
+int Globals::Game::boardSizeToInt(Globals::Game::BoardSize size)
+{
+	if (size == Globals::Game::SMALL)
+		return 0;
+
+	if (size == Globals::Game::MEDIUM)
+		return 1;
+
+	return 2;
+}
+
 Score        Globals::Game::highScore;
 
 ColorPair Globals::Theme::text;
@@ -157,6 +181,10 @@ void Globals::loadFile()
 	INI_GET(Globals::Game::random_walls,   "game:random_walls");
 	INI_GET(Globals::Game::fruits_at_once, "game:fruits_at_once");
 	INI_GET(Globals::Game::teleport,       "game:teleport");
+
+	int board_size = 2;
+	INI_GET(board_size, "game:board_size");
+	Globals::Game::board_size = Globals::Game::intToBoardSize(board_size);
 }
 void Globals::saveFile()
 {
@@ -184,6 +212,9 @@ void Globals::saveFile()
 	INI_SET("game:random_walls",     Globals::Game::random_walls);
 	INI_SET("game:fruits_at_once",   Globals::Game::fruits_at_once);
 	INI_SET("game:teleport",         Globals::Game::teleport);
+
+	int board_size = Globals::Game::boardSizeToInt(Globals::Game::board_size);
+	INI_SET("game:board_size", board_size);
 
 	ini.save(Globals::Config::file);
 }

@@ -30,7 +30,10 @@ bool Dialog::askBool(std::string question)
 	options.push_back("Yes");
 	options.push_back("No");
 
-	MenuItemTextlist* list = new MenuItemTextlist(question, 0, options, "No");
+	MenuItemTextlist* list = new MenuItemTextlist(question,
+	                                              0,
+	                                              options,
+												  "No");
 	menu.add(list);
 
 	while (true)
