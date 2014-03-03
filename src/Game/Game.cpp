@@ -118,11 +118,11 @@ void Game::handleInput()
 	// The only two absolute inputs are to quit and pause.
 	// Others depend if the game is paused or not.
 
-	if (InputManager::isPressed(Globals::Input::quit))
+	if (InputManager::isPressed("quit"))
 	{
 		this->userAskedToQuit = true;
 	}
-	else if (InputManager::isPressed(Globals::Input::pause))
+	else if (InputManager::isPressed("pause"))
 	{
 		(this->isPaused) ?
 			this->pause(false) :
@@ -169,19 +169,19 @@ void Game::handleInput()
 		return;
 	}
 
-	if (InputManager::isPressed(Globals::Input::left))
+	if (InputManager::isPressed("left"))
 	{
 		this->player->move(Player::LEFT);
 	}
-	else if (InputManager::isPressed(Globals::Input::right))
+	else if (InputManager::isPressed("right"))
 	{
 		this->player->move(Player::RIGHT);
 	}
-	else if (InputManager::isPressed(Globals::Input::up))
+	else if (InputManager::isPressed("up"))
 	{
 		this->player->move(Player::UP);
 	}
-	else if (InputManager::isPressed(Globals::Input::down))
+	else if (InputManager::isPressed("down"))
 	{
 		this->player->move(Player::DOWN);
 	}

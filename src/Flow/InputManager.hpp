@@ -13,6 +13,9 @@ namespace InputManager
 	/// Removes all keybindings for #name.
 	void unbind(std::string name);
 
+	/// Returns the key that's bound to #name.
+	int getBind(std::string name);
+
 	/// Tells if no key was actually pressed on the last frame.
 	bool noKeyPressed();
 

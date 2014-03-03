@@ -110,17 +110,6 @@ namespace Globals
 		extern ColorPair textbox;
 	};
 
-	namespace Input
-	{
-		extern int left;
-		extern int right;
-		extern int up;
-		extern int down;
-		extern int pause;
-		extern int help;
-		extern int quit;
-	};
-
 	// Flags to warn the user of some error at the end
 	// of execution.
 	namespace Error

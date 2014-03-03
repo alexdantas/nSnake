@@ -8,6 +8,9 @@ std::map<std::string, int> InputManager::binds;
 
 void InputManager::bind(std::string name, int key)
 {
+	if (name.empty() || key == ERR)
+		return;
+
 	InputManager::binds[name] = key;
 }
 
@@ -16,6 +19,14 @@ void InputManager::unbind(std::string name)
 	InputManager::binds.erase(name);
 }
 
+int InputManager::getBind(std::string name)
+{
+	// If #key is not binded to anything...
+	if (InputManager::binds.find(name) == InputManager::binds.end())
+		return ERR;
+
+	return (InputManager::binds[name]);
+}
 void InputManager::update(int delay_ms)
 {
 	InputManager::pressedKey = Ncurses::getInput(delay_ms);
@@ -45,7 +56,8 @@ std::string InputManager::keyToString(int value)
 	// Is character inside the printable ASCII table?
 	if (value >= ' ' && value <=  '~')
 	{
-		char c     = (value - ' ');
+		// Converting (int -> char -> char* -> std::string)
+		char c     = value;
 		char* cptr = &c;
 
 		return std::string(cptr);

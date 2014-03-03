@@ -1,6 +1,7 @@
 #include <Config/Globals.hpp>
 #include <Config/INI.hpp>
 #include <Misc/Utils.hpp>
+#include <Flow/InputManager.hpp>
 
 #include <ncurses.h>
 #include <iostream>
@@ -60,14 +61,6 @@ ColorPair Globals::Theme::text;
 ColorPair Globals::Theme::hilite_text;
 ColorPair Globals::Theme::textbox;
 
-int Globals::Input::left  = KEY_LEFT;
-int Globals::Input::right = KEY_RIGHT;
-int Globals::Input::up    = KEY_UP;
-int Globals::Input::down  = KEY_DOWN;
-int Globals::Input::pause = 'p';
-int Globals::Input::help  = 'h';
-int Globals::Input::quit  = 'q';
-
 bool Globals::Error::has_config_file = true;
 bool Globals::Error::has_score_file  = true;
 bool Globals::Error::old_version_score_file = false;
@@ -116,6 +109,15 @@ void Globals::init()
 		Globals::Config::file      = "/dev/null";
 		return;
 	}
+
+	// Default Input configurationa
+	InputManager::bind("left",  KEY_LEFT);
+	InputManager::bind("right", KEY_RIGHT);
+	InputManager::bind("up",    KEY_UP);
+	InputManager::bind("down",  KEY_DOWN);
+	InputManager::bind("pause", 'p');
+	InputManager::bind("help",  'h');
+	InputManager::bind("quit",  'q');
 }
 void Globals::exit()
 {
@@ -182,6 +184,33 @@ void Globals::loadFile()
 	INI_GET(Globals::Game::fruits_at_once, "game:fruits_at_once");
 	INI_GET(Globals::Game::teleport,       "game:teleport");
 
+	// Special Cases
+
+	// Getting input keys
+	std::string tmp;
+
+	INI_GET(tmp, "input:left");
+	InputManager::bind("left", InputManager::stringToKey(tmp));
+
+	INI_GET(tmp, "input:right");
+	InputManager::bind("right", InputManager::stringToKey(tmp));
+
+	INI_GET(tmp, "input:up");
+	InputManager::bind("up", InputManager::stringToKey(tmp));
+
+	INI_GET(tmp, "input:down");
+	InputManager::bind("down", InputManager::stringToKey(tmp));
+
+	INI_GET(tmp, "input:pause");
+	InputManager::bind("pause", InputManager::stringToKey(tmp));
+
+	INI_GET(tmp, "input:help");
+	InputManager::bind("help", InputManager::stringToKey(tmp));
+
+	INI_GET(tmp, "input:quit");
+	InputManager::bind("quit", InputManager::stringToKey(tmp));
+
+	// Board Size
 	int board_size = 2;
 	INI_GET(board_size, "game:board_size");
 	Globals::Game::board_size = Globals::Game::intToBoardSize(board_size);
@@ -213,6 +242,33 @@ void Globals::saveFile()
 	INI_SET("game:fruits_at_once",   Globals::Game::fruits_at_once);
 	INI_SET("game:teleport",         Globals::Game::teleport);
 
+	// Special Cases
+
+	// Input Keys
+	std::string key;
+
+	key = InputManager::keyToString(InputManager::getBind("left"));
+	INI_SET("input:left", key);
+
+	key = InputManager::keyToString(InputManager::getBind("right"));
+	INI_SET("input:right", key);
+
+	key = InputManager::keyToString(InputManager::getBind("up"));
+	INI_SET("input:up", key);
+
+	key = InputManager::keyToString(InputManager::getBind("down"));
+	INI_SET("input:down", key);
+
+	key = InputManager::keyToString(InputManager::getBind("pause"));
+	INI_SET("input:pause", key);
+
+	key = InputManager::keyToString(InputManager::getBind("help"));
+	INI_SET("input:help", key);
+
+	key = InputManager::keyToString(InputManager::getBind("quit"));
+	INI_SET("input:quit", key);
+
+	// Board size
 	int board_size = Globals::Game::boardSizeToInt(Globals::Game::board_size);
 	INI_SET("game:board_size", board_size);
 

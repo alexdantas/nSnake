@@ -138,11 +138,11 @@ void Menu::handleInput()
 	if (InputManager::noKeyPressed())
 		return;
 
-	if (InputManager::isPressed(KEY_DOWN) ||
+	if (InputManager::isPressed("down") ||
 	    InputManager::isPressed('\t'))
 		this->goNext();
 
-	else if (InputManager::isPressed(KEY_UP) ||
+	else if (InputManager::isPressed("up") ||
 	         InputManager::isPressed(KEY_BTAB))
 		this->goPrevious();
 

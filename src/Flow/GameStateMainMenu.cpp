@@ -66,7 +66,7 @@ int GameStateMainMenu::unload()
 
 GameState::StateCode GameStateMainMenu::update()
 {
-	if (InputManager::isPressed('q'))
+	if (InputManager::isPressed("quit"))
 		return GameState::QUIT;
 
 	if (this->menuArcadeActivated)
