@@ -2,6 +2,7 @@
 #include <Config/Globals.hpp>
 #include <Misc/Utils.hpp>
 #include <Interface/LayoutGame.hpp>
+#include <Flow/InputManager.hpp>
 
 #include <stdlib.h>
 
@@ -109,19 +110,19 @@ void Game::start()
 	this->timerSnake.start();
 	this->timer.start();
 }
-void Game::handleInput(int c)
+void Game::handleInput()
 {
-	if (c == ERR)
+	if (InputManager::noKeyPressed())
 		return;
 
 	// The only two absolute inputs are to quit and pause.
 	// Others depend if the game is paused or not.
 
-	if (c == Globals::Input::quit)
+	if (InputManager::isPressed(Globals::Input::quit))
 	{
 		this->userAskedToQuit = true;
 	}
-	else if (c == Globals::Input::pause)
+	else if (InputManager::isPressed(Globals::Input::pause))
 	{
 		(this->isPaused) ?
 			this->pause(false) :
@@ -129,7 +130,8 @@ void Game::handleInput(int c)
 
 		return;
 	}
-	else if ((c == '\n') || (c == KEY_ENTER))
+	else if (InputManager::isPressed('\n') ||
+	         InputManager::isPressed(KEY_ENTER))
 	{
 		if (! this->isPaused)
 		{
@@ -140,7 +142,8 @@ void Game::handleInput(int c)
 			// unpauses the game.
 		}
 	}
-	else if (c == 'h' || c == 'H')
+	else if (InputManager::isPressed('h') ||
+	         InputManager::isPressed('H'))
 	{
 		// Toggling Pause and Help window
 		if (this->isPaused)
@@ -162,23 +165,23 @@ void Game::handleInput(int c)
 	// Other keys are not used when paused.
 	if (this->isPaused)
 	{
-		this->pauseMenu->handleInput(c);
+		this->pauseMenu->handleInput();
 		return;
 	}
 
-	if (c == Globals::Input::left)
+	if (InputManager::isPressed(Globals::Input::left))
 	{
 		this->player->move(Player::LEFT);
 	}
-	else if (c == Globals::Input::right)
+	else if (InputManager::isPressed(Globals::Input::right))
 	{
 		this->player->move(Player::RIGHT);
 	}
-	else if (c == Globals::Input::up)
+	else if (InputManager::isPressed(Globals::Input::up))
 	{
 		this->player->move(Player::UP);
 	}
-	else if (c == Globals::Input::down)
+	else if (InputManager::isPressed(Globals::Input::down))
 	{
 		this->player->move(Player::DOWN);
 	}

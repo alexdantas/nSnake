@@ -15,19 +15,21 @@ void AnimationSnakes::load()
 void AnimationSnakes::update()
 {
 	// Adding yet another snake
-	if ((addTimer.delta_ms() > (Utils::Random::between(1, 3) * 100)) &&
+	int delay = 2000;//Utils::Random::between(3, 6) * 100;
+
+	if ((addTimer.delta_ms() > delay) &&
 	    (this->lilsnakes.size() < MAX_SNAKES))
 	{
 		this->addSnake();
 
-		addTimer.start();
-	}
+		// Random add burst!
+		if (Utils::Random::booleanWithChance(25.01))
+		{
+			for (int i = 0; i < Utils::Random::between(3, 5); i++)
+				this->addSnake();
+		}
 
-	// Random add burst!
-	if (Utils::Random::booleanWithChance(25.01))
-	{
-		for (int i = 0; i < Utils::Random::between(3, 5); i++)
-			this->addSnake();
+		addTimer.start();
 	}
 
 	// Updating all snakes

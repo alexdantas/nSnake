@@ -11,7 +11,7 @@ struct MenuItemNumberbox: public MenuItem
 
 	void draw(Window* window, int x, int y, int width, bool hilite=false);
 
-	void handleInput(int input);
+	void handleInput();
 
 	void increase();
 	void decrease();

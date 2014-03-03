@@ -3,16 +3,18 @@
 
 #include <Interface/Menu/MenuItem.hpp>
 
+/// A little box that can be checked or not.
+/// Used to get a boolean from the user.
 ///
 struct MenuItemCheckbox: public MenuItem
 {
 	MenuItemCheckbox(std::string label, int id, bool initial=false);
-	virtual ~MenuItemCheckbox() { };
 
+	virtual ~MenuItemCheckbox() {};
 
 	void draw(Window* window, int x, int y, int width, bool hilite=false);
 
-	void handleInput(int input);
+	void handleInput();
 
 	void check(bool option);
 	void toggle();

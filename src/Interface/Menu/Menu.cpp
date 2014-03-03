@@ -1,6 +1,7 @@
 #include <Interface/Menu/Menu.hpp>
 #include <Misc/Utils.hpp>
 #include <Config/Globals.hpp>
+#include <Flow/InputManager.hpp>
 
 Menu::Menu(int x, int y, int width, int height):
 	current(nullptr),
@@ -132,36 +133,30 @@ void Menu::draw(Window* window)
 		}
 	}
 }
-void Menu::handleInput(int input)
+void Menu::handleInput()
 {
-	if (input == ERR)
+	if (InputManager::noKeyPressed())
 		return;
 
-	switch(input)
-	{
-	case KEY_DOWN:
-	case '\t':
+	if (InputManager::isPressed(KEY_DOWN) ||
+	    InputManager::isPressed('\t'))
 		this->goNext();
-		break;
 
-	case KEY_UP:
-	case KEY_BTAB:
+	else if (InputManager::isPressed(KEY_UP) ||
+	         InputManager::isPressed(KEY_BTAB))
 		this->goPrevious();
-		break;
 
-	case KEY_HOME:
-	case KEY_PPAGE:
+	else if (InputManager::isPressed(KEY_HOME) ||
+	         InputManager::isPressed(KEY_PPAGE))
 		this->goFirst();
-		break;
 
-	case KEY_END:
-	case KEY_NPAGE:
+	else if (InputManager::isPressed(KEY_END) ||
+	         InputManager::isPressed(KEY_NPAGE))
 		this->goLast();
-		break;
 
-	case KEY_ENTER:
-	case '\n':
-
+	else if (InputManager::isPressed(KEY_ENTER) ||
+	         InputManager::isPressed('\n'))
+	{
 		// Will only quit if the selected item is a simple
 		// item - more complex ones doesn't quit.
 		if (this->current->type == MenuItem::ITEM)
@@ -170,13 +165,12 @@ void Menu::handleInput(int input)
 			this->selectedItem = this->current;
 		}
 		else
-			this->current->handleInput(input);
-		break;
-
-	default:
+			this->current->handleInput();
+	}
+	else
+	{
 		if (this->current)
-			this->current->handleInput(input);
-		break;
+			this->current->handleInput();
 	}
 }
 void Menu::goNext()

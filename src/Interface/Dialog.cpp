@@ -1,8 +1,8 @@
 #include <Interface/Dialog.hpp>
-#include <Interface/Ncurses.hpp>
 #include <Interface/Layout.hpp>
 #include <Interface/Menu/Menu.hpp>
 #include <Config/Globals.hpp>
+#include <Flow/InputManager.hpp>
 
 #include <vector>
 
@@ -47,12 +47,15 @@ bool Dialog::askBool(std::string question)
 		refresh();
 
 		// Getting input (waiting infinitely for it)
-		int input = Ncurses::getInput();
-		if (input == 'q')
+		InputManager::update(-1);
+
+		InputManager::isPressed('q');
 			return false;
 
-		menu.handleInput(input);
-		if (input == '\n' || input == KEY_ENTER)
+		menu.handleInput();
+
+		if (InputManager::isPressed('\n') ||
+		    InputManager::isPressed(KEY_ENTER))
 		{
 			std::string str(menu.getString(0));
 			return (str == "Yes");

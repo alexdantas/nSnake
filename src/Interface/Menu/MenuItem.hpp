@@ -34,7 +34,8 @@ struct MenuItem
 	/// @note Yeah, height is always 1.
 	virtual void draw(Window* window, int x, int y, int width, bool hilite=false);
 
-	/// Reacts according to #input.
+	/// Makes the menu item react to input,
+	/// as seen on the global InputManager.
 	///
 	/// Each type of MenuItem might react to input differently.
 	/// A text box might want to show printable characters,
@@ -42,7 +43,7 @@ struct MenuItem
 	/// whatever.
 	///
 	/// When inheriting this, make sure to implement it.
-	virtual void handleInput(int input);
+	virtual void handleInput();
 
 	/// Specific type of this widget.
 	/// @note It is set on the Constructor,

@@ -1,6 +1,7 @@
 #include <Interface/Menu/MenuItem.hpp>
 #include <Config/Globals.hpp>
 #include <Misc/Utils.hpp>
+#include <Flow/InputManager.hpp>
 
 MenuItem::MenuItem(std::string label, int id):
 	type(MenuItem::ITEM),
@@ -15,8 +16,6 @@ void MenuItem::draw(Window* window, int x, int y, int width, bool hilite)
 	               Globals::Theme::hilite_text:
 	               Globals::Theme::text));
 }
-void MenuItem::handleInput(int input)
-{
-	UNUSED(input);
-}
+void MenuItem::handleInput()
+{ }
 

@@ -1,5 +1,6 @@
 #include <Interface/Menu/MenuItemTextbox.hpp>
 #include <Config/Globals.hpp>
+#include <Flow/InputManager.hpp>
 
 MenuItemTextbox::MenuItemTextbox(std::string label, int id, int width, std::string initial):
 	MenuItem(label, id),
@@ -8,8 +9,6 @@ MenuItemTextbox::MenuItemTextbox(std::string label, int id, int width, std::stri
 {
 
 }
-MenuItemTextbox::~MenuItemTextbox()
-{ }
 void MenuItemTextbox::draw(Window* window, int x, int y, int width, bool hilite)
 {
 	// Drawing label before actual textbox
@@ -39,22 +38,18 @@ bool isPrintable(int input)
 	return ((input > 32) && (input < 127));
 }
 
-void MenuItemTextbox::handleInput(int input)
+void MenuItemTextbox::handleInput()
 {
-	if (input == ERR)
+	if (InputManager::noKeyPressed())
 		return;
 
-	if (isPrintable(input))
+	if (isPrintable(InputManager::pressedKey))
 	{
-		this->currentText += (char)input;
+		this->currentText += (char)(InputManager::pressedKey);
 		return;
 	}
 
-	switch(input)
-	{
-	case KEY_BACKSPACE:
+	if (InputManager::isPressed(KEY_BACKSPACE))
 		this->currentText.pop_back();
-		break;
-	}
 }
 

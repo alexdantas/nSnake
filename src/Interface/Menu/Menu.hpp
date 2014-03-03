@@ -47,8 +47,9 @@ public:
 
 	void draw(Window* window);
 
-	/// Makes the menu react to #input, which is an Ncurses "char".
-	void handleInput(int input);
+	/// Makes the menu react to input,
+	/// as seen on the global InputManager.
+	void handleInput();
 
 	/// Makes the menu select the next item.
 	/// @note This is a recursive function to guarantee we'll

@@ -2,6 +2,7 @@
 #include <Config/Globals.hpp>
 #include <Misc/Utils.hpp>
 #include <Misc/Timer.hpp>
+#include <Flow/InputManager.hpp>
 
 MenuItemNumberbox::MenuItemNumberbox(std::string label, int id, int min, int max, int initial):
 	MenuItem(label, id),
@@ -20,10 +21,9 @@ void MenuItemNumberbox::draw(Window* window, int x, int y, int width, bool hilit
 
 	window->print(number, (width + x - number.size()), y, Globals::Theme::hilite_text);
 }
-void MenuItemNumberbox::handleInput(int input)
+void MenuItemNumberbox::handleInput()
 {
-	// User pressed nothing.
-	if (input == ERR)
+	if (InputManager::noKeyPressed())
 		return;
 
 	// These will allow the user to type numbers
@@ -38,6 +38,8 @@ void MenuItemNumberbox::handleInput(int input)
 	static bool  firstDigit   = false;
 	static bool  secondDigit  = false;
 	static bool  thirdDigit   = false;
+
+	int input = InputManager::pressedKey;
 
 	// Special case, input was a number
 	if (input >= '0' && input <= '9')
@@ -81,24 +83,18 @@ void MenuItemNumberbox::handleInput(int input)
 	}
 
 	// Anything else
-	switch(input)
-	{
-	case KEY_LEFT:
+	if (InputManager::isPressed(KEY_LEFT))
 		this->decrease();
-		break;
 
-	case KEY_RIGHT:
+	else if (InputManager::isPressed(KEY_RIGHT))
 		this->increase();
-		break;
 
-	case 'r':
-	case 'R':
-	case ' ':
-	case '\n':
-	case KEY_ENTER:
+	else if (InputManager::isPressed('r')  ||
+	         InputManager::isPressed('R')  ||
+	         InputManager::isPressed(' ')  ||
+	         InputManager::isPressed('\n') ||
+	         InputManager::isPressed(KEY_ENTER))
 		this->reset();
-		break;
-	}
 }
 void MenuItemNumberbox::set(int value)
 {

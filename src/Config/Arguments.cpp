@@ -12,7 +12,7 @@ void version(command_t* self)
 	(void)(self);
 
 	std::cout <<
-		"yetris v" VERSION " (" DATE ")\n"
+		"nsnake v" VERSION " (" DATE ")\n"
 		"\n"
 		"   ,           ,\n"
 		"  /             \\  This game was made with\n"
@@ -24,7 +24,7 @@ void version(command_t* self)
 		"       :o_o:\n"
 		"         -\n"
 		"\n"
-		"Homepage: http://yetris.alexdantas.net/\n"
+		"Homepage: http://nsnake.alexdantas.net/\n"
 		"Contact:  Alexandre Dantas <eu@alexdantas.net>\n";
 
 	command_free(self);
@@ -35,22 +35,18 @@ void help(command_t* self)
 	(void)(self);
 
 	std::cout <<
-		" __ __   ___ ______ ____  ____ _____\n"
-		"|  T  T /  _|      |    \\l    / ___/\n"
-		"|  |  |/  [_|      |  D  )|  (   \\_ \n"
-		"|  ~  Y    _l_j  l_|    / |  |\\__  T\n"
-		"l___, |   [_  |  | |    \\ |  |/  \\ |\n"
-		"|     |     T |  | |  .  Yj  l\\    |\n"
-		"l____/l_____j l__j l__j\\_|____j\\___j\n"
-		"v" VERSION "               (built " DATE ")\n"
+		" _      __   _       __    _     ____ \n"
+		"| |\\ | ( (` | |\\ |  / /\\  | |_/ | |_  \n"
+		"|_| \\| _)_) |_| \\| /_/--\\ |_| \\ |_|__ \n"
+		"v" VERSION "                 (built " DATE ")\n"
 		"\n"
-		"yetris is a customizable Tetris(tm) clone for the\n"
+		"nsnake is the classical snake game on the\n"
 		"terminal.\n"
 		"It's settings and scores are stored at:\n"
-		"	~/.local/share/yetris/\n"
+		"	~/.local/share/nsnake/\n"
 		"\n"
 		"Usage:\n"
-		"	yetris [options]\n"
+		"	nsnake [options]\n"
 		"\n"
 		"	-h, --help     Show this message\n"
 		"	-v, --version  Show game version and contact info\n"

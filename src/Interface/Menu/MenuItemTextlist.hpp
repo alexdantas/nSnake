@@ -15,7 +15,7 @@ public:
 	virtual ~MenuItemTextlist() { };
 
 	void draw(Window* window, int x, int y, int width, bool hilite);
-	void handleInput(int input);
+	void handleInput();
 
 	void increase();
 	void decrease();

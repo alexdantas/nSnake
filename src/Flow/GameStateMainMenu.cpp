@@ -1,4 +1,5 @@
 #include <Flow/GameStateMainMenu.hpp>
+#include <Flow/InputManager.hpp>
 #include <Interface/Ncurses.hpp>
 #include <Interface/Dialog.hpp>
 #include <Misc/Utils.hpp>
@@ -65,14 +66,12 @@ int GameStateMainMenu::unload()
 
 GameState::StateCode GameStateMainMenu::update()
 {
-	int input = Ncurses::getInput(100);
-
-	if (input == 'q')
+	if (InputManager::isPressed('q'))
 		return GameState::QUIT;
 
 	if (this->menuArcadeActivated)
 	{
-		this->menuArcade->handleInput(input);
+		this->menuArcade->handleInput();
 
 		if (this->menuArcade->willQuit())
 		{
@@ -94,7 +93,7 @@ GameState::StateCode GameStateMainMenu::update()
 	}
 	else if (this->menuOptionsActvated)
 	{
-		this->menuOptions->handleInput(input);
+		this->menuOptions->handleInput();
 
 		if (this->menuOptions->willQuit())
 		{
@@ -125,7 +124,7 @@ GameState::StateCode GameStateMainMenu::update()
 	else
 	{
 		// We're still at the Main Menu
-		this->menu->handleInput(input);
+		this->menu->handleInput();
 
 		if (this->menu->willQuit())
 		{

@@ -30,7 +30,7 @@ GameState::StateCode GameStateGame::update()
 	if (this->willQuit)
 		return GameState::QUIT;
 
-	this->game->handleInput(Ncurses::getInput(100));
+	this->game->handleInput();
 	this->game->update();
 
 	if (this->game->isOver())

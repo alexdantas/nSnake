@@ -22,7 +22,7 @@ public:
 	virtual ~Game();
 
 	void start();
-	void handleInput(int c);
+	void handleInput();
 	void update();
 	void draw();
 

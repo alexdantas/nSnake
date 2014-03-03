@@ -1,6 +1,7 @@
 #include <Flow/StateManager.hpp>
 #include <Flow/GameStateGame.hpp>
 #include <Flow/GameStateMainMenu.hpp>
+#include <Flow/InputManager.hpp>
 #include <Misc/Utils.hpp>
 #include <Config/Globals.hpp>
 #include <Config/INI.hpp>
@@ -29,6 +30,8 @@ void StateManager::run()
 
 	while (!letsQuit)
 	{
+		InputManager::update();
+
 		// Updating the whole state.
 		// This value is returned from it tell us if
 		// we need to switch from the current state.
@@ -76,6 +79,8 @@ void StateManager::run()
 
 		if (this->currentState)
 			this->currentState->draw();
+
+		Utils::Time::delay_ms(100);
 	}
 
 	// // Right before quitting, we must save current
