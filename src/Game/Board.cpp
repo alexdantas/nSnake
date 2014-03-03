@@ -90,17 +90,20 @@ void Board::randomlyFillExceptBy(int x, int y)
 }
 void Board::teleport(Player* player)
 {
+	// If we don't teleport,
+	// at least keep it on the current position
 	int newx = player->getX();
 	int newy = player->getY();
 
+	// Where we'll place the player
 	int left  = 1;
 	int right = this->board->width() - 2;
 
-	if (player->getX() <= left)
+	if (player->getX() < left)
 	{
 		newx = right;
 	}
-	else if (player->getX() >= right)
+	else if (player->getX() > right)
 	{
 		newx = left;
 	}
@@ -108,11 +111,11 @@ void Board::teleport(Player* player)
 	int top    = 1;
 	int bottom = this->board->height() - 2;
 
-	if (player->getY() <= top)
+	if (player->getY() < top)
 	{
 		newy = bottom;
 	}
-	else if (player->getY() >= bottom)
+	else if (player->getY() > bottom)
 	{
 		newy = top;
 	}

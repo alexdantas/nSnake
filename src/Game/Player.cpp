@@ -96,6 +96,18 @@ void Player::update(Board* board)
 		break;
 	}
 
+	// Checking if the player hit the board's extremes.
+	//
+	// @warning `teleport` may change player's X and Y!
+	if (board->isBorder(this->body.front().x,
+	                    this->body.front().y))
+	{
+		if (board->style == Board::TELEPORT)
+			board->teleport(this);
+		else
+			this->kill();
+	}
+
 	int headx = this->body.front().x;
 	int heady = this->body.front().y;
 
@@ -106,15 +118,6 @@ void Player::update(Board* board)
 	// Checking for collisions on the board
 	if (board->isWall(headx, heady))
 		this->kill();
-
-	// Checking if the player hit the board's exremes
-	if (board->isBorder(headx, heady))
-	{
-		if (board->style == Board::TELEPORT)
-			board->teleport(this);
-		else
-			this->kill();
-	}
 }
 void Player::draw(Window* win)
 {
