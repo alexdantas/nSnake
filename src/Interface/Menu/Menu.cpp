@@ -138,11 +138,13 @@ void Menu::handleInput()
 	if (InputManager::noKeyPressed())
 		return;
 
-	if (InputManager::isPressed("down") ||
+	if (InputManager::isPressed("down") || // user-defined
+	    InputManager::isPressed(KEY_DOWN) ||
 	    InputManager::isPressed('\t'))
 		this->goNext();
 
 	else if (InputManager::isPressed("up") ||
+	         InputManager::isPressed(KEY_UP) ||
 	         InputManager::isPressed(KEY_BTAB))
 		this->goPrevious();
 
@@ -158,8 +160,9 @@ void Menu::handleInput()
 	         InputManager::isPressed('\n'))
 	{
 		// Will only quit if the selected item is a simple
-		// item - more complex ones doesn't quit.
-		if (this->current->type == MenuItem::ITEM)
+		// item or label - more complex ones doesn't quit.
+		if (this->current->type == MenuItem::ITEM ||
+			this->current->type == MenuItem::LABEL)
 		{
 			this->selected = true;
 			this->selectedItem = this->current;

@@ -10,9 +10,6 @@ StateManager::StateManager():
 	currentState(nullptr),
 	sharedInfo(0)
 {
-	// LOAD SETTINGS FRM FILE
-//		Globals::Profiles::current->loadSettings();
-
 	// The first state, Hardcoded
 	this->currentState = new GameStateMainMenu();
 	this->currentState->load();

@@ -86,7 +86,7 @@ void LayoutMainMenu::draw(Menu* menu)
 	                            "|_|  |__||_______||_|  |__||__| |__||___| |_||_______|",
 	                            0,
 	                            0,
-	                            Colors::pair(COLOR_RED, COLOR_DEFAULT));
+	                            Colors::pair(COLOR_GREEN, COLOR_DEFAULT, true));
 
 	this->logo->refresh();
 

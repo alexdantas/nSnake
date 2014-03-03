@@ -10,6 +10,7 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 	// Main Menu
 	ARCADE,
 	OPTIONS,
+	CONTROLS,
 	QUIT_GAME,
 
 	// Single Player Submenu
@@ -28,7 +29,16 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 	USE_COLORS,
 	CENTER_HORIZONTAL,
 	CENTER_VERTICAL,
-	ERASE_HIGH_SCORES
+	ERASE_HIGH_SCORES,
+
+	// Controls Submenu
+	CONTROLS_KEY_LEFT,
+	CONTROLS_KEY_RIGHT,
+	CONTROLS_KEY_UP,
+	CONTROLS_KEY_DOWN,
+	CONTROLS_KEY_PAUSE,
+	CONTROLS_KEY_QUIT,
+	CONTROLS_DEFAULT
 };
 
 GameStateMainMenu::GameStateMainMenu():
@@ -37,7 +47,9 @@ GameStateMainMenu::GameStateMainMenu():
 	menuArcade(nullptr),
 	menuArcadeActivated(false),
 	menuOptions(nullptr),
-	menuOptionsActvated(false)
+	menuOptionsActivated(false),
+	menuControls(nullptr),
+	menuControlsActivated(false)
 { }
 GameStateMainMenu::~GameStateMainMenu()
 { }
@@ -50,6 +62,7 @@ void GameStateMainMenu::load(int stack)
 	createMainMenu();
 	createArcadeMenu();
 	createOptionsMenu();
+	createControlsMenu();
 }
 
 int GameStateMainMenu::unload()
@@ -58,6 +71,8 @@ int GameStateMainMenu::unload()
 	saveSettingsMenuOptions();
 
 	SAFE_DELETE(this->layout);
+	SAFE_DELETE(this->menuControls);
+	SAFE_DELETE(this->menuOptions);
 	SAFE_DELETE(this->menuArcade);
 	SAFE_DELETE(this->menu);
 
@@ -91,7 +106,7 @@ GameState::StateCode GameStateMainMenu::update()
 			this->menuArcade->reset();
 		}
 	}
-	else if (this->menuOptionsActvated)
+	else if (this->menuOptionsActivated)
 	{
 		this->menuOptions->handleInput();
 
@@ -100,7 +115,7 @@ GameState::StateCode GameStateMainMenu::update()
 			switch(this->menuOptions->currentID())
 			{
 			case GO_BACK:
-				this->menuOptionsActvated = false;
+				this->menuOptionsActivated = false;
 
 				// Redrawing the screen to refresh settings
 				saveSettingsMenuOptions();
@@ -121,6 +136,66 @@ GameState::StateCode GameStateMainMenu::update()
 			this->menuOptions->reset();
 		}
 	}
+	else if (this->menuControlsActivated)
+	{
+		this->menuControls->handleInput();
+
+		if (this->menuControls->willQuit())
+		{
+			std::string key(""); // for key binding
+
+			switch(this->menuControls->currentID())
+			{
+			case GO_BACK:
+				this->menuControlsActivated = false;
+				break;
+
+			case CONTROLS_KEY_LEFT:  key = "left";  break;
+			case CONTROLS_KEY_RIGHT: key = "right"; break;
+			case CONTROLS_KEY_UP:    key = "up";    break;
+			case CONTROLS_KEY_DOWN:  key = "down";  break;
+			case CONTROLS_KEY_PAUSE: key = "pause"; break;
+			case CONTROLS_KEY_QUIT:  key = "quit";  break;
+
+			case CONTROLS_DEFAULT:
+			{
+				// Reset all keybindings to default
+				InputManager::bind("left",  KEY_LEFT);
+				InputManager::bind("right", KEY_RIGHT);
+				InputManager::bind("up",    KEY_UP);
+				InputManager::bind("down",  KEY_DOWN);
+				InputManager::bind("pause", 'p');
+				InputManager::bind("help",  'h');
+				InputManager::bind("quit",  'q');
+
+				// Resetting the menu to show the new labels
+				createControlsMenu();
+				menuControls->goLast();
+				break;
+			}
+			}
+
+			// If we'll change a key binding
+			if (! key.empty())
+			{
+				Dialog::show("Press any key, Enter to Cancel");
+				int tmp = Ncurses::getInput(-1);
+
+				if ((tmp != KEY_ENTER) &&
+				    (tmp != '\n') &&
+				    (tmp != ERR))
+				{
+					InputManager::bind(key, tmp);
+
+					MenuItemLabel* label;
+					label = (MenuItemLabel*)menuControls->current;
+
+					label->set(InputManager::keyToString(tmp));
+				}
+			}
+			this->menuControls->reset();
+		}
+	}
 	else
 	{
 		// We're still at the Main Menu
@@ -135,7 +210,11 @@ GameState::StateCode GameStateMainMenu::update()
 				break;
 
 			case OPTIONS:
-				this->menuOptionsActvated = true;
+				this->menuOptionsActivated = true;
+				break;
+
+			case CONTROLS:
+				this->menuControlsActivated = true;
 				break;
 
 			case QUIT_GAME:
@@ -155,8 +234,11 @@ void GameStateMainMenu::draw()
 	if (this->menuArcadeActivated)
 		this->layout->draw(this->menuArcade);
 
-	else if (this->menuOptionsActvated)
+	else if (this->menuOptionsActivated)
 		this->layout->draw(this->menuOptions);
+
+	else if (this->menuControlsActivated)
+		this->layout->draw(this->menuControls);
 
 	else
 		this->layout->draw(this->menu);
@@ -180,6 +262,9 @@ void GameStateMainMenu::createMainMenu()
 	menu->add(item);
 
 	item = new MenuItem("Options", OPTIONS);
+	menu->add(item);
+
+	item = new MenuItem("Controls", CONTROLS);
 	menu->add(item);
 
 	item = new MenuItem("Quit", QUIT_GAME);
@@ -287,9 +372,59 @@ void GameStateMainMenu::createOptionsMenu()
 	                             Globals::Screen::center_vertically);
 	menuOptions->add(check);
 
+	menuOptions->addBlank();
+
 	item = new MenuItem("Erase High Scores",
 	                    ERASE_HIGH_SCORES);
 	menuOptions->add(item);
+}
+void GameStateMainMenu::createControlsMenu()
+{
+	SAFE_DELETE(this->menuControls);
+
+	this->menuControls = new Menu(1,
+	                              1,
+	                              this->layout->menu->getW() - 2,
+	                              this->layout->menu->getH() - 2);
+
+	MenuItem* item;
+
+	item = new MenuItem("Back", GO_BACK);
+	menuControls->add(item);
+
+	menuControls->addBlank();
+
+	MenuItemLabel* label;
+	std::string str;
+
+	str = InputManager::keyToString(InputManager::getBind("up"));
+	label = new MenuItemLabel("Key up", CONTROLS_KEY_UP, str);
+	menuControls->add(label);
+
+	str = InputManager::keyToString(InputManager::getBind("down"));
+	label = new MenuItemLabel("Key down", CONTROLS_KEY_DOWN, str);
+	menuControls->add(label);
+
+	str = InputManager::keyToString(InputManager::getBind("left"));
+	label = new MenuItemLabel("Key left", CONTROLS_KEY_LEFT, str);
+	menuControls->add(label);
+
+	str = InputManager::keyToString(InputManager::getBind("right"));
+	label = new MenuItemLabel("Key right", CONTROLS_KEY_RIGHT, str);
+	menuControls->add(label);
+
+	str = InputManager::keyToString(InputManager::getBind("pause"));
+	label = new MenuItemLabel("Key pause", CONTROLS_KEY_PAUSE, str);
+	menuControls->add(label);
+
+	str = InputManager::keyToString(InputManager::getBind("quit"));
+	label = new MenuItemLabel("Key quit", CONTROLS_KEY_QUIT, str);
+	menuControls->add(label);
+
+	menuControls->addBlank();
+
+	item = new MenuItem("Reset to Defaults", CONTROLS_DEFAULT);
+	menuControls->add(item);
 }
 void GameStateMainMenu::saveSettingsMenuOptions()
 {

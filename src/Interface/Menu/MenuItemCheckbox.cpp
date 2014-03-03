@@ -34,10 +34,12 @@ void MenuItemCheckbox::handleInput()
 	if (InputManager::noKeyPressed())
 		return;
 
-	if (InputManager::isPressed(KEY_LEFT))
+	if (InputManager::isPressed("left") || // user-defined
+		InputManager::isPressed(KEY_LEFT))
 		this->check(true);
 
-	else if (InputManager::isPressed(KEY_RIGHT))
+	else if (InputManager::isPressed("right") || // user-defined
+	         InputManager::isPressed(KEY_RIGHT))
 		this->check(false);
 
 	else if (InputManager::isPressed(' ')  ||

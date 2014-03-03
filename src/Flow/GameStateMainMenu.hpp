@@ -34,16 +34,16 @@ private:
 	bool menuArcadeActivated;
 
 	Menu* menuOptions;
-	bool menuOptionsActvated;
+ 	bool menuOptionsActivated;
 
-	Menu* menuProfiles;
-	bool menuProfilesActivated;
+	Menu* menuControls;
+	bool menuControlsActivated;
 
 	// easily create internal menus
 	void createMainMenu();
 	void createArcadeMenu();
 	void createOptionsMenu();
-	void createProfilesMenu();
+	void createControlsMenu();
 	void saveSettingsMenuOptions();
 	void saveSettingsMenuArcade();
 };

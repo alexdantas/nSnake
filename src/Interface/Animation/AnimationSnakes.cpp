@@ -15,7 +15,7 @@ void AnimationSnakes::load()
 void AnimationSnakes::update()
 {
 	// Adding yet another snake
-	int delay = 2000;//Utils::Random::between(3, 6) * 100;
+	int delay = Utils::Random::between(1, 3) * 100;
 
 	if ((addTimer.delta_ms() > delay) &&
 	    (this->lilsnakes.size() < MAX_SNAKES))

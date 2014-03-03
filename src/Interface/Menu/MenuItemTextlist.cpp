@@ -68,10 +68,12 @@ void MenuItemTextlist::handleInput()
 	if (InputManager::noKeyPressed())
 		return;
 
-	if (InputManager::isPressed(KEY_LEFT))
+	if (InputManager::isPressed("left") || // user-defined
+		InputManager::isPressed(KEY_LEFT))
 		this->decrease();
 
-	else if (InputManager::isPressed(KEY_RIGHT))
+	else if (InputManager::isPressed("right") ||
+	         InputManager::isPressed(KEY_RIGHT))
 		this->increase();
 
 	else if (InputManager::isPressed('r') ||

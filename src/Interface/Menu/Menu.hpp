@@ -3,6 +3,7 @@
 
 #include <Interface/Window.hpp>
 #include <Interface/Menu/MenuItem.hpp>
+#include <Interface/Menu/MenuItemLabel.hpp>
 #include <Interface/Menu/MenuItemCheckbox.hpp>
 #include <Interface/Menu/MenuItemNumberbox.hpp>
 #include <Interface/Menu/MenuItemTextbox.hpp>
@@ -100,11 +101,13 @@ public:
 	/// Container of all the options inside the menu.
 	std::vector<MenuItem*> item;
 
-private:
-
 	/// Current item selected.
+	/// @note It's public because we might want to change
+	///       current item's attributes. Don't mess with
+	///       the pointer itself!
 	MenuItem* current;
 
+private:
 	/// Index of the currently selected item.
 	unsigned int currentIndex;
 

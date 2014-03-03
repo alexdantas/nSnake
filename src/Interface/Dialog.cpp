@@ -6,6 +6,27 @@
 
 #include <vector>
 
+void Dialog::show(std::string message)
+{
+	int windowx = Layout::screenWidth/2 - (message.size() + 2)/2;
+	int windowy = Layout::screenHeight/2 - 3/2;
+
+	Window dialog(windowx,
+	              windowy,
+	              message.size() + 2, // borders + empty space
+	              3);
+
+	if (Globals::Screen::show_borders)
+	{
+		dialog.borders(Globals::Screen::fancy_borders ?
+		               Window::BORDER_FANCY :
+		               Window::BORDER_REGULAR);
+	}
+	dialog.print(message, 1, 1);
+	dialog.refresh();
+	refresh();
+}
+
 bool Dialog::askBool(std::string question)
 {
 	int windowx = Layout::screenWidth/2 - (question.size() + 12)/2;

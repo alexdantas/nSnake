@@ -53,16 +53,27 @@ bool InputManager::isPressed(std::string key)
 
 std::string InputManager::keyToString(int value)
 {
-	// Is character inside the printable ASCII table?
-	if (value >= ' ' && value <=  '~')
+	// Is character inside the ASCII table?
+	if (value >= 0 && value <= 127)
 	{
-		// Converting (int -> char -> char* -> std::string)
-		char c     = value;
-		char* cptr = &c;
+		// The "printable" part of the ASCII table - easy
+		if (value >= ' ' && value <=  '~')
+		{
+			// Converting (int -> char -> char* -> std::string)
+			char c[2] = { (char)value, '\0' };
 
-		return std::string(cptr);
+			return std::string(c);
+		}
+
+		// Non-printable, then...
+		// Let's get some names
+		switch (value)
+		{
+		case 0:   return "null";
+		case 27:  return "escape";
+		case 127: return "delete";
+		}
 	}
-
 
 	// If not, then this character is a special Ncurses value.
 	// Those things were directy taken from <ncurses.h>
@@ -98,7 +109,7 @@ std::string InputManager::keyToString(int value)
 	case KEY_F(12):     return "f12";
 	case KEY_DL:        return "delete-line";
 	case KEY_IL:        return "insert-line";
-	case KEY_DC:        return "delete";
+	case KEY_DC:        return "delete-char";
 	case KEY_IC:        return "insert";
 	case KEY_CLEAR:     return "clear";
 	case KEY_EOS:       return "clear-to-end-of-screen";
@@ -148,7 +159,7 @@ std::string InputManager::keyToString(int value)
 	case KEY_SCOMMAND:  return "shift-command";
 	case KEY_SCOPY:     return "shift-copy";
 	case KEY_SCREATE:   return "shift-create";
-	case KEY_SDC:       return "shift-delete";
+	case KEY_SDC:       return "shift-delete-char";
 	case KEY_SDL:       return "shift-delete-line";
 	case KEY_SELECT:    return "select";
 	case KEY_SEND:      return "shift-end";
@@ -217,7 +228,7 @@ int InputManager::stringToKey(std::string string)
 	if (string == "f12")                        return KEY_F(12);
 	if (string == "delete-line")                return KEY_DL;
 	if (string == "insert-line")                return KEY_IL;
-	if (string == "delete")                     return KEY_DC;
+	if (string == "delete-char")                return KEY_DC;
 	if (string == "insert")                     return KEY_IC;
 	if (string == "clear")                      return KEY_CLEAR;
 	if (string == "clear-to-end-of-screen")     return KEY_EOS;
@@ -267,7 +278,7 @@ int InputManager::stringToKey(std::string string)
 	if (string == "shift-command")              return KEY_SCOMMAND;
 	if (string == "shift-copy")                 return KEY_SCOPY;
 	if (string == "shift-create")               return KEY_SCREATE;
-	if (string == "shift-delete")               return KEY_SDC;
+	if (string == "shift-delete-char")          return KEY_SDC;
 	if (string == "shift-delete-line")          return KEY_SDL;
 	if (string == "select")                     return KEY_SELECT;
 	if (string == "shift-end")                  return KEY_SEND;

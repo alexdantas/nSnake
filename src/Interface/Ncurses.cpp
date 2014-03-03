@@ -10,6 +10,14 @@ bool Ncurses::init()
 	noecho();    // Wont print the keys received through input
 	nodelay(stdscr, TRUE); // Wont wait for input
 	keypad(stdscr, TRUE);  // Support for extra keys (life F1, F2, ... )
+
+	// Ncurses' global variable meaning number of milliseconds
+	// to wait after the user presses ESC.
+	//
+	// VIM uses 25ms, so should you.
+	// Source: http://en.chys.info/2009/09/esdelay-ncurses/
+	ESCDELAY = 25;
+
 	refresh();   // Refresh the layout (prints whats in the layout bu
 	return true;
 }
