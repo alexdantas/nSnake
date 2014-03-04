@@ -117,7 +117,6 @@ void Game::handleInput()
 
 	// The only two absolute inputs are to quit and pause.
 	// Others depend if the game is paused or not.
-
 	if (InputManager::isPressed("quit"))
 	{
 		this->userAskedToQuit = true;
@@ -277,30 +276,22 @@ bool Game::willReturnToMenu()
 int Game::getDelay(int level)
 {
 	// returning delay in milliseconds
-	if (level < 2)  return 1000;
-	if (level < 3)  return 900;
-	if (level < 4)  return 850;
-	if (level < 5)  return 800;
-	if (level < 6)  return 750;
-	if (level < 7)  return 700;
-	if (level < 8)  return 650;
-	if (level < 9)  return 600;
-	if (level < 10) return 550;
-	if (level < 11) return 500;
-	if (level < 12) return 450;
-	if (level < 13) return 400;
-	if (level < 14) return 350;
-	if (level < 15) return 300;
-	if (level < 16) return 250;
-	if (level < 17) return 200;
-	if (level < 18) return 150;
-	if (level < 19) return 100;
-	if (level < 20) return 80;
-	if (level < 21) return 50;
-	if (level < 22) return 25;
-	if (level < 23) return 0;
+	if (level < 1) return 800;
 
-	return 0;
+	switch (level)
+	{
+	case 1:  return 800;
+	case 2:  return 600;
+	case 3:  return 500;
+	case 4:  return 300;
+	case 5:  return 200;
+	case 6:  return 150;
+	case 7:  return 125;
+	case 8:  return 100;
+	case 9:  return 80;
+	case 10: return 50;
+	}
+	return 50;
 }
 void Game::pause(bool option)
 {

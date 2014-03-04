@@ -27,7 +27,7 @@ void Dialog::show(std::string message)
 	refresh();
 }
 
-bool Dialog::askBool(std::string question, std::string title)
+bool Dialog::askBool(std::string question, std::string title, bool default_value)
 {
 	int windowx = Layout::screenWidth/2 - (question.size() + 12)/2;
 	int windowy = Layout::screenHeight/2 - 5/2;
@@ -57,7 +57,9 @@ bool Dialog::askBool(std::string question, std::string title)
 	MenuItemTextlist* list = new MenuItemTextlist(question,
 	                                              0,
 	                                              options,
-												  "No");
+	                                              (default_value ?
+	                                               "Yes" :
+	                                               "No"));
 	menu.add(list);
 
 	while (true)

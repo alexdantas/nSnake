@@ -291,7 +291,7 @@ void GameStateMainMenu::createArcadeMenu()
 
 	MenuItemNumberbox* number;
 
-	number = new MenuItemNumberbox("Starting Level", STARTING_LEVEL, 1, 22, Globals::Game::starting_level);
+	number = new MenuItemNumberbox("Starting Level", STARTING_LEVEL, 1, 10, Globals::Game::starting_level);
 	menuArcade->add(number);
 
 	number = new MenuItemNumberbox("Fruits", FRUITS, 1, 99, Globals::Game::fruits_at_once);

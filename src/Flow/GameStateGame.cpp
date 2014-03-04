@@ -36,10 +36,16 @@ GameState::StateCode GameStateGame::update()
 
 	if (this->game->isOver())
 	{
+		// I'm touching a lot of different stuff
+		// inside the update() function.
+		// I know I shouldn't render things here.
+		// Oh boy, this should be refactored away.
 		Score::saveFile();
 		Ncurses::delay_ms(500);
 
-		if (Dialog::askBool("Retry?", "Game Over"))
+		this->game->draw();
+
+		if (Dialog::askBool("Retry?", "Game Over", true))
 			this->game->start();
 		else
 			return GameState::MAIN_MENU;
