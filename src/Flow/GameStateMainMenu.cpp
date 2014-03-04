@@ -9,6 +9,7 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 {
 	// Main Menu
 	ARCADE,
+	HELP,
 	OPTIONS,
 	CONTROLS,
 	QUIT_GAME,
@@ -49,10 +50,10 @@ GameStateMainMenu::GameStateMainMenu():
 	menuOptions(nullptr),
 	menuOptionsActivated(false),
 	menuControls(nullptr),
-	menuControlsActivated(false)
+	menuControlsActivated(false),
+	helpWindows(nullptr)
 { }
-GameStateMainMenu::~GameStateMainMenu()
-{ }
+
 void GameStateMainMenu::load(int stack)
 {
 	UNUSED(stack);
@@ -63,6 +64,8 @@ void GameStateMainMenu::load(int stack)
 	createArcadeMenu();
 	createOptionsMenu();
 	createControlsMenu();
+
+	this->helpWindows = new WindowGameHelp();
 }
 
 int GameStateMainMenu::unload()
@@ -209,6 +212,10 @@ GameState::StateCode GameStateMainMenu::update()
 				this->menuArcadeActivated = true;
 				break;
 
+			case HELP:
+				this->helpWindows->run();
+				break;
+
 			case OPTIONS:
 				this->menuOptionsActivated = true;
 				break;
@@ -259,6 +266,9 @@ void GameStateMainMenu::createMainMenu()
 	MenuItem* item;
 
 	item = new MenuItem("Arcade", ARCADE);
+	menu->add(item);
+
+	item = new MenuItem("Help", HELP);
 	menu->add(item);
 
 	item = new MenuItem("Options", OPTIONS);

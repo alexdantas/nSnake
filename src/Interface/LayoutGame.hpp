@@ -3,6 +3,7 @@
 
 #include <Interface/Layout.hpp>
 #include <Interface/Menu/Menu.hpp>
+#include <Interface/WindowGameHelp.hpp>
 #include <Game/Game.hpp>
 
 #include <vector>
@@ -41,6 +42,8 @@ public:
 
 private:
 	Window* boardwin;
+
+	WindowGameHelp* helpWindows;
 };
 
 #endif //LAYOUTGAMEMODESURVIVAL_H_DEFINED

@@ -73,9 +73,9 @@ bool Globals::Error::strange_score_file     = false;
 void Globals::init()
 {
 	// Other default variables
-	Globals::Theme::text = 0;
+	Globals::Theme::text        = 0;
 	Globals::Theme::hilite_text = Colors::pair(COLOR_CYAN, COLOR_DEFAULT);
-	Globals::Theme::textbox = Globals::Theme::hilite_text | A_REVERSE;
+	Globals::Theme::textbox     = (Globals::Theme::hilite_text | A_REVERSE);
 
 	// Making sure default config directory exists
 	// By default it's `~/.local/share/nsnake/`

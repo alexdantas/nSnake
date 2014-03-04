@@ -4,6 +4,7 @@
 #include <Flow/GameState.hpp>
 #include <Interface/LayoutMainMenu.hpp>
 #include <Interface/Menu/Menu.hpp>
+#include <Interface/WindowGameHelp.hpp>
 
 /// The Main Menu.
 ///
@@ -13,7 +14,7 @@ class GameStateMainMenu: public GameState
 
 public:
 	GameStateMainMenu();
-	virtual ~GameStateMainMenu();
+	virtual ~GameStateMainMenu() { };
 
     void load(int stack=0);
 
@@ -38,6 +39,8 @@ private:
 
 	Menu* menuControls;
 	bool menuControlsActivated;
+
+	WindowGameHelp* helpWindows;
 
 	// easily create internal menus
 	void createMainMenu();

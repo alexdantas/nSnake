@@ -141,20 +141,17 @@ void Game::handleInput()
 			// unpauses the game.
 		}
 	}
-	else if (InputManager::isPressed('h') ||
-	         InputManager::isPressed('H'))
+	else if (InputManager::isPressed("help"))
 	{
 		// Toggling Pause and Help window
 		if (this->isPaused)
 		{
-			this->isPaused = false;
 			this->showHelp = false;
 			this->timer.unpause();
 			this->timerSnake.unpause();
 		}
 		else
 		{
-			this->isPaused = true;
 			this->showHelp = true;
 			this->timer.pause();
 			this->timerSnake.pause();
@@ -162,7 +159,7 @@ void Game::handleInput()
 	}
 
 	// Other keys are not used when paused.
-	if (this->isPaused)
+	if (this->isPaused || this->showHelp)
 	{
 		this->pauseMenu->handleInput();
 		return;

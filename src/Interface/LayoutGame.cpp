@@ -9,7 +9,8 @@ LayoutGame::LayoutGame(Game* game, int width, int height):
 	info(nullptr),
 	pause(nullptr),
 	help(nullptr),
-	boardwin(nullptr)
+	boardwin(nullptr),
+	helpWindows(nullptr)
 {
 	this->windowsInit();
 }
@@ -64,6 +65,8 @@ void LayoutGame::windowsInit()
 		                     Window::BORDER_REGULAR);
 	}
 	this->help->setTitle("Help");
+
+	this->helpWindows = new WindowGameHelp();
 }
 void LayoutGame::windowsExit()
 {
@@ -72,6 +75,7 @@ void LayoutGame::windowsExit()
 	SAFE_DELETE(this->pause);
 	SAFE_DELETE(this->help);
 	SAFE_DELETE(this->boardwin);
+	SAFE_DELETE(this->helpWindows);
 
 	this->main->clear(); // clear() as in Window
 	this->main->refresh(); // clear() as in Window
@@ -98,31 +102,21 @@ void LayoutGame::draw(Menu* menu)
 	this->main->clear();
 
 	// Will only show the requested windows then exit.
-	if (this->game->isPaused)
-	{
-		if (this->game->showPauseMenu)
-		{
-			this->pause->clear();
-			menu->draw(this->pause);
-			this->pause->refresh();
-		}
-		else if (this->game->showHelp)
-		{
-			this->help->clear();
-			this->help->print("Game keys",
-			                  this->help->getW()/2 - 9/2, // center
-			                  1,
-			                  Globals::Theme::hilite_text);
 
-			this->help->print_multiline("Arrow keys     Move snake\n"
-			                            "q              Quit\n"
-			                            "p              Pause/Unpause\n"
-			                            "h              Show help",
-			                            1,
-			                            3,
-			                            Globals::Theme::text);
-			this->help->refresh();
-		}
+	if (this->game->isPaused && this->game->showPauseMenu)
+	{
+		this->pause->clear();
+		menu->draw(this->pause);
+		this->pause->refresh();
+
+		refresh();
+		return;
+	}
+
+	if (this->game->showHelp)
+	{
+		this->helpWindows->run();
+		this->game->showHelp = false;
 
 		// NCURSES NEEDS THIS
 		refresh();

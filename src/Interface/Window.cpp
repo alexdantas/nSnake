@@ -167,14 +167,14 @@ void Window::borders(BorderType type)
 	if (type == BorderType::BORDER_FANCY)
 	{
 		wborder(this->win,
-		        ACS_VLINE|Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
-		        ACS_VLINE|Colors::pair(COLOR_BLACK, COLOR_DEFAULT, true),
-		        ACS_HLINE|Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
-		        ACS_HLINE|Colors::pair(COLOR_BLACK, COLOR_DEFAULT, true),
-		        ACS_ULCORNER|Colors::pair(COLOR_WHITE, COLOR_DEFAULT, true),
-		        ACS_URCORNER|Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
-		        ACS_LLCORNER|Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
-		        ACS_LRCORNER|Colors::pair(COLOR_BLACK, COLOR_DEFAULT, true));
+		        ACS_VLINE    | Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
+		        ACS_VLINE    | Colors::pair(COLOR_BLACK, COLOR_DEFAULT, true),
+		        ACS_HLINE    | Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
+		        ACS_HLINE    | Colors::pair(COLOR_BLACK, COLOR_DEFAULT, true),
+		        ACS_ULCORNER | Colors::pair(COLOR_WHITE, COLOR_DEFAULT, true),
+		        ACS_URCORNER | Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
+		        ACS_LLCORNER | Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
+		        ACS_LRCORNER | Colors::pair(COLOR_BLACK, COLOR_DEFAULT, true));
 	}
 	else if (type == BorderType::BORDER_REGULAR)
 	{
