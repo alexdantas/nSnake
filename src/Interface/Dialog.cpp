@@ -27,7 +27,7 @@ void Dialog::show(std::string message)
 	refresh();
 }
 
-bool Dialog::askBool(std::string question)
+bool Dialog::askBool(std::string question, std::string title)
 {
 	int windowx = Layout::screenWidth/2 - (question.size() + 12)/2;
 	int windowy = Layout::screenHeight/2 - 5/2;
@@ -43,6 +43,9 @@ bool Dialog::askBool(std::string question)
 		               Window::BORDER_FANCY :
 		               Window::BORDER_REGULAR);
 	}
+	if (! title.empty())
+		dialog.setTitle(title);
+
 	dialog.refresh();
 
 	Menu menu(1, 2, question.size() + 10, 2);
@@ -70,7 +73,7 @@ bool Dialog::askBool(std::string question)
 		// Getting input (waiting infinitely for it)
 		InputManager::update(-1);
 
-		InputManager::isPressed('q');
+		if (InputManager::isPressed("quit")) // user-defined
 			return false;
 
 		menu.handleInput();

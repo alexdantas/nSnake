@@ -33,7 +33,7 @@ namespace Utils
 
 	namespace Time
 	{
-		/// Stops execution for #delay microseconds.
+		/// Stops execution for #delay milliseconds.
 		void delay_ms(int delay);
 	};
 

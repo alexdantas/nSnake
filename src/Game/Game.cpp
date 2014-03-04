@@ -188,6 +188,9 @@ void Game::handleInput()
 }
 void Game::update()
 {
+	if (this->gameOver)
+		return;
+
 	// If we're paused, only handle the menu.
 	if (this->isPaused)
 	{

@@ -12,11 +12,12 @@ namespace Dialog
 	void show(std::string message);
 
 	/// Spawns a Dialog box asking for a yes-or-no #question.
+	/// Dialog optionally has a #title.
 	///
 	/// @note If the user presses 'q' to quit,
 	///       it'll return false.
 	///
-	bool askBool(std::string question);
+	bool askBool(std::string question, std::string title="");
 };
 
 #endif //DIALOG_H_DEFINED

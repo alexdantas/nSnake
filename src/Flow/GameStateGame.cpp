@@ -1,6 +1,7 @@
 #include <Flow/GameStateGame.hpp>
 #include <Flow/StateManager.hpp>
 #include <Misc/Utils.hpp>
+#include <Interface/Dialog.hpp>
 #include <Interface/Ncurses.hpp>
 #include <Config/Globals.hpp>
 
@@ -38,7 +39,10 @@ GameState::StateCode GameStateGame::update()
 		Score::saveFile();
 		Ncurses::delay_ms(500);
 
-		this->game->start();
+		if (Dialog::askBool("Retry?", "Game Over"))
+			this->game->start();
+		else
+			return GameState::MAIN_MENU;
 	}
 
 	if (this->game->willQuit())
