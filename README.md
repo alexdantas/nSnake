@@ -2,19 +2,29 @@
 
 Classic snake game on the terminal
 
-<!-- insert screenshot -->
+![menu](http://nsnake.alexdantas.net/images/arcade-menu.png)
+![menu](http://nsnake.alexdantas.net/images/small-maze.png)
+![menu](http://nsnake.alexdantas.net/images/large-maze-with-lots-of-fruits.png)
 
 `nsnake` is a clone of the classic snake game that we all used to
 play on our cellphones. You play this game on the terminal,
 with textual interface.
 
+Here's some features:
+
+* Customizable gameplay, appearance and keybindings;
+* Neat GUI-like interface with nice animations;
+* Lots of possible game modes, with scores saved for each;
 
 ## Controls
 
-	Numbers (1~9)       Changes the game speed at the main menu
-	Arrow Keys, WASD    Moves the snake
+The keybindings are completely customizable on the in-game menus.
+The default ones are:
+
+	Arrow Keys          Moves the snake
 	q                   Quits the game at any time
 	p                   Pauses/Unpauses the game
+	h                   Show help during game
 
 ## Dependencies
 
@@ -54,9 +64,9 @@ I'm glad you had interest on this project.
 You can send me comments, bugs, ideas or anything else by email.
 And if you have time, please visit my blog!
 
-My email:           eu@alexdantas.net
+My email:           <eu@alexdantas.net>
 My homepage:        http://www.alexdantas.net/
-nsnake main page:   http://www.alexdantas.net/projects/nsnake/
+nsnake main page:   http://nsnake.alexdantas.net/
 
 I'd appreciate any commentary - even if it's
 just _"Hello, I play your game!"_.
