@@ -56,8 +56,11 @@ std::string InputManager::keyToString(int value)
 	// Is character inside the ASCII table?
 	if (value >= 0 && value <= 127)
 	{
+		if (value == ' ')
+			return "space";
+
 		// The "printable" part of the ASCII table - easy
-		if (value >= ' ' && value <=  '~')
+		if (value > ' ' && value <=  '~')
 		{
 			// Converting (int -> char -> char* -> std::string)
 			char c[2] = { (char)value, '\0' };
@@ -193,12 +196,15 @@ std::string InputManager::keyToString(int value)
 
 int InputManager::stringToKey(std::string string)
 {
+	if (string == "space")
+		return ' ';
+
 	// Let's hope it's a single char from the ASCII table
 	if (string.size() == 1)
 	{
 		char c = string.c_str()[0];
 
-		if (c >= ' ' && c <= '~')
+		if (c > ' ' && c <= '~')
 			return c;
 
 		// undefined, sorry :(
