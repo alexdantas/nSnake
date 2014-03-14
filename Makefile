@@ -78,12 +78,6 @@ DEFINES = -DVERSION=\""$(VERSION)"\" \
           -DPACKAGE=\""$(PACKAGE)"\" \
           -DDATE=\""$(DATE)"\"
 
-# iniparser stuff
-INIDIR     = deps/iniparser
-INI_CFLAGS = -O2 -fPIC -Wall -ansi -pedantic -Wextra $(PLATFORM)
-INI_OBJS   = $(INIDIR)/dictionary.o \
-             $(INIDIR)/iniparser.o
-
 # commander stuff
 COMMANDERDIR = deps/commander
 COMMANDER_CFLAGS = -O2 -Wall -Wextra $(PLATFORM)
@@ -180,17 +174,7 @@ docclean:
 
 .PHONY: clean dirs doc docclean uninstall
 
-# iniparser stuff
-
-$(INIDIR)/dictionary.o: $(INIDIR)/dictionary.c
-	# Compiling $<...
-	$(MUTE)$(CC) $(INI_CFLAGS) $< -c -o $@
-
-$(INIDIR)/iniparser.o: $(INIDIR)/iniparser.c
-	# Compiling $<...
-	$(MUTE)$(CC) $(INI_CFLAGS) $< -c -o $@
-
-# commander stuf
+# commander stuff
 
 $(COMMANDERDIR)/commander.o: $(COMMANDERDIR)/commander.c
 	# Compiling $<...
