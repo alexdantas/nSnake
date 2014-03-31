@@ -129,7 +129,7 @@ void Game::handleInput()
 
 		return;
 	}
-	else if (InputManager::isPressed('\n') ||
+	else if (InputManager::isPressed((int)'\n') ||
 	         InputManager::isPressed(KEY_ENTER))
 	{
 		if (! this->isPaused)

@@ -1,28 +1,25 @@
-#ifndef INI_H_DEFINED
-#define INI_H_DEFINED
+#ifndef CONFIGFILE_H_DEFINED
+#define CONFIGFILE_H_DEFINED
 
 #include <string>
 #include <cstdio>                // FILE* fopen() fclose()
-#include <iniparser/iniparser.h> // local files
 
-/// Loads settings from a file with `.ini` configuration format.
+#include <confuse.h>			// libConfuse
+
+/// Loads settings from a file with a specific configuration format.
 ///
-/// ## INI file
+/// ## Configuration File Format
 ///
-/// An `.ini` file has sections, keys and values.
+/// Has `.conf` extension and supports pairs of  keys and values.
 /// Like:
 ///
-///     ; comment style 1
-///     # comment style 2
-///     [section]
+///     # comment to end-of-line
 ///     key = value
-///     [section2]
 ///     key2 = value2
 ///
-/// It is mandatory that all keys are stored within sections.
 /// Blank lines are allowed.
 ///
-/// Sections and keys are case-insensitive.
+/// Keys are case-insensitive.
 /// Values can be:
 ///
 /// * Boolean: yes/no, YES/NO, true/false, TRUE/FALSE, 1/0
@@ -32,39 +29,26 @@
 ///
 /// ## Usage
 ///
-///     INI ini;
-///     if (! ini.load("filename.ini"))
+///     ConfigFile file;
+///     if (! file.load("filename.conf"))
 ///         // Woops, something bad happened.
 ///         // File doensn't exist, whatever
-///     bool var = ini.get("section1:booleanValue", true);
-///     int otherVar = ini.get("section2:intValue", 2);
-///     std::string another = ini.get("section3:string", "4");
+///     bool var = file.get("boolKeyName", true);
+///     int otherVar = ConfigFile.get("intKeyName", 2);
+///     std::string another = ConfigFile.get("stringKeyName", "4");
 ///
-/// ## get() path format
-///
-/// Suppose you have an ini file like this:
-///
-///     [section1]
-///     key = value
-///     [section2]
-///     otherKey = 2
-///
-/// Then to get() the first value you should ask with the
-/// string "section1:key".
-/// For the second, it should be "section2:otherKey".
-///
-class INI
+class CONFIGFILE
 {
 public:
-	INI();
-	virtual ~INI();
+	ConfigFile();
+	virtual ~ConfigFile();
 
 	/// Loads and parses #file.
 	///
 	/// @return If we've successfuly loaded the file.
 	bool load(std::string file);
 
-	/// Creates a blank ini file in memory.
+	/// Creates a blank ConfigFile file in memory.
 	///
 	/// @see save()
 	void create();
@@ -126,16 +110,16 @@ public:
 	/// @see save()
 	void set(std::string what, std::string value);
 
-	/// Removes #what entry from internal ini contents.
+	/// Removes #what entry from internal ConfigFile contents.
 	/// @see save()
 	void unset(std::string what);
 
-	/// Saves all internal ini key-values to #file.
+	/// Saves all internal ConfigFile key-values to #file.
 	///
 	/// @note No comments are preserved when saving!
 	void save(std::string file);
 
-	/// C-style saving of the internal ini key-values.
+	/// C-style saving of the internal ConfigFile key-values.
 	///
 	/// @note The advantage of it is that you can specify
 	///       stdout or stderr.
@@ -145,9 +129,9 @@ public:
 
 private:
 
-	/// Iniparser's internal data structure.
-	dictionary* ini;
+	/// ConfigFileparser's internal data structure.
+	cfg_t* ConfigFile;
 };
 
-#endif //INI_H_DEFINED
+#endif //CONFIGFILE_H_DEFINED
 

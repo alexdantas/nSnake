@@ -1,5 +1,5 @@
 #include <Config/Globals.hpp>
-#include <Config/INI.hpp>
+#include <Config/ConfigFile.hpp>
 #include <Misc/Utils.hpp>
 #include <Flow/InputManager.hpp>
 
