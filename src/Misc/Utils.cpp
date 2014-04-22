@@ -67,7 +67,7 @@ bool Utils::Random::boolean()
 
 bool Utils::Random::booleanWithChance(float percent)
 {
-	int x = Utils::Random::between(0, 9999);
+	int x = Utils::Random::between(0, 99);
 
 	return (x < (percent * 100));
 }
