@@ -130,9 +130,9 @@ purge: uninstall
 	# Purging configuration files...
 	$(MUTE)rm -f $(MANDIR)/$(MANFILE)
 
-$(EXE): $(OBJECTS) $(INI_OBJS) $(COMMANDER_OBJS)
+$(EXE): $(OBJECTS) $(COMMANDER_OBJS)
 	# Linking...
-	$(MUTE)$(CXX) $(OBJECTS) $(INI_OBJS) $(COMMANDER_OBJS) -o bin/$(EXE) $(LIBSDIR) $(LDFLAGS)
+	$(MUTE)$(CXX) $(OBJECTS) $(COMMANDER_OBJS) -o bin/$(EXE) $(LIBSDIR) $(LDFLAGS)
 
 src/%.o: src/%.cpp
 	# Compiling $<...
@@ -158,7 +158,7 @@ run: all
 
 clean:
 	# Cleaning files...
-	$(MUTE)rm $(VTAG) -f $(OBJECTS) $(INI_OBJS) $(COMMANDER_OBJS)
+	$(MUTE)rm $(VTAG) -f $(OBJECTS) $(COMMANDER_OBJS)
 	$(MUTE)rm $(VTAG) -f bin/$(EXE)
 
 dirs:
