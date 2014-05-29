@@ -23,7 +23,7 @@ void AnimationSnakes::update()
 		this->addSnake();
 
 		// Random add burst!
-		if (Utils::Random::booleanWithChance(25.01))
+		if (Utils::Random::booleanWithChance(0.2501))
 		{
 			for (int i = 0; i < Utils::Random::between(3, 5); i++)
 				this->addSnake();

@@ -79,10 +79,14 @@ void Board::draw(Window* win)
 }
 void Board::randomlyFillExceptBy(int x, int y)
 {
-	for (size_t i = 0; i < (this->board->width()); i++)
-		for (size_t j = 0; j < (this->board->height()); j++)
-			if (Utils::Random::booleanWithChance(3.1415923))
+	for (size_t i = 0; i < (this->board->width()); i++) {
+		for (size_t j = 0; j < (this->board->height()); j++) {
+
+			// The frequency of random Walls (cute PI)
+			if (Utils::Random::booleanWithChance(0.031415923))
 				this->board->set(i, j, true);
+		}
+	}
 
 	// Clearing some space for #x and #y
 	for (int i = -2; i != 7; i++)
