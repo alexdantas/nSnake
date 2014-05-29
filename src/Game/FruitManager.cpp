@@ -8,7 +8,7 @@ bool FruitManager::eatenFruit(Player* player)
 {
 	// If any fruit was eaten by #player, we'll
 	// delete it.
-	for (auto it = this->fruit.begin(); it != this->fruit.end();)
+	for (std::vector<Fruit>::iterator it = this->fruit.begin(); it != this->fruit.end();)
 	{
 		if (player->headHit((*it).x, (*it).y))
 		{

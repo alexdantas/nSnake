@@ -37,7 +37,7 @@ void AnimationSnakes::update()
 	// leave the Window.
 	if (updateTimer.delta_ms() > 50)
 	{
-		auto it = this->lilsnakes.begin();
+		std::vector<LilSnake>::iterator it = this->lilsnakes.begin();
 
 		while (it != this->lilsnakes.end())
 		{

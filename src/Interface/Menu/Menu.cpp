@@ -4,14 +4,14 @@
 #include <Flow/InputManager.hpp>
 
 Menu::Menu(int x, int y, int width, int height):
-	current(nullptr),
+	current(NULL),
 	currentIndex(0),
 	x(x),
 	y(y),
 	width(width),
 	height(height),
 	selected(false),
-	selectedItem(nullptr)
+	selectedItem(NULL)
 { }
 Menu::~Menu()
 {
@@ -42,11 +42,11 @@ void Menu::add(MenuItem* item)
 }
 void Menu::addBlank()
 {
-	this->item.push_back(nullptr);
+	this->item.push_back(NULL);
 }
 void Menu::removeByID(int id)
 {
-	auto it = this->item.begin();
+	std::vector<MenuItem*>::iterator it = this->item.begin();
 
 	while (it != this->item.end())
 	{
@@ -70,7 +70,7 @@ void Menu::removeByID(int id)
 }
 void Menu::removeByLabel(std::string label)
 {
-	auto it = this->item.begin();
+	std::vector<MenuItem*>::iterator it = this->item.begin();
 
 	while (it != this->item.end())
 	{
@@ -369,7 +369,7 @@ std::string Menu::getString(int id)
 void Menu::reset()
 {
 	this->selected = false;
-	this->selectedItem = nullptr;
+	this->selectedItem = NULL;
 }
 
 

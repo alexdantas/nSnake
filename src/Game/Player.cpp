@@ -3,8 +3,8 @@
 
 Player::Player(int x, int y):
 	alive(true),
-	currentDirection(Direction::RIGHT),
-	nextDirection(Direction::RIGHT)
+	currentDirection(Player::RIGHT),
+	nextDirection(Player::RIGHT)
 {
 	// The Snake's head
 	this->body.push_back(Body(x, y));
@@ -49,23 +49,23 @@ void Player::update(Board* board)
 	// things, like turning around on itself.
 	switch(this->nextDirection)
 	{
-	case Direction::RIGHT:
-		if (this->currentDirection != Direction::LEFT)
+	case Player::RIGHT:
+		if (this->currentDirection != Player::LEFT)
 			this->currentDirection = this->nextDirection;
 		break;
 
-	case Direction::LEFT:
-		if (this->currentDirection != Direction::RIGHT)
+	case Player::LEFT:
+		if (this->currentDirection != Player::RIGHT)
 			this->currentDirection = this->nextDirection;
 		break;
 
-	case Direction::UP:
-		if (this->currentDirection != Direction::DOWN)
+	case Player::UP:
+		if (this->currentDirection != Player::DOWN)
 			this->currentDirection = this->nextDirection;
 		break;
 
-	case Direction::DOWN:
-		if (this->currentDirection != Direction::UP)
+	case Player::DOWN:
+		if (this->currentDirection != Player::UP)
 			this->currentDirection = this->nextDirection;
 		break;
 	};
@@ -80,18 +80,18 @@ void Player::update(Board* board)
 	// Moving the head
 	switch(this->currentDirection)
 	{
-	case Direction::RIGHT:
+	case Player::RIGHT:
 		this->body.front().x++;
 		break;
 
-	case Direction::LEFT:
+	case Player::LEFT:
 		this->body.front().x--;
 		break;
-	case Direction::UP:
+	case Player::UP:
 		this->body.front().y--;
 		break;
 
-	case Direction::DOWN:
+	case Player::DOWN:
 		this->body.front().y++;
 		break;
 	}

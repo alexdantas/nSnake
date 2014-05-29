@@ -13,7 +13,7 @@ static int intendedWidth;
 static int intendedHeight;
 
 Layout::Layout(int width, int height):
-	main(nullptr)
+	main(NULL)
 {
 	intendedWidth  = width;
 	intendedHeight = height;

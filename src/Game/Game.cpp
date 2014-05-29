@@ -13,17 +13,17 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 };
 
 Game::Game():
-	layout(nullptr),
+	layout(NULL),
 	gameOver(false),
-	score(nullptr),
-	highScore(nullptr),
+	score(NULL),
+	highScore(NULL),
 	isPaused(false),
 	showPauseMenu(false),
 	showHelp(false),
-	pauseMenu(nullptr),
-	player(nullptr),
-	board(nullptr),
-	fruits(nullptr)
+	pauseMenu(NULL),
+	player(NULL),
+	board(NULL),
+	fruits(NULL)
 { }
 Game::~Game()
 {

@@ -6,7 +6,7 @@
 #include <Config/Globals.hpp>
 
 GameStateGame::GameStateGame():
-	game(nullptr),
+	game(NULL),
 	willQuit(false)
 { }
 GameStateGame::~GameStateGame()

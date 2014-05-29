@@ -19,8 +19,6 @@
 
 #include <sstream>     // sstream
 #include <algorithm>   // find_if
-#include <utility>     // C++11
-#include <random>      // C++11
 #include <ctime>       // time()
 #include <unistd.h>    // usleep()
 #include <sys/types.h> // opendir(), readdir()
@@ -29,40 +27,36 @@
 #include <fstream>	   // ofstream
 #include <stdlib.h>	   // system()
 
+// C++11 compatibility
+// I wish I could use those:
+// #include <utility>
+// #include <random>
+
 //  ___    __    _      ___   ___   _
 // | |_)  / /\  | |\ | | | \ / / \ | |\/|
 // |_| \ /_/--\ |_| \| |_|_/ \_\_/ |_|  |
 
-namespace Utils
-{
-	namespace Random
-	{
-		std::mt19937 engine;
-	};
-};
-
 void Utils::Random::seed()
 {
-	engine.seed(time(nullptr));
+	// Poor choice for random numbers, I know
+	// I wish I could use C++11's random generators...
+	srand(time(NULL));
 }
 
 int Utils::Random::between(int min, int max)
 {
-	std::uniform_int_distribution<int> distance(min, max);
-	return distance(engine);
-}
+	if (min > max)
+		std::swap(min, max);
 
-float Utils::Random::fbetween(float min, float max)
-{
-	std::uniform_real_distribution<float> distance(min, max);
-	return distance(engine);
+	return (rand() % (max - min + 1) + min);
 }
 
 bool Utils::Random::boolean()
 {
-	std::uniform_int_distribution<int> distance(0, 10);
+	// If a random number between 0 and 9 is even
+	int random_int = Utils::Random::between(0, 9);
 
-	return ((distance(engine) % 2) == 0);
+	return ((random_int % 2) == 0);
 }
 
 bool Utils::Random::booleanWithChance(float percent)
@@ -102,7 +96,7 @@ void Utils::File::mkdir_p(std::string path)
 {
 	std::string tmp(path);
 
-	if (tmp.back() == '/')
+	if (Utils::String::back(tmp) == '/')
 		tmp[tmp.size() - 1] = '\0';
 
 	for (std::string::iterator p = tmp.begin();
@@ -165,7 +159,7 @@ bool Utils::File::create(std::string path)
 void Utils::File::write(std::string path, std::string contents)
 {
 	std::ofstream file;
-	file.open(path);
+	file.open(path.c_str()); // if it was C++11 we could've used std::string
 	file << contents;
 }
 bool Utils::File::isDirectory(std::string path)
@@ -204,7 +198,7 @@ std::vector<std::string> Utils::File::ls(std::string path)
 		return v;
 
 	// Assuring 'path' ends with '/'
-	if (path.back() != '/')
+	if (Utils::String::back(path) != '/')
 		path.push_back('/');
 
 	// Getting contents
@@ -230,7 +224,7 @@ std::string Utils::File::getHome()
 		return "";
 
 	std::string s(getenv("HOME"));
-	if (s.back() != '/')
+	if (Utils::String::back(s) != '/')
 		s.push_back('/');
 
 	return s;
@@ -242,7 +236,7 @@ std::string Utils::File::getUser()
 		return "";
 
 	// Removing trailing '/'
-	s.pop_back();
+	Utils::String::pop_back(&s);
 
 	// Getting everything after other '/'
 	size_t pos = s.rfind('/');
@@ -256,6 +250,28 @@ std::string Utils::File::getUser()
 //  __  _____  ___   _   _      __
 // ( (`  | |  | |_) | | | |\ | / /`_
 // _)_)  |_|  |_| \ |_| |_| \| \_\_/
+
+char Utils::String::back(std::string& str)
+{
+	// Using the reverse iterator
+	return *(str.rbegin());
+}
+
+char Utils::String::front(std::string& str)
+{
+	return *(str.begin());
+}
+
+void Utils::String::pop_back(std::string* str)
+{
+	if (str->size() > 0)
+		str->resize(str->size() - 1);
+}
+
+std::string Utils::String::pop_back(std::string& str)
+{
+	return (str.substr(0, str.size() - 1));
+}
 
 std::string& Utils::String::ltrim(std::string &str)
 {

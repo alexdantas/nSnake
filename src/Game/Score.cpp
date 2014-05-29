@@ -19,7 +19,7 @@ void Score::loadFile()
 		return;
 
 	std::fstream file;
-	file.open(Globals::Config::scoresFile, std::ios::in | std::ios::binary);
+	file.open(Globals::Config::scoresFile.c_str(), std::ios::in | std::ios::binary);
 
 	// Let's see if the file's empty.
 	int major = Globals::version[MAJOR];
@@ -106,7 +106,7 @@ void Score::saveFile()
 	}
 
 	std::fstream file;
-	file.open(Globals::Config::scoresFile, std::ios::in | std::ios::out | std::ios::binary);
+	file.open(Globals::Config::scoresFile.c_str(), std::ios::in | std::ios::out | std::ios::binary);
 
 // Macro that writes #a to file, same as the READ
 // macro above.

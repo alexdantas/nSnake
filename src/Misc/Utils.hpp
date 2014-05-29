@@ -20,9 +20,6 @@ namespace Utils
 		/// Random number between `min` and `max`.
 		int between(int min, int max);
 
-		/// Random float number between `min` and `max`.
-		float fbetween(float min, float max);
-
 		/// Random boolean.
 		bool boolean();
 
@@ -33,7 +30,7 @@ namespace Utils
 
 	namespace Time
 	{
-		/// Stops execution for #delay milliseconds.
+		/// Stops execution for #delay microseconds.
 		void delay_ms(int delay);
 	};
 
@@ -152,6 +149,26 @@ namespace Utils
 			return x;
 		}
 
+		/// Returns the last character on the string.
+		///
+		/// @note C++11 compatibility!
+		/// @thanks http://stackoverflow.com/a/4884579
+		char back(std::string& str);
+
+		/// Returns the first character on the string.
+		///
+		/// @note C++11 compatibility!
+		char front(std::string& str);
+
+		/// Destructively removes the last character of #str.
+		/// @note C++11 compatibility!
+		/// @thanks http://stackoverflow.com/a/2311025
+		void pop_back(std::string* str);
+
+		/// Non-destructively removes the last character of #str.
+		/// (returns a new string)
+		std::string pop_back(std::string& str);
+
 		/// Removes all space on the left of `str`.
 		std::string& ltrim(std::string &str);
 
@@ -178,7 +195,7 @@ namespace Utils
 		if (pointer) \
 		{ \
 			delete(pointer); \
-			pointer = nullptr; \
+			pointer = NULL; \
 		} \
 	}
 

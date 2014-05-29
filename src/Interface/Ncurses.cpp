@@ -47,8 +47,8 @@ int Ncurses::getInput(int delay_ms)
 	timeout.tv_usec = delay_ms * 1000; // microseconds
 
 	// If #delay_ms is -1, we'll wait infinitely
-	// (sending nullptr to #select())
-	struct timeval* timeout_p = nullptr;
+	// (sending NULL to #select())
+	struct timeval* timeout_p = NULL;
 	if (delay_ms != -1)
 		timeout_p = &timeout;
 
@@ -57,7 +57,7 @@ int Ncurses::getInput(int delay_ms)
 
 	// This function is somewhat complex
 	// check 'man select' for info
-	retval = select(FD_SETSIZE, &input, nullptr, nullptr, timeout_p);
+	retval = select(FD_SETSIZE, &input, NULL, NULL, timeout_p);
 
 	// Ncurses' function that works without delay
 	// (because we nodelay()'ed)

@@ -22,7 +22,7 @@ void my_mvwhline(WINDOW* win, int y, int x, chtype ch, int num)
 }
 
 Window::Window(int x, int y, int w, int h):
-	win(nullptr),
+	win(NULL),
 	error(false),
 	x(x),
 	y(y),
@@ -37,7 +37,7 @@ Window::Window(int x, int y, int w, int h):
 		this->error = true;
 }
 Window::Window(Window* parent, int x, int y, int width, int height):
-	win(nullptr),
+	win(NULL),
 	error(false),
 	borderType(BORDER_NONE),
 	title("")
@@ -161,10 +161,10 @@ void Window::borders(BorderType type)
 {
 	this->borderType = type;
 
-	if (type == BorderType::BORDER_NONE)
+	if (type == Window::BORDER_NONE)
 		return;
 
-	if (type == BorderType::BORDER_FANCY)
+	if (type == Window::BORDER_FANCY)
 	{
 		wborder(this->win,
 		        ACS_VLINE    | Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
@@ -176,7 +176,7 @@ void Window::borders(BorderType type)
 		        ACS_LLCORNER | Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
 		        ACS_LRCORNER | Colors::pair(COLOR_BLACK, COLOR_DEFAULT, true));
 	}
-	else if (type == BorderType::BORDER_REGULAR)
+	else if (type == Window::BORDER_REGULAR)
 	{
 		wattrset(this->win, Colors::pair(COLOR_BLACK, COLOR_DEFAULT, true));
 		wborder(this->win, '|', '|', '-', '-', '+', '+', '+', '+');

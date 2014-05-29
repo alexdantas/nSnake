@@ -31,7 +31,7 @@ bool Board::isWall(int x, int y)
 	{
 		// If we can teleport, the borders are
 		// not collidable - we'll just walk through them.
-		return (this->style == Style::SOLID);
+		return (this->style == Board::SOLID);
 	}
 
 	return (this->board->at(x, y));
@@ -59,7 +59,7 @@ void Board::draw(Window* win)
 			if ((i == 0) || (i == this->board->width() - 1) ||
 			    (j == 0) || (j == this->board->height() - 1))
 			{
-				win->printChar(((this->style == Style::TELEPORT) ?
+				win->printChar(((this->style == Board::TELEPORT) ?
 				                teleport_appearance :
 				                solid_appearance),
 				               i,

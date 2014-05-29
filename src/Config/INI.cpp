@@ -3,7 +3,7 @@
 #include <cstring>				// strncpy()
 
 INI::INI():
-	ini(nullptr)
+	ini(NULL)
 { }
 INI::~INI()
 {
@@ -33,7 +33,7 @@ void INI::free()
 	if (this->ini)
 	{
 		iniparser_freedict(this->ini);
-		this->ini = nullptr;
+		this->ini = NULL;
 	}
 }
 bool INI::get(std::string where, bool default_value)

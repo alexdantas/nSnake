@@ -63,7 +63,7 @@ MANPAGE     = doc/man/$(MANFILE)
 EXE         = $(PACKAGE)
 CDEBUG      = -O2
 PLATFORM    =
-CXXFLAGS    = $(CDEBUG) -Wall -Wextra -std=c++11 $(PLATFORM)
+CXXFLAGS    = $(CDEBUG) -Wall -Wextra $(PLATFORM)
 LDFLAGS     = -lncurses -liniparser $(PLATFORM)
 INCLUDESDIR = -I"src/" -I"deps/"
 LIBSDIR     =

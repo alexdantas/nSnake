@@ -1,6 +1,6 @@
 #include <Misc/Timer.hpp>
 
-#include <iostream>				// nullptr
+#include <iostream>				// NULL
 
 // How many microseconds exists in a second
 #define MICRO_IN_SECONDS 1000000
@@ -11,7 +11,7 @@
 static suseconds_t get_ticks()
 {
 	struct timeval tmp;
-	gettimeofday(&(tmp), nullptr);
+	gettimeofday(&(tmp), NULL);
 
 	return tmp.tv_usec + (tmp.tv_sec * MICRO_IN_SECONDS);
 }

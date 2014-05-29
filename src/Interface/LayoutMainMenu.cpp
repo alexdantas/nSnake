@@ -11,10 +11,10 @@
 LayoutMainMenu::LayoutMainMenu(int width, int height, GameStateMainMenu* state):
 	Layout(width, height),
 	state(state),
-	logo(nullptr),
-	menu(nullptr),
-	animationwin(nullptr),
-	animation(nullptr)
+	logo(NULL),
+	menu(NULL),
+	animationwin(NULL),
+	animation(NULL)
 {
 	this->windowsInit();
 }

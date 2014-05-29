@@ -7,7 +7,7 @@
 #include <Config/INI.hpp>
 
 StateManager::StateManager():
-	currentState(nullptr),
+	currentState(NULL),
 	sharedInfo(0)
 {
 	// The first state, Hardcoded
@@ -45,7 +45,7 @@ void StateManager::run()
 		case GameState::QUIT:
 			this->currentState->unload();
 			delete this->currentState;
-			this->currentState = nullptr;
+			this->currentState = NULL;
 
 			letsQuit = true;
 			break;

@@ -100,15 +100,15 @@ Color Colors::hex(std::string hex)
 
 	col[0] = hex[1];
 	col[1] = hex[2];
-	long r = strtol(col, nullptr, 16);
+	long r = strtol(col, NULL, 16);
 
 	col[0] = hex[3];
 	col[1] = hex[4];
-	long g = strtol(col, nullptr, 16);
+	long g = strtol(col, NULL, 16);
 
 	col[0] = hex[5];
 	col[1] = hex[6];
-	long b = strtol(col, nullptr, 16);
+	long b = strtol(col, NULL, 16);
 
 	return Colors::rgb(r, g, b);
 }

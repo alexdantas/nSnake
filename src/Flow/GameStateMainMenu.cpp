@@ -44,15 +44,15 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 };
 
 GameStateMainMenu::GameStateMainMenu():
-	layout(nullptr),
-	menu(nullptr),
-	menuArcade(nullptr),
+	layout(NULL),
+	menu(NULL),
+	menuArcade(NULL),
 	menuArcadeActivated(false),
-	menuOptions(nullptr),
+	menuOptions(NULL),
 	menuOptionsActivated(false),
-	menuControls(nullptr),
+	menuControls(NULL),
 	menuControlsActivated(false),
-	helpWindows(nullptr)
+	helpWindows(NULL)
 { }
 
 void GameStateMainMenu::load(int stack)

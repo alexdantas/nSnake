@@ -141,7 +141,7 @@ public:
 	///
 	/// @note The advantage of it is that you can specify
 	///       stdout or stderr.
-	/// @note It checks for nullptr pointers, don't worry.
+	/// @note It checks for NULL pointers, don't worry.
 	/// @note Again, no comments are preserved when saving!
 	void save(FILE* file);
 
