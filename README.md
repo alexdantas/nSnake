@@ -21,19 +21,43 @@ Here's some features:
 The keybindings are completely customizable on the in-game menus.
 The default ones are:
 
-	Arrow Keys          Moves the snake
-	q                   Quits the game at any time
-	p                   Pauses/Unpauses the game
-	h                   Show help during game
+| Keys              | Actions                    |
+| ----------------- | -------------------------- |
+| Arrow Keys        | Moves the snake            |
+| q                 | Quits the game at any time |
+| p                 | Pauses/Unpauses the game   |
+| h                 | Show help during game      |
 
 ## Dependencies
 
-Make sure you have the *ncurses dev* installed. Note that it's
-_not_ the default that comes with your distro.
+nSnake depends on two following libraries, `ncurses` and `iniparser`.
 
-To get it, use you package manager - here's an example:
+### ncurses
 
-    # apt-get install libncurses5-dev
+This library shows cute things on the terminal.
+
+For nSnake you need the package *ncurses dev*. Note that it's _not_ the default
+that comes with your distro.
+
+| Distro         | Installation command              |
+| -------------- | --------------------------------- |
+| Ubuntu/Debian  | `apt-get install libncurses5-dev` |
+| Fedora         | `yum install ncurses-devel`       |
+| Arch Linux     | _comes by default_                |
+
+If you know the means to install on other distros, [please tell me][issues].
+
+### iniparser
+
+This library is used to parse **.ini** configuration files.
+
+| Distro         | Installation command               |
+| -------------- | ---------------------------------- |
+| Ubuntu/Debian  | `apt-get install libiniparser-dev` |
+| Fedora         | `yum install libiniparser-devel`   |
+| Arch Linux     | `pacman -S  iniparser`             |
+
+If you know the means to install on other distros, [please tell me][issues].
 
 ## Usage
 
@@ -139,4 +163,6 @@ Special thanks to:
 
  homepage: http://www.alexdantas.net/projects/nsnake/
  mailto:   eu@alexdantas.net
+
+[issues]: https://github.com/alexdantas/nSnake/issues
 
