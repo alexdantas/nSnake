@@ -1,9 +1,27 @@
-08-08-2013 V1.7
+05-29-2014 v2.0.5
+	* Development: Completely removed any C++11 features from the
+	               codebase. Game is now portable across old
+	               compilers.
+	* Bug: Fixed level-generating bug that made the player
+	       unable to move at all.
+	* Development: Instead of providing `iniparser` we rely on
+	               the user having it installed on the system.
+
+03-06-2014 v2.0.0
+	* Development: Completely rewrote the game in C++, using brand
+	               new C++11 features!
+	* Interface: Main menu has a cute Matrix-like animation.
+	* Interface: GUI-like menus and buttons and widgets and much more.
+	* Gameplay: Made input keys customizable.
+	* Gameplay: Game profiles - high scores are made in a
+	            player-by-player basis.
+
+08-08-2013 v1.7
 	* Abandoned development - nsnake is now deprecated in favor of
 	"nsnake++", the new master branch on git. The old version will still be
 	kept on the "nsnake-classic" branch.
 
-05-14-2013 V1.7
+05-14-2013 v1.7
 
 	* Changed: High-score file stays on the user's home directory.
 	* Added: vim-like control keys (hjkl).
@@ -12,7 +30,7 @@
 	* Smoothed gameplay and screen refresh controls.
 	* Changed: now using Git for version control.
 
-11-01-2012 V1.5
+11-01-2012 v1.5
 
 	* Added arguments.c/.h: Now nsnake uses GNU getopt_long! See files for
 	info.
@@ -25,7 +43,7 @@
 	* Now nsnake saves it's high scores in /var/games! And it now runs at
 	setgid root:games.
 
-12-04-2011 V1.3
+12-04-2011 v1.3
 
 	* Added: arrow keys control over the speed levels at the main menu.
 	* Added: Clean the screen when the user quits the game.

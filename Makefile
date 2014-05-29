@@ -36,7 +36,7 @@
 
 # General Info
 PACKAGE = nsnake
-VERSION = 2.0.0
+VERSION = 2.0.5
 DATE    = $(shell date "+%b%Y")
 
 # Local source code information
