@@ -44,27 +44,24 @@ FILES = BUGS ChangeLog COPYING Doxyfile \
         INSTALL.md Makefile README.md TODO
 
 # Install dirs
-DESTDIR =
-PREFIX  = $(DESTDIR)/usr
-
+PREFIX      = /usr
 EXEC_PREFIX = $(PREFIX)
 DATAROOTDIR = $(PREFIX)/share
 MANROOT     = $(DATAROOTDIR)/man
-
-MANNUMBER   = 6
-
-BINDIR      = $(EXEC_PREFIX)/games
+BINDIR      = $(EXEC_PREFIX)/bin
 MANDIR      = $(MANROOT)/man$(MANNUMBER)
 
+MANNUMBER   = 6
 MANFILE     = $(PACKAGE).$(MANNUMBER)
 MANPAGE     = doc/man/$(MANFILE)
 
 # Build info
+CFLAGS_PLATFORM		= 
+LDFLAGS_PLATFORM	= 
 EXE         = $(PACKAGE)
 CDEBUG      = -O2
-PLATFORM    =
-CXXFLAGS    = $(CDEBUG) -Wall -Wextra $(PLATFORM)
-LDFLAGS     = -lncurses -liniparser $(PLATFORM)
+CXXFLAGS    = $(CDEBUG) -Wall -Wextra $(CFLAGS_PLATFORM)
+LDFLAGS     = -lncurses -liniparser $(LDFLAGS_PLATFORM)
 INCLUDESDIR = -I"src/" -I"deps/"
 LIBSDIR     =
 
@@ -80,7 +77,7 @@ DEFINES = -DVERSION=\""$(VERSION)"\" \
 
 # commander stuff
 COMMANDERDIR = deps/commander
-COMMANDER_CFLAGS = -O2 -Wall -Wextra $(PLATFORM)
+COMMANDER_CFLAGS = -O2 -Wall -Wextra $(CFLAGS_PLATFORM)
 COMMANDER_OBJS = $(COMMANDERDIR)/commander.o
 
 # Distribution tarball
@@ -113,22 +110,22 @@ all: dirs $(EXE)
 
 install: all
 	# Installing...
-	$(MUTE)install -d -m 755 $(BINDIR)
-	$(MUTE)install -m 755 bin/$(EXE) $(BINDIR)
+	$(MUTE)install -pdm755 $(DESTDIR)$(BINDIR)
+	$(MUTE)install -pm755 bin/$(EXE) $(DESTDIR)$(BINDIR)
 	-$(MUTE)cat $(MANPAGE) | sed -e "s|DATE|$(DATE)|g" -e "s|VERSION|$(VERSION)|g" >$(MANFILE)
-	$(MUTE)install -d $(MANDIR)
-	$(MUTE)install $(MANFILE) $(MANDIR)
+	$(MUTE)install -pdm755 $(DESTDIR)$(MANDIR)
+	$(MUTE)install -pm644 $(MANFILE) $(DESTDIR)$(MANDIR)
 	$(MUTE)rm -f $(MANFILE)
 	# $(PACKAGE) successfuly installed!
 
 uninstall:
 	# Uninstalling...
-	$(MUTE)rm -f $(BINDIR)/$(EXE)
-	$(MUTE)rm -f $(MANDIR)/$(MANFILE)
+	$(MUTE)rm -f $(DESTDIR)$(BINDIR)/$(EXE)
+	$(MUTE)rm -f $(DESTDIR)$(MANDIR)/$(MANFILE)
 
 purge: uninstall
 	# Purging configuration files...
-	$(MUTE)rm -f $(MANDIR)/$(MANFILE)
+	$(MUTE)rm -f $(DESTDIR)$(MANDIR)/$(MANFILE)
 
 $(EXE): $(OBJECTS) $(COMMANDER_OBJS)
 	# Linking...
