@@ -27,8 +27,10 @@
 #           (overwrites root)
 #  CFLAGS   Changes the C flags used on compilation
 #  CDEBUG   If you wish to build on debug mode, add 'CDEBUG=-g'
-#  PLATFORM To force a specific architecture, set it as
-#           'PLATFORM=-m32' or 'PLATFORM=-m64' for 32 or 64 bits.
+#  CFLAGS_PLATFORM
+#           User specified compiler flags
+#  LDFLAGS_PLATFORM
+#           User specified linker flags
 #
 
 # Uncomment line below to tun on verbose mode permanently
@@ -56,8 +58,6 @@ MANFILE     = $(PACKAGE).$(MANNUMBER)
 MANPAGE     = doc/man/$(MANFILE)
 
 # Build info
-CFLAGS_PLATFORM		= 
-LDFLAGS_PLATFORM	= 
 EXE         = $(PACKAGE)
 CDEBUG      = -O2
 CXXFLAGS    = $(CDEBUG) -Wall -Wextra $(CFLAGS_PLATFORM)
