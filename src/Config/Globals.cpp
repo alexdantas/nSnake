@@ -5,6 +5,7 @@
 
 #include <ncurses.h>
 #include <iostream>
+#include <fstream>
 
 // VERSION is formatted like "0.0.1" - i'm skipping the dots
 int Globals::version[3] = { VERSION[0] - '0',
@@ -152,6 +153,38 @@ void Globals::exit()
 }
 void Globals::loadFile()
 {
+	// DEPRECATED: Adding support for old .ini configuration files
+	//             The following prepends the .ini file with a warning
+	//
+	// I know I should convert from .ini to .yml but I'm wicked.
+	//
+	// NOTE: Remove this a few versions from now...
+	//
+	if (Utils::File::exists(Globals::Config::directory + "settings.ini"))
+	{
+		std::ifstream old_file_in((Globals::Config::directory + "settings.ini").c_str());
+
+		std::stringstream buffer;
+		buffer << old_file_in.rdbuf();
+		old_file_in.close();
+
+		// To avoid prepending this thing over and over, we must
+		// check if it already exists
+		std::string tmp;
+		std::getline(buffer, tmp);
+		if (tmp.find("# Warning:") == std::string::npos)
+		{
+			std::ofstream old_file_out((Globals::Config::directory + "settings.ini").c_str());
+
+			old_file_out << "# Warning: this .ini file was deprecated in favor\n";
+			old_file_out << "#          of the new .yml format. You can safely\n";
+			old_file_out << "#          delete it.\n";
+			old_file_out << buffer.rdbuf();
+			old_file_out.close();
+		}
+	}
+
+	// Now, back on track
 	if (! Utils::File::exists(Globals::Config::file))
 		return;
 
