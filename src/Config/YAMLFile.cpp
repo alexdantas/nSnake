@@ -1,5 +1,6 @@
-#include "YAML.hpp"
+#include <Config/YAMLFile.hpp>
 #include <fstream>              // std::ofstream
+#include <exception>
 
 YAMLFile::YAMLFile()
 { }
@@ -31,7 +32,7 @@ int YAMLFile::get(std::string out, std::string in, int default_value)
 
 	return this->yaml_node[out][in].as<int>();
 }
-char YAMLFile::get(std::string out, std::string in, chardefault_value)
+char YAMLFile::get(std::string out, std::string in, char default_value)
 {
 	if ((this->yaml_node[out]     == NULL) ||
 	    (this->yaml_node[out][in] == NULL))
@@ -83,6 +84,8 @@ void YAMLFile::set(std::string out, std::string in, std::string value)
 void YAMLFile::save(std::string file)
 {
 	std::ofstream file_out(file.c_str());
+	if (!file_out)
+		throw std::runtime_error(std::string("Couldn't open '" + file + "'"));
 
 	file_out << this->yaml_node;
 }

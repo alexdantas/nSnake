@@ -98,6 +98,7 @@ public:
 
 	void set(std::string out, std::string in, bool value);
 	void set(std::string out, std::string in, int value);
+	void set(std::string out, std::string in, char value);
 	void set(std::string out, std::string in, double value);
 	void set(std::string out, std::string in, std::string value);
 
