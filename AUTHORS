@@ -1,11 +1,19 @@
 Alexandre Dantas <alex.dantas92@gmail.com>
-* Main upstream.
+* Main upstream and current maintainer.
 
 Christopher Meng <cickumqt@gmail.com>
+* Made nSnake available on Fedora.
 * Warned about man page errors.
+* Improved Makefile standards.
 
 Olof Johansson <olof@ethup.se>
 * Added vim directional key-bindings.
 * Fixed high-score reset between turns.
-* Fixed some Makefile issues.
+* Fixed Makefile issues.
+
+Lingyu Zhu <lynuszhu@gmail.com>
+* Fixed bug on random number generator.
+
+Dylan <dook@stardust.red>
+* Fixed linker errors.
 
