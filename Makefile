@@ -61,7 +61,7 @@ MANPAGE     = doc/man/$(MANFILE)
 EXE         = $(PACKAGE)
 CDEBUG      = -O2
 CXXFLAGS    = $(CDEBUG) -Wall -Wextra $(CFLAGS_PLATFORM)
-LDFLAGS     = -lncurses -liniparser $(LDFLAGS_PLATFORM)
+LDFLAGS     = -lncurses -lyaml-cpp $(LDFLAGS_PLATFORM)
 INCLUDESDIR = -I"src/" -I"deps/"
 LIBSDIR     =
 
