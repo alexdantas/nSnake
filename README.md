@@ -30,7 +30,7 @@ The default ones are:
 
 ## Dependencies
 
-nSnake depends on two following libraries, `ncurses` and `iniparser`.
+nSnake depends on two libraries, `ncurses` and `yaml-cpp`.
 
 ### ncurses
 
@@ -47,15 +47,19 @@ that comes with your distro.
 
 If you know the means to install on other distros, [please tell me][issues].
 
-### iniparser
+### yaml-cpp
 
-This library is used to parse **.ini** configuration files.
+This library is used to parse **YAML** configuration files.
+
+With it `nsnake` has a human-readable settings file; you can easily backup
+and manually change it, although we the preferred method would be from inside
+the game.
 
 | Distro         | Installation command               |
 | -------------- | ---------------------------------- |
-| Ubuntu/Debian  | `apt-get install libiniparser-dev` |
-| Fedora         | `yum install libiniparser-devel`   |
-| Arch Linux     | `pacman -S  iniparser`             |
+| Ubuntu/Debian  | `apt-get install libyaml-cpp-dev`  |
+| Fedora         | `yum install yaml-cpp-devel`       |
+| Arch Linux     | `pacman -S yaml-cpp`               |
 
 If you know the means to install on other distros, [please tell me][issues].
 
