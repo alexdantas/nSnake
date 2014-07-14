@@ -119,9 +119,13 @@ install: all
 	$(MUTE)install -pm644 $(MANFILE) $(DESTDIR)$(MANDIR)
 	$(MUTE)rm -f $(MANFILE)
 
-	$(MUTE)install -pm644 misc/nsnake16.png   $(DESTDIR)$(PNGDIR)/16x16/apps/nsnake.png
-	$(MUTE)install -pm644 misc/nsnake32.png   $(DESTDIR)$(PNGDIR)/32x32/apps/nsnake.png
-	$(MUTE)install -pm644 misc/nsnake32.xpm   $(DESTDIR)$(XPMDIR)/nsnake.xpm
+	$(MUTE)install -pdm755 $(DESTDIR)$(PNGDIR)/16x16/apps/
+	$(MUTE)install -pm644 misc/nsnake16.png $(DESTDIR)$(PNGDIR)/16x16/apps/nsnake.png
+	$(MUTE)install -pdm755 $(DESTDIR)$(PNGDIR)/32x32/apps/
+	$(MUTE)install -pm644 misc/nsnake32.png $(DESTDIR)$(PNGDIR)/32x32/apps/nsnake.png
+	$(MUTE)install -pdm755 $(DESTDIR)$(XPMDIR)
+	$(MUTE)install -pm644 misc/nsnake32.xpm $(DESTDIR)$(XPMDIR)/nsnake.xpm
+	$(MUTE)install -pdm755 $(DESTDIR)$(DESKTOPDIR)
 	$(MUTE)install -pm644 misc/nsnake.desktop $(DESTDIR)$(DESKTOPDIR)
 
 	# $(PACKAGE) successfuly installed!
