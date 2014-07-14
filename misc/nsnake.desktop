@@ -5,6 +5,7 @@ Name=nsnake
 GenericName=Classic snake game on the terminal
 GenericName[pt_BR]=Bom e velho jogo da cobra no terminal
 GenericName[fi]=Matopeli terminaalissa
+GenericName[it_IT]=Classico gioco snake da terminale
 Exec=nsnake
 Terminal=true
 Icon=nsnake
