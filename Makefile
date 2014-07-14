@@ -135,10 +135,6 @@ uninstall:
 	$(MUTE)rm -f $(DESTDIR)$(XPMDIR)/nsnake.xpm
 	$(MUTE)rm -f $(DESTDIR)$(DESKTOPDIR)/nsnake.desktop
 
-purge: uninstall
-	# Purging configuration files...
-	$(MUTE)rm -f $(DESTDIR)$(MANDIR)/$(MANFILE)
-
 $(EXE): $(OBJECTS) $(COMMANDER_OBJS)
 	# Linking...
 	$(MUTE)$(CXX) $(OBJECTS) $(COMMANDER_OBJS) -o bin/$(EXE) $(LIBSDIR) $(LDFLAGS)

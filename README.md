@@ -115,6 +115,7 @@ Also, it's all over the web!
 * [Source on Bitbucket][bitbucket]
 * [Source on Sourceforge][sourceforge]
 * [Source on Google Code][googlecode]
+* [Source on Gitcafe][gitcafe]
 * [Package on Debian](https://tracker.debian.org/pkg/nsnake)
 * [Package on Fedora](https://apps.fedoraproject.org/packages/nsnake)
 * [Package on Arch Linux (AUR)](https://aur.archlinux.org/packages/nsnake/)
@@ -194,6 +195,7 @@ I raise my hat to:
 [github]:      https://github.com/alexdantas/nsnake
 [bitbucket]:   https://bitbucket.org/alexdantas/nsnake
 [sourceforge]: https://sourceforge.net/projects/nsnake/
+[gitcafe]:     https://gitcafe.com/alexdantas/nsnake
 [googlecode]:  http://code.google.com/p/nsnake/
 [contrib]:     https://github.com/alexdantas/nSnake/graphs/contributors
 
