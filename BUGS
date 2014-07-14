@@ -1,21 +1,8 @@
 BUGS
 ====
-List of known bugs. I plan to fix them as soon as possible.
-Please send bug reports to <alex.dantas92@gmail.com>
 
-(Mon Jan 16 11:38:16 BRT 2012)
-If you try to run nSnake with parameters that don't start with '-', they are
-completely ignored.
-(Fix probably at getopt_long at arguments.c)
+There are no long-term bugs.
+For a list of currently unsolved issues, go to:
 
-(Thu Jul 26 10:38:21 BRT 2012)
-When the fruit is at the bottom of the screen and the snake tries to eat it
-on the borderless mode teleporting from above, it doesn't get eaten - the
-snake goes through it.
-The same when the fruit is at the top left and the snake goes through the
-right.
-(Fix at collision detection)
+https://github.com/alexdantas/nsnake/issues?state=open
 
-Wed Aug 22 10:17:51 BRT 2012
-When the player holds a directional key, the snake keeps going for a while.
-Maybe holding the key fills the input buffer or something.

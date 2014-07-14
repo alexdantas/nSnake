@@ -1,6 +1,6 @@
 # nsnake
 
-Classic snake game on the terminal
+Classic snake game on the terminal; made with C++ and ncurses.
 
 ![menu](http://nsnake.alexdantas.net/images/arcade-menu.png)
 ![menu](http://nsnake.alexdantas.net/images/small-maze.png)
@@ -27,6 +27,8 @@ The default ones are:
 | q                 | Quits the game at any time |
 | p                 | Pauses/Unpauses the game   |
 | h                 | Show help during game      |
+
+All user settings are located at `~/.local/share/nsnake`.
 
 ## Dependencies
 
@@ -87,33 +89,51 @@ To change the default installation directories, check file
 
 Hello there, I'm Alexandre Dantas (kure)!
 
-Thanks for downloading and playing this game.
-I'm glad you had interest on this project.
+Thanks for downloading and playing this game, I'm very glad you had
+interest on this humble project.
+
 You can send me comments, bugs, ideas or anything else by email.
 And if you have time, please visit my blog!
 
-My email:           <eu@alexdantas.net>
-My homepage:        http://www.alexdantas.net/
-nsnake main page:   http://nsnake.alexdantas.net/
+* My email:      <eu@alexdantas.net>
+* My homepage:   http://alexdantas.net/
+* Mu blog:       http://alexdantas.net/stuff
 
 I'd appreciate any commentary - even if it's
 just _"Hello, I play your game!"_.
+
+## Links
+
+Some interesting links if you're interested on nsnake:
+
+* [nSnake homepage][home]
+* [Up-to-date nsnake news][news] ([RSS feed][rss])
+
+Also, it's all over the web!
+
+* [Source on GitHub][github]
+* [Source on Bitbucket][bitbucket]
+* [Source on Sourceforge][sourceforge]
+* [Source on Google Code][googlecode]
+* [Package on Debian](https://tracker.debian.org/pkg/nsnake)
+* [Package on Fedora](https://apps.fedoraproject.org/packages/nsnake)
+* [Package on Arch Linux (AUR)](https://aur.archlinux.org/packages/nsnake/)
+* [Package on Slackware (SlackBuilds)](http://slackbuilds.org/repository/14.1/games/nSnake/)
 
 ## Credits
 
 Firstly, I'd like to thank you for playing this game.
 Hope you liked it!
 
-The whole game design, coding, documenting, packaging and
-testing were all made by me, on my free time.
+The game was mainly done by me, but a lot of people helped me in
+many ways. There's a list of them on the `AUTHORS` file, and you
+can see people's [contributions to the code here][contrib].
 
-But I didn't do everything! Throughout the nsnake development,
-I found very interesting sources of ideas - such as games that also
-uses nCurses for displaying graphics.
-They have simple, short and commented source-codes that
-can be used as references to learn C programming.
+Throughout the nsnake development, I found very interesting sources
+of ideas; small games made in C, textual games with ncurses, and
+stuff like that.
 
-Special thanks to:
+I raise my hat to:
 
 * *nInvaders*: A space invaders-like game using ncurses.
   * homepage: http://ninvaders.sourceforge.net
@@ -146,7 +166,6 @@ Special thanks to:
   * comments:  "I've used the Modular font to display
                 the Game Over screen"
 
-
 ## License
 
  nsnake - The classic snake game with ncurses.
@@ -168,5 +187,13 @@ Special thanks to:
  homepage: http://www.alexdantas.net/projects/nsnake/
  mailto:   eu@alexdantas.net
 
-[issues]: https://github.com/alexdantas/nSnake/issues
+[issues]:      https://github.com/alexdantas/nSnake/issues
+[home]:        http://nsnake.alexdantas.net/
+[news]:        http://alexdantas.net/stuff/posts/category/projects/nsnake/
+[rss]:         http://alexdantas.net/stuff/posts/category/projects/nsnake/feed/
+[github]:      https://github.com/alexdantas/nsnake
+[bitbucket]:   https://bitbucket.org/alexdantas/nsnake
+[sourceforge]: https://sourceforge.net/projects/nsnake/
+[googlecode]:  http://code.google.com/p/nsnake/
+[contrib]:     https://github.com/alexdantas/nSnake/graphs/contributors
 
