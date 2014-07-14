@@ -53,6 +53,11 @@ MANROOT     = $(DATAROOTDIR)/man
 BINDIR      = $(EXEC_PREFIX)/bin
 MANDIR      = $(MANROOT)/man$(MANNUMBER)
 
+# Misc stuff
+PNGDIR     = $(DATAROOTDIR)/icons/hicolor
+XPMDIR     = $(DATAROOTDIR)/pixmaps
+DESKTOPDIR = $(DATAROOTDIR)/applications
+
 MANNUMBER   = 6
 MANFILE     = $(PACKAGE).$(MANNUMBER)
 MANPAGE     = doc/man/$(MANFILE)
@@ -112,16 +117,27 @@ install: all
 	# Installing...
 	$(MUTE)install -pdm755 $(DESTDIR)$(BINDIR)
 	$(MUTE)install -pm755 bin/$(EXE) $(DESTDIR)$(BINDIR)
+
 	-$(MUTE)cat $(MANPAGE) | sed -e "s|DATE|$(DATE)|g" -e "s|VERSION|$(VERSION)|g" >$(MANFILE)
 	$(MUTE)install -pdm755 $(DESTDIR)$(MANDIR)
 	$(MUTE)install -pm644 $(MANFILE) $(DESTDIR)$(MANDIR)
 	$(MUTE)rm -f $(MANFILE)
+
+	$(MUTE)install -pm644 misc/nsnake16.png   $(DESTDIR)$(PNGDIR)/16x16/apps/nsnake.png
+	$(MUTE)install -pm644 misc/nsnake32.png   $(DESTDIR)$(PNGDIR)/32x32/apps/nsnake.png
+	$(MUTE)install -pm644 misc/nsnake32.xpm   $(DESTDIR)$(XPMDIR)/nsnake.xpm
+	$(MUTE)install -pm644 misc/nsnake.desktop $(DESTDIR)$(DESKTOPDIR)
+
 	# $(PACKAGE) successfuly installed!
 
 uninstall:
 	# Uninstalling...
 	$(MUTE)rm -f $(DESTDIR)$(BINDIR)/$(EXE)
 	$(MUTE)rm -f $(DESTDIR)$(MANDIR)/$(MANFILE)
+	$(MUTE)rm -f $(DESTDIR)$(PNGDIR)/16x16/apps/nsnake.png
+	$(MUTE)rm -f $(DESTDIR)$(PNGDIR)/32x32/apps/nsnake.png
+	$(MUTE)rm -f $(DESTDIR)$(XPMDIR)/nsnake.xpm
+	$(MUTE)rm -f $(DESTDIR)$(DESKTOPDIR)/nsnake.desktop
 
 purge: uninstall
 	# Purging configuration files...

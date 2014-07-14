@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=nsnake
+GenericName=Classic snake game on the terminal
+GenericName[pt_BR]=Bom e velho jogo da cobra no terminal
+GenericName[fi]=Matopeli terminaalissa
+Exec=nsnake
+Terminal=true
+Icon=nsnake
+Categories=Game;ActionGame;
+Keywords=snake;ncurses;textual;terminal;
