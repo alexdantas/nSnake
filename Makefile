@@ -41,10 +41,6 @@ PACKAGE = nsnake
 VERSION = 2.0.6
 DATE    = $(shell date "+%b%Y")
 
-# Local source code information
-FILES = BUGS ChangeLog COPYING Doxyfile \
-        INSTALL.md Makefile README.md TODO
-
 # Install dirs
 PREFIX      = /usr
 EXEC_PREFIX = $(PREFIX)
@@ -153,17 +149,28 @@ src/%.o: src/%.cpp
 
 dist: clean $(DISTDIR).tar.gz
 
+# This creates a tarball with all the files
+# versioned by GIT.
 $(DISTDIR).tar.gz: $(DISTDIR)
 	$(MUTE)tar czf $(DISTDIR).tar.gz $(DISTDIR)
 	$(MUTE)rm -rf $(DISTDIR)
 	$(MUTE)cp $(DISTDIR).tar.gz ..
 	$(MUTE)rm -f $(DISTDIR).tar.gz
+	# Created ../$(DISTDIR).tar.gz!
 
+# This copies all the source code files into a
+# subdirectory called $(DISTDIR).
+#
+# It uses `git ls-files` to create the directory
+# tree and copy everything to their respective
+# places.
+#
 $(DISTDIR):
-	$(MUTE)mkdir -p $(DISTDIR)/src $(DISTDIR)/deps $(DISTDIR)/bin
-	-$(MUTE)cp $(FILES) -t $(DISTDIR)
-	-$(MUTE)cp -r src/* $(DISTDIR)/src
-	-$(MUTE)cp -r deps/* $(DISTDIR)/deps
+	# Compressing source code...
+	$(MUTE)mkdir -p $(DISTDIR)
+	-$(MUTE)git ls-files | xargs -L 1 dirname | sed -e 's|^|$(DISTDIR)/|' | xargs -L 1 mkdir -p
+	-$(MUTE)git ls-files | sed -e 's|\(.*\)|\0 $(DISTDIR)/\0|' | xargs -L 1 cp
+	-$(MUTE)rm -f $(DISTDIR)/.gitignore
 
 run: all
 	# Running...
