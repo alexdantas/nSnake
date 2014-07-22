@@ -126,4 +126,11 @@ void Board::teleport(Player* player)
 
 	player->moveTo(newx, newy);
 }
+void Board::setBoard(std::vector<std::vector<bool> >& newBoard)
+{
+	// Making it empty
+	for (size_t i = 0; i < this->board->width(); i++)
+		for (size_t j = 0; j < this->board->height(); j++)
+			this->board->set(i, j, newBoard[j][i]);
+}
 

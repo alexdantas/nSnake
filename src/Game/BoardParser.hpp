@@ -1,110 +1,56 @@
 #ifndef BOARDPARSER_H_DEFINED
 #define BOARDPARSER_H_DEFINED
 
-#include <string>
-#include <vector>
-#include "Tile.hpp"
-#include "Shapes.hpp"
+#include <Game/Board.hpp>
 
 /// Hard-coded limit of players that can appear at once on a level.
-#define MAX_NUMBER_OF_PLAYERS 4
+#define MAX_NUMBER_OF_PLAYERS 1
 
-/// Single level of the game.
+/// Opens, loads and parses a level file, returning a
+/// well-formed `Board`.
 ///
-/// Loads levels from files and stores them in a way
-/// that Board can build them.
 class BoardParser
 {
 public:
-    /// Creates an empty level.
-    ///
-    /// I suggest you to call *load()* or something.
-    BoardParser();
-
-    virtual ~BoardParser();
-
     /// Loads and parses the level at *filename*.
     ///
-    /// @note If called multiple times, it erases the
-    ///       previous loaded levels!
-    bool load(std::string filename);
-
-    /// Reloads the current level.
-    bool reload();
+    /// @return A new `Board` if successful, NULL if failed.
+    /// @note Make sure to delete it later!
+    ///
+    static Board* load(std::string filename);
 
     /// TODO
-    bool save(std::string filename);
+	bool save(Board* board, std::string filename);
 
-    /// Erases the current level into a blank one.
-    void clear();
 
-    int getWidth();
-    int getHeight();
+	/// THE FOLLOWING STUFF SHOULD GO TO `BOARD`
+    /// I'LL MAKE THE TRANSITION ONE METHOD AT A TIME
 
-    /// Returns the *BoardParserContent* on *x* *y*.
-    Tile::TileContents& at(int x, int y);
+    // int getWidth();
+    // int getHeight();
 
-    /// Gets starting x of *player*.
-    ///
-    /// @return 0 if the player is invalid.
-    int getStartingX(int player);
+    // /// Returns the *BoardParserContent* on *x* *y*.
+    // Tile::TileContents& at(int x, int y);
 
-    /// Gets starting x of *player*.
-    ///
-    /// @return 0 if the player is invalid.
-    int getStartingY(int player);
+    // /// Gets starting x of *player*.
+    // ///
+    // /// @return 0 if the player is invalid.
+    // int getStartingX(int player);
 
-    /// Returns how many players the current level supports.
-    int getPlayers();
+    // /// Gets starting x of *player*.
+    // ///
+    // /// @return 0 if the player is invalid.
+    // int getStartingY(int player);
 
-    // returning level metadata
+    // /// Returns how many players the current level supports.
+    // int getPlayers();
 
-    std::string getName();
-    std::string getAuthor();
-    std::string getDate();
-    std::string getComment();
+    // // returning level metadata
 
-private:
-
-    /// The filename, if properly loaded.
-    ///
-    /// @note If *load()* is not called, this is empty.
-    std::string filename;
-
-    /// The raw contents of the level in string format, if
-    /// properly loaded.
-    ///
-    /// @note If *load()* is not called, this is empty.
-    std::vector<std::string> rawBoardParser;
-
-    /// The actual level, in respect of *TileContents*.
-    std::vector<std::vector<Tile::TileContents> > level;
-
-    /// BoardParser's maximum width.
-    ///
-    /// @note All lines are guaranteed to have this width.
-    ///       independently if the map file is not regular.
-    int width;
-
-    /// BoardParser's height.
-    int height;
-
-    /// How many players are supported by this map?
-    ///
-    /// @note We have a hard-coded limit of players.
-    int players;
-
-    /// All the starting positions for the players.
-    ///
-    /// @note We have a hard-coded limit of players.
-    Point startingPosition[MAX_NUMBER_OF_PLAYERS];
-
-    // optional metadata on the level
-
-    std::string name;
-    std::string author;
-    std::string date;
-    std::string comment;
+    // std::string getName();
+    // std::string getAuthor();
+    // std::string getDate();
+    // std::string getComment();
 };
 
 #endif //BOARDPARSER_H_DEFINED

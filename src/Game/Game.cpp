@@ -3,6 +3,7 @@
 #include <Misc/Utils.hpp>
 #include <Interface/LayoutGame.hpp>
 #include <Flow/InputManager.hpp>
+#include <Game/BoardParser.hpp>
 
 #include <stdlib.h>
 
@@ -92,11 +93,22 @@ void Game::start()
 		boardh = 14;
 	}
 
-	this->board = new Board(boardw,
-	                        boardh,
-	                        ((Globals::Game::teleport) ?
-	                         Board::TELEPORT :
-	                         Board::SOLID));
+	this->board = BoardParser::load("tmp/level01.nsnake");
+
+	if (! this->board)
+	{
+		// If something wrong happens when loading the
+		// level, silently falls back to a default one
+		//
+		// TODO improve on this error handling - show
+		//      a dialog, perhaps?
+
+		this->board = new Board(boardw,
+		                        boardh,
+		                        ((Globals::Game::teleport) ?
+		                         Board::TELEPORT :
+		                         Board::SOLID));
+	}
 
 	if (Globals::Game::random_walls)
 		this->board->randomlyFillExceptBy(this->player->getX(),

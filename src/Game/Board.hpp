@@ -34,6 +34,8 @@ public:
 
 	void teleport(Player* player);
 
+	void setBoard(std::vector<std::vector<bool> >& newBoard);
+
 	/// Tells if the player will teleport when
 	/// reaching the Board's limits or not.
 	///
