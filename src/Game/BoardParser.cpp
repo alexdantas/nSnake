@@ -135,6 +135,9 @@ Board* BoardParser::load(std::string filename)
 	        {
 		        player_start_x = i;
 		        player_start_y = rawBoard.size();
+
+		        // It IS an empty space, after all...
+		        rawBoardLine.push_back(false);
 	        }
 	        else
 		        rawBoardLine.push_back(current_line[i] == WALL_CHAR);
