@@ -1,5 +1,6 @@
 #include <Game/BoardParser.hpp>
 #include <Config/Globals.hpp>
+#include <Misc/Utils.hpp>
 
 #include <fstream>
 #include <vector>
@@ -16,6 +17,10 @@ Board* BoardParser::load(std::string filename)
 	    throw BoardParserException("Can't open file '" + filename + "'");
 
 //    if (!(file.good())) what does it do?
+
+    // Tells what's the current line on the file
+    // (independent of comments and empty lines)
+    int line_count = 0;
 
     // This will get used to the end of the
     // function.
@@ -35,8 +40,12 @@ Board* BoardParser::load(std::string filename)
 	    {
 		    // End-of-file...
 		    // Something wrong happened
-		    throw BoardParserException("Abrupt ending of file");
+		    throw BoardParserException(
+			    "Abrupt ending of file at line " +
+			    Utils::String::toString(line_count)
+			    );
 	    }
+	    line_count++;
 
 	    // Ignoring comments and empty lines
 	    if ((current_line[0] == COMMENT_CHAR) ||
@@ -105,7 +114,13 @@ Board* BoardParser::load(std::string filename)
     while (true)
     {
 	    if (!std::getline(file, current_line))
-		    throw BoardParserException("Abrupt ending of file");
+	    {
+		    throw BoardParserException(
+			    "Abrupt ending of file at line " +
+			    Utils::String::toString(line_count)
+			    );
+	    }
+	    line_count++;
 
 	    // Ignoring comments and empty lines
 	    if ((current_line[0] == COMMENT_CHAR) ||
