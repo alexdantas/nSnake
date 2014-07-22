@@ -98,8 +98,9 @@ Board* BoardParser::load(std::string filename)
 	        break;
     }
 
-    int player_start_x = 0;
-    int player_start_y = 0;
+    int player_start_x = 1; // It's (1, 1) because if it somehow starts
+    int player_start_y = 1; // at (0, 0) it will always end up in a wall
+                            // and die right at the beginning
 
     // Finally, when we read the level we have
     // two states for each tile - "wall" or "not wall"
@@ -156,7 +157,9 @@ Board* BoardParser::load(std::string filename)
                              board_height,
                              ((Globals::Game::teleport) ?
                               Board::TELEPORT :
-                              Board::SOLID));
+                              Board::SOLID),
+                             player_start_x,
+                             player_start_y);
 
     board->setBoard(rawBoard);
     return board;

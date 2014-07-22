@@ -15,7 +15,16 @@ public:
 	/// Board's limits or not.
 	enum Style { SOLID, TELEPORT };
 
-	Board(int width, int height, Style style);
+	/// Creates a new Board.
+	///
+	/// @param width   Whole level width
+	/// @param height  Whole level height
+	/// @param style   If the player will teleport when reaching the limits
+	/// @param start_x Player's starting position (x axis)
+	/// @param start_y Player's starting position (y ayis)
+	///
+	Board(int width, int height, Style style, int start_x=2, int start_y=2);
+
 	virtual ~Board();
 
 	/// Tells if there's a wall at #x #y.
@@ -43,11 +52,17 @@ public:
 	///       change this on-the-fly.
 	Style style;
 
+	int getStartX();
+	int getStartY();
+
 private:
 	/// The actual level on the screen.
 	/// `true` means there's a wall here.
 	/// `false` means the player can walk through.
 	Array2D<bool>* board;
+
+	int start_x; ///< Where the player will start (x axis)
+	int start_y; ///< Where the player will start (y axis)
 };
 
 #endif //BOARD_H_DEFINED

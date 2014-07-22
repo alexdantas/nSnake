@@ -3,8 +3,10 @@
 #include <Config/Globals.hpp>
 #include <Misc/Utils.hpp>
 
-Board::Board(int width, int height, Style style):
-	style(style)
+Board::Board(int width, int height, Style style, int start_x, int start_y):
+	style(style),
+	start_x(start_x),
+	start_y(start_y)
 {
 	this->board = new Array2D<bool>(width, height);
 
@@ -132,5 +134,14 @@ void Board::setBoard(std::vector<std::vector<bool> >& newBoard)
 	for (size_t i = 0; i < this->board->width(); i++)
 		for (size_t j = 0; j < this->board->height(); j++)
 			this->board->set(i, j, newBoard[j][i]);
+}
+
+int Board::getStartX()
+{
+	return this->start_x;
+}
+int Board::getStartY()
+{
+	return this->start_y;
 }
 

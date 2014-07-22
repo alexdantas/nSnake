@@ -75,9 +75,6 @@ void Game::start()
 	item = new MenuItem("Quit Game", QUIT_GAME);
 	this->pauseMenu->add(item);
 
-	// the player!
-	this->player = new Player(2, 2);
-
 	// Defaults to large
 	int boardw = 78;
 	int boardh = 21;
@@ -113,6 +110,10 @@ void Game::start()
 	if (Globals::Game::random_walls)
 		this->board->randomlyFillExceptBy(this->player->getX(),
 		                                  this->player->getY());
+
+	// the player!
+	this->player = new Player(this->board->getStartX(),
+	                          this->board->getStartY());
 
 	// fruits beibeh
 	this->fruits = new FruitManager(Globals::Game::fruits_at_once);
