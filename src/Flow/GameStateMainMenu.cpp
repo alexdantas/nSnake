@@ -9,6 +9,7 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 {
 	// Main Menu
 	ARCADE,
+	LEVELS,
 	HELP,
 	OPTIONS,
 	CONTROLS,
@@ -214,6 +215,9 @@ GameState::StateCode GameStateMainMenu::update()
 				this->menuArcadeActivated = true;
 				break;
 
+			case LEVELS:
+				break;
+
 			case HELP:
 				this->helpWindows->run();
 				break;
@@ -268,6 +272,9 @@ void GameStateMainMenu::createMainMenu()
 	MenuItem* item;
 
 	item = new MenuItem("Arcade", ARCADE);
+	menu->add(item);
+
+	item = new MenuItem("Levels", LEVELS);
 	menu->add(item);
 
 	item = new MenuItem("Help", HELP);
