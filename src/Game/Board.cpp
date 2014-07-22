@@ -3,17 +3,14 @@
 #include <Config/Globals.hpp>
 #include <Misc/Utils.hpp>
 
-Board::Board(int width, int height, Style style, int start_x, int start_y):
+Board::Board(int width, int height, Style style):
 	style(style),
-	start_x(start_x),
-	start_y(start_y)
+	start_x(BOARD_DEFAULT_PLAYER_X),
+	start_y(BOARD_DEFAULT_PLAYER_Y)
 {
 	this->board = new Array2D<bool>(width, height);
 
-	// Making it empty
-	for (size_t i = 0; i < this->board->width(); i++)
-		for (size_t j = 0; j < this->board->height(); j++)
-			this->board->set(i, j, false);
+	this->clear();
 }
 Board::~Board()
 {
@@ -128,6 +125,13 @@ void Board::teleport(Player* player)
 
 	player->moveTo(newx, newy);
 }
+void Board::clear()
+{
+	// Making it empty
+	for (size_t i = 0; i < this->board->width(); i++)
+		for (size_t j = 0; j < this->board->height(); j++)
+			this->board->set(i, j, false);
+}
 void Board::setBoard(std::vector<std::vector<bool> >& newBoard)
 {
 	// Making it empty
@@ -144,4 +148,14 @@ int Board::getStartY()
 {
 	return this->start_y;
 }
+
+void Board::setStartX(int x)
+{
+	this->start_x = x;
+}
+void Board::setStartY(int y)
+{
+	this->start_y = y;
+}
+
 

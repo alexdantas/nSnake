@@ -7,6 +7,11 @@
 // Avoiding circular #include hell.
 class Player;
 
+// Default starting point for
+// the player on every level
+#define BOARD_DEFAULT_PLAYER_X 2
+#define BOARD_DEFAULT_PLAYER_Y 2
+
 /// A level where the snake runs and eats fruits.
 ///
 /// @note I couldn't name this class "Level" because it could
@@ -34,10 +39,8 @@ public:
 	/// @param width   Whole level width
 	/// @param height  Whole level height
 	/// @param style   If the player will teleport when reaching the limits
-	/// @param start_x Player's starting position (x axis)
-	/// @param start_y Player's starting position (y ayis)
 	///
-	Board(int width, int height, Style style, int start_x=2, int start_y=2);
+	Board(int width, int height, Style style);
 
 	virtual ~Board();
 
@@ -58,6 +61,9 @@ public:
 	/// Makes the `Player` teleport if it's on a border.
 	void teleport(Player* player);
 
+	/// Makes the whole level empty.
+	void clear();
+
 	/// Sets the whole level content.
 	///
 	/// @param newBoard 2D matrix of booleans, telling if
@@ -74,6 +80,9 @@ public:
 
 	int getStartX();
 	int getStartY();
+
+	void setStartX(int x);
+	void setStartY(int y);
 
 private:
 	/// The actual level on the screen.

@@ -156,11 +156,13 @@ Board* BoardParser::load(std::string filename)
                              board_height,
                              ((Globals::Game::teleport) ?
                               Board::TELEPORT :
-                              Board::SOLID),
-                             player_start_x,
-                             player_start_y);
+                              Board::SOLID));
 
     board->setBoard(rawBoard);
+
+    board->setStartX(player_start_x);
+    board->setStartY(player_start_y);
+
     return board;
 }
 
