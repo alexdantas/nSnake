@@ -20,6 +20,10 @@ class GameStateMainMenu;
 class LayoutMainMenu: public Layout
 {
 public:
+	// Telling the compiler (clang) that we're
+	// hiding the parent's virtual function
+	using Layout::draw;
+
 	LayoutMainMenu(int width, int height, GameStateMainMenu* state);
 	virtual ~LayoutMainMenu();
 

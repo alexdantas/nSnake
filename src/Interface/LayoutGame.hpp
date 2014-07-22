@@ -11,6 +11,10 @@
 class LayoutGame: public Layout
 {
 public:
+	// Telling the compiler (clang) that we're
+	// hiding the parent's virtual function
+	using Layout::draw;
+
 	LayoutGame(Game* game, int width, int height);
 	virtual ~LayoutGame();
 

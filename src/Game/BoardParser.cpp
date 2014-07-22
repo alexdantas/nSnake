@@ -125,7 +125,7 @@ Board* BoardParser::load(std::string filename)
         // checking if it's a wall, blank space or the
         // player's starting point.
         //
-        for (int i = 0; i < current_line.size() - 2; i++)
+        for (size_t i = 0; i < current_line.size() - 2; i++)
         {
 	        if (current_line[i] == SNAKE_CHAR)
 	        {
