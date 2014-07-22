@@ -23,6 +23,10 @@ void MenuAlphabetic::add(MenuItem* item)
 	std::sort(this->item.begin(),
 	          this->item.end(),
 	          menuItemLess);
+
+	// TODO: make it keep pointing to the previous item
+	//       instead of jumping to the first
+	this->goFirst();
 }
 
 void MenuAlphabetic::handleInput()
