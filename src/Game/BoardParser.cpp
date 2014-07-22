@@ -5,10 +5,6 @@
 #include <vector>
 #include <string>
 
-#define COMMENT_CHAR ';'
-#define WALL_CHAR    '#'
-#define SNAKE_CHAR   '@'
-
 #include <Interface/Ncurses.hpp>
 #include <stdlib.h>
 
@@ -167,27 +163,4 @@ Board* BoardParser::load(std::string filename)
     board->setBoard(rawBoard);
     return board;
 }
-
-// int BoardParser::getStartingX(int player)
-// {
-//     if (player >= MAX_NUMBER_OF_PLAYERS)
-//         return 0;
-
-//     return (this->startingPosition[player].x);
-// }
-// int BoardParser::getStartingY(int player)
-// {
-//     if (player >= MAX_NUMBER_OF_PLAYERS)
-//         return 0;
-
-//     return (this->startingPosition[player].y);
-// }
-// int BoardParser::getPlayers()
-// {
-//     return (this->players);
-// }
-// std::string BoardParser::getName()
-// {
-//     return (this->name);
-// }
 
