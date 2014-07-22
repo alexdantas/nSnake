@@ -8,8 +8,12 @@
 ///
 namespace Dialog
 {
-	/// Shows #message on the screen.
-	void show(std::string message);
+	/// Shows a message on the screen.
+	///
+	/// @param message     Which string to show.
+	/// @param pressAnyKey If it should wait for pressing a single key
+	///
+	void show(std::string message, bool pressAnyKey=false);
 
 	/// Spawns a Dialog box asking for a yes-or-no #question.
 	/// Dialog optionally has a #title and a #default_value.

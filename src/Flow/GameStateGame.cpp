@@ -4,6 +4,7 @@
 #include <Interface/Dialog.hpp>
 #include <Interface/Ncurses.hpp>
 #include <Config/Globals.hpp>
+#include <Game/BoardParser.hpp>
 
 GameStateGame::GameStateGame():
 	game(NULL),
@@ -17,8 +18,16 @@ void GameStateGame::load(int stack)
 
 	Score::loadFile();
 
-	this->game = new Game();
-	this->game->start();
+	try {
+		this->game = new Game();
+		this->game->start();
+	}
+	catch (BoardParserException& e)
+	{
+		Dialog::show("Couldn't load the level! (Error: \"" + e.message + "\")", true);
+		this->willQuit = true;
+	}
+	// Anything else won't be dealed with.
 }
 int GameStateGame::unload()
 {
@@ -61,6 +70,7 @@ GameState::StateCode GameStateGame::update()
 }
 void GameStateGame::draw()
 {
-	this->game->draw();
+	if (! this->willQuit)
+		this->game->draw();
 }
 

@@ -13,7 +13,7 @@ Board* BoardParser::load(std::string filename)
     std::ifstream file(filename.c_str());
 
     if (!(file.is_open()))
-        return NULL;
+	    throw BoardParserException("Can't open file '" + filename + "'");
 
 //    if (!(file.good())) what does it do?
 
@@ -35,7 +35,7 @@ Board* BoardParser::load(std::string filename)
 	    {
 		    // End-of-file...
 		    // Something wrong happened
-		    return NULL;
+		    throw BoardParserException("Abrupt ending of file");
 	    }
 
 	    // Ignoring comments and empty lines
@@ -105,7 +105,7 @@ Board* BoardParser::load(std::string filename)
     while (true)
     {
 	    if (!std::getline(file, current_line))
-		    return NULL;
+		    throw BoardParserException("Abrupt ending of file");
 
 	    // Ignoring comments and empty lines
 	    if ((current_line[0] == COMMENT_CHAR) ||

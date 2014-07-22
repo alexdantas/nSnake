@@ -3,6 +3,23 @@
 
 #include <Game/Board.hpp>
 
+#include <exception>
+
+/// Custom exception class to specify an error that
+/// occurred during a level loading.
+///
+class BoardParserException : public std::exception
+{
+public:
+	BoardParserException(std::string message):
+		message(message)
+	{ }
+	~BoardParserException() throw()
+	{ }
+
+	std::string message;
+};
+
 #define COMMENT_CHAR ';'
 #define WALL_CHAR    '#'
 #define SNAKE_CHAR   '@'

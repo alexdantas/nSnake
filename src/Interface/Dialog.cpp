@@ -1,12 +1,13 @@
 #include <Interface/Dialog.hpp>
 #include <Interface/Layout.hpp>
 #include <Interface/Menu/Menu.hpp>
+#include <Interface/Ncurses.hpp>
 #include <Config/Globals.hpp>
 #include <Flow/InputManager.hpp>
 
 #include <vector>
 
-void Dialog::show(std::string message)
+void Dialog::show(std::string message, bool pressAnyKey)
 {
 	int windowx = Layout::screenWidth/2 - (message.size() + 2)/2;
 	int windowy = Layout::screenHeight/2 - 3/2;
@@ -22,9 +23,19 @@ void Dialog::show(std::string message)
 		               Window::BORDER_FANCY :
 		               Window::BORDER_REGULAR);
 	}
+
+	// Before showing anything on the screen we must
+	// call `refresh()`, to... well, refresh the
+	// main screen buffer
+	refresh();
+
 	dialog.print(message, 1, 1);
 	dialog.refresh();
 	refresh();
+
+	// Wait forever to get any key...
+	if (pressAnyKey)
+		Ncurses::getInput(-1);
 }
 
 bool Dialog::askBool(std::string question, std::string title, bool default_value)
