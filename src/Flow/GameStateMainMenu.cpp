@@ -17,7 +17,7 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 	// Single Player Submenu
 	START_GAME,
 	GO_BACK,
-	STARTING_LEVEL,
+	STARTING_SPEED,
 	TELEPORT,
 	FRUITS,
 	RANDOM_WALLS,
@@ -303,7 +303,7 @@ void GameStateMainMenu::createArcadeMenu()
 
 	MenuItemNumberbox* number;
 
-	number = new MenuItemNumberbox("Starting Level", STARTING_LEVEL, 1, 10, Globals::Game::starting_level);
+	number = new MenuItemNumberbox("Starting Speed", STARTING_SPEED, 1, 10, Globals::Game::starting_speed);
 	menuArcade->add(number);
 
 	number = new MenuItemNumberbox("Fruits", FRUITS, 1, 99, Globals::Game::fruits_at_once);
@@ -462,7 +462,7 @@ void GameStateMainMenu::saveSettingsMenuArcade()
 
 	// User selected an option
 	// Let's get ids from menu items
-	Globals::Game::starting_level = (unsigned int)this->menuArcade->getInt(STARTING_LEVEL);
+	Globals::Game::starting_speed = (unsigned int)this->menuArcade->getInt(STARTING_SPEED);
 	Globals::Game::fruits_at_once = this->menuArcade->getInt(FRUITS);
 	Globals::Game::random_walls = this->menuArcade->getBool(RANDOM_WALLS);
 	Globals::Game::teleport = this->menuArcade->getBool(TELEPORT);

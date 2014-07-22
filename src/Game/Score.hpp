@@ -7,7 +7,7 @@
 struct Score
 {
 	unsigned int points;
-	unsigned int level;
+	unsigned int speed;
 
 	Score();
 

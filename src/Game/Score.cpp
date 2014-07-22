@@ -7,7 +7,7 @@
 
 Score::Score():
 	points(0),
-	level(0)
+	speed(0)
 { }
 
 void Score::loadFile()
@@ -71,7 +71,7 @@ void Score::loadFile()
 		READ(board_size);
 
 		// Reading a high score
-		READ(score.level);
+		READ(score.speed);
 		READ(score.points);
 
 		// Will only care about the score if it's settings
@@ -80,11 +80,11 @@ void Score::loadFile()
 		    random_walls   == Globals::Game::random_walls   &&
 		    teleport       == Globals::Game::teleport       &&
 		    board_size     == Globals::Game::boardSizeToInt(Globals::Game::board_size) &&
-		    score.level    == Globals::Game::starting_level)
+		    score.speed    == Globals::Game::starting_speed)
 		{
 			found = true;
 
-			Globals::Game::highScore.level  = score.level;
+			Globals::Game::highScore.speed  = score.speed;
 			Globals::Game::highScore.points = score.points;
 		}
 
@@ -140,7 +140,7 @@ void Score::saveFile()
 		WRITE(size);
 
 		// Writing the high score
-		WRITE(Globals::Game::highScore.level);
+		WRITE(Globals::Game::highScore.speed);
 		WRITE(Globals::Game::highScore.points);
 		return;
 	}
@@ -163,7 +163,7 @@ void Score::saveFile()
 		READ(random_walls);
 		READ(teleport);
 		READ(board_size);
-		READ(score.level);
+		READ(score.speed);
 
 		// Will only care about the score if it's settings
 		// are exactly as the current Game's.
@@ -171,7 +171,7 @@ void Score::saveFile()
 		    random_walls   == Globals::Game::random_walls   &&
 		    teleport       == Globals::Game::teleport       &&
 		    board_size     == Globals::Game::boardSizeToInt(Globals::Game::board_size) &&
-		    score.level    == Globals::Game::highScore.level)
+		    score.speed    == Globals::Game::highScore.speed)
 		{
 			found = true;
 
@@ -199,7 +199,7 @@ void Score::saveFile()
 		int size = Globals::Game::boardSizeToInt(Globals::Game::board_size);
 		WRITE(size);
 
-		WRITE(Globals::Game::highScore.level);
+		WRITE(Globals::Game::highScore.speed);
 		WRITE(Globals::Game::highScore.points);
 	}
 }

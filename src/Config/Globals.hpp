@@ -73,7 +73,7 @@ namespace Globals
 
 	namespace Game
 	{
-		extern unsigned int starting_level;
+		extern unsigned int starting_speed;
 
 		extern int fruits_at_once;
 		extern bool random_walls;

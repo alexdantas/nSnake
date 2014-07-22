@@ -28,7 +28,7 @@ bool Globals::Screen::show_borders  = true;
 bool Globals::Screen::fancy_borders = true;
 bool Globals::Screen::outer_border  = true;
 
-unsigned int Globals::Game::starting_level          = 1;
+unsigned int Globals::Game::starting_speed          = 1;
 int          Globals::Game::fruits_at_once          = 1;
 bool         Globals::Game::random_walls            = false;
 bool         Globals::Game::teleport                = false;
@@ -225,7 +225,7 @@ void Globals::loadFile()
 
 	// unsigned ints are the exception - their overloading
 	// is ambiguous... I should consider removing them altogether
-	Globals::Game::starting_level = yaml.get("game", "starting_level", (int)Globals::Game::starting_level);
+	Globals::Game::starting_speed = yaml.get("game", "starting_speed", (int)Globals::Game::starting_speed);
 
 	// Special Cases
 
@@ -292,7 +292,7 @@ void Globals::saveFile()
 
 	// unsigned ints are the exception - their overloading
 	// is ambiguous... I should consider removing them altogether
-	yaml.set("game", "starting_level", (int)Globals::Game::starting_level);
+	yaml.set("game", "starting_speed", (int)Globals::Game::starting_speed);
 
 	// Special Cases
 

@@ -35,8 +35,8 @@ public:
 	bool willReturnToMenu();
 
 	/// Returns how much time (millisseconds) we need to wait
-	/// for a specific #level.
-	int getDelay(int level);
+	/// for a specific #speed.
+	int getDelay(int speed);
 
 	void pause(bool option);
 
@@ -50,7 +50,7 @@ protected:
 	bool userAskedToGoToMenu;
 
 	/// Timer that tells when to move the player, based
-	/// on the current level).
+	/// on the current speed).
 	Timer timerSnake;
 
 	// Times how long the user have been playing the game.

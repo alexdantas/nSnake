@@ -54,7 +54,7 @@ void Game::start()
 
 	// Initializing the player and it's attributes
 	this->score = new Score();
-	this->score->level = Globals::Game::starting_level;
+	this->score->speed = Globals::Game::starting_speed;
 
 	// Creating the menu and adding each item
 	this->pauseMenu = new Menu(1,
@@ -229,7 +229,7 @@ void Game::update()
 	// Forcing Snake to move if enough time has passed
 	// (time based on current level)
 	this->timerSnake.pause();
-	int delta = this->getDelay(this->score->level);
+	int delta = this->getDelay(this->score->speed);
 
 	if (this->timerSnake.delta_ms() >= delta)
 	{
@@ -242,7 +242,7 @@ void Game::update()
 			if (this->score->points > Globals::Game::highScore.points)
 			{
 				Globals::Game::highScore.points = this->score->points;
-				Globals::Game::highScore.level = this->score->level;
+				Globals::Game::highScore.speed  = this->score->speed;
 			}
 		}
 		else
@@ -257,7 +257,7 @@ void Game::update()
 				// Score formula is kinda random and
 				// scattered all over this file.
 				// TODO: Center it all on the Score class.
-				this->score->points += this->score->level * 2;
+				this->score->points += this->score->speed * 2;
 			}
 
 			this->fruits->update(this->player, this->board);
@@ -283,12 +283,12 @@ bool Game::willReturnToMenu()
 {
 	return this->userAskedToGoToMenu;
 }
-int Game::getDelay(int level)
+int Game::getDelay(int speed)
 {
 	// returning delay in milliseconds
-	if (level < 1) return 800;
+	if (speed < 1) return 800;
 
-	switch (level)
+	switch (speed)
 	{
 	case 1:  return 800;
 	case 2:  return 600;

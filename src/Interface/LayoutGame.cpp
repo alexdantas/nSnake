@@ -132,14 +132,14 @@ void LayoutGame::draw(Menu* menu)
 
 	this->info->print("Hi-Score", 0, 0, hilite);
 	this->info->print("Score",    this->info->getW()/3, 0, hilite);
-	this->info->print("Level",    this->info->getW()/3 * 2, 0, hilite);
+	this->info->print("Speed",    this->info->getW()/3 * 2, 0, hilite);
 
 	// Default color
 	wattrset(this->info->win, COLOR_PAIR(0));
 
 	mvwprintw(this->info->win, 0, 9, "%u", Globals::Game::highScore.points);
 	mvwprintw(this->info->win, 0, this->info->getW()/3 + 6, "%u", this->game->score->points);
-	mvwprintw(this->info->win, 0, this->info->getW()/3 * 2 + 6, "%d", this->game->score->level);
+	mvwprintw(this->info->win, 0, this->info->getW()/3 * 2 + 6, "%d", this->game->score->speed);
 
 	// 	// Timer - how much time has passed since game start
 	// 	this->rightmost->print("Timer", 2, 10, hilite);
