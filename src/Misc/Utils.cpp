@@ -26,6 +26,7 @@
 #include <iostream>	   // ofstream
 #include <fstream>	   // ofstream
 #include <stdlib.h>	   // system()
+#include <algorithm>
 
 // C++11 compatibility
 // I wish I could use those:
@@ -329,5 +330,17 @@ std::vector<std::string> Utils::String::split(const std::string& str, char delim
 		elems.push_back(Utils::String::trim(item));
 
 	return elems;
+}
+
+bool Utils::String::caseInsensitiveSmallerChar(const char x, const char y)
+{
+	return (std::tolower(x) < std::tolower(y));
+}
+
+bool Utils::String::caseInsensitiveSmallerString(const std::string &a, const std::string &b)
+{
+	return std::lexicographical_compare(a.begin(), a.end(),
+	                                    b.begin(), b.end(),
+	                                    Utils::String::caseInsensitiveSmallerChar);
 }
 

@@ -184,6 +184,25 @@ namespace Utils
 		///         before and string after `delimit`.
 		///
 		std::vector<std::string> split(const std::string& str, char delim);
+
+		/// Tells if some character is smaller than other
+		/// independently of it's case (upcase or smallcase).
+		///
+		bool caseInsensitiveSmallerChar(const char x, const char y);
+
+		/// Tells if a whole string is smaller than other
+		/// independently of it's case (upcase or smallcase).
+		///
+		/// This allows sorting a vector of strings case insensitively.
+		/// in a very easy way. Look at it:
+		///
+		///     std::sort(vector.begin(),
+		///               vector.end(),
+		///               Utils::String::caseInsensitiveSmallerString);
+		///
+		/// Thanks to: Philip Nicoletti
+		///
+		bool caseInsensitiveSmallerString(const std::string &a, const std::string &b);
 	};
 };
 
