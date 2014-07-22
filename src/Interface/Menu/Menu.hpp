@@ -107,7 +107,7 @@ public:
 	///       the pointer itself!
 	MenuItem* current;
 
-private:
+protected:
 	/// Index of the currently selected item.
 	unsigned int currentIndex;
 
