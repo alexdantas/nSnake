@@ -31,10 +31,12 @@ void MenuAlphabetic::handleInput()
 
 	// This is very ugly...
 
-	if (InputManager::pressedKey >= 'a' && InputManager::pressedKey <= 'z')
+	char key = std::tolower(InputManager::pressedKey);
+
+	if (key >= 'a' && key <= 'z')
 	{
 		for (size_t i = 0; i < this->item.size(); i++)
-			if (this->item[i]->label[0] == InputManager::pressedKey)
+			if (std::tolower(this->item[i]->label[0]) == key)
 			{
 				this->currentIndex = i;
 				this->current = this->item[i];
