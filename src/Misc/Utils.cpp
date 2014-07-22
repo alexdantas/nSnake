@@ -247,6 +247,62 @@ std::string Utils::File::getUser()
 
 	return s.substr(pos + 1);
 }
+std::string Utils::File::basename(std::string path)
+{
+#if defined(_WIN32)  && !defined(__CYGWIN__)
+	char separator = '\\';
+#else
+	char separator = '/';
+#endif
+
+	size_t position = path.rfind(separator);
+
+	// Didn't find
+	if (position == std::string::npos)
+		return path;
+
+	// Return from position to the end
+	return path.substr(position);
+}
+std::string Utils::File::dropBasename(std::string path)
+{
+	std::string basename = Utils::File::basename(path);
+	if (basename.empty())
+		return path;
+
+	size_t position = path.find(basename);
+
+	if (position == std::string::npos)
+		return "";
+
+	// Return from start to position
+	return path.substr(0, position);
+}
+std::string Utils::File::extension(std::string path)
+{
+	size_t position = path.rfind('.');
+
+	if ((position == std::string::npos) || // Didn't find
+	    (position == 0))                   // File name starts with a dot
+		return "";
+
+	// Return from after the dot to the end
+	return path.substr(position + 1);
+}
+std::string Utils::File::dropExtension(std::string path)
+{
+	std::string extension = Utils::File::extension(path);
+	if (extension.empty())
+		return path;
+
+	size_t position = path.find(extension);
+
+	if (position == std::string::npos)
+		return "";
+
+	// Return from start to position
+	return path.substr(0, position);
+}
 
 //  __  _____  ___   _   _      __
 // ( (`  | |  | |_) | | | |\ | / /`_

@@ -102,6 +102,42 @@ namespace Utils
 
 		/// Gets the user name of the person running this program.
 		std::string getUser();
+
+		/// Returns the component of a pathname (file name and extension).
+		///
+		/// - If we have "/path/to/something.txt" it returns "something.txt"
+		/// - If we have "something.txt" it returns "something.txt"
+		///
+		/// @note It auto-detects the separator for Windows ('\')
+		///       and UNIX-based systems ('/')
+		///
+		/// Thanks to this huge list of OS-specific defines:
+		/// http://sourceforge.net/p/predef/wiki/OperatingSystems/
+		std::string basename(std::string path);
+
+		/// Returns the full pathname up to the last component.
+		///
+		/// - If we have "/path/to/something.txt" it returns "/path/to"
+		/// - If we have "something.txt" it returns ""
+		///
+		std::string dropBasename(std::string path);
+
+		/// Returns the extension of a file.
+		///
+		/// @note It doesn't return the dot.
+		///
+		/// - If we have "/path/to/file.txt" it returns "txt"
+		/// - If we have "filename.DLL" it returns "DLL"
+		/// - If we have ".hidden" it returns ""
+		/// - If we have "none" it returns ""
+		///
+		/// @note Works with full paths or single filenames.
+		std::string extension(std::string path);
+
+		/// Returns the filename without it's extension.
+		///
+		/// @note Works with full paths or single filenames.
+		std::string dropExtension(std::string path);
 	};
 
 	namespace String
