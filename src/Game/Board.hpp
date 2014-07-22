@@ -7,6 +7,20 @@
 // Avoiding circular #include hell.
 class Player;
 
+/// A level where the snake runs and eats fruits.
+///
+/// @note I couldn't name this class "Level" because it could
+///       get confusing with the concept of game speed, which is
+///       also based on the word "Level".
+///
+/// This class represents a single level the snake can play on.
+///
+/// It is essentially a 2D matrix of tiles, where each can be
+/// either "Walls" or "Empty.
+///
+/// It also contains some extra info, like the position where
+/// the player should spawn, and (if this level was created by
+/// someone) the author, date and stuff.
 ///
 class Board
 {
@@ -41,8 +55,14 @@ public:
 	/// to move a little bit when starting.
 	void randomlyFillExceptBy(int x, int y);
 
+	/// Makes the `Player` teleport if it's on a border.
 	void teleport(Player* player);
 
+	/// Sets the whole level content.
+	///
+	/// @param newBoard 2D matrix of booleans, telling if
+	///                 there's a "Wall" on that tile or not.
+	///
 	void setBoard(std::vector<std::vector<bool> >& newBoard);
 
 	/// Tells if the player will teleport when
