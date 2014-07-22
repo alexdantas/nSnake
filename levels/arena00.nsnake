@@ -1,0 +1,54 @@
+; This is a level file for the nSnake game
+; It has a very simple format:
+;
+; - All lines starting with ';' are comments
+;   and will be ignored
+; - Blank lines are also ignored
+; - You can provide some level metadata
+;   before the level. Just make sure to
+;   - Put the field name without spaces right
+;     next to '=', for example "name=" or "author=".
+;   - The metadata's content goes right after '='
+;     until the end of line.
+; - All the level's contents must be between
+;   lines with only "start" and "end".
+;
+; About the level itself:
+;
+; - Walls are marked with '#'
+; - Player start position is marked with '@'.
+;   Note that the player will always start to the right
+; - Everything else is treated as empty space.
+;   I highly recommend using ' ' for this.
+;
+; Any questions, message me at <eu@alexdantas.net>. Enjoy!
+
+name=Arena 00
+author=Alexandre Dantas
+date=Jul 22, 2014
+comment=The very first level made for nSnake!
+
+start
+##############################################################################
+#                                                                            #
+#                                                                            #
+#     @                                                                      #
+#                                                                            #
+#         ########################           ######################          #
+#         #                                                       #          #
+#         #                                                       #          #
+#         #                          #                            #          #
+#                                    #                                       #
+#                                    #####                                   #
+#                                        #                                   #
+#         #                              #                        #          #
+#         #                                                       #          #
+#         #                                                       #          #
+#         ########################           ######################          #
+#                                                                            #
+#                                                                            #
+#                                                                            #
+#                                                                            #
+##############################################################################
+end
+
