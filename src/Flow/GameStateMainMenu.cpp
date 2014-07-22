@@ -4,6 +4,7 @@
 #include <Interface/Dialog.hpp>
 #include <Misc/Utils.hpp>
 #include <Config/Globals.hpp>
+#include <Game/BoardParser.hpp>
 
 enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 {
@@ -371,14 +372,13 @@ void GameStateMainMenu::createLevelsMenu()
 
 	MenuItem* item;
 
-	item = new MenuItem("zyx", 0);
-	menuLevels->add(item);
-	item = new MenuItem("lel", 1);
-	menuLevels->add(item);
-	item = new MenuItem("abc", 2);
-	menuLevels->add(item);
-	item = new MenuItem("sss", 3);
-	menuLevels->add(item);
+	std::vector<std::string> levels = BoardParser::listLevels();
+
+	for (size_t i = 0; i < levels.size(); i++)
+	{
+		item = new MenuItem(levels[i], i);
+		menuLevels->add(item);
+	}
 }
 void GameStateMainMenu::createOptionsMenu()
 {

@@ -38,7 +38,14 @@ public:
     static Board* load(std::string filename);
 
     /// TODO
-	bool save(Board* board, std::string filename);
+	static bool save(Board* board, std::string filename);
+
+	/// Lists all levels found by the game.
+	///
+	/// It looks on standard level locations.
+	/// Whatever that might mean.
+	///
+	static std::vector<std::string> listLevels();
 };
 
 #endif //BOARDPARSER_H_DEFINED

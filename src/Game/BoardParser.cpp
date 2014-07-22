@@ -176,4 +176,21 @@ Board* BoardParser::load(std::string filename)
 
     return board;
 }
+std::vector<std::string> BoardParser::listLevels()
+{
+	std::vector<std::string> levels = Utils::File::ls("./levels");
+
+	// We'll go through each file, removing from
+	// the vector if it doesn't end with ".nsnake"
+	//
+	for (std::vector<std::string>::iterator it = levels.begin();
+	     it != levels.end();
+	     ++it)
+	{
+		if ((*it).find(".nsnake") == std::string::npos)
+			levels.erase(it);
+	}
+
+	return levels;
+}
 
