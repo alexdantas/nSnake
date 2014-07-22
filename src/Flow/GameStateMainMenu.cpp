@@ -109,6 +109,7 @@ GameState::StateCode GameStateMainMenu::update()
 				break;
 
 			case GO_BACK:
+				this->layout->menu->setTitle("Main Menu");
 				this->menuArcadeActivated = false;
 				break;
 			}
@@ -129,6 +130,7 @@ GameState::StateCode GameStateMainMenu::update()
 			switch(this->menuOptions->currentID())
 			{
 			case GO_BACK:
+				this->layout->menu->setTitle("Main Menu");
 				this->menuOptionsActivated = false;
 
 				// Redrawing the screen to refresh settings
@@ -161,6 +163,7 @@ GameState::StateCode GameStateMainMenu::update()
 			switch(this->menuControls->currentID())
 			{
 			case GO_BACK:
+				this->layout->menu->setTitle("Main Menu");
 				this->menuControlsActivated = false;
 				break;
 
@@ -221,10 +224,12 @@ GameState::StateCode GameStateMainMenu::update()
 			switch(this->menu->currentID())
 			{
 			case ARCADE:
+				this->layout->menu->setTitle("Arcade");
 				this->menuArcadeActivated = true;
 				break;
 
 			case LEVELS:
+				this->layout->menu->setTitle("Levels");
 				this->menuLevelsActivated = true;
 				break;
 
@@ -233,10 +238,12 @@ GameState::StateCode GameStateMainMenu::update()
 				break;
 
 			case OPTIONS:
+				this->layout->menu->setTitle("Options");
 				this->menuOptionsActivated = true;
 				break;
 
 			case CONTROLS:
+				this->layout->menu->setTitle("Controls");
 				this->menuControlsActivated = true;
 				break;
 
