@@ -4,6 +4,8 @@
 #include <Misc/Array2D.hpp>
 #include <Interface/Window.hpp>
 
+#include <map>
+
 // Avoiding circular #include hell.
 class Player;
 
@@ -84,6 +86,21 @@ public:
 	void setStartX(int x);
 	void setStartY(int y);
 
+	// Things related to metadata
+	// (author name, date made, comments, and more)
+
+	/// Sets a meta information from this level.
+	void setMetadata(std::string name, std::string value);
+
+	/// Gets a meta information from this level.
+	///
+	/// @return Requested info or empty string if not exists.
+	///
+	std::string getMetadata(std::string name);
+
+	/// Tells if this level has a specific information attached.
+	bool hasMetadata(std::string name);
+
 private:
 	/// The actual level on the screen.
 	/// `true` means there's a wall here.
@@ -92,6 +109,9 @@ private:
 
 	int start_x; ///< Where the player will start (x axis)
 	int start_y; ///< Where the player will start (y axis)
+
+	/// Contains all this level's metadata.
+	std::map<std::string, std::string> metadata;
 };
 
 #endif //BOARD_H_DEFINED

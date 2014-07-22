@@ -158,4 +158,20 @@ void Board::setStartY(int y)
 	this->start_y = y;
 }
 
+void Board::setMetadata(std::string name, std::string value)
+{
+	this->metadata[name] = value;
+}
+std::string Board::getMetadata(std::string name)
+{
+	if (! this->hasMetadata(name))
+		return "";
+
+	return this->metadata[name];
+}
+bool Board::hasMetadata(std::string name)
+{
+	return (this->metadata.find(name) == this->metadata.end());
+}
+
 

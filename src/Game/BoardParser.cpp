@@ -163,6 +163,11 @@ Board* BoardParser::load(std::string filename)
     board->setStartX(player_start_x);
     board->setStartY(player_start_y);
 
+    if (! level_name.empty())    board->setMetadata("name",    level_name);
+    if (! level_author.empty())  board->setMetadata("author",  level_author);
+    if (! level_date.empty())    board->setMetadata("date",    level_date);
+    if (! level_comment.empty()) board->setMetadata("comment", level_comment);
+
     return board;
 }
 
