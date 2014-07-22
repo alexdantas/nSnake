@@ -6,17 +6,12 @@
 #include <vector>
 #include <string>
 
-#include <Interface/Ncurses.hpp>
-#include <stdlib.h>
-
 Board* BoardParser::load(std::string filename)
 {
     std::ifstream file(filename.c_str());
 
     if (!(file.is_open()))
 	    throw BoardParserException("Can't open file '" + filename + "'");
-
-//    if (!(file.good())) what does it do?
 
     // Tells what's the current line on the file
     // (independent of comments and empty lines)
@@ -162,10 +157,6 @@ Board* BoardParser::load(std::string filename)
     // and height is just like this
     int board_width  = rawBoard[0].size();
     int board_height = rawBoard.size();
-
-    // Ncurses::exit();
-    // std::cout << board_width << ' ' << board_height << std::endl;
-    // exit(0);
 
     Board* board = new Board(board_width,
                              board_height,
