@@ -49,6 +49,8 @@ GameStateMainMenu::GameStateMainMenu():
 	menu(NULL),
 	menuArcade(NULL),
 	menuArcadeActivated(false),
+	menuLevels(NULL),
+	menuLevelsActivated(false),
 	menuOptions(NULL),
 	menuOptionsActivated(false),
 	menuControls(NULL),
@@ -64,6 +66,7 @@ void GameStateMainMenu::load(int stack)
 
 	createMainMenu();
 	createArcadeMenu();
+	createLevelsMenu();
 	createOptionsMenu();
 	createControlsMenu();
 
@@ -110,6 +113,11 @@ GameState::StateCode GameStateMainMenu::update()
 			}
 			this->menuArcade->reset();
 		}
+	}
+	else if (this->menuLevelsActivated)
+	{
+		this->menuLevels->handleInput();
+
 	}
 	else if (this->menuOptionsActivated)
 	{
@@ -216,6 +224,7 @@ GameState::StateCode GameStateMainMenu::update()
 				break;
 
 			case LEVELS:
+				this->menuLevelsActivated = true;
 				break;
 
 			case HELP:
@@ -246,6 +255,9 @@ void GameStateMainMenu::draw()
 {
 	if (this->menuArcadeActivated)
 		this->layout->draw(this->menuArcade);
+
+	else if (this->menuLevelsActivated)
+		this->layout->draw(this->menuLevels);
 
 	else if (this->menuOptionsActivated)
 		this->layout->draw(this->menuOptions);
@@ -347,6 +359,26 @@ void GameStateMainMenu::createArcadeMenu()
 	                            options,
 	                            defaullt);
 	menuArcade->add(list);
+}
+void GameStateMainMenu::createLevelsMenu()
+{
+	SAFE_DELETE(this->menuLevels);
+
+	this->menuLevels = new MenuAlphabetic(1,
+	                                      1,
+	                                      this->layout->menu->getW() - 2,
+	                                      this->layout->menu->getH() - 2);
+
+	MenuItem* item;
+
+	item = new MenuItem("zyx", 0);
+	menuLevels->add(item);
+	item = new MenuItem("lel", 1);
+	menuLevels->add(item);
+	item = new MenuItem("abc", 2);
+	menuLevels->add(item);
+	item = new MenuItem("sss", 3);
+	menuLevels->add(item);
 }
 void GameStateMainMenu::createOptionsMenu()
 {

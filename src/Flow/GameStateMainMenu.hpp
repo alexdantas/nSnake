@@ -4,6 +4,7 @@
 #include <Flow/GameState.hpp>
 #include <Interface/LayoutMainMenu.hpp>
 #include <Interface/Menu/Menu.hpp>
+#include <Interface/Menu/MenuAlphabetic.hpp>
 #include <Interface/WindowGameHelp.hpp>
 
 /// The Main Menu.
@@ -38,6 +39,9 @@ private:
 	Menu* menuArcade;
 	bool menuArcadeActivated;
 
+	MenuAlphabetic* menuLevels;
+	bool menuLevelsActivated;
+
 	Menu* menuOptions;
  	bool menuOptionsActivated;
 
@@ -49,6 +53,7 @@ private:
 	// easily create internal menus
 	void createMainMenu();
 	void createArcadeMenu();
+	void createLevelsMenu();
 	void createOptionsMenu();
 	void createControlsMenu();
 	void saveSettingsMenuOptions();
