@@ -82,4 +82,22 @@ void MenuAlphabetic::handleInput()
 			}
 	}
 }
+void MenuAlphabetic::goRandom()
+{
+	// See specific behavior on `MenuAlphabetic::add`
+	//
+	// Start looking only after the first Blank item.
+	int startingIndex = 0;
+
+	for (size_t i = 0; i < this->item.size(); i++)
+		if (this->item[i] == NULL)
+		{
+			startingIndex = i;
+			break;
+		}
+
+
+	this->currentIndex = Utils::Random::between(startingIndex + 1, this->item.size() - 1);
+	this->current      = this->item[this->currentIndex];
+}
 

@@ -15,6 +15,10 @@ public:
 
 	void add(MenuItem* item);
 	void handleInput();
+
+	/// Selects a random item right AFTER the first
+	/// blank one.
+	void goRandom();
 };
 
 #endif //MENUALPHABETIC_H_DEFINED
