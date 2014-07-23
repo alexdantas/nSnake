@@ -180,15 +180,28 @@ std::vector<std::string> BoardParser::listLevels()
 {
 	std::vector<std::string> levels = Utils::File::ls("./levels");
 
-	// We'll go through each file, removing from
-	// the vector if it doesn't end with ".nsnake"
+	// Remove files that doesn't end with ".nsnake".
+	//
+	// Also, don't store the full path, only it's basename
+	// (like "file" and not "/path/to/file")
 	//
 	for (std::vector<std::string>::iterator it = levels.begin();
 	     it != levels.end();
 	     ++it)
 	{
-		if ((*it).find(".nsnake") == std::string::npos)
-			levels.erase(it);
+		if (Utils::File::extension(*it) == "nsnake")
+			(*it) = (Utils::File::dropExtension(Utils::File::basename((*it))));
+
+		else
+		{
+			// When we remove an element of a vector
+			// it points to the next element.
+			it = levels.erase(it);
+
+			// We need to decrement it because the `for`
+			// will increment at the end
+			--it;
+		}
 	}
 
 	return levels;

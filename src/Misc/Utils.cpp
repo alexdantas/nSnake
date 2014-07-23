@@ -261,8 +261,8 @@ std::string Utils::File::basename(std::string path)
 	if (position == std::string::npos)
 		return path;
 
-	// Return from position to the end
-	return path.substr(position);
+	// Return from after the separator to the end
+	return path.substr(position + 1);
 }
 std::string Utils::File::dropBasename(std::string path)
 {
@@ -275,8 +275,8 @@ std::string Utils::File::dropBasename(std::string path)
 	if (position == std::string::npos)
 		return "";
 
-	// Return from start to position
-	return path.substr(0, position);
+	// Return from start to before the separator
+	return path.substr(0, position - 1);
 }
 std::string Utils::File::extension(std::string path)
 {
@@ -300,8 +300,8 @@ std::string Utils::File::dropExtension(std::string path)
 	if (position == std::string::npos)
 		return "";
 
-	// Return from start to position
-	return path.substr(0, position);
+	// Return from start to (and including) the dot
+	return path.substr(0, position - 1);
 }
 
 //  __  _____  ___   _   _      __
