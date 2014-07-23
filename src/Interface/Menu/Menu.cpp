@@ -272,6 +272,14 @@ void Menu::goLast()
 	if (! this->current)
 		this->goPrevious();
 }
+void Menu::goRandom()
+{
+	if (this->item.size() == 0)
+		return;
+
+	this->currentIndex = Utils::Random::between(0, this->item.size() - 1);
+	this->current      = this->item[this->currentIndex];
+}
 bool Menu::willQuit()
 {
 	// Will only quit if the user selected an item

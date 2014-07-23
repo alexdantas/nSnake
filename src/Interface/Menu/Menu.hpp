@@ -64,6 +64,7 @@ public:
 
 	void goFirst();
 	void goLast();
+	void goRandom();
 
 	/// Tells if the user selected an item that quits the menu.
 	bool willQuit();
