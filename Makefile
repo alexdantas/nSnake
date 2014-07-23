@@ -38,7 +38,7 @@
 
 # General Info
 PACKAGE = nsnake
-VERSION = 2.0.7
+VERSION = 2.0.8
 DATE    = $(shell date "+%b%Y")
 
 # Install dirs
@@ -199,4 +199,3 @@ docclean:
 $(COMMANDERDIR)/commander.o: $(COMMANDERDIR)/commander.c
 	# Compiling $<...
 	$(MUTE)$(CC) $(COMMANDER_CFLAGS) $< -c -o $@
-
