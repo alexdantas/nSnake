@@ -403,7 +403,7 @@ void GameStateMainMenu::createLevelsMenu()
 
 	menuLevels->addBlank();
 
-	for (size_t i = 1; i < levels.size(); i++)
+	for (size_t i = 0; i < levels.size(); i++)
 	{
 		item = new MenuItem(levels[i], i);
 		menuLevels->add(item);
