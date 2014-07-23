@@ -44,6 +44,7 @@ void MenuAlphabetic::handleInput()
 			{
 				this->currentIndex = i;
 				this->current = this->item[i];
+				break;
 			}
 	}
 }
