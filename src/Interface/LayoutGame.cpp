@@ -41,7 +41,7 @@ void LayoutGame::windowsInit()
 	                         this->main->getW() / 4,
 	                         this->main->getH() / 2 - 1, //center
 	                         this->main->getW() / 2,
-	                         6);
+	                         7);
 
 	if (Globals::Screen::show_borders)
 	{

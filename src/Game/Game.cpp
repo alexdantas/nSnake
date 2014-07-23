@@ -10,7 +10,7 @@
 // Options of the Pause Menu
 enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 {
-	RESUME, QUIT_MENU, QUIT_GAME
+	RESUME, RESTART, QUIT_MENU, QUIT_GAME
 };
 
 Game::Game():
@@ -48,6 +48,7 @@ void Game::start(std::string levelName)
 	this->userAskedToQuit     = false;
 	this->userAskedToGoToMenu = false;
 	this->gameOver            = false;
+	this->isPaused            = false;
 
 	// The interface
 	this->layout = new LayoutGame(this, 80, 24);
@@ -65,6 +66,9 @@ void Game::start(std::string levelName)
 	MenuItem* item;
 
 	item = new MenuItem("Resume", RESUME);
+	this->pauseMenu->add(item);
+
+	item = new MenuItem("Restart", RESTART);
 	this->pauseMenu->add(item);
 
 	this->pauseMenu->addBlank();
@@ -210,6 +214,10 @@ void Game::update()
 			case RESUME:
 				this->pause(false);
 				break;
+
+			case RESTART:
+				this->start(Globals::Game::current_level);
+				return;
 
 			case QUIT_MENU:
 				this->userAskedToGoToMenu = true;
