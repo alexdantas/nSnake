@@ -35,7 +35,7 @@ Game::~Game()
 	SAFE_DELETE(this->board);
 	SAFE_DELETE(this->fruits);
 }
-void Game::start()
+void Game::start(std::string levelName)
 {
 	// Cleaning things from the previous game (if any)
 	SAFE_DELETE(this->layout);
@@ -90,15 +90,13 @@ void Game::start()
 		boardh = 14;
 	}
 
-	this->board = BoardParser::load("arena00");
+	if (! levelName.empty())
+		this->board = BoardParser::load(levelName);
 
-	if (! this->board)
+	else
 	{
-		// If something wrong happens when loading the
-		// level, silently falls back to a default one
-		//
-		// TODO improve on this error handling - show
-		//      a dialog, perhaps?
+		// If no level name is specified, silently
+		// fall back to a default one.
 
 		this->board = new Board(boardw,
 		                        boardh,

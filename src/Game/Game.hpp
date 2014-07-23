@@ -21,7 +21,18 @@ public:
 	Game();
 	virtual ~Game();
 
-	void start();
+	/// Starts game, optionally loading a level.
+	///
+	/// @note This is not the path to the level file!
+	///       It's merely a level name.
+	///
+	/// @see BoardParser::load
+	///
+	/// @note If no level name is specified, will default
+	///       to an empty box.
+	///
+	void start(std::string levelName="");
+
 	void handleInput();
 	void update();
 	void draw();
