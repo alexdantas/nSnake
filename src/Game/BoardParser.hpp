@@ -30,12 +30,21 @@ public:
 class BoardParser
 {
 public:
+    /// Loads and parses level with *name*.
+    ///
+    /// @note It looks for it on standard levels location,
+    ///       whatever that might mean.
+    ///
+    /// @see loadFile
+    ///
+    static Board* load(std::string filename);
+
     /// Loads and parses the level at *filename*.
     ///
     /// @return A new `Board` if successful, NULL if failed.
     /// @note Make sure to delete it later!
     ///
-    static Board* load(std::string filename);
+    static Board* loadFile(std::string filename);
 
     /// TODO
 	static bool save(Board* board, std::string filename);

@@ -90,7 +90,7 @@ void Game::start()
 		boardh = 14;
 	}
 
-	this->board = BoardParser::load("levels/arena00.nsnake");
+	this->board = BoardParser::load("arena00");
 
 	if (! this->board)
 	{

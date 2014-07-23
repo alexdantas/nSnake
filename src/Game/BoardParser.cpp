@@ -6,8 +6,16 @@
 #include <vector>
 #include <string>
 
-Board* BoardParser::load(std::string filename)
+Board* BoardParser::load(std::string name)
 {
+	std::string filename = "levels/" + name + ".nsnake";
+
+	return BoardParser::loadFile(filename);
+}
+
+Board* BoardParser::loadFile(std::string filename)
+{
+
     std::ifstream file(filename.c_str());
 
     if (!(file.is_open()))
