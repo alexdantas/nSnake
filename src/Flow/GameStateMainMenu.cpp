@@ -11,8 +11,9 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 	// Main Menu
 	ARCADE,
 	LEVELS,
+	GAME_SETTINGS,
 	HELP,
-	OPTIONS,
+	GUI_OPTIONS,
 	CONTROLS,
 	QUIT_GAME,
 
@@ -52,8 +53,8 @@ GameStateMainMenu::GameStateMainMenu():
 	menuArcadeActivated(false),
 	menuLevels(NULL),
 	menuLevelsActivated(false),
-	menuOptions(NULL),
-	menuOptionsActivated(false),
+	menuGUIOptions(NULL),
+	menuGUIOptionsActivated(false),
 	menuControls(NULL),
 	menuControlsActivated(false),
 	helpWindows(NULL)
@@ -68,7 +69,7 @@ void GameStateMainMenu::load(int stack)
 	createMainMenu();
 	createArcadeMenu();
 	createLevelsMenu();
-	createOptionsMenu();
+	createGUIOptionsMenu();
 	createControlsMenu();
 
 	this->helpWindows = new WindowGameHelp();
@@ -77,11 +78,11 @@ void GameStateMainMenu::load(int stack)
 int GameStateMainMenu::unload()
 {
 	saveSettingsMenuArcade();
-	saveSettingsMenuOptions();
+	saveSettingsMenuGUIOptions();
 
 	SAFE_DELETE(this->layout);
 	SAFE_DELETE(this->menuControls);
-	SAFE_DELETE(this->menuOptions);
+	SAFE_DELETE(this->menuGUIOptions);
 	SAFE_DELETE(this->menuArcade);
 	SAFE_DELETE(this->menu);
 
@@ -140,20 +141,20 @@ GameState::StateCode GameStateMainMenu::update()
 			this->menuLevels->reset();
 		}
 	}
-	else if (this->menuOptionsActivated)
+	else if (this->menuGUIOptionsActivated)
 	{
-		this->menuOptions->handleInput();
+		this->menuGUIOptions->handleInput();
 
-		if (this->menuOptions->willQuit())
+		if (this->menuGUIOptions->willQuit())
 		{
-			switch(this->menuOptions->currentID())
+			switch(this->menuGUIOptions->currentID())
 			{
 			case GO_BACK:
 				this->layout->menu->setTitle("Main Menu");
-				this->menuOptionsActivated = false;
+				this->menuGUIOptionsActivated = false;
 
 				// Redrawing the screen to refresh settings
-				saveSettingsMenuOptions();
+				saveSettingsMenuGUIOptions();
 				this->layout->windowsExit();
 				this->layout->windowsInit();
 				break;
@@ -168,7 +169,7 @@ GameState::StateCode GameStateMainMenu::update()
 				}
 				break;
 			}
-			this->menuOptions->reset();
+			this->menuGUIOptions->reset();
 		}
 	}
 	else if (this->menuControlsActivated)
@@ -256,9 +257,9 @@ GameState::StateCode GameStateMainMenu::update()
 				this->helpWindows->run();
 				break;
 
-			case OPTIONS:
-				this->layout->menu->setTitle("Options");
-				this->menuOptionsActivated = true;
+			case GUI_OPTIONS:
+				this->layout->menu->setTitle("GUI Options");
+				this->menuGUIOptionsActivated = true;
 				break;
 
 			case CONTROLS:
@@ -286,8 +287,8 @@ void GameStateMainMenu::draw()
 	else if (this->menuLevelsActivated)
 		this->layout->draw(this->menuLevels);
 
-	else if (this->menuOptionsActivated)
-		this->layout->draw(this->menuOptions);
+	else if (this->menuGUIOptionsActivated)
+		this->layout->draw(this->menuGUIOptions);
 
 	else if (this->menuControlsActivated)
 		this->layout->draw(this->menuControls);
@@ -319,7 +320,7 @@ void GameStateMainMenu::createMainMenu()
 	item = new MenuItem("Help", HELP);
 	menu->add(item);
 
-	item = new MenuItem("Options", OPTIONS);
+	item = new MenuItem("GUI Options", GUI_OPTIONS);
 	menu->add(item);
 
 	item = new MenuItem("Controls", CONTROLS);
@@ -411,11 +412,11 @@ void GameStateMainMenu::createLevelsMenu()
 		menuLevels->add(item);
 	}
 }
-void GameStateMainMenu::createOptionsMenu()
+void GameStateMainMenu::createGUIOptionsMenu()
 {
-	SAFE_DELETE(this->menuOptions);
+	SAFE_DELETE(this->menuGUIOptions);
 
-	this->menuOptions = new Menu(1,
+	this->menuGUIOptions = new Menu(1,
 	                             1,
 	                             this->layout->menu->getW() - 2,
 	                             this->layout->menu->getH() - 2);
@@ -423,42 +424,42 @@ void GameStateMainMenu::createOptionsMenu()
 	MenuItem* item;
 
 	item = new MenuItem("Back", GO_BACK);
-	menuOptions->add(item);
+	menuGUIOptions->add(item);
 
-	menuOptions->addBlank();
+	menuGUIOptions->addBlank();
 
 	MenuItemCheckbox* check;
 
 	check = new MenuItemCheckbox("Show Borders",
 	                             SHOW_BORDERS,
 	                             Globals::Screen::show_borders);
-	menuOptions->add(check);
+	menuGUIOptions->add(check);
 
 	check = new MenuItemCheckbox("Fancy Borders",
 	                             FANCY_BORDERS,
 	                             Globals::Screen::fancy_borders);
-	menuOptions->add(check);
+	menuGUIOptions->add(check);
 
 	check = new MenuItemCheckbox("Outer Border",
 	                             OUTER_BORDER,
 	                             Globals::Screen::outer_border);
-	menuOptions->add(check);
+	menuGUIOptions->add(check);
 
 	check = new MenuItemCheckbox("Center Horizontal",
 	                             CENTER_HORIZONTAL,
 	                             Globals::Screen::center_horizontally);
-	menuOptions->add(check);
+	menuGUIOptions->add(check);
 
 	check = new MenuItemCheckbox("Center Vertical",
 	                             CENTER_VERTICAL,
 	                             Globals::Screen::center_vertically);
-	menuOptions->add(check);
+	menuGUIOptions->add(check);
 
-	menuOptions->addBlank();
+	menuGUIOptions->addBlank();
 
 	item = new MenuItem("Erase High Scores",
 	                    ERASE_HIGH_SCORES);
-	menuOptions->add(item);
+	menuGUIOptions->add(item);
 }
 void GameStateMainMenu::createControlsMenu()
 {
@@ -512,18 +513,18 @@ void GameStateMainMenu::createControlsMenu()
 	item = new MenuItem("Reset to Defaults", CONTROLS_DEFAULT);
 	menuControls->add(item);
 }
-void GameStateMainMenu::saveSettingsMenuOptions()
+void GameStateMainMenu::saveSettingsMenuGUIOptions()
 {
-	if (!this->menuOptions)
+	if (!this->menuGUIOptions)
 		return;
 
 	// User selected an option
 	// Let's get ids from menu items
-	Globals::Screen::show_borders        = this->menuOptions->getBool(SHOW_BORDERS);
-	Globals::Screen::fancy_borders       = this->menuOptions->getBool(FANCY_BORDERS);
-	Globals::Screen::outer_border        = this->menuOptions->getBool(OUTER_BORDER);
-	Globals::Screen::center_horizontally = this->menuOptions->getBool(CENTER_HORIZONTAL);
-	Globals::Screen::center_vertically   = this->menuOptions->getBool(CENTER_VERTICAL);
+	Globals::Screen::show_borders        = this->menuGUIOptions->getBool(SHOW_BORDERS);
+	Globals::Screen::fancy_borders       = this->menuGUIOptions->getBool(FANCY_BORDERS);
+	Globals::Screen::outer_border        = this->menuGUIOptions->getBool(OUTER_BORDER);
+	Globals::Screen::center_horizontally = this->menuGUIOptions->getBool(CENTER_HORIZONTAL);
+	Globals::Screen::center_vertically   = this->menuGUIOptions->getBool(CENTER_VERTICAL);
 }
 void GameStateMainMenu::saveSettingsMenuArcade()
 {

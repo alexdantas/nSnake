@@ -42,8 +42,8 @@ private:
 	MenuAlphabetic* menuLevels;
 	bool menuLevelsActivated;
 
-	Menu* menuOptions;
- 	bool menuOptionsActivated;
+	Menu* menuGUIOptions;
+ 	bool menuGUIOptionsActivated;
 
 	Menu* menuControls;
 	bool menuControlsActivated;
@@ -54,9 +54,9 @@ private:
 	void createMainMenu();
 	void createArcadeMenu();
 	void createLevelsMenu();
-	void createOptionsMenu();
+	void createGUIOptionsMenu();
 	void createControlsMenu();
-	void saveSettingsMenuOptions();
+	void saveSettingsMenuGUIOptions();
 	void saveSettingsMenuArcade();
 };
 
