@@ -120,6 +120,21 @@ GameState::StateCode GameStateMainMenu::update()
 	{
 		this->menuLevels->handleInput();
 
+		if (this->menuLevels->willQuit())
+		{
+			switch (this->menuLevels->currentID())
+			{
+			case GO_BACK:
+				this->layout->menu->setTitle("Main Menu");
+				this->menuLevelsActivated = false;
+				break;
+
+			default:
+				// Selected a level name!
+				break;
+			}
+			this->menuLevels->reset();
+		}
 	}
 	else if (this->menuOptionsActivated)
 	{
@@ -386,7 +401,7 @@ void GameStateMainMenu::createLevelsMenu()
 
 	menuLevels->addBlank();
 
-	for (size_t i = 0; i < levels.size(); i++)
+	for (size_t i = 1; i < levels.size(); i++)
 	{
 		item = new MenuItem(levels[i], i);
 		menuLevels->add(item);
