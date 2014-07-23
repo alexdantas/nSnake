@@ -20,7 +20,7 @@ void GameStateGame::load(int stack)
 
 	try {
 		this->game = new Game();
-		this->game->start();
+		this->game->start(Globals::Game::current_level);
 	}
 	catch (BoardParserException& e)
 	{

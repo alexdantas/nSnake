@@ -131,6 +131,8 @@ GameState::StateCode GameStateMainMenu::update()
 
 			default:
 				// Selected a level name!
+				Globals::Game::current_level = this->menuLevels->current->label;
+				return GameState::GAME_START;
 				break;
 			}
 			this->menuLevels->reset();
