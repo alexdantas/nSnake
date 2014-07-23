@@ -77,10 +77,10 @@ void Score::loadFile()
 	bool found = false;
 	do
 	{
-		int fruits;
-		bool random_walls;
-		bool teleport;
-		int board_size;
+		int   fruits;
+		bool  random_walls;
+		bool  teleport;
+		int   board_size;
 		Score score;
 
 		READ(fruits);
@@ -97,13 +97,27 @@ void Score::loadFile()
 		if (fruits         == Globals::Game::fruits_at_once &&
 		    random_walls   == Globals::Game::random_walls   &&
 		    teleport       == Globals::Game::teleport       &&
-		    board_size     == Globals::Game::boardSizeToInt(Globals::Game::board_size) &&
 		    score.speed    == Globals::Game::starting_speed)
 		{
-			found = true;
+			// Will only care for the board size if we're at
+			// the default level. It doesn't matter on other levels
+			if (this->level.empty())
+			{
+				if (board_size == Globals::Game::boardSizeToInt(Globals::Game::board_size))
+				{
+					found = true;
 
-			Globals::Game::highScore.speed  = score.speed;
-			Globals::Game::highScore.points = score.points;
+					Globals::Game::highScore.speed  = score.speed;
+					Globals::Game::highScore.points = score.points;
+				}
+			}
+			else
+			{
+				found = true;
+
+				Globals::Game::highScore.speed  = score.speed;
+				Globals::Game::highScore.points = score.points;
+			}
 		}
 
 	} while(!file.eof() && !found);
@@ -133,6 +147,8 @@ void Score::saveFile()
 		if (! Utils::File::exists(score_file))
 			return;
 	}
+
+	// Finally start doing things to an actual file!
 
 	std::fstream file;
 	file.open(score_file.c_str(),
@@ -166,8 +182,25 @@ void Score::saveFile()
 		WRITE(Globals::Game::random_walls);
 		WRITE(Globals::Game::teleport);
 
-		int size = Globals::Game::boardSizeToInt(Globals::Game::board_size);
-		WRITE(size);
+
+		if (this->level.empty())
+		{
+			// Clever hack: The option "board_size" is only valid for
+			//              the default level.
+			//              It should not make any difference on levels
+			//              scores.
+			//              So we'll default it to "Large" when writing
+			//              to the file only if not at default level.
+			int size = Globals::Game::boardSizeToInt(Globals::Game::board_size);
+
+			WRITE(size);
+		}
+		else
+		{
+			int size = Globals::Game::boardSizeToInt(Globals::Game::LARGE);
+
+			WRITE(size);
+		}
 
 		// Writing the high score
 		WRITE(Globals::Game::highScore.speed);
@@ -200,17 +233,31 @@ void Score::saveFile()
 		if (fruits         == Globals::Game::fruits_at_once &&
 		    random_walls   == Globals::Game::random_walls   &&
 		    teleport       == Globals::Game::teleport       &&
-		    board_size     == Globals::Game::boardSizeToInt(Globals::Game::board_size) &&
 		    score.speed    == Globals::Game::highScore.speed)
 		{
-			found = true;
+			// Will only care for the board size if we're at
+			// the default level. It doesn't matter on other levels
+			if (this->level.empty())
+			{
+				if (board_size == Globals::Game::boardSizeToInt(Globals::Game::board_size))
+				{
+					found = true;
 
-			WRITE(Globals::Game::highScore.points);
+					WRITE(Globals::Game::highScore.points);
+				}
+			}
+			else
+			{
+				found = true;
+
+				WRITE(Globals::Game::highScore.points);
+			}
 		}
 		else
 		{
 			// Positioning the cursor right away
 			Score score;
+
 			READ(score.points);
 		}
 
@@ -226,8 +273,19 @@ void Score::saveFile()
 		WRITE(Globals::Game::random_walls);
 		WRITE(Globals::Game::teleport);
 
-		int size = Globals::Game::boardSizeToInt(Globals::Game::board_size);
-		WRITE(size);
+		if (this->level.empty())
+		{
+			// Will only care for the board size if we're at
+			// the default level. It doesn't matter on other levels
+			int size = Globals::Game::boardSizeToInt(Globals::Game::board_size);
+
+			WRITE(size);
+		}
+		else
+		{
+			int size = Globals::Game::boardSizeToInt(Globals::Game::LARGE);
+			WRITE(size);
+		}
 
 		WRITE(Globals::Game::highScore.speed);
 		WRITE(Globals::Game::highScore.points);
