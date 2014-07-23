@@ -16,11 +16,10 @@ void GameStateGame::load(int stack)
 {
 	UNUSED(stack);
 
-	Score::loadFile();
-
 	try {
 		this->game = new Game();
 		this->game->start(Globals::Game::current_level);
+		this->game->score->loadFile();
 	}
 	catch (BoardParserException& e)
 	{
@@ -49,7 +48,7 @@ GameState::StateCode GameStateGame::update()
 		// inside the update() function.
 		// I know I shouldn't render things here.
 		// Oh boy, this should be refactored away.
-		Score::saveFile();
+		this->game->score->saveFile();
 		Ncurses::delay_ms(500);
 
 		this->game->draw();

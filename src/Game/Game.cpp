@@ -54,8 +54,9 @@ void Game::start(std::string levelName)
 	this->layout = new LayoutGame(this, 80, 24);
 
 	// Initializing the player and it's attributes
-	this->score = new Score();
+	this->score = new Score(levelName);
 	this->score->speed = Globals::Game::starting_speed;
+	this->score->loadFile();
 
 	// Creating the menu and adding each item
 	this->pauseMenu = new Menu(1,

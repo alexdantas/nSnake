@@ -51,6 +51,10 @@ public:
 
 	void pause(bool option);
 
+	// GameStateGame needs them to be public
+	Score* score;
+	Score* highScore;
+
 protected:
 	LayoutGame* layout;
 
@@ -66,9 +70,6 @@ protected:
 
 	// Times how long the user have been playing the game.
 	Timer timer;
-
-	Score* score;
-	Score* highScore;
 
 	/// If the game is paused.
 	/// May show other Windows while paused.

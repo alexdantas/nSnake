@@ -1,13 +1,20 @@
 #include <Game/Score.hpp>
 #include <Misc/Utils.hpp>
 #include <Config/Globals.hpp>
+#include <Game/BoardParser.hpp>
 
 #include <stdlib.h>	  // getenv()
 #include <fstream>    // ofstream
 
-Score::Score():
+// HACK This will be initialized at `Globals::init()`
+std::string Score::directory = "";
+
+std::string Score::extension = "nsnakescores";
+
+Score::Score(std::string levelName):
 	points(0),
-	speed(0)
+	speed(0),
+	level(levelName)
 { }
 
 void Score::loadFile()
@@ -15,11 +22,22 @@ void Score::loadFile()
 	// Default high score for any mode.
 	Globals::Game::highScore.points = 0;
 
-	if (! Utils::File::exists(Globals::Config::scoresFile))
-		return;
+	// Score files are dependent of the level name.
+	std::string score_file = (Score::directory +
+	                          this->level +
+	                          "." +
+	                          Score::extension);
+
+	// Will fall back to default high score file
+	// if no level was specified
+	if (this->level.empty())
+		score_file = Globals::Config::scoresFile;
+
+	if (! Utils::File::exists(score_file))
+	    return;
 
 	std::fstream file;
-	file.open(Globals::Config::scoresFile.c_str(), std::ios::in | std::ios::binary);
+	file.open(score_file.c_str(), std::ios::in | std::ios::binary);
 
 	// Let's see if the file's empty.
 	int major = Globals::version[MAJOR];
@@ -95,18 +113,30 @@ void Score::loadFile()
 }
 void Score::saveFile()
 {
+	// Score files are dependent of the level name.
+	std::string score_file = (Score::directory +
+	                          this->level +
+	                          "." +
+	                          Score::extension);
+
+	// Will fall back to default high score file
+	// if no level was specified
+	if (this->level.empty())
+		score_file = Globals::Config::scoresFile;
+
 	// Tries to create file if it doesn't exist.
 	// If we can't create it at all let's just give up.
-	if (! Utils::File::exists(Globals::Config::scoresFile))
+	if (! Utils::File::exists(score_file))
 	{
-		Utils::File::create(Globals::Config::scoresFile);
+		Utils::File::create(score_file);
 
-		if (! Utils::File::exists(Globals::Config::scoresFile))
+		if (! Utils::File::exists(score_file))
 			return;
 	}
 
 	std::fstream file;
-	file.open(Globals::Config::scoresFile.c_str(), std::ios::in | std::ios::out | std::ios::binary);
+	file.open(score_file.c_str(),
+	          std::ios::in | std::ios::out | std::ios::binary);
 
 // Macro that writes #a to file, same as the READ
 // macro above.

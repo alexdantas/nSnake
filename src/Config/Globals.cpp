@@ -3,6 +3,7 @@
 #include <Misc/Utils.hpp>
 #include <Flow/InputManager.hpp>
 #include <Game/BoardParser.hpp>
+#include <Game/Score.hpp>
 
 #include <ncurses.h>
 #include <iostream>
@@ -128,8 +129,9 @@ void Globals::init()
 	///      initialize it.
 	///
 	BoardParser::directory = Globals::Config::directory + "levels/";
+	Score::directory       = BoardParser::directory;
 
-	/// Making sure the directory exists...!
+	/// Making sure they both exist...!
 	if (! Utils::File::isDirectory(BoardParser::directory))
 		Utils::File::mkdir_p(BoardParser::directory);
 }
