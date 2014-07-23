@@ -55,7 +55,7 @@ GameState::StateCode GameStateGame::update()
 		this->game->draw();
 
 		if (Dialog::askBool("Retry?", "Game Over", true))
-			this->game->start();
+			this->game->start(Globals::Game::current_level);
 		else
 			return GameState::MAIN_MENU;
 	}
