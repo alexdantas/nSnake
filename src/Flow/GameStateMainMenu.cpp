@@ -17,6 +17,9 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 	CONTROLS,
 	QUIT_GAME,
 
+	// Level select Submenu
+	RANDOM,
+
 	// Game Settings Submenu
 	GO_BACK,
 	STARTING_SPEED,
@@ -106,6 +109,15 @@ GameState::StateCode GameStateMainMenu::update()
 				this->layout->menu->setTitle("Main Menu");
 				this->menuLevelsActivated = false;
 				break;
+
+			case RANDOM:
+			{
+				this->menuLevels->goRandom();
+
+				Globals::Game::current_level = this->menuLevels->current->label;
+				return GameState::GAME_START;
+				break;
+			}
 
 			default:
 				// Selected a level name!
@@ -346,6 +358,9 @@ void GameStateMainMenu::createLevelsMenu()
 	std::vector<std::string> levels = BoardParser::listLevels();
 
 	item = new MenuItem("Back", GO_BACK);
+	menuLevels->add(item);
+
+	item = new MenuItem("Random", RANDOM);
 	menuLevels->add(item);
 
 	menuLevels->addBlank();
