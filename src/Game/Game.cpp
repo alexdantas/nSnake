@@ -14,10 +14,10 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 };
 
 Game::Game():
-	layout(NULL),
-	gameOver(false),
 	score(NULL),
 	highScore(NULL),
+	layout(NULL),
+	gameOver(false),
 	isPaused(false),
 	showPauseMenu(false),
 	showHelp(false),
