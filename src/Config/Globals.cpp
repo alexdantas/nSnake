@@ -2,6 +2,7 @@
 #include <Config/YAMLFile.hpp>
 #include <Misc/Utils.hpp>
 #include <Flow/InputManager.hpp>
+#include <Game/BoardParser.hpp>
 
 #include <ncurses.h>
 #include <iostream>
@@ -120,6 +121,13 @@ void Globals::init()
 	InputManager::bind("pause", 'p');
 	InputManager::bind("help",  'h');
 	InputManager::bind("quit",  'q');
+
+
+	/// HACK Initializing the default level file directory.
+	///      I know this is hacky, but couldn't find another way to
+	///      initialize it.
+	///
+	BoardParser::directory = Globals::Config::directory + "levels/";
 }
 void Globals::exit()
 {

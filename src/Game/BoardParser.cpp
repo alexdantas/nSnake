@@ -6,9 +6,17 @@
 #include <vector>
 #include <string>
 
+// HACK This will be initialized at `Globals::init()`
+std::string BoardParser::directory = "";
+
+std::string BoardParser::extension = "nsnake";
+
 Board* BoardParser::load(std::string name)
 {
-	std::string filename = "levels/" + name + ".nsnake";
+	std::string filename = (BoardParser::directory +
+	                        name +
+	                        "." +
+	                        BoardParser::extension);
 
 	return BoardParser::loadFile(filename);
 }
@@ -186,9 +194,9 @@ Board* BoardParser::loadFile(std::string filename)
 }
 std::vector<std::string> BoardParser::listLevels()
 {
-	std::vector<std::string> levels = Utils::File::ls("./levels");
+	std::vector<std::string> levels = Utils::File::ls(BoardParser::directory);
 
-	// Remove files that doesn't end with ".nsnake".
+	// Remove files that doesn't end with the default file extension
 	//
 	// Also, don't store the full path, only it's basename
 	// (like "file" and not "/path/to/file")
@@ -197,7 +205,7 @@ std::vector<std::string> BoardParser::listLevels()
 	     it != levels.end();
 	     ++it)
 	{
-		if (Utils::File::extension(*it) == "nsnake")
+		if (Utils::File::extension(*it) == BoardParser::extension)
 			(*it) = (Utils::File::dropExtension(Utils::File::basename((*it))));
 
 		else
