@@ -244,7 +244,7 @@ GameState::StateCode GameStateMainMenu::update()
 				break;
 
 			case LEVELS:
-				this->layout->menu->setTitle("Levels");
+				this->layout->menu->setTitle("Level Select");
 				this->menuLevelsActivated = true;
 				break;
 
@@ -311,10 +311,10 @@ void GameStateMainMenu::createMainMenu()
 
 	MenuItem* item;
 
-	item = new MenuItem("Arcade", ARCADE);
+	item = new MenuItem("Arcade Mode", ARCADE);
 	menu->add(item);
 
-	item = new MenuItem("Levels", LEVELS);
+	item = new MenuItem("Level Select", LEVELS);
 	menu->add(item);
 
 	item = new MenuItem("Game Settings", GAME_SETTINGS);
