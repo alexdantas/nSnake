@@ -9,7 +9,7 @@
 enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 {
 	// Main Menu
-	ARCADE,
+	ARCADE=1337,
 	LEVELS,
 	GAME_SETTINGS,
 	HELP,
