@@ -128,6 +128,10 @@ void Globals::init()
 	///      initialize it.
 	///
 	BoardParser::directory = Globals::Config::directory + "levels/";
+
+	/// Making sure the directory exists...!
+	if (! Utils::File::isDirectory(BoardParser::directory))
+		Utils::File::mkdir_p(BoardParser::directory);
 }
 void Globals::exit()
 {
