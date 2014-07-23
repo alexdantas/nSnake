@@ -15,6 +15,7 @@ Here's some features:
 * Customizable gameplay, appearance and keybindings;
 * Neat GUI-like interface with nice animations;
 * Lots of possible game modes, with scores saved for each;
+* Levels - create your own easily;
 
 ## Controls
 
@@ -29,6 +30,17 @@ The default ones are:
 | h                 | Show help during game      |
 
 All user settings are located at `~/.local/share/nsnake`.
+
+## Levels
+
+nSnake looks for game levels on `~/.local/share/nsnake/levels`.
+They have a `.nsnake` extension and are simple text files.
+
+The file format is very easy to edit; open `levels/arena00.nsnake`
+with any text editor and follow the instructions there.
+
+Don't forget to copy default levels under the `levels` directory
+to the one specified above.
 
 ## Dependencies
 
