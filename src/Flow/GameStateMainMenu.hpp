@@ -35,12 +35,11 @@ private:
 	/// The main menu.
 	Menu* menu;
 
-	/// Single Player submenu.
-	Menu* menuArcade;
-	bool menuArcadeActivated;
-
 	MenuAlphabetic* menuLevels;
 	bool menuLevelsActivated;
+
+	Menu* menuGameSettings;
+	bool menuGameSettingsActivated;
 
 	Menu* menuGUIOptions;
  	bool menuGUIOptionsActivated;
@@ -52,12 +51,12 @@ private:
 
 	// easily create internal menus
 	void createMainMenu();
-	void createArcadeMenu();
+	void createGameSettingsMenu();
 	void createLevelsMenu();
 	void createGUIOptionsMenu();
 	void createControlsMenu();
 	void saveSettingsMenuGUIOptions();
-	void saveSettingsMenuArcade();
+	void saveSettingsMenuGameSettings();
 };
 
 #endif //GAMESTATEMAINMENU_H_DEFINED

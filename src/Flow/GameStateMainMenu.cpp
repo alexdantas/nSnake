@@ -17,8 +17,7 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 	CONTROLS,
 	QUIT_GAME,
 
-	// Single Player Submenu
-	START_GAME,
+	// Game Settings Submenu
 	GO_BACK,
 	STARTING_SPEED,
 	TELEPORT,
@@ -49,10 +48,10 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 GameStateMainMenu::GameStateMainMenu():
 	layout(NULL),
 	menu(NULL),
-	menuArcade(NULL),
-	menuArcadeActivated(false),
 	menuLevels(NULL),
 	menuLevelsActivated(false),
+	menuGameSettings(NULL),
+	menuGameSettingsActivated(false),
 	menuGUIOptions(NULL),
 	menuGUIOptionsActivated(false),
 	menuControls(NULL),
@@ -67,8 +66,8 @@ void GameStateMainMenu::load(int stack)
 	this->layout = new LayoutMainMenu(80, 24, this);
 
 	createMainMenu();
-	createArcadeMenu();
 	createLevelsMenu();
+	createGameSettingsMenu();
 	createGUIOptionsMenu();
 	createControlsMenu();
 
@@ -77,13 +76,14 @@ void GameStateMainMenu::load(int stack)
 
 int GameStateMainMenu::unload()
 {
-	saveSettingsMenuArcade();
+	saveSettingsMenuGameSettings();
 	saveSettingsMenuGUIOptions();
 
 	SAFE_DELETE(this->layout);
-	SAFE_DELETE(this->menuControls);
+	SAFE_DELETE(this->menuLevels);
+	SAFE_DELETE(this->menuGameSettings);
 	SAFE_DELETE(this->menuGUIOptions);
-	SAFE_DELETE(this->menuArcade);
+	SAFE_DELETE(this->menuControls);
 	SAFE_DELETE(this->menu);
 
 	return 0;
@@ -94,32 +94,7 @@ GameState::StateCode GameStateMainMenu::update()
 	if (InputManager::isPressed("quit"))
 		return GameState::QUIT;
 
-	if (this->menuArcadeActivated)
-	{
-		this->menuArcade->handleInput();
-
-		if (this->menuArcade->willQuit())
-		{
-			saveSettingsMenuArcade();
-
-			// And then exit based on the selected option.
-			switch (this->menuArcade->currentID())
-			{
-			case START_GAME:
-				// Starting the default level
-				Globals::Game::current_level = "";
-				return GameState::GAME_START;
-				break;
-
-			case GO_BACK:
-				this->layout->menu->setTitle("Main Menu");
-				this->menuArcadeActivated = false;
-				break;
-			}
-			this->menuArcade->reset();
-		}
-	}
-	else if (this->menuLevelsActivated)
+	if (this->menuLevelsActivated)
 	{
 		this->menuLevels->handleInput();
 
@@ -139,6 +114,25 @@ GameState::StateCode GameStateMainMenu::update()
 				break;
 			}
 			this->menuLevels->reset();
+		}
+	}
+	else if (this->menuGameSettingsActivated)
+	{
+		this->menuGameSettings->handleInput();
+
+		if (this->menuGameSettings->willQuit())
+		{
+			saveSettingsMenuGameSettings();
+
+			// And then exit based on the selected option.
+			switch (this->menuGameSettings->currentID())
+			{
+			case GO_BACK:
+				this->layout->menu->setTitle("Main Menu");
+				this->menuGameSettingsActivated = false;
+				break;
+			}
+			this->menuGameSettings->reset();
 		}
 	}
 	else if (this->menuGUIOptionsActivated)
@@ -244,8 +238,9 @@ GameState::StateCode GameStateMainMenu::update()
 			switch(this->menu->currentID())
 			{
 			case ARCADE:
-				this->layout->menu->setTitle("Arcade");
-				this->menuArcadeActivated = true;
+				// Starting game on the default level
+				Globals::Game::current_level = "";
+				return GameState::GAME_START;
 				break;
 
 			case LEVELS:
@@ -253,8 +248,9 @@ GameState::StateCode GameStateMainMenu::update()
 				this->menuLevelsActivated = true;
 				break;
 
-			case HELP:
-				this->helpWindows->run();
+			case GAME_SETTINGS:
+				this->layout->menu->setTitle("Game Settings");
+				this->menuGameSettingsActivated = true;
 				break;
 
 			case GUI_OPTIONS:
@@ -265,6 +261,10 @@ GameState::StateCode GameStateMainMenu::update()
 			case CONTROLS:
 				this->layout->menu->setTitle("Controls");
 				this->menuControlsActivated = true;
+				break;
+
+			case HELP:
+				this->helpWindows->run();
 				break;
 
 			case QUIT_GAME:
@@ -281,11 +281,11 @@ GameState::StateCode GameStateMainMenu::update()
 
 void GameStateMainMenu::draw()
 {
-	if (this->menuArcadeActivated)
-		this->layout->draw(this->menuArcade);
-
-	else if (this->menuLevelsActivated)
+	if (this->menuLevelsActivated)
 		this->layout->draw(this->menuLevels);
+
+	else if (this->menuGameSettingsActivated)
+		this->layout->draw(this->menuGameSettings);
 
 	else if (this->menuGUIOptionsActivated)
 		this->layout->draw(this->menuGUIOptions);
@@ -317,7 +317,7 @@ void GameStateMainMenu::createMainMenu()
 	item = new MenuItem("Levels", LEVELS);
 	menu->add(item);
 
-	item = new MenuItem("Help", HELP);
+	item = new MenuItem("Game Settings", GAME_SETTINGS);
 	menu->add(item);
 
 	item = new MenuItem("GUI Options", GUI_OPTIONS);
@@ -326,67 +326,11 @@ void GameStateMainMenu::createMainMenu()
 	item = new MenuItem("Controls", CONTROLS);
 	menu->add(item);
 
+	item = new MenuItem("Help", HELP);
+	menu->add(item);
+
 	item = new MenuItem("Quit", QUIT_GAME);
 	menu->add(item);
-}
-void GameStateMainMenu::createArcadeMenu()
-{
-	SAFE_DELETE(this->menuArcade);
-
-	this->menuArcade = new Menu(1,
-	                            1,
-	                            this->layout->menu->getW() - 2,
-	                            this->layout->menu->getH() - 2);
-
-	MenuItem* item;
-
-	item = new MenuItem("Start Game", START_GAME);
-	menuArcade->add(item);
-
-	item = new MenuItem("Back", GO_BACK);
-	menuArcade->add(item);
-
-	menuArcade->addBlank();
-
-	MenuItemNumberbox* number;
-
-	number = new MenuItemNumberbox("Starting Speed", STARTING_SPEED, 1, 10, Globals::Game::starting_speed);
-	menuArcade->add(number);
-
-	number = new MenuItemNumberbox("Fruits", FRUITS, 1, 99, Globals::Game::fruits_at_once);
-	menuArcade->add(number);
-
-	MenuItemCheckbox* check;
-
-	check = new MenuItemCheckbox("Teleport", TELEPORT, Globals::Game::teleport);
-	menuArcade->add(check);
-
-	check = new MenuItemCheckbox("Random Walls", RANDOM_WALLS, Globals::Game::random_walls);
-	menuArcade->add(check);
-
-	// The board size
-	std::vector<std::string> options;
-	options.push_back("Small");
-	options.push_back("Medium");
-	options.push_back("Large");
-
-	MenuItemTextlist* list;
-
-	// the default board size
-	std::string defaullt;
-
-	switch (Globals::Game::board_size)
-	{
-	case Globals::Game::SMALL:  defaullt = "Small";  break;
-	case Globals::Game::MEDIUM: defaullt = "Medium"; break;
-	default:                    defaullt = "Large";  break;
-	}
-
-	list = new MenuItemTextlist("Maze size",
-	                            BOARD_SIZE,
-	                            options,
-	                            defaullt);
-	menuArcade->add(list);
 }
 void GameStateMainMenu::createLevelsMenu()
 {
@@ -411,6 +355,62 @@ void GameStateMainMenu::createLevelsMenu()
 		item = new MenuItem(levels[i], i);
 		menuLevels->add(item);
 	}
+}
+void GameStateMainMenu::createGameSettingsMenu()
+{
+	SAFE_DELETE(this->menuGameSettings);
+
+	this->menuGameSettings = new Menu(1,
+	                                  1,
+	                                  this->layout->menu->getW() - 2,
+	                                  this->layout->menu->getH() - 2);
+
+	MenuItem* item;
+
+	item = new MenuItem("Back", GO_BACK);
+	menuGameSettings->add(item);
+
+	menuGameSettings->addBlank();
+
+	MenuItemNumberbox* number;
+
+	number = new MenuItemNumberbox("Starting Speed", STARTING_SPEED, 1, 10, Globals::Game::starting_speed);
+	menuGameSettings->add(number);
+
+	number = new MenuItemNumberbox("Fruits", FRUITS, 1, 99, Globals::Game::fruits_at_once);
+	menuGameSettings->add(number);
+
+	MenuItemCheckbox* check;
+
+	check = new MenuItemCheckbox("Teleport", TELEPORT, Globals::Game::teleport);
+	menuGameSettings->add(check);
+
+	check = new MenuItemCheckbox("Random Walls", RANDOM_WALLS, Globals::Game::random_walls);
+	menuGameSettings->add(check);
+
+	// The board size
+	std::vector<std::string> options;
+	options.push_back("Small");
+	options.push_back("Medium");
+	options.push_back("Large");
+
+	MenuItemTextlist* list;
+
+	// the default board size
+	std::string defaullt;
+
+	switch (Globals::Game::board_size)
+	{
+	case Globals::Game::SMALL:  defaullt = "Small";  break;
+	case Globals::Game::MEDIUM: defaullt = "Medium"; break;
+	default:                    defaullt = "Large";  break;
+	}
+
+	list = new MenuItemTextlist("Maze size",
+	                            BOARD_SIZE,
+	                            options,
+	                            defaullt);
+	menuGameSettings->add(list);
 }
 void GameStateMainMenu::createGUIOptionsMenu()
 {
@@ -526,19 +526,19 @@ void GameStateMainMenu::saveSettingsMenuGUIOptions()
 	Globals::Screen::center_horizontally = this->menuGUIOptions->getBool(CENTER_HORIZONTAL);
 	Globals::Screen::center_vertically   = this->menuGUIOptions->getBool(CENTER_VERTICAL);
 }
-void GameStateMainMenu::saveSettingsMenuArcade()
+void GameStateMainMenu::saveSettingsMenuGameSettings()
 {
-	if (!this->menuArcade)
+	if (!this->menuGameSettings)
 		return;
 
 	// User selected an option
 	// Let's get ids from menu items
-	Globals::Game::starting_speed = (unsigned int)this->menuArcade->getInt(STARTING_SPEED);
-	Globals::Game::fruits_at_once = this->menuArcade->getInt(FRUITS);
-	Globals::Game::random_walls = this->menuArcade->getBool(RANDOM_WALLS);
-	Globals::Game::teleport = this->menuArcade->getBool(TELEPORT);
+	Globals::Game::starting_speed = (unsigned int)this->menuGameSettings->getInt(STARTING_SPEED);
+	Globals::Game::fruits_at_once = this->menuGameSettings->getInt(FRUITS);
+	Globals::Game::random_walls = this->menuGameSettings->getBool(RANDOM_WALLS);
+	Globals::Game::teleport = this->menuGameSettings->getBool(TELEPORT);
 
-	std::string tmp = this->menuArcade->getString(BOARD_SIZE);
+	std::string tmp = this->menuGameSettings->getString(BOARD_SIZE);
 	if (tmp == "Small")
 		Globals::Game::board_size = Globals::Game::SMALL;
 
