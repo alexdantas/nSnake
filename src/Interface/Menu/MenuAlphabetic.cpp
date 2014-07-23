@@ -20,7 +20,27 @@ void MenuAlphabetic::add(MenuItem* item)
 {
 	Menu::add(item);
 
-	std::sort(this->item.begin(),
+	// This is a very specific behavior, read with attention.
+	//
+	// If the menu has no blank items,
+	// we're going to sort it normally.
+	//
+	// If it has a single blank item, we'll sort the entire menu
+	// starting from the item AFTER the blank one.
+
+	std::vector<MenuItem*>::iterator firstItem = this->item.begin();
+
+	// So here we look for a blank item
+
+	for (size_t i = 0; i < (this->item.size()); i++)
+		if (this->item[i] == NULL)
+		{
+			firstItem += i; // Pointing to the current items' position
+			break;
+		}
+
+	// And start sorting from AFTER it
+	std::sort(firstItem + 1,
 	          this->item.end(),
 	          menuItemLess);
 
@@ -39,7 +59,21 @@ void MenuAlphabetic::handleInput()
 
 	if (key >= 'a' && key <= 'z')
 	{
+		// See specific behavior on `MenuAlphabetic::add`
+		//
+		// Start looking only after the first Blank item.
+		int startingIndex = 0;
+
 		for (size_t i = 0; i < this->item.size(); i++)
+			if (this->item[i] == NULL)
+			{
+				startingIndex = i;
+				break;
+			}
+
+		// And only make possible to jump on items AFTER
+		// the blank one
+		for (size_t i = startingIndex + 1; i < this->item.size(); i++)
 			if (std::tolower(this->item[i]->label[0]) == key)
 			{
 				this->currentIndex = i;

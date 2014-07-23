@@ -381,6 +381,11 @@ void GameStateMainMenu::createLevelsMenu()
 
 	std::vector<std::string> levels = BoardParser::listLevels();
 
+	item = new MenuItem("Back", GO_BACK);
+	menuLevels->add(item);
+
+	menuLevels->addBlank();
+
 	for (size_t i = 0; i < levels.size(); i++)
 	{
 		item = new MenuItem(levels[i], i);
