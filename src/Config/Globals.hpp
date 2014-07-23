@@ -101,6 +101,10 @@ namespace Globals
 		/// It always starts with 0 and if the player
 		/// surpasses it, will be the new maximum.
 		extern Score highScore;
+
+		/// Name of the level the game should load.
+		/// Also, name of the current level.
+		extern std::string current_level;
 	};
 
 	namespace Theme

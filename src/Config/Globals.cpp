@@ -32,6 +32,7 @@ unsigned int Globals::Game::starting_speed          = 1;
 int          Globals::Game::fruits_at_once          = 1;
 bool         Globals::Game::random_walls            = false;
 bool         Globals::Game::teleport                = false;
+std::string  Globals::Game::current_level           = "";
 
 Globals::Game::BoardSize Globals::Game::board_size  = LARGE;
 
