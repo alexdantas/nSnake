@@ -105,6 +105,8 @@ GameState::StateCode GameStateMainMenu::update()
 			switch (this->menuArcade->currentID())
 			{
 			case START_GAME:
+				// Starting the default level
+				Globals::Game::current_level = "";
 				return GameState::GAME_START;
 				break;
 
