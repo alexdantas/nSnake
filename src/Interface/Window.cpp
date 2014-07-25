@@ -91,19 +91,10 @@ void Window::print(std::string str, int x, int y, ColorPair pair)
 
 	mvwaddstr(this->win, y, x, str.c_str());
 }
-void Window::print_multiline(std::string str, int x, int y, ColorPair pair)
+void Window::print(std::vector<std::string> lines, int x, int y, ColorPair pair)
 {
-	// Will get line by line and print it
-	std::stringstream ss(str);
-	std::string line;
-	int y_offset = 0;
-
-	while (std::getline(ss, line))
-	{
-		if (! line.empty())
-			this->print(line, x, y + y_offset, pair);
-		y++;
-	}
+	for (size_t i = 0; i < lines.size(); i++)
+		this->print(lines[i], x, y + i, pair);
 }
 void Window::printChar(int c, int x, int y, ColorPair pair)
 {

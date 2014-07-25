@@ -2,6 +2,7 @@
 #define WINDOW_H_DEFINED
 
 #include <string>
+#include <vector>
 #include <ncurses.h>
 
 #include <Interface/Colors.hpp>
@@ -35,12 +36,16 @@ public:
 	/// @note It defaults to white text on black background.
 	void print(std::string str, int x, int y, ColorPair pair=0);
 
-	/// Shows text #str at #x #y on the window with color #pair.
-	/// The difference is that we respect newlines, showing
-	/// it up at the next line just below text above.
+	/// Shows multiple text lines #lines at #x #y on the window
+	/// with color #pair.
 	///
 	/// @note It also defaults to white text on black background.
-	void print_multiline(std::string str, int x, int y, ColorPair pair=0);
+	/// @note Use it together with `Utils::String::split`:
+	///
+	///     window.print(Utils::String::split("multiple\nlines", '\n'),
+	///                 x, y, color_pair);
+	///
+	void print(std::vector<std::string> lines, int x, int y, ColorPair pair=0);
 
 	/// Shows #c at #x #y with color #pair.
 	///
