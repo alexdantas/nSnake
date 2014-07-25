@@ -256,8 +256,24 @@ GameState::StateCode GameStateMainMenu::update()
 				break;
 
 			case LEVELS:
-				this->layout->menu->setTitle("Level Select");
-				this->menuLevelsActivated = true;
+				// Before going to the Levels menu, we must check if
+				// the user has any levels on the level directory.
+				// If not, we should stay at the main menu.
+				if (BoardParser::listLevels().size() == 0)
+				{
+					Dialog::show("Sorry, it seems you have no levels.\n"
+					             "Get some level files and place them on\n"
+					             "'" + BoardParser::directory + "'\n" +
+					             "\n"
+					             "You can get them from the nSnake source\n"
+					             "package or download from the website:\n"
+					             "http://nsnake.alexdantas.net/", true);
+				}
+				else
+				{
+					this->layout->menu->setTitle("Level Select");
+					this->menuLevelsActivated = true;
+				}
 				break;
 
 			case GAME_SETTINGS:
