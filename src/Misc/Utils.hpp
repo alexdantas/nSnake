@@ -216,8 +216,7 @@ namespace Utils
 
 		/// Splits `str` according to `delimt`.
 		///
-		/// @return A vector with two elements - string
-		///         before and string after `delimit`.
+		/// @return A vector of strings, without the delimiter.
 		///
 		std::vector<std::string> split(const std::string& str, char delim);
 

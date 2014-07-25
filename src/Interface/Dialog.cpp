@@ -4,18 +4,32 @@
 #include <Interface/Ncurses.hpp>
 #include <Config/Globals.hpp>
 #include <Flow/InputManager.hpp>
+#include <Misc/Utils.hpp>
 
 #include <vector>
+#include <algorithm>
 
 void Dialog::show(std::string message, bool pressAnyKey)
 {
-	int windowx = Layout::screenWidth/2 - (message.size() + 2)/2;
-	int windowy = Layout::screenHeight/2 - 3/2;
+	std::vector<std::string> message_lines = Utils::String::split(message, '\n');
 
-	Window dialog(windowx,
-	              windowy,
-	              message.size() + 2, // borders + empty space
-	              3);
+	// The dialog needs to wrap around this text. So we need...
+	int message_width  = 0; // ...the char count of the widest line and...
+	int message_height = 0; // ...the number of lines of the whole message
+
+	message_height = message_lines.size();
+
+	for (size_t i = 0; i < message_lines.size(); i++)
+		message_width = std::max(message_width, (int)message_lines[i].size());
+
+	// Now, to the size and position of the actual Dialog.
+	// Making it centered on the screen
+	int window_x      = Layout::screenWidth /2 - (message_width + 2)/2;
+	int window_y      = Layout::screenHeight/2 - (message_height)   /2;
+	int window_width  = message_width  + 2; // left/right borders
+	int window_height = message_height + 2; // top/bottom borders
+
+	Window dialog(window_x, window_y, window_width, window_height);
 
 	if (Globals::Screen::show_borders)
 	{
@@ -29,7 +43,10 @@ void Dialog::show(std::string message, bool pressAnyKey)
 	// main screen buffer
 	refresh();
 
-	dialog.print(message, 1, 1);
+	// Show all lines, starting from (1, 1)
+	for (size_t i = 0; i < message_lines.size(); i++)
+		dialog.print(message_lines[i], 1, i + 1);
+
 	dialog.refresh();
 	refresh();
 

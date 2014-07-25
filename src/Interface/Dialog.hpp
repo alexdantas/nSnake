@@ -9,6 +9,10 @@
 namespace Dialog
 {
 	/// Shows a message on the screen.
+	/// Spawns a screen-centered dialog that respects multi-line
+	/// strings, wrapping it's size around them.
+	///
+	/// @note The multi-line delimiter is `\n`
 	///
 	/// @param message     Which string to show.
 	/// @param pressAnyKey If it should wait for pressing a single key
