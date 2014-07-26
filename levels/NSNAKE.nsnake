@@ -1,7 +1,10 @@
-name=NSNAKE
-author=Alexandre Dantas
-date=Jul 23, 2014
-comment=How meta. Watch out for the letter K!
+# Yay, this is a comment!
+; And so is this!
+
+name    = NSNAKE
+author  = Alexandre Dantas
+date    = Jul 23, 2014
+comment = How meta. Watch out for the letter K!
 
 start
 ################################################################################
@@ -26,4 +29,6 @@ start
 #                                                                              #
 ################################################################################
 end
+
+; You can add secret stuff here too!
 
