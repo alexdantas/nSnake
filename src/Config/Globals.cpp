@@ -1,5 +1,5 @@
 #include <Config/Globals.hpp>
-#include <Config/YAMLFile.hpp>
+#include <Config/INI.hpp>
 #include <Misc/Utils.hpp>
 #include <Flow/InputManager.hpp>
 #include <Game/BoardParser.hpp>
@@ -97,7 +97,7 @@ void Globals::init()
 	}
 
 	Globals::Config::file = (Globals::Config::directory +
-	                         "settings.yml");
+	                         "settings.ini");
 
 	Globals::Config::scoresFile = (Globals::Config::directory +
 	                               "scores.bin");
@@ -168,51 +168,25 @@ void Globals::exit()
 }
 void Globals::loadFile()
 {
-	// DEPRECATED: Adding support for old .ini configuration files
-	//             The following prepends the .ini file with a warning
-	//
-	// I know I should convert from .ini to .yml but I'm wicked.
-	//
-	// NOTE: Remove this a few versions from now...
-	//
-	if (Utils::File::exists(Globals::Config::directory + "settings.ini"))
-	{
-		std::ifstream old_file_in((Globals::Config::directory + "settings.ini").c_str());
-
-		std::stringstream buffer;
-		buffer << old_file_in.rdbuf();
-		old_file_in.close();
-
-		// To avoid prepending this thing over and over, we must
-		// check if it already exists
-		std::string tmp;
-		std::getline(buffer, tmp);
-		if (tmp.find("# Warning:") == std::string::npos)
-		{
-			std::ofstream old_file_out((Globals::Config::directory + "settings.ini").c_str());
-
-			old_file_out << "# Warning: this .ini file was deprecated in favor\n";
-			old_file_out << "#          of the new .yml format. You can safely\n";
-			old_file_out << "#          delete it.\n";
-			old_file_out << buffer.rdbuf();
-			old_file_out.close();
-		}
-	}
-
 	// Now, back on track
 	if (! Utils::File::exists(Globals::Config::file))
 		return;
 
-	YAMLFile yaml;
+	INI::Parser* ini = NULL;
+
 	try {
-		yaml.load(Globals::Config::file);
+		ini = new INI::Parser(Globals::Config::file);
 	}
-	catch(YAML::BadFile& e)
+	catch(std::runtime_error& e)
 	{
 		// File doesn't exist (or we couldn't access it)
 		// Either way, ignore it silently
+		SAFE_DELETE(ini);
 		return;
 	}
+
+	// Will be used on this macro below
+	std::string buffer = "";
 
 // Small macro to avoid unnecessary typing.
 //
@@ -222,92 +196,112 @@ void Globals::loadFile()
 //
 // For the last one I send the variable itself,
 // so we fallback to the default values.
-#define YAML_GET(var, out, in)     \
-	{                              \
-		var = yaml.get(out, in, var); \
+#define INI_GET(var, out, in)                    \
+	{                                            \
+		buffer = (* ini)(out)[in];               \
+		if (! buffer.empty())                    \
+		{                                        \
+			Utils::String::convert(buffer, var); \
+		}                                        \
 	}
 
-	YAML_GET(Globals::Screen::center_horizontally, "screen", "center_horizontal");
-	YAML_GET(Globals::Screen::center_vertically,   "screen", "center_vertical");
+	INI_GET(Globals::Screen::center_horizontally, "screen", "center_horizontal");
+	INI_GET(Globals::Screen::center_vertically,   "screen", "center_vertical");
 
-	YAML_GET(Globals::Screen::show_borders,  "screen", "borders");
-	YAML_GET(Globals::Screen::fancy_borders, "screen", "fancy_borders");
-	YAML_GET(Globals::Screen::outer_border,  "screen", "outer_border");
+	INI_GET(Globals::Screen::show_borders,  "screen", "borders");
+	INI_GET(Globals::Screen::fancy_borders, "screen", "fancy_borders");
+	INI_GET(Globals::Screen::outer_border,  "screen", "outer_border");
 
-	YAML_GET(Globals::Game::random_walls,   "game", "random_walls");
-	YAML_GET(Globals::Game::fruits_at_once, "game", "fruits_at_once");
-	YAML_GET(Globals::Game::teleport,       "game", "teleport");
+	INI_GET(Globals::Game::random_walls,   "game", "random_walls");
+	INI_GET(Globals::Game::fruits_at_once, "game", "fruits_at_once");
+	INI_GET(Globals::Game::teleport,       "game", "teleport");
 
 	// unsigned ints are the exception - their overloading
 	// is ambiguous... I should consider removing them altogether
-	Globals::Game::starting_speed = yaml.get("game", "starting_speed", (int)Globals::Game::starting_speed);
+	buffer = (* ini)("game")["starting_speed"];
+	if (! buffer.empty())
+	{
+		int starting_speed = Globals::Game::starting_speed;
+		Utils::String::convert(buffer, starting_speed);
+		Globals::Game::starting_speed = starting_speed;
+	}
 
 	// Special Cases
 
 	// Getting input keys
 	std::string tmp;
 
-	YAML_GET(tmp, "input", "left");
+	INI_GET(tmp, "input", "left");
 	InputManager::bind("left", InputManager::stringToKey(tmp));
 
-	YAML_GET(tmp, "input", "right");
+	INI_GET(tmp, "input", "right");
 	InputManager::bind("right", InputManager::stringToKey(tmp));
 
-	YAML_GET(tmp, "input", "up");
+	INI_GET(tmp, "input", "up");
 	InputManager::bind("up", InputManager::stringToKey(tmp));
 
-	YAML_GET(tmp, "input", "down");
+	INI_GET(tmp, "input", "down");
 	InputManager::bind("down", InputManager::stringToKey(tmp));
 
-	YAML_GET(tmp, "input", "pause");
+	INI_GET(tmp, "input", "pause");
 	InputManager::bind("pause", InputManager::stringToKey(tmp));
 
-	YAML_GET(tmp, "input", "help");
+	INI_GET(tmp, "input", "help");
 	InputManager::bind("help", InputManager::stringToKey(tmp));
 
-	YAML_GET(tmp, "input", "quit");
+	INI_GET(tmp, "input", "quit");
 	InputManager::bind("quit", InputManager::stringToKey(tmp));
 
 	// Board Size
 	int board_size = 2;
-	YAML_GET(board_size, "game", "board_size");
+	INI_GET(board_size, "game", "board_size");
 	Globals::Game::board_size = Globals::Game::intToBoardSize(board_size);
+
+	SAFE_DELETE(ini);
 }
 void Globals::saveFile()
 {
 	// Even if the file doesn't exist, we'll create it.
-	YAMLFile yaml;
+	INI::Parser* ini;
+
 	try
 	{
-		yaml.load(Globals::Config::file);
+		ini = new INI::Parser(Globals::Config::file);
 	}
-	catch(YAML::BadFile& e)
+	catch(std::runtime_error& e)
 	{
-		yaml.create();
+		ini->create();
 	}
+
+	// Will be used on this macro below
+	std::string buffer;
 
 // Other macro to avoid typing, similar to the one
 // at loadFile()
-#define YAML_SET(out, in, var)	\
-	{                           \
-		yaml.set(out, in, var); \
+#define INI_SET(out, in, var)	               \
+	{                                          \
+		buffer = Utils::String::toString(var); \
+		ini->top().addGroup(out);              \
+		(* ini)(out).addKey(in, buffer);       \
 	}
 
+	INI_SET("screen", "center_horizontal", Globals::Screen::center_horizontally);
+	INI_SET("screen", "center_vertical",   Globals::Screen::center_vertically);
 
-	YAML_SET("screen", "center_horizontal", Globals::Screen::center_horizontally);
-	YAML_SET("screen", "center_vertical",   Globals::Screen::center_vertically);
+	INI_SET("screen", "borders",       Globals::Screen::show_borders);
+	INI_SET("screen", "fancy_borders", Globals::Screen::fancy_borders);
+	INI_SET("screen", "outer_border",  Globals::Screen::outer_border);
 
-	YAML_SET("screen", "borders",       Globals::Screen::show_borders);
-	YAML_SET("screen", "fancy_borders", Globals::Screen::fancy_borders);
-	YAML_SET("screen", "outer_border",  Globals::Screen::outer_border);
-
-	YAML_SET("game", "random_walls",     Globals::Game::random_walls);
-	YAML_SET("game", "fruits_at_once",   Globals::Game::fruits_at_once);
-	YAML_SET("game", "teleport",         Globals::Game::teleport);
+	INI_SET("game", "random_walls",     Globals::Game::random_walls);
+	INI_SET("game", "fruits_at_once",   Globals::Game::fruits_at_once);
+	INI_SET("game", "teleport",         Globals::Game::teleport);
 
 	// unsigned ints are the exception - their overloading
 	// is ambiguous... I should consider removing them altogether
-	yaml.set("game", "starting_speed", (int)Globals::Game::starting_speed);
+	int starting_speed = Globals::Game::starting_speed;
+	buffer = Utils::String::toString(starting_speed);
+	ini->top().addGroup("game");
+	(* ini)("game").addKey("starting_speed", buffer);
 
 	// Special Cases
 
@@ -315,39 +309,41 @@ void Globals::saveFile()
 	std::string key;
 
 	key = InputManager::keyToString(InputManager::getBind("left"));
-	YAML_SET("input", "left", key);
+	INI_SET("input", "left", key);
 
 	key = InputManager::keyToString(InputManager::getBind("right"));
-	YAML_SET("input", "right", key);
+	INI_SET("input", "right", key);
 
 	key = InputManager::keyToString(InputManager::getBind("up"));
-	YAML_SET("input", "up", key);
+	INI_SET("input", "up", key);
 
 	key = InputManager::keyToString(InputManager::getBind("down"));
-	YAML_SET("input", "down", key);
+	INI_SET("input", "down", key);
 
 	key = InputManager::keyToString(InputManager::getBind("pause"));
-	YAML_SET("input", "pause", key);
+	INI_SET("input", "pause", key);
 
 	key = InputManager::keyToString(InputManager::getBind("help"));
-	YAML_SET("input", "help", key);
+	INI_SET("input", "help", key);
 
 	key = InputManager::keyToString(InputManager::getBind("quit"));
-	YAML_SET("input", "quit", key);
+	INI_SET("input", "quit", key);
 
 	// Board size
 	int board_size = Globals::Game::boardSizeToInt(Globals::Game::board_size);
-	YAML_SET("game", "board_size", board_size);
+	INI_SET("game", "board_size", board_size);
 
 	try
 	{
-		yaml.save(Globals::Config::file);
+		ini->saveAs(Globals::Config::file);
 	}
-	catch(std::runtime_error)
+	catch(std::runtime_error& e)
 	{
 		// Couldn't save the file...
 		// Silently return
+		SAFE_DELETE(ini);
 		return;
 	}
+	SAFE_DELETE(ini);
 }
 

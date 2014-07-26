@@ -4,7 +4,6 @@
 #include <Flow/InputManager.hpp>
 #include <Misc/Utils.hpp>
 #include <Config/Globals.hpp>
-#include <Config/YAMLFile.hpp>
 
 StateManager::StateManager():
 	currentState(NULL),

@@ -52,7 +52,7 @@ namespace Globals
 
 		/// Main file where global settings reside.
 		///
-		/// It's `~/.local/share/nsnake/settings.yml`.
+		/// It's `~/.local/share/nsnake/settings.ini`.
 		extern std::string file;
 
 		/// Main file where the high scores are located.
