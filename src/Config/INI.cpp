@@ -1,4 +1,5 @@
 #include <Config/INI.hpp>
+#include <Misc/Utils.hpp>
 
 void INI::Level::addGroup(std::string name)
 {
@@ -38,7 +39,11 @@ void INI::Level::addKey(std::string name, std::string value)
 
 void INI::Parser::raise_error(std::string msg)
 {
-	std::string buffer = "Error '" + msg; //+ "' on line #" + (long)this->lines;
+	std::string buffer = ("Error '" +
+	                      msg +
+	                      "' on line #" +
+	                      Utils::String::toString(this->lines));
+
 	throw std::runtime_error(buffer);
 }
 
