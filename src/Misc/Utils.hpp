@@ -210,13 +210,13 @@ namespace Utils
 		std::string pop_back(std::string& str);
 
 		/// Removes all space on the left of `str`.
-		std::string& ltrim(std::string &str);
+		std::string ltrim(const std::string &str);
 
 		/// Removes all space on the right of `str`.
-		std::string& rtrim(std::string& str);
+		std::string rtrim(const std::string& str);
 
 		/// Removes all space on both sides of `str`.
-		std::string& trim(std::string& str);
+		std::string trim(const std::string& str);
 
 		/// Splits `str` according to `delimt`.
 		///

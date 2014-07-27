@@ -27,6 +27,7 @@
 #include <fstream>	   // ofstream
 #include <stdlib.h>	   // system()
 #include <algorithm>
+#include <cstring>     // strchr()
 
 // C++11 compatibility
 // I wish I could use those:
@@ -342,47 +343,29 @@ std::string Utils::String::pop_back(std::string& str)
 	return (str.substr(0, str.size() - 1));
 }
 
-std::string& Utils::String::ltrim(std::string &str)
+const char trim_blanks[] = " \t\r\n"; // Characters to be removed
+
+std::string Utils::String::ltrim(const std::string& str)
 {
-	// Using some std black magic. Taken from here:
-	// http://stackoverflow.com/questions/216823/whats-the-best-way-to-trim-stdstring
+	size_t startpos = str.find_first_not_of(trim_blanks);
 
-	// Here we create a predicate to be compared.
-	// (In other words, "an element that `isspace`")
-	std::pointer_to_unary_function<int, int> function =
-		std::ptr_fun<int, int>(std::isspace);
+	// Found no blanks
+	if (startpos == std::string::npos)
+		return "";
 
-	// This returns the first element that's not a space.
-	//
-	// It will go inside `str` looking for the first
-	// element that matches a predicate.
-
-	std::string::iterator it = std::find_if(str.begin(),
-	                                        str.end(),
-
-	                                        // And here we negate the predicate
-	                                        // ("an element that's NOT `isspace`")
-	                                        std::not1(function));
-
-	// And here we erase everything up to it.
-	str.erase(str.begin(), it);
-	return str;
+	return str.substr(startpos);
 }
-
-std::string& Utils::String::rtrim(std::string& str)
+std::string Utils::String::rtrim(const std::string& str)
 {
-	// More std magic. Sorry for the mess.
-	// Please check method above (`ltrim`).
+	size_t endpos = str.find_last_not_of(trim_blanks);
 
-	str.erase(std::find_if(str.rbegin(),
-	                       str.rend(),
-	                       std::not1(std::ptr_fun<int, int>(std::isspace))).base(),
-	          str.end());
+	// Found no blanks
+	if (endpos == std::string::npos)
+		return "";
 
-	return str;
+	return str.substr(0, endpos + 1);
 }
-
-std::string& Utils::String::trim(std::string& str)
+std::string Utils::String::trim(const std::string& str)
 {
 	return (Utils::String::ltrim(
 		        Utils::String::rtrim(
