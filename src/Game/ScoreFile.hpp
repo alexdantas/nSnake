@@ -135,7 +135,6 @@ public:
 	ScoreEntry* highScore;
 
 private:
-
 	/// Name of the level under these scores fall into.
 	/// Defaults to "" for Arcade Mode.
 	std::string level_name;

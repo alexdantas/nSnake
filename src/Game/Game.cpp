@@ -52,9 +52,6 @@ void Game::start(std::string levelName)
 	this->gameOver            = false;
 	this->isPaused            = false;
 
-	// The interface
-	this->layout = new LayoutGame(this, 80, 24);
-
 	this->scores = new ScoreFile(levelName);
 	// will load the scores on `GameStateGame`
 
@@ -65,28 +62,6 @@ void Game::start(std::string levelName)
 	this->currentScore->random_walls = Globals::Game::random_walls;
 	this->currentScore->teleport     = Globals::Game::teleport;
 	this->currentScore->board_size   = Globals::Game::board_size;
-
-	// Creating the menu and adding each item
-	this->pauseMenu = new Menu(1,
-	                           1,
-	                           this->layout->pause->getW() - 2,
-	                           this->layout->pause->getH() - 2);
-
-	MenuItem* item;
-
-	item = new MenuItem("Resume", RESUME);
-	this->pauseMenu->add(item);
-
-	item = new MenuItem("Restart", RESTART);
-	this->pauseMenu->add(item);
-
-	this->pauseMenu->addBlank();
-
-	item = new MenuItem("Quit to Main Menu", QUIT_MENU);
-	this->pauseMenu->add(item);
-
-	item = new MenuItem("Quit Game", QUIT_GAME);
-	this->pauseMenu->add(item);
 
 	// Defaults to large
 	int boardw = 78;
@@ -129,6 +104,34 @@ void Game::start(std::string levelName)
 	// fruits beibeh
 	this->fruits = new FruitManager(Globals::Game::fruits_at_once);
 	this->fruits->update(this->player, this->board);
+
+	// Finally, the interface
+	//
+	// NOTE: It depends on the `currentScore` level name!
+	//       Do not initialize it before!
+	this->layout = new LayoutGame(this, 80, 24);
+
+	// Creating the menu and adding each item
+	this->pauseMenu = new Menu(1,
+	                           1,
+	                           this->layout->pause->getW() - 2,
+	                           this->layout->pause->getH() - 2);
+
+	MenuItem* item;
+
+	item = new MenuItem("Resume", RESUME);
+	this->pauseMenu->add(item);
+
+	item = new MenuItem("Restart", RESTART);
+	this->pauseMenu->add(item);
+
+	this->pauseMenu->addBlank();
+
+	item = new MenuItem("Quit to Main Menu", QUIT_MENU);
+	this->pauseMenu->add(item);
+
+	item = new MenuItem("Quit Game", QUIT_GAME);
+	this->pauseMenu->add(item);
 
 	// Starting timers
 	this->timerSnake.start();

@@ -23,6 +23,11 @@ void LayoutGame::windowsInit()
 	Layout::windowsInit();
 	this->main->setTitle("nsnake " VERSION);
 
+	if (this->game->currentScore->level.empty())
+		this->main->setTitle("Arcade Mode", Window::TOP_RIGHT);
+	else
+		this->main->setTitle("Level " + this->game->board->getMetadata("name"), Window::TOP_RIGHT);
+
 	// Leftmost window
 	this->gamewin = new Window(this->main,
 	                           WINDOW_FILL,
