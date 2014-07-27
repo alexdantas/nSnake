@@ -94,8 +94,57 @@ void Menu::removeByLabel(std::string label)
 }
 void Menu::draw(Window* window)
 {
-	for (unsigned int i = 0; i < (this->item.size()); i++)
+	// If we have more Items than we can draw, we need to
+	// ask the user to scroll.
+
+	// So these are the indexes of the items we'll actually
+	// show on the screen.
+	unsigned int draw_begin = 0;
+	unsigned int draw_end   = this->item.size();
+
+	if (this->height < (int)this->item.size())
 	{
+		if ((int)this->currentIndex <= this->height/2)
+		{
+			draw_end = this->height - 1;
+		}
+		else if ((int)this->currentIndex < ((int)this->item.size() - this->height/2) - 1)
+		{
+			draw_begin = this->currentIndex - this->height/2;
+			draw_end   = this->currentIndex + this->height/2;
+		}
+		else
+		{
+			draw_begin = this->item.size() - this->height;
+		}
+	}
+
+	// `i` is the index of the item to draw
+	for (unsigned int curitem = draw_begin, yoffset = 0;
+	     curitem < draw_end;
+	     curitem++, yoffset++)
+	{
+		// Menu is big and needs scrolling,
+		// we need to show (more) on the top
+		if ((curitem == draw_begin) && (curitem != 0))
+		{
+			window->print("(more)",
+			              this->x + this->width/2 - 3,
+			              this->y + yoffset,
+			              Colors::pair(COLOR_WHITE, COLOR_DEFAULT));
+			continue;
+		}
+		// Menu is big and needs scrolling,
+		// we need to show (more) on the end
+		if ((curitem == draw_end - 1) && (curitem != this->item.size() - 1))
+		{
+			window->print("(more)",
+			              this->x + this->width/2 - 3,
+			              this->y + yoffset + 1,
+			              Colors::pair(COLOR_WHITE, COLOR_DEFAULT));
+			continue;
+		}
+
 		// <rant>
 		// THIS IS VERY UGLY
 		// HOW CAN I LAY DOWN A CLASS HIERARCHY
@@ -108,28 +157,26 @@ void Menu::draw(Window* window)
 //		MenuItemCheckbox* pCheckbox = dynamic_cast<MenuItemCheckbox*>a
 
 		// Blank Menu Item, will show horizontal line
-		if (! this->item[i])
+		if (! this->item[curitem])
 		{
 			for (int j = 0; j < (this->width); j++)
 				window->printChar(((Globals::Screen::fancy_borders) ?
 				                   ACS_HLINE :
 				                   '-'),
 				                  this->x + j,
-				                  this->y + i,
+				                  this->y + yoffset,
 				                  Colors::pair(COLOR_WHITE, COLOR_DEFAULT));
-
-
 		}
 		else
 		{
-			this->item[i]->draw(window,
-			                    this->x,
-			                    this->y + i,
-			                    this->width,
+			this->item[curitem]->draw(window,
+			                          this->x,
+			                          this->y + yoffset,
+			                          this->width,
 
-			                    // Highlighting current item if
-			                    // it's the current.
-			                    (this->item[i] == this->current));
+			                          // Highlighting current item if
+			                          // it's the current.
+			                          (this->item[curitem] == this->current));
 		}
 	}
 }
@@ -185,7 +232,7 @@ void Menu::goNext()
 	// Empty element, also piece of cake
 	if (this->item.size() == 1)
 	{
-		this->current = this->item.front();
+		this->current = *(this->item.begin());
 		this->currentIndex = 0;
 		return;
 	}

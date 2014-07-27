@@ -28,7 +28,12 @@
 class Menu
 {
 public:
+	/// Creates a menu at #x and #y with #width and #height.
+	///
+	/// It isn't attached to any specific Window,
+	/// except when you call Menu::draw().
 	Menu(int x, int y, int width, int height);
+
 	virtual ~Menu();
 
 	void add(MenuItem* item);
@@ -46,6 +51,7 @@ public:
 	///
 	void removeByLabel(std::string label);
 
+	/// Draws the whole Menu on #window.
 	void draw(Window* window);
 
 	/// Makes the menu react to input,
