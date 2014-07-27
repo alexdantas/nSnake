@@ -53,6 +53,26 @@ bool ScoreEntry::isLike(ScoreEntry& other)
 
 
 
+void ScoreFile::eraseAll()
+{
+	// 1. Delete the arcade score fileerase this one
+	// 2. Lists all files under the score dir and erase
+	//    the ones ending with a score extension
+
+	Utils::File::rm_f(Globals::Config::scoresFile);
+
+	std::vector<std::string> files = Utils::File::ls(ScoreFile::directory);
+
+	for (size_t i = 0; i < files.size(); i++)
+
+		if (Utils::File::extension(files[i]) == ScoreFile::extension)
+			Utils::File::rm_f(files[i]);
+}
+
+
+
+
+
 ScoreFile::ScoreFile(std::string levelName):
 	highScore(NULL),
 	level_name(levelName)

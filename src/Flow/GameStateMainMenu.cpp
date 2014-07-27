@@ -5,6 +5,7 @@
 #include <Misc/Utils.hpp>
 #include <Config/Globals.hpp>
 #include <Game/BoardParser.hpp>
+#include <Game/ScoreFile.hpp>
 
 enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 {
@@ -169,10 +170,8 @@ GameState::StateCode GameStateMainMenu::update()
 				bool answer = Dialog::askBool("Are you sure?");
 
 				if (answer)
-				{
-					// Clearing the High Scores file...
-					Utils::File::create(Globals::Config::scoresFile);
-				}
+					ScoreFile::eraseAll();
+
 				break;
 			}
 			this->menuGUIOptions->reset();

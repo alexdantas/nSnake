@@ -98,6 +98,13 @@ public:
 	/// @note Defaults to "nsnakescores"
 	static std::string extension;
 
+	/// Erases all high score files.
+	///
+	/// By "all" I mean every single score file from the arcade
+	/// mode to all levels.
+	///
+	static void eraseAll();
+
 	/// Creates a new score handler for the level #levelName.
 	///
 	/// @note It doesn't actually work unless you call #load, mate
