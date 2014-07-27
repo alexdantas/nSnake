@@ -74,9 +74,10 @@ CXXFILES = $(shell find src -type f -name '*.cpp')
 OBJECTS  = $(CFILES:.c=.o) \
            $(CXXFILES:.cpp=.o)
 
-DEFINES = -DVERSION=\""$(VERSION)"\" \
-          -DPACKAGE=\""$(PACKAGE)"\" \
-          -DDATE=\""$(DATE)"\"
+DEFINES = -DVERSION=\""$(VERSION)"\"                  \
+          -DPACKAGE=\""$(PACKAGE)"\"                  \
+          -DDATE=\""$(DATE)"\"                        \
+          -DSYSTEM_LEVEL_DIR=\""$(LEVELDIR)"\"
 
 # commander stuff
 COMMANDERDIR = deps/commander

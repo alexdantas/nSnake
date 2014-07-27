@@ -262,11 +262,13 @@ GameState::StateCode GameStateMainMenu::update()
 				if (BoardParser::listLevels().size() == 0)
 				{
 					Dialog::show("Sorry, it seems you have no levels.\n"
-					             "Get some level files and place them on\n"
-					             "'" + BoardParser::directory + "'\n" +
 					             "\n"
-					             "You can get them from the nSnake source\n"
-					             "package or download from the website:\n"
+					             "Please copy the default level files from\n"
+					             "`"  SYSTEM_LEVEL_DIR "/`\n"
+					             "to\n"
+					             "`" + BoardParser::directory + "`\n" +
+					             "\n"
+					             "You can also download more levels from the website:\n"
 					             "http://nsnake.alexdantas.net/", true);
 				}
 				else
