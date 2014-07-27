@@ -173,5 +173,68 @@ bool Board::hasMetadata(std::string name)
 {
 	return (this->metadata.find(name) != this->metadata.end());
 }
+void Board::scrollLeft()
+{
+	// Going line by line from top to bottom
+	for (size_t j = 0; j < (this->board->height()); j++)
+	{
+		// Get first left element from this line
+		bool tmp = this->board->at(0, j);
 
+		// Shifting all elements one block left
+		for (size_t i = 0; i < (this->board->width() - 1); i++)
+			this->board->set(i, j, this->board->at(i + 1, j));
+
+		// Putting the first element on the last place
+		this->board->set((this->board->width()) - 1, j, tmp);
+	}
+}
+void Board::scrollRight()
+{
+	// Going line by line from top to bottom
+	for (size_t j = 0; j < this->board->height(); j++)
+	{
+		// Get first right element from this line
+		bool tmp = this->board->at(this->board->width() - 1, j);
+
+		// Shifting all elements one block right
+		for (size_t i = (this->board->width() - 1); i > 0; i--)
+			this->board->set(i, j, this->board->at(i - 1, j));
+
+		// Putting the first element on the last place
+		this->board->set(0, j, tmp);
+	}
+}
+void Board::scrollUp()
+{
+	// Going line by line from left to right
+	for (size_t j = 0; j < this->board->width(); j++)
+	{
+		// Get first top element from this line
+		bool tmp = this->board->at(j, 0);
+
+		// Shifting all elements one block up
+		for (size_t i = 0; i < (this->board->height() - 1); i++)
+			this->board->set(j, i, this->board->at(j, i + 1));
+
+		// Putting the first element on the last place
+		this->board->set(j, this->board->height() - 1, tmp);
+	}
+}
+void Board::scrollDown()
+{
+	// Going line by line from left to right
+	for (size_t j = 0; j < this->board->width(); j++)
+	{
+		// Get first bottom element from this line
+		bool tmp = this->board->at(j, this->board->height() - 1);
+
+		// Shifting all elements one block down
+		for (size_t i = this->board->height() - 1; i > 0; i--)
+			this->board->set(j, i, this->board->at(j, i - 1));
+
+		// Putting the first element on the last place
+		this->board->set(j, 0, tmp);
+	}
+}
 

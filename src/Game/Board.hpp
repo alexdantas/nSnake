@@ -101,6 +101,11 @@ public:
 	/// Tells if this level has a specific information attached.
 	bool hasMetadata(std::string name);
 
+	void scrollLeft();
+	void scrollRight();
+	void scrollUp();
+	void scrollDown();
+
 private:
 	/// The actual level on the screen.
 	/// `true` means there's a wall here.
