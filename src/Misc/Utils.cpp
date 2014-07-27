@@ -148,6 +148,18 @@ void Utils::File::rm_rf(std::string path)
 
 	system(command.c_str());
 }
+void Utils::File::rm_f(std::string path)
+{
+	if (Utils::File::isDirectory(path))
+		return;
+
+	// This is ALSO another big hack.
+	// God-dang it
+	std::string command("rm -f " + path);
+
+	system(command.c_str());
+}
+
 bool Utils::File::create(std::string path)
 {
 	FILE* fp = fopen(path.c_str(), "w");

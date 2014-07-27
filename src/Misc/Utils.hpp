@@ -62,6 +62,10 @@ namespace Utils
 		/// at #path, just like UNIX command `rm -rf`.
 		void rm_rf(std::string path);
 
+		/// Forcibly removes file within #path.
+		/// @note It doesn't work with directories.
+		void rm_f(std::string path);
+
 		/// Creates empty file #path.
 		///
 		/// @note If file already exists, will
