@@ -47,30 +47,6 @@ void INI::Parser::raise_error(std::string msg)
 	throw std::runtime_error(buffer);
 }
 
-/// Removes blank spaces, tabs and line-endings from the
-/// beginning and ending of the string #str.
-///
-/// @note It returns a new string, doesn't modify #str.
-///
-std::string trim(const std::string& str)
-{
-	char blanks[] = " \t\r\n"; // Characters to be removed
-
-	long begin = 0;                 // They will mark the parts
-	long end   = str.length() - 1;  // of the strings that are
-	// non-blank.
-
-	for (; begin <= end; ++begin)
-		if (! strchr(blanks, str[begin]))
-			break;
-
-	for (; end >= 0; --end)
-		if (! strchr(blanks, str[end]))
-			break;
-
-	return str.substr(begin, (end - begin + 1));
-}
-
 INI::Parser::Parser() :
 	lines(0)
 {
@@ -123,7 +99,7 @@ void INI::Parser::parse(INI::Level& level)
 
 		if (line_[0] == '#' || line_[0] == ';') continue;
 
-		line_ = trim(line_);
+		line_ = Utils::String::trim(line_);
 
 		if (line_.empty()) continue;
 
@@ -179,9 +155,14 @@ void INI::Parser::parse(INI::Level& level)
 			if (n == std::string::npos)
 				raise_error("no '=' found");
 
+			std::string key   = line_.substr(0, n);
+			key = Utils::String::trim(key);
+
+			std::string value = line_.substr(n+1, line_.length()-n-1);
+			value = Utils::String::trim(value);
+
 			std::pair<INI::Level::ValueMap::const_iterator, bool> res =
-				level.values.insert(std::make_pair(line_.substr(0, n),
-				                                   line_.substr(n+1, line_.length()-n-1)));
+				level.values.insert(std::make_pair(key, value));
 
 			if (!res.second)
 				raise_error("duplicated key found");
