@@ -3,6 +3,8 @@
 
 void INI::Level::addGroup(std::string name)
 {
+	name = Utils::String::trim(name);
+
 	// When we call `this->sections[name]` we already create
 	// a new one if it doesn't exist.
 	//
@@ -24,6 +26,9 @@ void INI::Level::addGroup(std::string name)
 }
 void INI::Level::addKey(std::string name, std::string value)
 {
+	name  = Utils::String::trim(name);
+	value = Utils::String::trim(value);
+
 	std::pair<Level::ValueMap::const_iterator, bool> res =
 		this->values.insert(std::make_pair(name, value));
 
@@ -148,26 +153,20 @@ void INI::Parser::parse(INI::Level& level)
 
 			parse(*level_current);
 		}
-		else // if (line_[0] == '[')
+		else
 		{
-			size_t n = line_.find('=');
+			// Not a group - found a key-value pair, like:
+			// `something = other_something`
 
-			if (n == std::string::npos)
+			size_t pos = line_.find('=');
+
+			if (pos == std::string::npos)
 				raise_error("no '=' found");
 
-			std::string key   = line_.substr(0, n);
-			key = Utils::String::trim(key);
+			std::string key   = line_.substr(0, pos);
+			std::string value = line_.substr((pos + 1), (line_.length()-pos-1));
 
-			std::string value = line_.substr(n+1, line_.length()-n-1);
-			value = Utils::String::trim(value);
-
-			std::pair<INI::Level::ValueMap::const_iterator, bool> res =
-				level.values.insert(std::make_pair(key, value));
-
-			if (!res.second)
-				raise_error("duplicated key found");
-
-			level.ordered_values.push_back(res.first);
+			level.addKey(key, value);
 		}
 	}
 }

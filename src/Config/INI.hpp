@@ -139,10 +139,15 @@ namespace INI {
 
 		/// Creates a new child group with #name.
 		/// @note If it already exists, do nothing.
+		/// @note Inside this method we trim `name`
+		///       of spaces and tabs.
 		void addGroup(std::string name);
 
 		/// Creates a new key #name with #value.
+		///
 		/// @note If the key already exists will overwrite it's value.
+		/// @note Inside this method we trim `name` and `value`
+		///       of spaces and tabs.
 		void addKey(std::string name, std::string value);
 	};
 
