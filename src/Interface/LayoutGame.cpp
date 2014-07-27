@@ -137,9 +137,11 @@ void LayoutGame::draw(Menu* menu)
 	// Default color
 	wattrset(this->info->win, COLOR_PAIR(0));
 
-	mvwprintw(this->info->win, 0, 9, "%u", Globals::Game::highScore.points);
-	mvwprintw(this->info->win, 0, this->info->getW()/3 + 6, "%u", this->game->score->points);
-	mvwprintw(this->info->win, 0, this->info->getW()/3 * 2 + 6, "%d", this->game->score->speed);
+	if (this->game->scores->highScore)
+		mvwprintw(this->info->win, 0, 9, "%u", this->game->scores->highScore->points);
+
+	mvwprintw(this->info->win, 0, this->info->getW()/3 + 6, "%u", this->game->currentScore->points);
+	mvwprintw(this->info->win, 0, this->info->getW()/3 * 2 + 6, "%d", this->game->currentScore->speed);
 
 	// 	// Timer - how much time has passed since game start
 	// 	this->rightmost->print("Timer", 2, 10, hilite);

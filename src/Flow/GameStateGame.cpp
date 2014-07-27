@@ -19,14 +19,24 @@ void GameStateGame::load(int stack)
 	try {
 		this->game = new Game();
 		this->game->start(Globals::Game::current_level);
-		this->game->score->loadFile();
+		this->game->scores->load();
 	}
 	catch (BoardParserException& e)
 	{
 		Dialog::show("Couldn't load the level! (Error: \"" + e.message + "\")", true);
 		this->willQuit = true;
 	}
-	// Anything else won't be dealed with.
+	catch (ScoreFileException& e)
+	{
+		// Show a non-intrusive dialog with why
+		// we couldn't open high score file
+		//e.message
+	}
+	catch (std::runtime_error& e)
+	{
+		// Some error happened during INI parsing...
+		// What should we do?
+	}
 }
 int GameStateGame::unload()
 {
@@ -48,13 +58,13 @@ GameState::StateCode GameStateGame::update()
 		// inside the update() function.
 		// I know I shouldn't render things here.
 		// Oh boy, this should be refactored away.
-		this->game->score->saveFile();
+		this->game->scores->save();
 		Ncurses::delay_ms(500);
 
 		this->game->draw();
 
 		if (Dialog::askBool("Retry?", "Game Over", true))
-			this->game->start(Globals::Game::current_level);
+			this->load(); // restart the game
 		else
 			return GameState::MAIN_MENU;
 	}

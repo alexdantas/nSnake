@@ -14,8 +14,8 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 };
 
 Game::Game():
-	score(NULL),
-	highScore(NULL),
+	scores(NULL),
+	currentScore(NULL),
 	layout(NULL),
 	gameOver(false),
 	isPaused(false),
@@ -29,7 +29,8 @@ Game::Game():
 Game::~Game()
 {
 	SAFE_DELETE(this->layout);
-	SAFE_DELETE(this->score);
+	SAFE_DELETE(this->scores);
+	SAFE_DELETE(this->currentScore);
 	SAFE_DELETE(this->pauseMenu);
 	SAFE_DELETE(this->player);
 	SAFE_DELETE(this->board);
@@ -39,7 +40,8 @@ void Game::start(std::string levelName)
 {
 	// Cleaning things from the previous game (if any)
 	SAFE_DELETE(this->layout);
-	SAFE_DELETE(this->score);
+	SAFE_DELETE(this->scores);
+	SAFE_DELETE(this->currentScore);
 	SAFE_DELETE(this->pauseMenu);
 	SAFE_DELETE(this->player);
 	SAFE_DELETE(this->board);
@@ -53,10 +55,16 @@ void Game::start(std::string levelName)
 	// The interface
 	this->layout = new LayoutGame(this, 80, 24);
 
-	// Initializing the player and it's attributes
-	this->score = new Score(levelName);
-	this->score->speed = Globals::Game::starting_speed;
-	this->score->loadFile();
+	this->scores = new ScoreFile(levelName);
+	// will load the scores on `GameStateGame`
+
+	this->currentScore = new ScoreEntry();
+	this->currentScore->level        = levelName;
+	this->currentScore->speed        = Globals::Game::starting_speed;
+	this->currentScore->fruits       = Globals::Game::fruits_at_once;
+	this->currentScore->random_walls = Globals::Game::random_walls;
+	this->currentScore->teleport     = Globals::Game::teleport;
+	this->currentScore->board_size   = Globals::Game::board_size;
 
 	// Creating the menu and adding each item
 	this->pauseMenu = new Menu(1,
@@ -236,7 +244,7 @@ void Game::update()
 	// Forcing Snake to move if enough time has passed
 	// (time based on current level)
 	this->timerSnake.pause();
-	int delta = this->getDelay(this->score->speed);
+	int delta = this->getDelay(this->currentScore->speed);
 
 	if (this->timerSnake.delta_ms() >= delta)
 	{
@@ -246,11 +254,9 @@ void Game::update()
 		{
 			this->gameOver = true;
 
-			if (this->score->points > Globals::Game::highScore.points)
-			{
-				Globals::Game::highScore.points = this->score->points;
-				Globals::Game::highScore.speed  = this->score->speed;
-			}
+			// Check the return value and warns the player
+			// if he just beat the high score
+			this->scores->handle(this->currentScore);
 		}
 		else
 		{
@@ -264,7 +270,7 @@ void Game::update()
 				// Score formula is kinda random and
 				// scattered all over this file.
 				// TODO: Center it all on the Score class.
-				this->score->points += this->score->speed * 2;
+				this->currentScore->points += this->currentScore->speed * 2;
 			}
 
 			this->fruits->update(this->player, this->board);

@@ -337,7 +337,8 @@ std::string& Utils::String::ltrim(std::string &str)
 
 	// Here we create a predicate to be compared.
 	// (In other words, "an element that `isspace`")
-	std::pointer_to_unary_function<int, int> function = std::ptr_fun<int, int>(std::isspace);
+	std::pointer_to_unary_function<int, int> function =
+		std::ptr_fun<int, int>(std::isspace);
 
 	// This returns the first element that's not a space.
 	//
@@ -352,9 +353,7 @@ std::string& Utils::String::ltrim(std::string &str)
 	                                        std::not1(function));
 
 	// And here we erase everything up to it.
-	str.erase(str.begin(),
-	          it);
-
+	str.erase(str.begin(), it);
 	return str;
 }
 
@@ -373,7 +372,9 @@ std::string& Utils::String::rtrim(std::string& str)
 
 std::string& Utils::String::trim(std::string& str)
 {
-	return Utils::String::ltrim(Utils::String::rtrim(str));
+	return (Utils::String::ltrim(
+		        Utils::String::rtrim(
+			        str)));
 }
 
 std::vector<std::string> Utils::String::split(const std::string& str, char delim)

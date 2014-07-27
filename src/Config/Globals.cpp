@@ -3,16 +3,16 @@
 #include <Misc/Utils.hpp>
 #include <Flow/InputManager.hpp>
 #include <Game/BoardParser.hpp>
-#include <Game/Score.hpp>
+#include <Game/ScoreFile.hpp>
 
 #include <ncurses.h>
 #include <iostream>
 #include <fstream>
 
 // VERSION is formatted like "0.0.1" - i'm skipping the dots
-int Globals::version[3] = { VERSION[0] - '0',
-                            VERSION[2] - '0',
-                            VERSION[4] - '0'};
+char Globals::version[3] = { VERSION[0],
+                             VERSION[2],
+                             VERSION[4] };
 
 //  __    ___   _      ____  _   __
 // / /`  / / \ | |\ | | |_  | | / /`_
@@ -59,8 +59,6 @@ int Globals::Game::boardSizeToInt(Globals::Game::BoardSize size)
 	return 2;
 }
 
-Score        Globals::Game::highScore;
-
 ColorPair Globals::Theme::text;
 ColorPair Globals::Theme::hilite_text;
 ColorPair Globals::Theme::textbox;
@@ -100,7 +98,7 @@ void Globals::init()
 	                         "settings.ini");
 
 	Globals::Config::scoresFile = (Globals::Config::directory +
-	                               "scores.bin");
+	                               "arcade.nsnakescores");
 
 	if (! Utils::File::isDirectory(Globals::Config::directory))
 		Utils::File::mkdir_p(Globals::Config::directory);
@@ -129,7 +127,7 @@ void Globals::init()
 	///      initialize it.
 	///
 	BoardParser::directory = Globals::Config::directory + "levels/";
-	Score::directory       = BoardParser::directory;
+	ScoreFile::directory   = BoardParser::directory;
 
 	/// Making sure they both exist...!
 	if (! Utils::File::isDirectory(BoardParser::directory))

@@ -1,7 +1,7 @@
 #ifndef GAME_H_DEFINED
 #define GAME_H_DEFINED
 
-#include <Game/Score.hpp>
+#include <Game/ScoreFile.hpp>
 #include <Game/Player.hpp>
 #include <Game/Board.hpp>
 #include <Game/FruitManager.hpp>
@@ -10,7 +10,7 @@
 
 #include <vector>
 
-/// Pre-defining it's layout to avoid circular dependency.
+// Pre-defining it's layout to avoid circular dependency.
 class LayoutGame;
 
 class Game
@@ -52,8 +52,18 @@ public:
 	void pause(bool option);
 
 	// GameStateGame needs them to be public
-	Score* score;
-	Score* highScore;
+
+	/// All the current level's score.
+	/// It allows to read all the scores on this level,
+	/// independent of game settings.
+	ScoreFile* scores;
+
+	/// Current score for this level.
+	///
+	/// It shall get increased with time and in the end
+	/// we'll  test to see if it can enter this level's
+	/// high score list.
+	ScoreEntry* currentScore;
 
 protected:
 	LayoutGame* layout;
