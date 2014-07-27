@@ -118,13 +118,13 @@ void Game::start(std::string levelName)
 		                         Board::SOLID));
 	}
 
-	if (Globals::Game::random_walls)
-		this->board->randomlyFillExceptBy(this->player->getX(),
-		                                  this->player->getY());
-
 	// the player!
 	this->player = new Player(this->board->getStartX(),
 	                          this->board->getStartY());
+
+	if (Globals::Game::random_walls)
+		this->board->randomlyFillExceptBy(this->player->getX(),
+		                                  this->player->getY());
 
 	// fruits beibeh
 	this->fruits = new FruitManager(Globals::Game::fruits_at_once);
