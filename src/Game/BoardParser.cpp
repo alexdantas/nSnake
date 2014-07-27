@@ -53,6 +53,8 @@ Board* BoardParser::loadFile(std::string filename)
     {
 	    ++line_count;
 
+	    current_line = Utils::String::trim(current_line);
+
 	    // We only care for the line that tells a level
 	    // definition will start.
 	    if (current_line != "start")
@@ -66,6 +68,8 @@ Board* BoardParser::loadFile(std::string filename)
 	        while (std::getline(file, current_line))
 	        {
 		        ++line_count;
+
+		        current_line = Utils::String::trim(current_line);
 
 		        if (current_line == "end")
 		        {
