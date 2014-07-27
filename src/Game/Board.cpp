@@ -171,7 +171,7 @@ std::string Board::getMetadata(std::string name)
 }
 bool Board::hasMetadata(std::string name)
 {
-	return (this->metadata.find(name) == this->metadata.end());
+	return (this->metadata.find(name) != this->metadata.end());
 }
 
 
