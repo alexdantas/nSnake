@@ -80,11 +80,14 @@ void ScoreFile::load()
 
 	// Reading whole file's contents into a buffer
 	std::ifstream file;
-	std::stringstream contents;
-
 	file.open(score_file.c_str());
-	contents << file.rdbuf();
+
+	std::stringstream buffer;
+	buffer << file.rdbuf();
 	file.close();
+
+	std::stringstream contents;
+	contents << Utils::Base64::decode(buffer.str());
 
 	// Parsing file's contents as INI
 	INI::Parser ini(contents);
@@ -202,7 +205,7 @@ void ScoreFile::save()
 
 	std::ofstream file;
 	file.open(score_file.c_str());
-	file << contents.str();
+	file << Utils::Base64::encode(contents.str());
 	file.close();
 }
 bool ScoreFile::handle(ScoreEntry* score)
