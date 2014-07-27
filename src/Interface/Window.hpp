@@ -67,8 +67,17 @@ public:
 
 	void horizontalLine(int x, int y, int c, int width, ColorPair pair);
 
-	void setTitle(std::string title);
+	enum WindowTitlePosition
+	{
+		TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
+	};
 
+	/// Sets a text that will appear at the top of the Window.
+	///
+	/// By default it's shown on top of the borders, with
+	/// a highlighted color tone.
+	///
+	void setTitle(std::string title, WindowTitlePosition position=Window::TOP_LEFT);
 
 	/// Ncurses' internal data structure.
 	/// IT'S PUBLIC BECAUSE SOMETIMES I NEED TO CALL DIRECT
@@ -86,7 +95,10 @@ protected:
 
 	BorderType borderType;
 
-	std::string title;
+	std::string topLeftTitle;
+	std::string topRightTitle;
+	std::string bottomLeftTitle;
+	std::string bottomRightTitle;
 };
 
 #endif //WINDOW_H_DEFINED

@@ -29,7 +29,10 @@ Window::Window(int x, int y, int w, int h):
 	width(w),
 	height(h),
 	borderType(BORDER_NONE),
-	title("")
+	topLeftTitle(""),
+	topRightTitle(""),
+	bottomLeftTitle(""),
+	bottomRightTitle("")
 {
 	this->win = newwin(height, width, y, x);
 
@@ -40,7 +43,10 @@ Window::Window(Window* parent, int x, int y, int width, int height):
 	win(NULL),
 	error(false),
 	borderType(BORDER_NONE),
-	title("")
+	topLeftTitle(""),
+	topRightTitle(""),
+	bottomLeftTitle(""),
+	bottomRightTitle("")
 {
 	// By sending any parameter as 0, we want it to expand
 	// until possible.
@@ -127,10 +133,37 @@ void Window::clear()
 	if (this->borderType != BORDER_NONE)
 		this->borders(this->borderType);
 
-	if (! this->title.empty())
-		this->print(this->title, 1, 0, Colors::pair(COLOR_BLUE,
-		                                            COLOR_DEFAULT));
+	// Now, to the titles!
+	if (! this->topLeftTitle.empty())
+	{
+		this->print(this->topLeftTitle,
+		            1, 0,
+		            Colors::pair(COLOR_BLUE, COLOR_DEFAULT));
+	}
+	if (! this->bottomLeftTitle.empty())
+	{
+		this->print(this->bottomLeftTitle,
+		            0, this->getH() - 1,
+		            Colors::pair(COLOR_BLUE, COLOR_DEFAULT));
+	}
+	if (! this->topRightTitle.empty())
+	{
+		int x = (this->getW() - 1);
+		int w = this->topRightTitle.size();
 
+		this->print(this->topRightTitle,
+		            x - w, 0,
+		            Colors::pair(COLOR_BLUE, COLOR_DEFAULT));
+	}
+	if (! this->bottomRightTitle.empty())
+	{
+		int x = (this->getW() - 1);
+		int w = this->bottomRightTitle.size();
+
+		this->print(this->bottomRightTitle,
+		            x - w, this->getH() - 1,
+		            Colors::pair(COLOR_BLUE, COLOR_DEFAULT));
+	}
 }
 int Window::getW() const
 {
@@ -178,8 +211,15 @@ void Window::horizontalLine(int x, int y, int c, int width, ColorPair pair)
 	Colors::pairActivate(this->win, pair);
 	mvwhline(this->win, y, x, c, width);
 }
-void Window::setTitle(std::string title)
+void Window::setTitle(std::string title, WindowTitlePosition position)
 {
-	this->title = title;
+	switch (position)
+	{
+	case TOP_LEFT:     this->topLeftTitle     = title; break;
+	case TOP_RIGHT:    this->topRightTitle    = title; break;
+	case BOTTOM_LEFT:  this->bottomLeftTitle  = title; break;
+	case BOTTOM_RIGHT: this->bottomRightTitle = title; break;
+	default: return;
+	}
 }
 
