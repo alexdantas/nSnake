@@ -59,6 +59,8 @@ int Globals::Game::boardSizeToInt(Globals::Game::BoardSize size)
 	return 2;
 }
 
+int Globals::Game::board_scroll_delay = 1000;
+
 ColorPair Globals::Theme::text;
 ColorPair Globals::Theme::hilite_text;
 ColorPair Globals::Theme::textbox;
@@ -210,9 +212,10 @@ void Globals::loadFile()
 	INI_GET(Globals::Screen::fancy_borders, "screen", "fancy_borders");
 	INI_GET(Globals::Screen::outer_border,  "screen", "outer_border");
 
-	INI_GET(Globals::Game::random_walls,   "game", "random_walls");
-	INI_GET(Globals::Game::fruits_at_once, "game", "fruits_at_once");
-	INI_GET(Globals::Game::teleport,       "game", "teleport");
+	INI_GET(Globals::Game::random_walls,       "game", "random_walls");
+	INI_GET(Globals::Game::fruits_at_once,     "game", "fruits_at_once");
+	INI_GET(Globals::Game::teleport,           "game", "teleport");
+	INI_GET(Globals::Game::board_scroll_delay, "game", "board_scroll_delay");
 
 	// unsigned ints are the exception - their overloading
 	// is ambiguous... I should consider removing them altogether
@@ -293,6 +296,8 @@ void Globals::saveFile()
 	INI_SET("game", "random_walls",     Globals::Game::random_walls);
 	INI_SET("game", "fruits_at_once",   Globals::Game::fruits_at_once);
 	INI_SET("game", "teleport",         Globals::Game::teleport);
+
+	INI_SET("game", "board_scroll_delay", Globals::Game::board_scroll_delay);
 
 	// unsigned ints are the exception - their overloading
 	// is ambiguous... I should consider removing them altogether

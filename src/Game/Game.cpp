@@ -135,6 +135,7 @@ void Game::start(std::string levelName)
 
 	// Starting timers
 	this->timerSnake.start();
+	this->timerBoard.start();
 	this->timer.start();
 }
 void Game::handleInput()
@@ -176,12 +177,14 @@ void Game::handleInput()
 			this->showHelp = false;
 			this->timer.unpause();
 			this->timerSnake.unpause();
+			this->timerBoard.unpause();
 		}
 		else
 		{
 			this->showHelp = true;
 			this->timer.pause();
 			this->timerSnake.pause();
+			this->timerBoard.pause();
 		}
 	}
 
@@ -282,6 +285,18 @@ void Game::update()
 	}
 	else
 		this->timerSnake.unpause();
+
+	// Checking to see if we can scroll the Board
+	this->timerBoard.pause();
+	delta = Globals::Game::board_scroll_delay;
+
+	if (this->timerBoard.delta_ms() >= delta)
+	{
+		this->board->scrollDown();
+		this->timerBoard.start();
+	}
+	else
+		this->timerBoard.unpause();
 }
 void Game::draw()
 {

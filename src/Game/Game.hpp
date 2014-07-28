@@ -78,6 +78,10 @@ protected:
 	/// on the current speed).
 	Timer timerSnake;
 
+	/// Timer that tells when to scroll the board, if
+	/// this game setting is activated.
+	Timer timerBoard;
+
 	// Times how long the user have been playing the game.
 	Timer timer;
 
