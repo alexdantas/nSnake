@@ -4,12 +4,13 @@
 #include <Misc/Timer.hpp>
 #include <Flow/InputManager.hpp>
 
-MenuItemNumberbox::MenuItemNumberbox(std::string label, int id, int min, int max, int initial):
+MenuItemNumberbox::MenuItemNumberbox(std::string label, int id, int min, int max, int initial, int jump):
 	MenuItem(label, id),
 	min(min),
 	max(max),
 	initial(initial),
-	current(initial)
+	current(initial),
+	jump(jump)
 {
 	this->type = MenuItem::NUMBERBOX; // placing it above wont work
 }
@@ -105,12 +106,12 @@ void MenuItemNumberbox::set(int value)
 }
 void MenuItemNumberbox::increase()
 {
-	this->current++;
+	this->current += this->jump;
 	this->cap();
 }
 void MenuItemNumberbox::decrease()
 {
-	this->current--;
+	this->current -= this->jump;
 	this->cap();
 }
 void MenuItemNumberbox::reset()
