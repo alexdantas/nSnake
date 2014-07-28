@@ -8,7 +8,7 @@
 WindowGameHelp::WindowGameHelp()
 {
 	int width  = 40;
-	int height = 15;
+	int height = 17;
 
 	int windowx = Layout::screenWidth/2  - width/2;
 	int windowy = Layout::screenHeight/2 - height/2;
@@ -69,23 +69,18 @@ void WindowGameHelp::run()
 		// Help Window
 		if (activatedIndex == 0)
 		{
-			this->windows[0]->print(Utils::String::split("nSnake is the classical snake game\n"
-			                                             "on the terminal.", '\n'),
+			this->windows[0]->print("In-game controls:\n",
 			                        0, 0,
-			                        Globals::Theme::text);
-
-			this->windows[0]->print("Controls:",
-			                        0, 3,
 			                        Globals::Theme::hilite_text);
 
-			this->windows[0]->print(Utils::String::split(" Move up\n"
-			                                             " Move down\n"
-			                                             " Move left\n"
-			                                             " Move right\n"
-			                                             " Pause game\n"
-			                                             " Quit anytime\n"
-			                                             " Show help", '\n'),
-			                        10, 3,
+			this->windows[0]->print(Utils::String::split("Move up\n"
+			                                             "Move down\n"
+			                                             "Move left\n"
+			                                             "Move right\n"
+			                                             "Pause game\n"
+			                                             "Quit anytime\n"
+			                                             "Show help", '\n'),
+			                        1, 1,
 			                        Globals::Theme::hilite_text);
 
 			this->windows[0]->print(Utils::String::split(InputManager::keyToString(InputManager::getBind("up")) + "\n" +
@@ -95,12 +90,26 @@ void WindowGameHelp::run()
 			                                             InputManager::keyToString(InputManager::getBind("pause")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("quit")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("help")), '\n'),
-			                        24, 3,
+			                        14, 1,
+			                        Globals::Theme::text);
+
+			this->windows[0]->print("Menu controls:\n",
+			                        0, 9,
+			                        Globals::Theme::hilite_text);
+
+			this->windows[0]->print(Utils::String::split("First item\n"
+			                                             "Last item", '\n'),
+			                        1, 10,
+			                        Globals::Theme::hilite_text);
+
+			this->windows[0]->print(Utils::String::split("page up\n"
+			                                             "page down", '\n'),
+			                        14, 10,
 			                        Globals::Theme::text);
 
 			this->windows[0]->print(Utils::String::split(" Settings and scores are stored at:\n"
-			                                             "        ~/.local/share/nsnake/", '\n'),
-			                        0, 11,
+			                                             " `~/.local/share/nsnake/`", '\n'),
+			                        0, 13,
 			                        Globals::Theme::text);
 		}
 		//
@@ -116,15 +125,17 @@ void WindowGameHelp::run()
 			                        0, 3,
 			                        Colors::pair(COLOR_GREEN, COLOR_DEFAULT, true));
 
-			this->windows[1]->print(Utils::String::split("\n"
-			                                             "nSnake was made by Alexandre Dantas,\n"
-			                                             "contact him at <eu@alexdantas.net>\n"
+			this->windows[1]->print(Utils::String::split("Try `nsnake --help` and `man nsnake`\n"
 			                                             "\n"
+			                                             "Game made by Alexandre Dantas,\n"
+			                                             "contact him at <eu@alexdantas.net>\n"
 			                                             "Thanks for playing this game :)\n"
 			                                             "\n"
-			                                             "http://nsnake.alexdantas.net/\n"
-			                                             "https://github.com/alexdantas/nsnake/", '\n'),
-			                        1, 5, Globals::Theme::text);
+			                                             "Homepage:\n"
+			                                             " http://nsnake.alexdantas.net/\n"
+			                                             "Source Code:\n"
+			                                             " https://github.com/alexdantas/nsnake/", '\n'),
+			                        0, 5, Globals::Theme::text);
 		}
 
 		this->windows[activatedIndex]->refresh();
