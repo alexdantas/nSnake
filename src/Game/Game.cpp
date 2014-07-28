@@ -69,18 +69,18 @@ void Game::start(std::string levelName)
 	this->currentScore->board_scroll_down  = Globals::Game::board_scroll_down;
 
 	// Defaults to large
-	int boardw = 78;
-	int boardh = 21;
+	int boardw = Board::large_width;
+	int boardh = Board::large_height;
 
 	if (Globals::Game::board_size == Globals::Game::SMALL)
 	{
-		boardw = 40;
-		boardh = 10;
+		boardw = Board::small_width;
+		boardh = Board::small_height;
 	}
 	else if (Globals::Game::board_size == Globals::Game::MEDIUM)
 	{
-		boardw = 55;
-		boardh = 14;
+		boardw = Board::medium_width;
+		boardh = Board::medium_height;
 	}
 
 	if (! levelName.empty())

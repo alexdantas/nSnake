@@ -3,6 +3,15 @@
 #include <Config/Globals.hpp>
 #include <Misc/Utils.hpp>
 
+int Board::small_width  = 40;
+int Board::small_height = 10;
+
+int Board::medium_width  = 55;
+int Board::medium_height = 14;
+
+int Board::large_width  = 78;
+int Board::large_height = 21;
+
 Board::Board(int width, int height, Style style):
 	style(style),
 	start_x(BOARD_DEFAULT_PLAYER_X),

@@ -32,6 +32,15 @@ class Player;
 class Board
 {
 public:
+	static int small_width;
+	static int small_height;
+
+	static int medium_width;
+	static int medium_height;
+
+	static int large_width;
+	static int large_height;
+
 	/// If the player will teleport when reaching the
 	/// Board's limits or not.
 	enum Style { SOLID, TELEPORT };
