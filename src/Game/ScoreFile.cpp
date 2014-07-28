@@ -19,7 +19,12 @@ ScoreEntry::ScoreEntry():
 	fruits(0),
 	random_walls(false),
 	teleport(false),
-	board_size(Globals::Game::LARGE)
+	board_size(Globals::Game::LARGE),
+	board_scroll_delay(0),
+	board_scroll_left(false),
+	board_scroll_right(false),
+	board_scroll_up(false),
+	board_scroll_down(false)
 { }
 
 bool ScoreEntry::isLike(ScoreEntry& other)
@@ -38,6 +43,11 @@ bool ScoreEntry::isLike(ScoreEntry& other)
 		        this->random_walls == other.random_walls &&
 		        this->teleport     == other.teleport     &&
 		        this->speed        == other.speed        &&
+		        this->board_scroll_delay == other.board_scroll_delay &&
+		        this->board_scroll_left  == other.board_scroll_left  &&
+		        this->board_scroll_right == other.board_scroll_right &&
+		        this->board_scroll_up    == other.board_scroll_up    &&
+		        this->board_scroll_down  == other.board_scroll_down  &&
 		        this->board_size   == other.board_size);
 	}
 
@@ -46,7 +56,12 @@ bool ScoreEntry::isLike(ScoreEntry& other)
 	return (this->fruits       == other.fruits       &&
 	        this->random_walls == other.random_walls &&
 	        this->teleport     == other.teleport     &&
-	        this->speed        == other.speed);
+	        this->speed        == other.speed        &&
+	        this->board_scroll_delay == other.board_scroll_delay &&
+	        this->board_scroll_left  == other.board_scroll_left  &&
+	        this->board_scroll_right == other.board_scroll_right &&
+	        this->board_scroll_up    == other.board_scroll_up    &&
+	        this->board_scroll_down  == other.board_scroll_down);
 }
 
 
@@ -143,6 +158,12 @@ void ScoreFile::load()
 		entry.random_walls = Utils::String::to<bool>(ini_score["random_walls"]);
 		entry.teleport     = Utils::String::to<bool>(ini_score["teleport"]);
 
+		entry.board_scroll_delay = Utils::String::to<int>(ini_score["board_scroll_delay"]);
+		entry.board_scroll_left  = Utils::String::to<bool>(ini_score["board_scroll_left"]);
+		entry.board_scroll_right = Utils::String::to<bool>(ini_score["board_scroll_right"]);
+		entry.board_scroll_up    = Utils::String::to<bool>(ini_score["board_scroll_up"]);
+		entry.board_scroll_down  = Utils::String::to<bool>(ini_score["board_scroll_down"]);
+
 		int board_size = Utils::String::to<int>(ini_score["board_size"]);
 		entry.board_size = Globals::Game::intToBoardSize(board_size);
 
@@ -158,6 +179,11 @@ void ScoreFile::load()
 	tmp_score.random_walls = Globals::Game::random_walls;
 	tmp_score.teleport     = Globals::Game::teleport;
 	tmp_score.board_size   = Globals::Game::board_size;
+	tmp_score.board_scroll_delay = Globals::Game::board_scroll_delay;
+	tmp_score.board_scroll_left  = Globals::Game::board_scroll_left;
+	tmp_score.board_scroll_right = Globals::Game::board_scroll_right;
+	tmp_score.board_scroll_up    = Globals::Game::board_scroll_up;
+	tmp_score.board_scroll_down  = Globals::Game::board_scroll_down;
 
 	for (size_t i = 0; i < (this->entries.size()); i++)
 	{
@@ -218,6 +244,12 @@ void ScoreFile::save()
 
 		int board_size = Globals::Game::boardSizeToInt(this->entries[i].board_size);
 		ini(score_name).addKey("board_size", Utils::String::toString(board_size));
+
+		ini(score_name).addKey("board_scroll_delay", Utils::String::toString(this->entries[i].board_scroll_delay));
+		ini(score_name).addKey("board_scroll_left", Utils::String::toString(this->entries[i].board_scroll_left));
+		ini(score_name).addKey("board_scroll_right", Utils::String::toString(this->entries[i].board_scroll_right));
+		ini(score_name).addKey("board_scroll_up", Utils::String::toString(this->entries[i].board_scroll_up));
+		ini(score_name).addKey("board_scroll_down", Utils::String::toString(this->entries[i].board_scroll_down));
 	}
 
 	std::stringstream contents;

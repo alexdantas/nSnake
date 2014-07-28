@@ -62,6 +62,11 @@ void Game::start(std::string levelName)
 	this->currentScore->random_walls = Globals::Game::random_walls;
 	this->currentScore->teleport     = Globals::Game::teleport;
 	this->currentScore->board_size   = Globals::Game::board_size;
+	this->currentScore->board_scroll_delay = Globals::Game::board_scroll_delay;
+	this->currentScore->board_scroll_left  = Globals::Game::board_scroll_left;
+	this->currentScore->board_scroll_right = Globals::Game::board_scroll_right;
+	this->currentScore->board_scroll_up    = Globals::Game::board_scroll_up;
+	this->currentScore->board_scroll_down  = Globals::Game::board_scroll_down;
 
 	// Defaults to large
 	int boardw = 78;

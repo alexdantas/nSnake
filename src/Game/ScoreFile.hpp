@@ -51,6 +51,12 @@ struct ScoreEntry
 	///       Levels don't care about it.
 	Globals::Game::BoardSize board_size;
 
+	int  board_scroll_delay;
+	bool board_scroll_left;
+	bool board_scroll_right;
+	bool board_scroll_up;
+	bool board_scroll_down;
+
 	/// Creates an empty score entry.
 	/// Since everything is public, access them
 	/// without thinking twice.
