@@ -16,11 +16,43 @@ MenuItemNumberbox::MenuItemNumberbox(std::string label, int id, int min, int max
 }
 void MenuItemNumberbox::draw(Window* window, int x, int y, int width, bool hilite)
 {
-	MenuItem::draw(window, x, y, width, hilite);
-
 	std::string number = Utils::String::toString(this->current);
 
-	window->print(number, (width + x - number.size()), y, Globals::Theme::hilite_text);
+	// Will draw
+	//      label     text
+	// If not hilite.
+	// If hilite:
+	//      label   < text >
+	MenuItem::draw(window,
+	               x,
+	               y,
+	               (width - number.size() - 5),
+	               hilite);
+
+	int rightmost = x + width;
+
+	window->print(((hilite)?
+	               "<":
+	               "["),
+	              rightmost - number.size() - 2,
+	              y,
+	              ((hilite)?
+	               Globals::Theme::hilite_text:
+	               Globals::Theme::text));
+
+	window->print(((hilite)?
+	               ">":
+	               "]"),
+	              rightmost - 1,
+	              y,
+	              ((hilite)?
+	               Globals::Theme::hilite_text:
+	               Globals::Theme::text));
+
+	window->print(number,
+	              rightmost - number.size() - 1,
+	              y,
+	              Globals::Theme::hilite_text);
 }
 void MenuItemNumberbox::handleInput()
 {
