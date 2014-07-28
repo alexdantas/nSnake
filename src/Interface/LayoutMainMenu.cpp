@@ -35,9 +35,9 @@ void LayoutMainMenu::windowsInit()
 
 	// MENU
 	this->menu = new Window(this->main,
-	                        56,
+	                        55,
 	                        0,
-	                        23,
+	                        24,
 	                        WINDOW_FILL);
 	this->menu->setTitle("Main Menu");
 

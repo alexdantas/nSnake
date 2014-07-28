@@ -454,6 +454,8 @@ void GameStateMainMenu::createGameSettingsMenu()
 
 	menuGameSettings->add(list);
 
+	menuGameSettings->addBlank();
+
 	number = new MenuItemNumberbox("Scroll Delay(ms)", SCROLL_DELAY, 100, 5000, Globals::Game::board_scroll_delay, 100);
 	menuGameSettings->add(number);
 
