@@ -28,6 +28,7 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 	FRUITS,
 	RANDOM_WALLS,
 	BOARD_SIZE,
+	SCROLL_DELAY,
 
 	// Options Submenu
 	SHOW_BORDERS,
@@ -442,7 +443,11 @@ void GameStateMainMenu::createGameSettingsMenu()
 	                            BOARD_SIZE,
 	                            options,
 	                            defaullt);
+
 	menuGameSettings->add(list);
+
+	number = new MenuItemNumberbox("ScrollDelay(ms)", SCROLL_DELAY, 100, 5000, Globals::Game::board_scroll_delay, 100);
+	menuGameSettings->add(number);
 }
 void GameStateMainMenu::createGUIOptionsMenu()
 {
@@ -579,6 +584,7 @@ void GameStateMainMenu::saveSettingsMenuGameSettings()
 
 	else
 		Globals::Game::board_size = Globals::Game::LARGE;
-}
 
+	Globals::Game::board_scroll_delay = this->menuGameSettings->getInt(SCROLL_DELAY);
+}
 
