@@ -24,8 +24,9 @@ void version(command_t* self)
 		"       :o_o:\n"
 		"         -\n"
 		"\n"
-		"Homepage: http://nsnake.alexdantas.net/\n"
-		"Contact:  Alexandre Dantas <eu@alexdantas.net>\n";
+		"Homepage:      http://nsnake.alexdantas.net/\n"
+		"Source Code:   https://github.com/alexdantas/nsnake/\n"
+		"Contact:       Alexandre Dantas <eu@alexdantas.net>\n";
 
 	command_free(self);
 	exit(EXIT_SUCCESS);
@@ -40,10 +41,10 @@ void help(command_t* self)
 		"|_| \\| _)_) |_| \\| /_/--\\ |_| \\ |_|__ \n"
 		"v" VERSION "                 (built " DATE ")\n"
 		"\n"
-		"nsnake is the classical snake game on the\n"
-		"terminal.\n"
-		"It's settings and scores are stored at:\n"
-		"	~/.local/share/nsnake/\n"
+		"nsnake is the classical snake game on the terminal\n"
+		"\n"
+		"Settings and scores are stored at:\n"
+		"	`~/.local/share/nsnake/`\n"
 		"\n"
 		"Usage:\n"
 		"	nsnake [options]\n"
@@ -51,7 +52,8 @@ void help(command_t* self)
 		"	-h, --help     Show this message\n"
 		"	-v, --version  Show game version and contact info\n"
 		"\n"
-		"Thank you for playing this game :)\n";
+		"See also `man nsnake`\n"
+		"Thanks for playing this game :)\n";
 
 	command_free(self);
 	exit(EXIT_SUCCESS);
