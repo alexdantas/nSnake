@@ -33,15 +33,15 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 	SCROLL_LEFT,
 	SCROLL_UP,
 	SCROLL_DOWN,
+	ERASE_HIGH_SCORES,
 
-	// Options Submenu
+	// GUI Submenu
 	SHOW_BORDERS,
 	FANCY_BORDERS,
 	OUTER_BORDER,
 	USE_COLORS,
 	CENTER_HORIZONTAL,
 	CENTER_VERTICAL,
-	ERASE_HIGH_SCORES,
 
 	// Controls Submenu
 	CONTROLS_KEY_LEFT,
@@ -145,6 +145,18 @@ GameState::StateCode GameStateMainMenu::update()
 			// And then exit based on the selected option.
 			switch (this->menuGameSettings->currentID())
 			{
+			case ERASE_HIGH_SCORES:
+			{
+				bool answer = Dialog::askBool("Are you sure?");
+
+				if (answer)
+				{
+					ScoreFile::eraseAll();
+					Dialog::show("All high scores erased!", true);
+				}
+			}
+				break;
+
 			case GO_BACK:
 				this->layout->menu->setTitle("Main Menu");
 				this->menuGameSettingsActivated = false;
@@ -169,14 +181,6 @@ GameState::StateCode GameStateMainMenu::update()
 				saveSettingsMenuGUIOptions();
 				this->layout->windowsExit();
 				this->layout->windowsInit();
-				break;
-
-			case ERASE_HIGH_SCORES:
-				bool answer = Dialog::askBool("Are you sure?");
-
-				if (answer)
-					ScoreFile::eraseAll();
-
 				break;
 			}
 			this->menuGUIOptions->reset();
@@ -464,6 +468,12 @@ void GameStateMainMenu::createGameSettingsMenu()
 
 	check = new MenuItemCheckbox("Scroll Right", SCROLL_RIGHT, Globals::Game::board_scroll_right);
 	menuGameSettings->add(check);
+
+	menuGameSettings->addBlank();
+
+	item = new MenuItem("Erase High Scores",
+	                    ERASE_HIGH_SCORES);
+	menuGameSettings->add(item);
 }
 void GameStateMainMenu::createGUIOptionsMenu()
 {
@@ -507,12 +517,6 @@ void GameStateMainMenu::createGUIOptionsMenu()
 	                             CENTER_VERTICAL,
 	                             Globals::Screen::center_vertically);
 	menuGUIOptions->add(check);
-
-	menuGUIOptions->addBlank();
-
-	item = new MenuItem("Erase High Scores",
-	                    ERASE_HIGH_SCORES);
-	menuGUIOptions->add(item);
 }
 void GameStateMainMenu::createControlsMenu()
 {
