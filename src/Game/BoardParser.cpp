@@ -116,14 +116,11 @@ Board* BoardParser::loadFile(std::string filename)
 
         std::vector<bool> rawBoardLine;
 
-        // TODO Remove \n or \r\n from line
-        //      (create Utils::String::chomp)
-
         // And now we go through each char on the line
         // checking if it's a wall, blank space or the
         // player's starting point.
         //
-        for (size_t i = 0; i < current_line.size() - 2; i++)
+        for (size_t i = 0; i < current_line.size(); i++)
         {
 	        if (current_line[i] == SNAKE_CHAR)
 	        {

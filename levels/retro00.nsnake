@@ -1,0 +1,19 @@
+name    = Retro 00
+author  = Alexandre Dantas
+date    = Jul 28, 2014
+comment = Taken straight from the old game "Snake II"
+
+start
+######################
+#                    #
+#                    #
+#                    #
+#                    #
+# @                  #
+#                    #
+#                    #
+#                    #
+#                    #
+######################
+end
+

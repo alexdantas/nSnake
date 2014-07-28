@@ -1,0 +1,19 @@
+name    = Retro 05
+author  = Alexandre Dantas
+date    = Jul 28, 2014
+comment = You'd probably want to play this on the teleport mode
+
+start
+######################
+#       #    #       #
+#       #    #       #
+#####   ######   #####
+#   #                #
+#   # @              #
+#   #                #
+#####   #    #   #####
+#       #    #       #
+#       #    #       #
+######################
+end
+

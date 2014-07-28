@@ -12,10 +12,11 @@ with textual interface.
 
 Here's some features:
 
-* Customizable gameplay, appearance and keybindings;
-* Neat GUI-like interface with nice animations;
-* Lots of possible game modes, with scores saved for each;
-* Levels - create your own easily;
+* Customizable gameplay, appearance and key bindings
+* GUI-like interface with nice animations
+* Levels - create your own [easily][level_wiki];
+* Lots of possible game modes; teleport, scroll map, random walls,
+  etc. Scores are saved for each setting.
 
 ## Controls
 
@@ -33,24 +34,18 @@ All user settings are located at `~/.local/share/nsnake`.
 
 ## Levels
 
-nSnake looks for game levels on `~/.local/share/nsnake/levels`.
-They have a `.nsnake` extension and are simple text files.
+nSnake looks out for level files on `~/.local/share/nsnake/levels`. By default
+it installs stock levels on `/usr/share/games/nsnake/levels`, so make sure to
+copy them before playing.
 
-The file format is very easy to edit; open `levels/arena00.nsnake`
-with any text editor and follow the instructions there.
-
-Don't forget to copy default levels under the `levels` directory
-to the one specified above.
+Levels have a `.nsnake` extension and are simple text files.  The file
+format is very easy to edit; check out [the wiki][level_wiki] for a quick guide.
 
 ## Dependencies
 
-nSnake depends on two libraries, `ncurses` and `yaml-cpp`.
+nSnake only depends on `ncurses`; it's used to show cute things on the terminal.
 
-### ncurses
-
-This library shows cute things on the terminal.
-
-For nSnake you need the package *ncurses dev*. Note that it's _not_ the default
+Make sure you have the package *ncurses dev*. Note that it's _not_ the default
 that comes with your distro.
 
 | Distro         | Installation command              |
@@ -58,22 +53,6 @@ that comes with your distro.
 | Ubuntu/Debian  | `apt-get install libncurses5-dev` |
 | Fedora         | `yum install ncurses-devel`       |
 | Arch Linux     | _comes by default_                |
-
-If you know the means to install on other distros, [please tell me][issues].
-
-### yaml-cpp
-
-This library is used to parse **YAML** configuration files.
-
-With it `nsnake` has a human-readable settings file; you can easily backup
-and manually change it, although we the preferred method would be from inside
-the game.
-
-| Distro         | Installation command               |
-| -------------- | ---------------------------------- |
-| Ubuntu/Debian  | `apt-get install libyaml-cpp-dev`  |
-| Fedora         | `yum install yaml-cpp-devel`       |
-| Arch Linux     | `pacman -S yaml-cpp`               |
 
 If you know the means to install on other distros, [please tell me][issues].
 
@@ -210,4 +189,5 @@ I raise my hat to:
 [gitcafe]:     https://gitcafe.com/alexdantas/nsnake
 [googlecode]:  http://code.google.com/p/nsnake/
 [contrib]:     https://github.com/alexdantas/nSnake/graphs/contributors
+[level_wiki]:  https://github.com/alexdantas/nSnake/wiki/How-to-create-your-own-levels
 

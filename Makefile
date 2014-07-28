@@ -38,7 +38,7 @@
 
 # General Info
 PACKAGE = nsnake
-VERSION = 2.0.8
+VERSION = 3.0.0
 DATE    = $(shell date "+%b%Y")
 
 # Install dirs

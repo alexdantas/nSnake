@@ -63,9 +63,7 @@ void Board::draw(Window* win)
 	{
 		for (size_t j = 0; j < (this->board->height()); j++)
 		{
-			// Drawing the borders
-			if ((i == 0) || (i == this->board->width() - 1) ||
-			    (j == 0) || (j == this->board->height() - 1))
+			if (this->isBorder(i, j))
 			{
 				win->printChar(((this->style == Board::TELEPORT) ?
 				                teleport_appearance :
@@ -75,12 +73,9 @@ void Board::draw(Window* win)
 				               0);
 				continue;
 			}
-
-		    // Drawing the walls
-			if (this->board->at(i, j))
+			else if (this->isWall(i, j))
 				win->printChar(solid_appearance,
-				               i,
-				               j,
+				               i, j,
 				               0);
 		}
 	}

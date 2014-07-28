@@ -1,0 +1,19 @@
+name    = Retro 06
+author  = Alexandre Dantas
+date    = Jul 28, 2014
+comment = Also suited for the teleport mode
+
+start
+######################
+#          #         #
+#          #         #
+#          #         #
+#          #         #
+######################
+#          #         #
+#          # @       #
+#          #         #
+#          #         #
+######################
+end
+

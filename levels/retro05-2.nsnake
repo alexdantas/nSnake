@@ -1,0 +1,19 @@
+name    = Retro 05 v2
+author  = Alexandre Dantas
+date    = Jul 28, 2014
+comment = An alternative to "Retro 05"
+
+start
+######################
+#       #    #       #
+#       #    #       #
+#####            #####
+#                    #
+#     @              #
+#                    #
+#####            #####
+#       #    #       #
+#       #    #       #
+######################
+end
+

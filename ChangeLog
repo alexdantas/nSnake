@@ -1,3 +1,21 @@
+07-28-2014 v3.0.0
+	* Gameplay: Levels! Now you can make your own maps and mazes
+	            that the snake will play on. As expected, each
+	            level has it's own score count.
+	* Gameplay: Made possible for the game levels to scroll.
+	            Now you can set the game map to move on all
+	            4 directions under a configurable speed.
+	* Interface: Made subtle changes on the GUI; specially on
+	             the text dialogs and menu items.
+	* Development: Rewrote score files format from scratch.
+	               It is now way more extensible; way better than
+	               a mere binary blob.
+	* Development: Tons and tons of bug fixes. Namely random
+	               game crashes.
+	* Interface: Game now ships with menu and icon files. It
+	             gets installed in a way that shows nSnake on
+	             the menus of most Linux distributions.
+
 05-29-2014 v2.0.5
 	* Development: Completely removed any C++11 features from the
 	               codebase. Game is now portable across old
