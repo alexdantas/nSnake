@@ -11,11 +11,22 @@ MenuItemCheckbox::MenuItemCheckbox(std::string label, int id, bool initial):
 
 void MenuItemCheckbox::draw(Window* window, int x, int y, int width, bool hilite)
 {
+	// Will draw
+	//      label     text
+	// If not hilite.
+	// If hilite:
+	//      label   < text >
 	MenuItem::draw(window, x, y, width - 9, hilite); // button width
 
 	int posx = x + width;
 
-	window->print("[", posx - 8, y, Globals::Theme::text);
+	window->print(((hilite)?
+	               "<":
+	               "["),
+	              posx - 8, y,
+	              ((hilite)?
+	               Globals::Theme::hilite_text:
+	               Globals::Theme::text));
 
 	window->print("ON", posx - 7, y, ((this->checked) ?
 	                                  Globals::Theme::hilite_text:
@@ -27,7 +38,13 @@ void MenuItemCheckbox::draw(Window* window, int x, int y, int width, bool hilite
 	                                   Globals::Theme::text :
 	                                   Globals::Theme::hilite_text));
 
-	window->print("]", posx - 1, y, Globals::Theme::text);
+	window->print(((hilite)?
+	               ">":
+	               "]"),
+	              posx - 1, y,
+	              ((hilite)?
+	               Globals::Theme::hilite_text:
+	               Globals::Theme::text));
 }
 void MenuItemCheckbox::handleInput()
 {
