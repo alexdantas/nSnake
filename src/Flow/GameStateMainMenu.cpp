@@ -29,6 +29,10 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 	RANDOM_WALLS,
 	BOARD_SIZE,
 	SCROLL_DELAY,
+	SCROLL_RIGHT,
+	SCROLL_LEFT,
+	SCROLL_UP,
+	SCROLL_DOWN,
 
 	// Options Submenu
 	SHOW_BORDERS,
@@ -446,8 +450,20 @@ void GameStateMainMenu::createGameSettingsMenu()
 
 	menuGameSettings->add(list);
 
-	number = new MenuItemNumberbox("ScrollDelay(ms)", SCROLL_DELAY, 100, 5000, Globals::Game::board_scroll_delay, 100);
+	number = new MenuItemNumberbox("Scroll Delay(ms)", SCROLL_DELAY, 100, 5000, Globals::Game::board_scroll_delay, 100);
 	menuGameSettings->add(number);
+
+	check = new MenuItemCheckbox("Scroll Up", SCROLL_UP, Globals::Game::board_scroll_up);
+	menuGameSettings->add(check);
+
+	check = new MenuItemCheckbox("Scroll Down", SCROLL_DOWN, Globals::Game::board_scroll_down);
+	menuGameSettings->add(check);
+
+	check = new MenuItemCheckbox("Scroll Left", SCROLL_LEFT, Globals::Game::board_scroll_left);
+	menuGameSettings->add(check);
+
+	check = new MenuItemCheckbox("Scroll Right", SCROLL_RIGHT, Globals::Game::board_scroll_right);
+	menuGameSettings->add(check);
 }
 void GameStateMainMenu::createGUIOptionsMenu()
 {
@@ -586,5 +602,10 @@ void GameStateMainMenu::saveSettingsMenuGameSettings()
 		Globals::Game::board_size = Globals::Game::LARGE;
 
 	Globals::Game::board_scroll_delay = this->menuGameSettings->getInt(SCROLL_DELAY);
+
+	Globals::Game::board_scroll_left  = this->menuGameSettings->getBool(SCROLL_LEFT);
+	Globals::Game::board_scroll_right = this->menuGameSettings->getBool(SCROLL_RIGHT);
+	Globals::Game::board_scroll_up    = this->menuGameSettings->getBool(SCROLL_UP);
+	Globals::Game::board_scroll_down  = this->menuGameSettings->getBool(SCROLL_DOWN);
 }
 
