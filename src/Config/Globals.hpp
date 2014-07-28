@@ -101,6 +101,11 @@ namespace Globals
 
 		extern int board_scroll_delay;
 
+		extern bool board_scroll_up;
+		extern bool board_scroll_down;
+		extern bool board_scroll_left;
+		extern bool board_scroll_right;
+
 		/// Name of the level the game should load.
 		/// Also, name of the current level.
 		extern std::string current_level;

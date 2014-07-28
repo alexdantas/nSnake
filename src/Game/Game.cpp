@@ -286,13 +286,18 @@ void Game::update()
 	else
 		this->timerSnake.unpause();
 
-	// Checking to see if we can scroll the Board
+	// Hey, can we scroll the Board?
+	// If yes, on which direction should we do it?
 	this->timerBoard.pause();
 	delta = Globals::Game::board_scroll_delay;
 
 	if (this->timerBoard.delta_ms() >= delta)
 	{
-		this->board->scrollDown();
+		if (Globals::Game::board_scroll_up)    this->board->scrollUp();
+		if (Globals::Game::board_scroll_down)  this->board->scrollDown();
+		if (Globals::Game::board_scroll_left)  this->board->scrollLeft();
+		if (Globals::Game::board_scroll_right) this->board->scrollRight();
+
 		this->timerBoard.start();
 	}
 	else
