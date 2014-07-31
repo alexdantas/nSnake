@@ -281,6 +281,7 @@ void Globals::saveFile()
 	}
 	catch(std::runtime_error& e)
 	{
+		ini = new INI::Parser();
 		ini->create();
 	}
 
