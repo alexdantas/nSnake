@@ -73,8 +73,7 @@ Then, it's simple:
 	$ man nsnake
 	$ nsnake
 
-To change the default installation directories, check file
-`INSTALL.md`.
+Check file `INSTALL.md` for more info.
 
 ## Contact
 
