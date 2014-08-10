@@ -32,9 +32,9 @@ void Layout::windowsInit()
 	    (current_height < intendedHeight))
 	{
 		Ncurses::exit();
-		std::cerr << "Error! Your console screen is smaller than"
+		std::cerr << "Error! Your console screen is smaller than "
 		          << intendedWidth << "x" << intendedHeight << "\n"
-		          << "Please resize your window and try again"
+		          << "Please resize your window and try again."
 		          << std::endl;
 
 		exit(EXIT_FAILURE);
@@ -78,4 +78,3 @@ void Layout::draw()
 {
 	// When subclassing, make sure to implement this!
 }
-
