@@ -1,7 +1,7 @@
 #ifndef BOARDPARSER_H_DEFINED
 #define BOARDPARSER_H_DEFINED
 
-#include <Game/Board.hpp>
+#include <Game/Entities/Board.hpp>
 
 #include <exception>
 #include <string>

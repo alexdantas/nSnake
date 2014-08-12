@@ -1,7 +1,7 @@
 #ifndef MENUITEMLABEL_H_DEFINED
 #define MENUITEMLABEL_H_DEFINED
 
-#include <Interface/Menu/MenuItem.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem.hpp>
 
 /// Shows a Menu Item with left and right labels.
 struct MenuItemLabel: public MenuItem

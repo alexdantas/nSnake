@@ -1,7 +1,7 @@
-#include <Game/Board.hpp>
-#include <Game/Player.hpp>
-#include <Config/Globals.hpp>
-#include <Misc/Utils.hpp>
+#include <Game/Entities/Board.hpp>
+#include <Game/Entities/Player.hpp>
+#include <Game/Config/Globals.hpp>
+#include <Engine/Helpers/Utils.hpp>
 
 int Board::small_width  = 40;
 int Board::small_height = 10;

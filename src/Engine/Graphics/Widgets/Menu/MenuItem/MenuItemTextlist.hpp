@@ -1,7 +1,7 @@
 #ifndef MENUITEMTEXTLIST_H_DEFINED
 #define MENUITEMTEXTLIST_H_DEFINED
 
-#include <Interface/Menu/MenuItem.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem.hpp>
 
 #include <vector>
 #include <string>

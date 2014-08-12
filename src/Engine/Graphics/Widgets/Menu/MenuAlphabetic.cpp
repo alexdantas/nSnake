@@ -1,6 +1,6 @@
-#include <Interface/Menu/MenuAlphabetic.hpp>
-#include <Misc/Utils.hpp>
-#include <Flow/InputManager.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuAlphabetic.hpp>
+#include <Engine/Helpers/Utils.hpp>
+#include <Engine/InputManager.hpp>
 
 #include <algorithm>
 

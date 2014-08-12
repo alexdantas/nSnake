@@ -1,6 +1,6 @@
-#include <Interface/Animation/AnimationSnakes.hpp>
-#include <Interface/Colors.hpp>
-#include <Misc/Utils.hpp>
+#include <Game/Display/AnimationSnakes.hpp>
+#include <Engine/Graphics/Colors.hpp>
+#include <Engine/Helpers/Utils.hpp>
 
 AnimationSnakes::AnimationSnakes(Window* window):
 	Animation(window)

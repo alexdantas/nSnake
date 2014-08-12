@@ -5,7 +5,7 @@
 #include <vector>
 #include <ncurses.h>
 
-#include <Interface/Colors.hpp>
+#include <Engine/Graphics/Colors.hpp>
 
 /// Handy alias to make child Windows stretch their sizes to
 /// the maximum allowed by the parent.

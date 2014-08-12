@@ -1,10 +1,10 @@
 #ifndef LAYOUTMAINMENU_H_DEFINED
 #define LAYOUTMAINMENU_H_DEFINED
 
-#include <Interface/Layout.hpp>
-#include <Interface/Window.hpp>
-#include <Interface/Menu/Menu.hpp>
-#include <Interface/Animation/Animation.hpp>
+#include <Engine/Graphics/Layout.hpp>
+#include <Engine/Graphics/Window.hpp>
+#include <Engine/Graphics/Widgets/Menu.hpp>
+#include <Engine/Graphics/Animation.hpp>
 
 // circular dependence on GameStateMainMenu
 class GameStateMainMenu;

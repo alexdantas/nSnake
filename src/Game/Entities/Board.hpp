@@ -1,8 +1,8 @@
 #ifndef BOARD_H_DEFINED
 #define BOARD_H_DEFINED
 
-#include <Misc/Array2D.hpp>
-#include <Interface/Window.hpp>
+#include <Engine/Helpers/Array2D.hpp>
+#include <Engine/Graphics/Window.hpp>
 
 #include <map>
 

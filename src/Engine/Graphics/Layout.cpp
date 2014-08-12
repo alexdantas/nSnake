@@ -1,7 +1,7 @@
-#include <Interface/Layout.hpp>
-#include <Interface/Ncurses.hpp>
-#include <Config/Globals.hpp>
-#include <Misc/Utils.hpp>
+#include <Engine/Graphics/Layout.hpp>
+#include <Engine/Graphics/Ncurses.hpp>
+#include <Game/Config/Globals.hpp>
+#include <Engine/Helpers/Utils.hpp>
 
 #include <iostream>
 #include <cstdlib>

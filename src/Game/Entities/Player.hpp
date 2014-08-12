@@ -1,7 +1,7 @@
 #ifndef PLAYER_H_DEFINED
 #define PLAYER_H_DEFINED
 
-#include <Interface/Window.hpp>
+#include <Engine/Graphics/Window.hpp>
 
 #include <vector>
 

@@ -1,9 +1,9 @@
 #ifndef FRUITMANAGER_H_DEFINED
 #define FRUITMANAGER_H_DEFINED
 
-#include <Game/Player.hpp>
-#include <Game/Board.hpp>
-#include <Interface/Window.hpp>
+#include <Game/Entities/Player.hpp>
+#include <Game/Entities/Board.hpp>
+#include <Engine/Graphics/Window.hpp>
 
 #include <vector>
 

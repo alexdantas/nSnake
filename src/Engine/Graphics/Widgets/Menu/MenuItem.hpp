@@ -1,7 +1,7 @@
 #ifndef MENUITEM_H_DEFINED
 #define MENUITEM_H_DEFINED
 
-#include <Interface/Window.hpp>
+#include <Engine/Graphics/Window.hpp>
 
 #include <string>
 

@@ -1,10 +1,10 @@
-#include <Interface/Dialog.hpp>
-#include <Interface/Layout.hpp>
-#include <Interface/Menu/Menu.hpp>
-#include <Interface/Ncurses.hpp>
-#include <Config/Globals.hpp>
-#include <Flow/InputManager.hpp>
-#include <Misc/Utils.hpp>
+#include <Engine/Graphics/Widgets/Dialog.hpp>
+#include <Engine/Graphics/Layout.hpp>
+#include <Engine/Graphics/Widgets/Menu.hpp>
+#include <Engine/Graphics/Ncurses.hpp>
+#include <Game/Config/Globals.hpp>
+#include <Engine/InputManager.hpp>
+#include <Engine/Helpers/Utils.hpp>
 
 #include <vector>
 #include <algorithm>

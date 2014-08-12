@@ -1,7 +1,7 @@
 #ifndef MENUITEMTEXTBOX_H_DEFINED
 #define MENUITEMTEXTBOX_H_DEFINED
 
-#include <Interface/Menu/MenuItem.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem.hpp>
 
 /// Place where you can input characters.
 ///

@@ -1,7 +1,7 @@
-#include <Interface/Menu/MenuItemTextbox.hpp>
-#include <Config/Globals.hpp>
-#include <Flow/InputManager.hpp>
-#include <Misc/Utils.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem/MenuItemTextbox.hpp>
+#include <Game/Config/Globals.hpp>
+#include <Engine/InputManager.hpp>
+#include <Engine/Helpers/Utils.hpp>
 
 MenuItemTextbox::MenuItemTextbox(std::string label, int id, int width, std::string initial):
 	MenuItem(label, id),

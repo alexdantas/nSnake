@@ -1,4 +1,4 @@
-#include <Config/Arguments.hpp>
+#include <Game/Config/Arguments.hpp>
 
 #include <commander/commander.h> // local files
 #include <iostream>

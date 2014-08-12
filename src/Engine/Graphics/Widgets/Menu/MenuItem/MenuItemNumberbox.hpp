@@ -1,7 +1,7 @@
 #ifndef MENUITEMNUMBERBOX_H_DEFINED
 #define MENUITEMNUMBERBOX_H_DEFINED
 
-#include <Interface/Menu/MenuItem.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem.hpp>
 
 /// Allows to select a number, kinda like a slider.
 ///

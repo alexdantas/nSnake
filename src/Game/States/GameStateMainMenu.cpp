@@ -1,11 +1,11 @@
-#include <Flow/GameStateMainMenu.hpp>
-#include <Flow/InputManager.hpp>
-#include <Interface/Ncurses.hpp>
-#include <Interface/Dialog.hpp>
-#include <Misc/Utils.hpp>
-#include <Config/Globals.hpp>
-#include <Game/BoardParser.hpp>
-#include <Game/ScoreFile.hpp>
+#include <Game/States/GameStateMainMenu.hpp>
+#include <Engine/InputManager.hpp>
+#include <Engine/Graphics/Ncurses.hpp>
+#include <Engine/Graphics/Widgets/Dialog.hpp>
+#include <Engine/Helpers/Utils.hpp>
+#include <Game/Config/Globals.hpp>
+#include <Game/Entities/BoardParser.hpp>
+#include <Game/Entities/ScoreFile.hpp>
 
 enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 {

@@ -1,7 +1,7 @@
 #ifndef STATEMANAGER_H_DEFINED
 #define STATEMANAGER_H_DEFINED
 
-#include <Flow/GameState.hpp>
+#include <Engine/Flow/GameState.hpp>
 
 /// Giga-class that switches from game states.
 ///

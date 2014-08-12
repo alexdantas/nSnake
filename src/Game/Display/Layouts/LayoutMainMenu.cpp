@@ -1,10 +1,10 @@
-#include <Interface/LayoutMainMenu.hpp>
-#include <Interface/Colors.hpp>
-#include <Interface/Ncurses.hpp>
-#include <Config/Globals.hpp>
-#include <Misc/Utils.hpp>
-#include <Flow/GameStateMainMenu.hpp>
-#include <Interface/Animation/AnimationSnakes.hpp>
+#include <Game/Display/Layouts/LayoutMainMenu.hpp>
+#include <Engine/Graphics/Colors.hpp>
+#include <Engine/Graphics/Ncurses.hpp>
+#include <Game/Config/Globals.hpp>
+#include <Engine/Helpers/Utils.hpp>
+#include <Game/States/GameStateMainMenu.hpp>
+#include <Game/Display/AnimationSnakes.hpp>
 
 #include <iostream>
 

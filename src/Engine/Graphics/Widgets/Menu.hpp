@@ -1,13 +1,13 @@
 #ifndef MENU_H_DEFINED
 #define MENU_H_DEFINED
 
-#include <Interface/Window.hpp>
-#include <Interface/Menu/MenuItem.hpp>
-#include <Interface/Menu/MenuItemLabel.hpp>
-#include <Interface/Menu/MenuItemCheckbox.hpp>
-#include <Interface/Menu/MenuItemNumberbox.hpp>
-#include <Interface/Menu/MenuItemTextbox.hpp>
-#include <Interface/Menu/MenuItemTextlist.hpp>
+#include <Engine/Graphics/Window.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem/MenuItemLabel.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem/MenuItemCheckbox.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem/MenuItemNumberbox.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem/MenuItemTextbox.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem/MenuItemTextlist.hpp>
 
 #include <vector>
 #include <string>

@@ -1,12 +1,12 @@
 #ifndef GAME_H_DEFINED
 #define GAME_H_DEFINED
 
-#include <Game/ScoreFile.hpp>
-#include <Game/Player.hpp>
-#include <Game/Board.hpp>
-#include <Game/FruitManager.hpp>
-#include <Misc/Timer.hpp>
-#include <Interface/Menu/Menu.hpp>
+#include <Game/Entities/ScoreFile.hpp>
+#include <Game/Entities/Player.hpp>
+#include <Game/Entities/Board.hpp>
+#include <Game/Entities/FruitManager.hpp>
+#include <Engine/Helpers/Timer.hpp>
+#include <Engine/Graphics/Widgets/Menu.hpp>
 
 #include <vector>
 

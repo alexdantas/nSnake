@@ -1,10 +1,10 @@
 #ifndef LAYOUTGAMEMODESURVIVAL_H_DEFINED
 #define LAYOUTGAMEMODESURVIVAL_H_DEFINED
 
-#include <Interface/Layout.hpp>
-#include <Interface/Menu/Menu.hpp>
-#include <Interface/WindowGameHelp.hpp>
-#include <Game/Game.hpp>
+#include <Engine/Graphics/Layout.hpp>
+#include <Engine/Graphics/Widgets/Menu.hpp>
+#include <Game/Display/WindowGameHelp.hpp>
+#include <Game/Entities/Game.hpp>
 
 #include <vector>
 

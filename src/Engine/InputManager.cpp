@@ -1,5 +1,5 @@
-#include <Flow/InputManager.hpp>
-#include <Interface/Ncurses.hpp>
+#include <Engine/InputManager.hpp>
+#include <Engine/Graphics/Ncurses.hpp>
 
 #include <ncurses.h>
 

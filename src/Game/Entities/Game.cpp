@@ -1,9 +1,9 @@
-#include <Game/Game.hpp>
-#include <Config/Globals.hpp>
-#include <Misc/Utils.hpp>
-#include <Interface/LayoutGame.hpp>
-#include <Flow/InputManager.hpp>
-#include <Game/BoardParser.hpp>
+#include <Game/Entities/Game.hpp>
+#include <Game/Config/Globals.hpp>
+#include <Engine/Helpers/Utils.hpp>
+#include <Game/Display/Layouts/LayoutGame.hpp>
+#include <Engine/InputManager.hpp>
+#include <Game/Entities/BoardParser.hpp>
 
 #include <stdlib.h>
 

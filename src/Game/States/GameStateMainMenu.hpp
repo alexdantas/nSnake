@@ -1,11 +1,11 @@
 #ifndef GAMESTATEMAINMENU_H_DEFINED
 #define GAMESTATEMAINMENU_H_DEFINED
 
-#include <Flow/GameState.hpp>
-#include <Interface/LayoutMainMenu.hpp>
-#include <Interface/Menu/Menu.hpp>
-#include <Interface/Menu/MenuAlphabetic.hpp>
-#include <Interface/WindowGameHelp.hpp>
+#include <Engine/Flow/GameState.hpp>
+#include <Game/Display/Layouts/LayoutMainMenu.hpp>
+#include <Engine/Graphics/Widgets/Menu.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuAlphabetic.hpp>
+#include <Game/Display/WindowGameHelp.hpp>
 
 /// The Main Menu.
 ///

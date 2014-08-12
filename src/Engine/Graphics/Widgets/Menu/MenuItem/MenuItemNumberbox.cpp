@@ -1,8 +1,8 @@
-#include <Interface/Menu/MenuItemNumberbox.hpp>
-#include <Config/Globals.hpp>
-#include <Misc/Utils.hpp>
-#include <Misc/Timer.hpp>
-#include <Flow/InputManager.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem/MenuItemNumberbox.hpp>
+#include <Game/Config/Globals.hpp>
+#include <Engine/Helpers/Utils.hpp>
+#include <Engine/Helpers/Timer.hpp>
+#include <Engine/InputManager.hpp>
 
 MenuItemNumberbox::MenuItemNumberbox(std::string label, int id, int min, int max, int initial, int jump):
 	MenuItem(label, id),

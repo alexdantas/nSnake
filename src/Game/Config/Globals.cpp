@@ -1,9 +1,9 @@
-#include <Config/Globals.hpp>
-#include <Config/INI.hpp>
-#include <Misc/Utils.hpp>
-#include <Flow/InputManager.hpp>
-#include <Game/BoardParser.hpp>
-#include <Game/ScoreFile.hpp>
+#include <Game/Config/Globals.hpp>
+#include <Engine/Helpers/INI.hpp>
+#include <Engine/Helpers/Utils.hpp>
+#include <Engine/InputManager.hpp>
+#include <Game/Entities/BoardParser.hpp>
+#include <Game/Entities/ScoreFile.hpp>
 
 #include <ncurses.h>
 #include <iostream>

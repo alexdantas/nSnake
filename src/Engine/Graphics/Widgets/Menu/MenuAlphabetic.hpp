@@ -1,7 +1,7 @@
 #ifndef MENUALPHABETIC_H_DEFINED
 #define MENUALPHABETIC_H_DEFINED
 
-#include <Interface/Menu/Menu.hpp>
+#include <Engine/Graphics/Widgets/Menu.hpp>
 
 /// Menu on which its items are always sorted alphabetically.
 ///

@@ -1,7 +1,7 @@
-#include <Interface/Menu/MenuItem.hpp>
-#include <Config/Globals.hpp>
-#include <Misc/Utils.hpp>
-#include <Flow/InputManager.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem.hpp>
+#include <Game/Config/Globals.hpp>
+#include <Engine/Helpers/Utils.hpp>
+#include <Engine/InputManager.hpp>
 
 MenuItem::MenuItem(std::string label, int id):
 	type(MenuItem::ITEM),

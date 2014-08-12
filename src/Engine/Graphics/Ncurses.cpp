@@ -1,4 +1,4 @@
-#include <Interface/Ncurses.hpp>
+#include <Engine/Graphics/Ncurses.hpp>
 
 bool Ncurses::init()
 {

@@ -1,7 +1,7 @@
 #ifndef MENUITEMCHECKBOX_H_DEFINED
 #define MENUITEMCHECKBOX_H_DEFINED
 
-#include <Interface/Menu/MenuItem.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem.hpp>
 
 /// A little box that can be checked or not.
 /// Used to get a boolean from the user.

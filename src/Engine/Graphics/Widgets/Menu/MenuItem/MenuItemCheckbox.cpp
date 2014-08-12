@@ -1,6 +1,6 @@
-#include <Interface/Menu/MenuItemCheckbox.hpp>
-#include <Config/Globals.hpp>
-#include <Flow/InputManager.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem/MenuItemCheckbox.hpp>
+#include <Game/Config/Globals.hpp>
+#include <Engine/InputManager.hpp>
 
 MenuItemCheckbox::MenuItemCheckbox(std::string label, int id, bool initial):
 	MenuItem(label, id),

@@ -1,7 +1,7 @@
 #ifndef GLOBALS_H_DEFINED
 #define GLOBALS_H_DEFINED
 
-#include <Interface/Colors.hpp>
+#include <Engine/Graphics/Colors.hpp>
 
 #include <string>
 

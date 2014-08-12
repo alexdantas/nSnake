@@ -1,7 +1,7 @@
-#include <Game/ScoreFile.hpp>
-#include <Game/BoardParser.hpp>
-#include <Misc/Utils.hpp>
-#include <Config/INI.hpp>
+#include <Game/Entities/ScoreFile.hpp>
+#include <Game/Entities/BoardParser.hpp>
+#include <Engine/Helpers/Utils.hpp>
+#include <Engine/Helpers/INI.hpp>
 
 #include <stdlib.h>	  // getenv()
 #include <fstream>    // ofstream

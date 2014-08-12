@@ -1,9 +1,9 @@
 #ifndef LAYOUTFIRSTTIME_H_DEFINED
 #define LAYOUTFIRSTTIME_H_DEFINED
 
-#include <Interface/Layout.hpp>
-#include <Interface/Window.hpp>
-#include <Interface/Menu/Menu.hpp>
+#include <Engine/Graphics/Layout.hpp>
+#include <Engine/Graphics/Window.hpp>
+#include <Engine/Graphics/Widgets/Menu.hpp>
 
 /// How we show the screen at GameStateFirstTime.
 /// See it's documentation there.

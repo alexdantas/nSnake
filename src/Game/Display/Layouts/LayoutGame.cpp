@@ -1,6 +1,6 @@
-#include <Interface/LayoutGame.hpp>
-#include <Config/Globals.hpp>
-#include <Misc/Utils.hpp>
+#include <Game/Display/Layouts/LayoutGame.hpp>
+#include <Game/Config/Globals.hpp>
+#include <Engine/Helpers/Utils.hpp>
 
 LayoutGame::LayoutGame(Game* game, int width, int height):
 	Layout(width, height),

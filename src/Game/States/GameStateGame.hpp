@@ -1,8 +1,8 @@
 #ifndef GAMESTATEGAME_H_DEFINED
 #define GAMESTATEGAME_H_DEFINED
 
-#include <Flow/GameState.hpp>
-#include <Game/Game.hpp>
+#include <Engine/Flow/GameState.hpp>
+#include <Game/Entities/Game.hpp>
 
 /// This represents the actual game taking place.
 ///

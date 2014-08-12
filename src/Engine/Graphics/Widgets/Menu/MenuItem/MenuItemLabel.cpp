@@ -1,5 +1,5 @@
-#include <Interface/Menu/MenuItemLabel.hpp>
-#include <Config/Globals.hpp>
+#include <Engine/Graphics/Widgets/Menu/MenuItem/MenuItemLabel.hpp>
+#include <Game/Config/Globals.hpp>
 
 MenuItemLabel::MenuItemLabel(std::string label, int id, std::string rightLabel):
 	MenuItem(label, id),

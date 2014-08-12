@@ -1,7 +1,7 @@
 #ifndef LAYOUT_H_DEFINED
 #define LAYOUT_H_DEFINED
 
-#include <Interface/Window.hpp>
+#include <Engine/Graphics/Window.hpp>
 
 /// Interface for how the things are shown on the screen.
 ///

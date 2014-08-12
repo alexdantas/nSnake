@@ -1,7 +1,7 @@
 #ifndef WINDOWGAMEHELP_H_DEFINED
 #define WINDOWGAMEHELP_H_DEFINED
 
-#include <Interface/Window.hpp>
+#include <Engine/Graphics/Window.hpp>
 
 #include <vector>
 

@@ -1,9 +1,9 @@
-#include <Flow/StateManager.hpp>
-#include <Interface/Ncurses.hpp>
-#include <Interface/Colors.hpp>
-#include <Config/Globals.hpp>
-#include <Config/Arguments.hpp>
-#include <Misc/Utils.hpp>
+#include <Engine/Flow/StateManager.hpp>
+#include <Engine/Graphics/Ncurses.hpp>
+#include <Engine/Graphics/Colors.hpp>
+#include <Game/Config/Globals.hpp>
+#include <Game/Config/Arguments.hpp>
+#include <Engine/Helpers/Utils.hpp>
 
 int main(int argc, char *argv[])
 {

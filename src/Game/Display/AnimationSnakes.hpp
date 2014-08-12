@@ -1,8 +1,8 @@
 #ifndef ANIMATIONSNAKES_H_DEFINED
 #define ANIMATIONSNAKES_H_DEFINED
 
-#include <Interface/Animation/Animation.hpp>
-#include <Misc/Timer.hpp>
+#include <Engine/Graphics/Animation.hpp>
+#include <Engine/Helpers/Timer.hpp>
 
 #include <vector>
 

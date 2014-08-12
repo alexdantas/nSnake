@@ -1,6 +1,6 @@
-#include <Interface/LayoutFirstTime.hpp>
-#include <Misc/Utils.hpp>
-#include <Config/Globals.hpp>
+#include <Game/Display/Layouts/LayoutFirstTime.hpp>
+#include <Engine/Helpers/Utils.hpp>
+#include <Game/Config/Globals.hpp>
 
 LayoutFirstTime::LayoutFirstTime(int width, int height):
 	Layout(width, height)
