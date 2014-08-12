@@ -3,6 +3,11 @@
 This file describes how the source code is laid down, which parts are
 responsible for what and so on...
 
+**Notes**:
+
+* On the rest of this document,
+  I'll call class names like `Directory/ClassName`.
+
 ## Summary
 
 This section is very important; if you'll keep only a few things in mind,
