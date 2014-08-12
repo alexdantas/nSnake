@@ -4,7 +4,9 @@
 #include <Game/Config/Globals.hpp>
 #include <Engine/Helpers/Utils.hpp>
 #include <Game/States/GameStateMainMenu.hpp>
-#include <Game/Display/AnimationSnakes.hpp>
+#include <Game/Display/Animations/AnimationSnakes.hpp>
+#include <Game/Display/Animations/AnimationFire.hpp>
+#include <Game/Display/Animations/AnimationWater.hpp>
 
 #include <iostream>
 
@@ -56,7 +58,21 @@ void LayoutMainMenu::windowsInit()
 	                                this->logo->getW(),
 	                                this->main->getH() - this->logo->getH() - 1);
 
-	this->animation = new AnimationSnakes(this->animationwin);
+	// Deciding randomly the type of the Animation
+	switch(Utils::Random::between(0, 2))
+	{
+	case 0:
+		this->animation = new AnimationWater(this->animationwin);
+		break;
+
+	case 1:
+		this->animation = new AnimationSnakes(this->animationwin);
+		break;
+
+	default:
+		this->animation = new AnimationFire(this->animationwin);
+		break;
+	}
 	this->animation->load();
 }
 void LayoutMainMenu::windowsExit()
