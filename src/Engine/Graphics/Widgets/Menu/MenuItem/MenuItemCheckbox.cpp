@@ -16,7 +16,7 @@ void MenuItemCheckbox::draw(Window* window, int x, int y, int width, bool hilite
 	// If not hilite.
 	// If hilite:
 	//      label   < text >
-	MenuItem::draw(window, x, y, width - 9, hilite); // button width
+	MenuItem::draw(window, x, y, width - 8, hilite); // button width
 
 	int posx = x + width;
 
@@ -76,4 +76,3 @@ bool MenuItemCheckbox::isChecked()
 {
 	return this->checked;
 }
-
