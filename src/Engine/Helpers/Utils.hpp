@@ -24,6 +24,9 @@ namespace Utils
 		bool boolean();
 
 		/// Random boolean with chance of #percent.
+		///
+		/// @param percent A float between 0 and 1
+		///
 		/// @note Precision up to 2 decimal digits.
 		bool booleanWithChance(float percent);
 	};

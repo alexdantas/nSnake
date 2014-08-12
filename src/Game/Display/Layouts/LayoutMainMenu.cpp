@@ -7,6 +7,7 @@
 #include <Game/Display/Animations/AnimationSnakes.hpp>
 #include <Game/Display/Animations/AnimationFire.hpp>
 #include <Game/Display/Animations/AnimationWater.hpp>
+#include <Game/Display/Animations/AnimationGameOfLife.hpp>
 
 #include <iostream>
 
@@ -59,7 +60,7 @@ void LayoutMainMenu::windowsInit()
 	                                this->main->getH() - this->logo->getH() - 1);
 
 	// Deciding randomly the type of the Animation
-	switch(Utils::Random::between(0, 2))
+	switch(Utils::Random::between(0, 3))
 	{
 	case 0:
 		this->animation = new AnimationWater(this->animationwin);
@@ -67,6 +68,10 @@ void LayoutMainMenu::windowsInit()
 
 	case 1:
 		this->animation = new AnimationSnakes(this->animationwin);
+		break;
+
+	case 2:
+		this->animation = new AnimationGameOfLife(this->animationwin);
 		break;
 
 	default:
