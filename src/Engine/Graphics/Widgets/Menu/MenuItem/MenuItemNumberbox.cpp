@@ -26,7 +26,7 @@ void MenuItemNumberbox::draw(Window* window, int x, int y, int width, bool hilit
 	MenuItem::draw(window,
 	               x,
 	               y,
-	               (width - number.size() - 5),
+	               (width - number.size() - 2),
 	               hilite);
 
 	int rightmost = x + width;
@@ -158,4 +158,3 @@ void MenuItemNumberbox::cap()
 	if (this->current < this->min)
 		this->current = this->min;
 }
-

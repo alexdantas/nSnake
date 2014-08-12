@@ -614,4 +614,3 @@ void GameStateMainMenu::saveSettingsMenuGameSettings()
 	Globals::Game::board_scroll_up    = this->menuGameSettings->getBool(SCROLL_UP);
 	Globals::Game::board_scroll_down  = this->menuGameSettings->getBool(SCROLL_DOWN);
 }
-

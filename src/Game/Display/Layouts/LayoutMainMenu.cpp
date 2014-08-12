@@ -123,4 +123,3 @@ void LayoutMainMenu::draw(Menu* menu)
 	// NCURSES NEEDS THIS
 	refresh();
 }
-
