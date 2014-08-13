@@ -30,7 +30,7 @@ namespace Colors
 
 	// Var
 	extern bool hasColors;
-};
+}
 
 #endif //COLORS_H_DEFINED
 

@@ -27,7 +27,7 @@ namespace Ncurses
 	/// @note It's #int because nCurses uses some other
 	///       values that don't fit on a #char variable.
 	int getInput(int delay_ms=-1);
-};
+}
 
 #endif //NCURSES_H_DEFINED
 

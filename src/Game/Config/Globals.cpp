@@ -359,9 +359,7 @@ void Globals::saveFile()
 	catch(std::runtime_error& e)
 	{
 		// Couldn't save the file...
-		// Silently return
-		SAFE_DELETE(ini);
-		return;
+		// ... do nothing
 	}
 	SAFE_DELETE(ini);
 }
