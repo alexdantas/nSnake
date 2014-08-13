@@ -97,4 +97,5 @@ If you installed it with a custom prefix, do the same:
     $ make uninstall PREFIX=other/dir
 
 [distro]: http://nsnake.alexdantas.net/#installation
+[issues]: https://github.com/alexdantas/nSnake/issues
 

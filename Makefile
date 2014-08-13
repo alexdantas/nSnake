@@ -1,5 +1,5 @@
 # nsnake Makefile
-# (2013) Alexandre Dantas <eu@alexdantas.net>
+# (2013-2014) Alexandre Dantas <eu@alexdantas.net>
 #
 # This is a rather complex Makefile, sorry about that.
 # It supports the following targets:
@@ -54,11 +54,11 @@ DESKTOPDIR = $(DATAROOTDIR)/applications
 LEVELDIR   = $(DATAROOTDIR)/games/nsnake/levels
 
 # Things for the man page
-MANROOT     = $(DATAROOTDIR)/man
-MANDIR      = $(MANROOT)/man$(MANNUMBER)
-MANNUMBER   = 6
-MANFILE     = $(PACKAGE).$(MANNUMBER)
-MANPAGE     = doc/man/$(MANFILE)
+MANROOT   = $(DATAROOTDIR)/man
+MANDIR    = $(MANROOT)/man$(MANNUMBER)
+MANNUMBER = 6
+MANFILE   = $(PACKAGE).$(MANNUMBER)
+MANPAGE   = doc/man/$(MANFILE)
 
 # Build info
 EXE         = $(PACKAGE)
@@ -80,9 +80,9 @@ DEFINES = -DVERSION=\""$(VERSION)"\"                  \
           -DSYSTEM_LEVEL_DIR=\""$(LEVELDIR)"\"
 
 # commander stuff
-COMMANDERDIR = deps/commander
+COMMANDERDIR     = deps/commander
 COMMANDER_CFLAGS = -O2 -Wall -Wextra $(CFLAGS_PLATFORM)
-COMMANDER_OBJS = $(COMMANDERDIR)/commander.o
+COMMANDER_OBJS   = $(COMMANDERDIR)/commander.o
 
 # Distribution tarball
 TARNAME = $(PACKAGE)
@@ -205,3 +205,4 @@ docclean:
 $(COMMANDERDIR)/commander.o: $(COMMANDERDIR)/commander.c
 	# Compiling $<...
 	$(MUTE)$(CC) $(COMMANDER_CFLAGS) $< -c -o $@
+
