@@ -31,13 +31,6 @@ void Dialog::show(std::string message, bool pressAnyKey)
 
 	Window dialog(window_x, window_y, window_width, window_height);
 
-	if (EngineGlobals::Screen::show_borders)
-	{
-		dialog.borders(EngineGlobals::Screen::fancy_borders ?
-		               Window::BORDER_FANCY :
-		               Window::BORDER_REGULAR);
-	}
-
 	// Before showing anything on the screen we must
 	// call `refresh()`, to... well, refresh the
 	// main screen buffer
@@ -65,12 +58,6 @@ bool Dialog::askBool(std::string question, std::string title, bool default_value
 	              question.size() + 2 + 10, // borders + empty space
 	              5);
 
-	if (EngineGlobals::Screen::show_borders)
-	{
-		dialog.borders(EngineGlobals::Screen::fancy_borders ?
-		               Window::BORDER_FANCY :
-		               Window::BORDER_REGULAR);
-	}
 	if (! title.empty())
 		dialog.setTitle(title);
 

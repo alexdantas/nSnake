@@ -63,7 +63,12 @@ public:
 	int getX() const;
 	int getY() const;
 
+	/// Applies border of #type to this Window.
 	void borders(BorderType type);
+
+	/// Applies a board style dependent on the
+	/// EngineGlobals settings
+	void setBorders();
 
 	void horizontalLine(int x, int y, int c, int width, ColorPair pair);
 

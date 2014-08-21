@@ -1,9 +1,10 @@
 #include <Engine/Flow/StateManager.hpp>
-#include <Game/States/GameStateGame.hpp>
-#include <Game/States/GameStateMainMenu.hpp>
 #include <Engine/InputManager.hpp>
 #include <Engine/Helpers/Utils.hpp>
-#include <Game/Config/Globals.hpp>
+
+#include <States/GameStateGame.hpp>
+#include <States/GameStateMainMenu.hpp>
+#include <Config/Globals.hpp>
 
 StateManager::StateManager():
 	currentState(NULL),

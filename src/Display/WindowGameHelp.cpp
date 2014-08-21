@@ -13,25 +13,18 @@ WindowGameHelp::WindowGameHelp()
 	int windowx = Layout::screenWidth/2  - width/2;
 	int windowy = Layout::screenHeight/2 - height/2;
 
-	this->main = new Window(windowx,
-	                        windowy,
-	                        width,
-	                        height);
-
-	if (EngineGlobals::Screen::show_borders)
-	{
-		this->main->borders(EngineGlobals::Screen::fancy_borders ?
-		                    Window::BORDER_FANCY :
-		                    Window::BORDER_REGULAR);
-	}
+	this->main = new Window(windowx, windowy, width, height);
 
 	Window* win;
 
 	// Help
 	win = new Window(this->main, 0, 0, WINDOW_FILL, WINDOW_FILL);
+	win->borders(Window::BORDER_NONE);
+
 	this->windows.push_back(win);
 
 	win = new Window(this->main, 0, 0, WINDOW_FILL, WINDOW_FILL);
+	win->borders(Window::BORDER_NONE);
 	this->windows.push_back(win);
 }
 void WindowGameHelp::run()

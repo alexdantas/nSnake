@@ -30,16 +30,16 @@ void LayoutGame::windowsInit()
 
 	// Leftmost window
 	this->gamewin = new Window(this->main,
-	                           WINDOW_FILL,
-	                           WINDOW_FILL,
-	                           WINDOW_FILL,
-	                           this->main->getH() - 3);
+	                           WINDOW_FILL, WINDOW_FILL,
+	                           WINDOW_FILL, this->main->getH() - 3);
+
+	this->gamewin->borders(Window::BORDER_NONE);
 
 	this->info = new Window(this->main,
-	                        WINDOW_FILL,
-	                        this->main->getH() - 2,
-	                        WINDOW_FILL,
-	                        1);
+	                        WINDOW_FILL, this->main->getH() - 2,
+	                        WINDOW_FILL, 1);
+
+	this->info->borders(Window::BORDER_NONE);
 
 	// Le pause window.
 	this->pause = new Window(this->main,
@@ -48,12 +48,6 @@ void LayoutGame::windowsInit()
 	                         this->main->getW() / 2,
 	                         7);
 
-	if (EngineGlobals::Screen::show_borders)
-	{
-		this->pause->borders(EngineGlobals::Screen::fancy_borders ?
-		                     Window::BORDER_FANCY :
-		                     Window::BORDER_REGULAR);
-	}
 	this->pause->setTitle("Paused");
 
 	// Le help window.
@@ -63,12 +57,6 @@ void LayoutGame::windowsInit()
 	                        this->main->getW() / 2,
 	                        this->main->getH() / 2);
 
-	if (EngineGlobals::Screen::show_borders)
-	{
-		this->help->borders(EngineGlobals::Screen::fancy_borders ?
-		                     Window::BORDER_FANCY :
-		                     Window::BORDER_REGULAR);
-	}
 	this->help->setTitle("Help");
 
 	this->helpWindows = new WindowGameHelp();

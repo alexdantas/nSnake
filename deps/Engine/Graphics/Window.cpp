@@ -1,4 +1,5 @@
 #include <Engine/Graphics/Window.hpp>
+#include <Engine/EngineGlobals.hpp>
 
 #include <sstream>				// stringstream
 #include <iostream>
@@ -38,6 +39,8 @@ Window::Window(int x, int y, int w, int h):
 
 	if (!this->win)
 		this->error = true;
+
+	this->setBorders();
 }
 Window::Window(Window* parent, int x, int y, int width, int height):
 	win(NULL),
@@ -75,6 +78,8 @@ Window::Window(Window* parent, int x, int y, int width, int height):
 	this->win = derwin(parent->win, height, width, y, x);
 	if (!win)
 		this->error = true;
+
+	this->setBorders();
 }
 Window::~Window()
 {
@@ -204,6 +209,15 @@ void Window::borders(BorderType type)
 	{
 		wattrset(this->win, Colors::pair(COLOR_BLACK, COLOR_DEFAULT, true));
 		wborder(this->win, '|', '|', '-', '-', '+', '+', '+', '+');
+	}
+}
+void Window::setBorders()
+{
+	if (EngineGlobals::Screen::show_borders)
+	{
+		this->borders(EngineGlobals::Screen::fancy_borders ?
+		              Window::BORDER_FANCY :
+		              Window::BORDER_REGULAR);
 	}
 }
 void Window::horizontalLine(int x, int y, int c, int width, ColorPair pair)

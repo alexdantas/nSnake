@@ -55,18 +55,10 @@ void Layout::windowsInit()
 	if (EngineGlobals::Screen::center_vertically)
 		main_y = current_height/2 - intendedHeight/2;
 
-	this->main = new Window(main_x,
-	                        main_y,
-	                        intendedWidth,
-	                        intendedHeight);
+	this->main = new Window(main_x, main_y, intendedWidth, intendedHeight);
 
-	if ((EngineGlobals::Screen::outer_border) &&
-	    (EngineGlobals::Screen::show_borders))
-	{
-		this->main->borders(EngineGlobals::Screen::fancy_borders ?
-		                    Window::BORDER_FANCY :
-		                    Window::BORDER_REGULAR);
-	}
+	if (! EngineGlobals::Screen::outer_border)
+		this->main->borders(Window::BORDER_NONE);
 
 	this->main->refresh();
 }

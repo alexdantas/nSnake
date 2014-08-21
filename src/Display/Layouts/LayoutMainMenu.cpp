@@ -42,14 +42,8 @@ void LayoutMainMenu::windowsInit()
 	                        0,
 	                        24,
 	                        WINDOW_FILL);
-	this->menu->setTitle("Main Menu");
 
-	if (EngineGlobals::Screen::show_borders)
-	{
-		this->menu->borders(EngineGlobals::Screen::fancy_borders ?
-		                    Window::BORDER_FANCY :
-		                    Window::BORDER_REGULAR);
-	}
+	this->menu->setTitle("Main Menu");
 	this->menu->refresh();
 
 	// ANIMATION
