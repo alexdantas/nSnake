@@ -3,6 +3,7 @@
 #include <Engine/Graphics/Ncurses.hpp>
 #include <Engine/Graphics/Widgets/Dialog.hpp>
 #include <Engine/Helpers/Utils.hpp>
+#include <Engine/EngineGlobals.hpp>
 #include <Game/Config/Globals.hpp>
 #include <Game/Entities/BoardParser.hpp>
 #include <Game/Entities/ScoreFile.hpp>
@@ -497,27 +498,27 @@ void GameStateMainMenu::createGUIOptionsMenu()
 
 	check = new MenuItemCheckbox("Show Borders",
 	                             SHOW_BORDERS,
-	                             Globals::Screen::show_borders);
+	                             EngineGlobals::Screen::show_borders);
 	menuGUIOptions->add(check);
 
 	check = new MenuItemCheckbox("Fancy Borders",
 	                             FANCY_BORDERS,
-	                             Globals::Screen::fancy_borders);
+	                             EngineGlobals::Screen::fancy_borders);
 	menuGUIOptions->add(check);
 
 	check = new MenuItemCheckbox("Outer Border",
 	                             OUTER_BORDER,
-	                             Globals::Screen::outer_border);
+	                             EngineGlobals::Screen::outer_border);
 	menuGUIOptions->add(check);
 
 	check = new MenuItemCheckbox("Center Horizontal",
 	                             CENTER_HORIZONTAL,
-	                             Globals::Screen::center_horizontally);
+	                             EngineGlobals::Screen::center_horizontally);
 	menuGUIOptions->add(check);
 
 	check = new MenuItemCheckbox("Center Vertical",
 	                             CENTER_VERTICAL,
-	                             Globals::Screen::center_vertically);
+	                             EngineGlobals::Screen::center_vertically);
 	menuGUIOptions->add(check);
 }
 void GameStateMainMenu::createControlsMenu()
@@ -579,11 +580,11 @@ void GameStateMainMenu::saveSettingsMenuGUIOptions()
 
 	// User selected an option
 	// Let's get ids from menu items
-	Globals::Screen::show_borders        = this->menuGUIOptions->getBool(SHOW_BORDERS);
-	Globals::Screen::fancy_borders       = this->menuGUIOptions->getBool(FANCY_BORDERS);
-	Globals::Screen::outer_border        = this->menuGUIOptions->getBool(OUTER_BORDER);
-	Globals::Screen::center_horizontally = this->menuGUIOptions->getBool(CENTER_HORIZONTAL);
-	Globals::Screen::center_vertically   = this->menuGUIOptions->getBool(CENTER_VERTICAL);
+	EngineGlobals::Screen::show_borders        = this->menuGUIOptions->getBool(SHOW_BORDERS);
+	EngineGlobals::Screen::fancy_borders       = this->menuGUIOptions->getBool(FANCY_BORDERS);
+	EngineGlobals::Screen::outer_border        = this->menuGUIOptions->getBool(OUTER_BORDER);
+	EngineGlobals::Screen::center_horizontally = this->menuGUIOptions->getBool(CENTER_HORIZONTAL);
+	EngineGlobals::Screen::center_vertically   = this->menuGUIOptions->getBool(CENTER_VERTICAL);
 }
 void GameStateMainMenu::saveSettingsMenuGameSettings()
 {

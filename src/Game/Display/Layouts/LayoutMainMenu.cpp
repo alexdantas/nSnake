@@ -1,7 +1,7 @@
 #include <Game/Display/Layouts/LayoutMainMenu.hpp>
 #include <Engine/Graphics/Colors.hpp>
 #include <Engine/Graphics/Ncurses.hpp>
-#include <Game/Config/Globals.hpp>
+#include <Engine/EngineGlobals.hpp>
 #include <Engine/Helpers/Utils.hpp>
 #include <Game/States/GameStateMainMenu.hpp>
 #include <Game/Display/Animations/AnimationSnakes.hpp>
@@ -44,9 +44,9 @@ void LayoutMainMenu::windowsInit()
 	                        WINDOW_FILL);
 	this->menu->setTitle("Main Menu");
 
-	if (Globals::Screen::show_borders)
+	if (EngineGlobals::Screen::show_borders)
 	{
-		this->menu->borders(Globals::Screen::fancy_borders ?
+		this->menu->borders(EngineGlobals::Screen::fancy_borders ?
 		                    Window::BORDER_FANCY :
 		                    Window::BORDER_REGULAR);
 	}

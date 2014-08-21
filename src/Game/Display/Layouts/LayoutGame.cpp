@@ -1,5 +1,5 @@
 #include <Game/Display/Layouts/LayoutGame.hpp>
-#include <Game/Config/Globals.hpp>
+#include <Engine/EngineGlobals.hpp>
 #include <Engine/Helpers/Utils.hpp>
 
 LayoutGame::LayoutGame(Game* game, int width, int height):
@@ -48,9 +48,9 @@ void LayoutGame::windowsInit()
 	                         this->main->getW() / 2,
 	                         7);
 
-	if (Globals::Screen::show_borders)
+	if (EngineGlobals::Screen::show_borders)
 	{
-		this->pause->borders(Globals::Screen::fancy_borders ?
+		this->pause->borders(EngineGlobals::Screen::fancy_borders ?
 		                     Window::BORDER_FANCY :
 		                     Window::BORDER_REGULAR);
 	}
@@ -63,9 +63,9 @@ void LayoutGame::windowsInit()
 	                        this->main->getW() / 2,
 	                        this->main->getH() / 2);
 
-	if (Globals::Screen::show_borders)
+	if (EngineGlobals::Screen::show_borders)
 	{
-		this->help->borders(Globals::Screen::fancy_borders ?
+		this->help->borders(EngineGlobals::Screen::fancy_borders ?
 		                     Window::BORDER_FANCY :
 		                     Window::BORDER_REGULAR);
 	}
@@ -133,7 +133,7 @@ void LayoutGame::draw(Menu* menu)
 	this->info->clear();
 	this->info->print("a", 0, 0, 0);
 
-	ColorPair hilite = Globals::Theme::hilite_text;
+	ColorPair hilite = EngineGlobals::Theme::hilite_text;
 
 	this->info->print("Hi-Score", 0, 0, hilite);
 	this->info->print("Score",    this->info->getW()/3, 0, hilite);

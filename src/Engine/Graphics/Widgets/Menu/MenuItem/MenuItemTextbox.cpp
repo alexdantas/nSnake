@@ -1,5 +1,5 @@
 #include <Engine/Graphics/Widgets/Menu/MenuItem/MenuItemTextbox.hpp>
-#include <Game/Config/Globals.hpp>
+#include <Engine/EngineGlobals.hpp>
 #include <Engine/InputManager.hpp>
 #include <Engine/Helpers/Utils.hpp>
 
@@ -20,15 +20,15 @@ void MenuItemTextbox::draw(Window* window, int x, int y, int width, bool hilite)
 
 	// Drawing the current text
 	if ((int)(this->currentText.size()) > (this->width))
-		window->print(this->currentText.substr(this->width), (posx - this->width), y, Globals::Theme::textbox);
+		window->print(this->currentText.substr(this->width), (posx - this->width), y, EngineGlobals::Theme::textbox);
 	else
-		window->print(this->currentText, (posx - this->width), y, Globals::Theme::textbox);
+		window->print(this->currentText, (posx - this->width), y, EngineGlobals::Theme::textbox);
 
 	int spacex = (posx - this->width) - this->currentText.size();
 
 	// Drawing the rest of the spaces
 	for (unsigned int i = 0; i < (this->width - this->currentText.size()); i++)
-		window->printChar(' ', spacex + i, y, Globals::Theme::textbox);
+		window->printChar(' ', spacex + i, y, EngineGlobals::Theme::textbox);
 }
 
 // Local function that tells in #input can be interpreted

@@ -1,6 +1,6 @@
 #include <Engine/Graphics/Layout.hpp>
 #include <Engine/Graphics/Ncurses.hpp>
-#include <Game/Config/Globals.hpp>
+#include <Engine/EngineGlobals.hpp>
 #include <Engine/Helpers/Utils.hpp>
 
 #include <iostream>
@@ -49,10 +49,10 @@ void Layout::windowsInit()
 	int main_x = 0;
 	int main_y = 0;
 
-	if (Globals::Screen::center_horizontally)
+	if (EngineGlobals::Screen::center_horizontally)
 		main_x = current_width/2 - intendedWidth/2;
 
-	if (Globals::Screen::center_vertically)
+	if (EngineGlobals::Screen::center_vertically)
 		main_y = current_height/2 - intendedHeight/2;
 
 	this->main = new Window(main_x,
@@ -60,10 +60,10 @@ void Layout::windowsInit()
 	                        intendedWidth,
 	                        intendedHeight);
 
-	if ((Globals::Screen::outer_border) &&
-	    (Globals::Screen::show_borders))
+	if ((EngineGlobals::Screen::outer_border) &&
+	    (EngineGlobals::Screen::show_borders))
 	{
-		this->main->borders(Globals::Screen::fancy_borders ?
+		this->main->borders(EngineGlobals::Screen::fancy_borders ?
 		                    Window::BORDER_FANCY :
 		                    Window::BORDER_REGULAR);
 	}

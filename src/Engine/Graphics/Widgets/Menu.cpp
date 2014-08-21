@@ -1,6 +1,6 @@
 #include <Engine/Graphics/Widgets/Menu.hpp>
 #include <Engine/Helpers/Utils.hpp>
-#include <Game/Config/Globals.hpp>
+#include <Engine/EngineGlobals.hpp>
 #include <Engine/InputManager.hpp>
 
 Menu::Menu(int x, int y, int width, int height):
@@ -160,7 +160,7 @@ void Menu::draw(Window* window)
 		if (! this->item[curitem])
 		{
 			for (int j = 0; j < (this->width); j++)
-				window->printChar(((Globals::Screen::fancy_borders) ?
+				window->printChar(((EngineGlobals::Screen::fancy_borders) ?
 				                   ACS_HLINE :
 				                   '-'),
 				                  this->x + j,

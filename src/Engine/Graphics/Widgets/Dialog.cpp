@@ -2,7 +2,7 @@
 #include <Engine/Graphics/Layout.hpp>
 #include <Engine/Graphics/Widgets/Menu.hpp>
 #include <Engine/Graphics/Ncurses.hpp>
-#include <Game/Config/Globals.hpp>
+#include <Engine/EngineGlobals.hpp>
 #include <Engine/InputManager.hpp>
 #include <Engine/Helpers/Utils.hpp>
 
@@ -31,9 +31,9 @@ void Dialog::show(std::string message, bool pressAnyKey)
 
 	Window dialog(window_x, window_y, window_width, window_height);
 
-	if (Globals::Screen::show_borders)
+	if (EngineGlobals::Screen::show_borders)
 	{
-		dialog.borders(Globals::Screen::fancy_borders ?
+		dialog.borders(EngineGlobals::Screen::fancy_borders ?
 		               Window::BORDER_FANCY :
 		               Window::BORDER_REGULAR);
 	}
@@ -65,9 +65,9 @@ bool Dialog::askBool(std::string question, std::string title, bool default_value
 	              question.size() + 2 + 10, // borders + empty space
 	              5);
 
-	if (Globals::Screen::show_borders)
+	if (EngineGlobals::Screen::show_borders)
 	{
-		dialog.borders(Globals::Screen::fancy_borders ?
+		dialog.borders(EngineGlobals::Screen::fancy_borders ?
 		               Window::BORDER_FANCY :
 		               Window::BORDER_REGULAR);
 	}

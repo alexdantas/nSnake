@@ -1,15 +1,18 @@
 #include <Engine/Flow/StateManager.hpp>
 #include <Engine/Graphics/Ncurses.hpp>
-#include <Engine/Graphics/Colors.hpp>
+#include <Engine/Helpers/Utils.hpp>
+#include <Engine/EngineGlobals.hpp>
+#include <Game/Config/Globals.hpp>
 #include <Game/Config/Globals.hpp>
 #include <Game/Config/Arguments.hpp>
-#include <Engine/Helpers/Utils.hpp>
+
 
 int main(int argc, char *argv[])
 {
 	try
 	{
 		// Settings
+		EngineGlobals::init();
 		Globals::init();
 		Globals::loadFile();
 		Arguments::parse(argc, argv);

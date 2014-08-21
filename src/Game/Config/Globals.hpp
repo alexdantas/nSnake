@@ -1,8 +1,6 @@
 #ifndef GLOBALS_H_DEFINED
 #define GLOBALS_H_DEFINED
 
-#include <Engine/Graphics/Colors.hpp>
-
 #include <string>
 
 // Avoiding cyclic #includes
@@ -71,16 +69,6 @@ namespace Globals
 		extern std::string scoresFile;
 	};
 
-	namespace Screen
-	{
-		extern bool center_horizontally;
-		extern bool center_vertically;
-
-		extern bool show_borders;
-		extern bool fancy_borders;
-		extern bool outer_border;
-	};
-
 	namespace Game
 	{
 		extern unsigned int starting_speed;
@@ -109,13 +97,6 @@ namespace Globals
 		/// Name of the level the game should load.
 		/// Also, name of the current level.
 		extern std::string current_level;
-	};
-
-	namespace Theme
-	{
-		extern ColorPair text;
-		extern ColorPair hilite_text;
-		extern ColorPair textbox;
 	};
 
 	// Flags to warn the user of some error at the end

@@ -1,5 +1,5 @@
 #include <Engine/Graphics/Widgets/Menu/MenuItem/MenuItemCheckbox.hpp>
-#include <Game/Config/Globals.hpp>
+#include <Engine/EngineGlobals.hpp>
 #include <Engine/InputManager.hpp>
 
 MenuItemCheckbox::MenuItemCheckbox(std::string label, int id, bool initial):
@@ -25,26 +25,26 @@ void MenuItemCheckbox::draw(Window* window, int x, int y, int width, bool hilite
 	               "["),
 	              posx - 8, y,
 	              ((hilite)?
-	               Globals::Theme::hilite_text:
-	               Globals::Theme::text));
+	               EngineGlobals::Theme::hilite_text:
+	               EngineGlobals::Theme::text));
 
 	window->print("ON", posx - 7, y, ((this->checked) ?
-	                                  Globals::Theme::hilite_text:
-	                                  Globals::Theme::text));
+	                                  EngineGlobals::Theme::hilite_text:
+	                                  EngineGlobals::Theme::text));
 
-	window->print("|", posx - 5, y, Globals::Theme::text);
+	window->print("|", posx - 5, y, EngineGlobals::Theme::text);
 
 	window->print("OFF", posx - 4, y, ((this->checked) ?
-	                                   Globals::Theme::text :
-	                                   Globals::Theme::hilite_text));
+	                                   EngineGlobals::Theme::text :
+	                                   EngineGlobals::Theme::hilite_text));
 
 	window->print(((hilite)?
 	               ">":
 	               "]"),
 	              posx - 1, y,
 	              ((hilite)?
-	               Globals::Theme::hilite_text:
-	               Globals::Theme::text));
+	               EngineGlobals::Theme::hilite_text:
+	               EngineGlobals::Theme::text));
 }
 void MenuItemCheckbox::handleInput()
 {

@@ -1,4 +1,5 @@
 #include <Game/Config/Globals.hpp>
+#include <Engine/EngineGlobals.hpp>
 #include <Engine/Helpers/INI.hpp>
 #include <Engine/Helpers/Utils.hpp>
 #include <Engine/InputManager.hpp>
@@ -22,13 +23,6 @@ char Globals::version[3] = { VERSION[0],
 std::string Globals::Config::directory  = "";
 std::string Globals::Config::file       = "";
 std::string Globals::Config::scoresFile = "";
-
-bool Globals::Screen::center_horizontally = true;
-bool Globals::Screen::center_vertically   = true;
-
-bool Globals::Screen::show_borders  = true;
-bool Globals::Screen::fancy_borders = true;
-bool Globals::Screen::outer_border  = true;
 
 unsigned int Globals::Game::starting_speed          = 1;
 int          Globals::Game::fruits_at_once          = 1;
@@ -66,10 +60,6 @@ bool Globals::Game::board_scroll_down  = false;
 bool Globals::Game::board_scroll_left  = false;
 bool Globals::Game::board_scroll_right = false;
 
-ColorPair Globals::Theme::text;
-ColorPair Globals::Theme::hilite_text;
-ColorPair Globals::Theme::textbox;
-
 bool Globals::Error::has_config_file = true;
 bool Globals::Error::has_score_file  = true;
 bool Globals::Error::old_version_score_file = false;
@@ -81,11 +71,6 @@ bool Globals::Error::strange_score_file     = false;
 
 void Globals::init()
 {
-	// Other default variables
-	Globals::Theme::text        = 0;
-	Globals::Theme::hilite_text = Colors::pair(COLOR_CYAN, COLOR_DEFAULT);
-	Globals::Theme::textbox     = (Globals::Theme::hilite_text | A_REVERSE);
-
 	// Making sure default config directory exists
 	// By default it's `~/.local/share/nsnake/`
 
@@ -210,12 +195,12 @@ void Globals::loadFile()
 		}                                        \
 	}
 
-	INI_GET(Globals::Screen::center_horizontally, "screen", "center_horizontal");
-	INI_GET(Globals::Screen::center_vertically,   "screen", "center_vertical");
+	INI_GET(EngineGlobals::Screen::center_horizontally, "screen", "center_horizontal");
+	INI_GET(EngineGlobals::Screen::center_vertically,   "screen", "center_vertical");
 
-	INI_GET(Globals::Screen::show_borders,  "screen", "borders");
-	INI_GET(Globals::Screen::fancy_borders, "screen", "fancy_borders");
-	INI_GET(Globals::Screen::outer_border,  "screen", "outer_border");
+	INI_GET(EngineGlobals::Screen::show_borders,  "screen", "borders");
+	INI_GET(EngineGlobals::Screen::fancy_borders, "screen", "fancy_borders");
+	INI_GET(EngineGlobals::Screen::outer_border,  "screen", "outer_border");
 
 	INI_GET(Globals::Game::random_walls,       "game", "random_walls");
 	INI_GET(Globals::Game::fruits_at_once,     "game", "fruits_at_once");
@@ -297,12 +282,12 @@ void Globals::saveFile()
 		(* ini)(out).addKey(in, buffer);       \
 	}
 
-	INI_SET("screen", "center_horizontal", Globals::Screen::center_horizontally);
-	INI_SET("screen", "center_vertical",   Globals::Screen::center_vertically);
+	INI_SET("screen", "center_horizontal", EngineGlobals::Screen::center_horizontally);
+	INI_SET("screen", "center_vertical",   EngineGlobals::Screen::center_vertically);
 
-	INI_SET("screen", "borders",       Globals::Screen::show_borders);
-	INI_SET("screen", "fancy_borders", Globals::Screen::fancy_borders);
-	INI_SET("screen", "outer_border",  Globals::Screen::outer_border);
+	INI_SET("screen", "borders",       EngineGlobals::Screen::show_borders);
+	INI_SET("screen", "fancy_borders", EngineGlobals::Screen::fancy_borders);
+	INI_SET("screen", "outer_border",  EngineGlobals::Screen::outer_border);
 
 	INI_SET("game", "random_walls",     Globals::Game::random_walls);
 	INI_SET("game", "fruits_at_once",   Globals::Game::fruits_at_once);

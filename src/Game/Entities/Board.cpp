@@ -1,6 +1,6 @@
 #include <Game/Entities/Board.hpp>
 #include <Game/Entities/Player.hpp>
-#include <Game/Config/Globals.hpp>
+#include <Engine/EngineGlobals.hpp>
 #include <Engine/Helpers/Utils.hpp>
 
 int Board::small_width  = 40;
@@ -55,7 +55,7 @@ int Board::getH()
 void Board::draw(Window* win)
 {
 	int teleport_appearance = '\'';
-	int solid_appearance = ((Globals::Screen::fancy_borders) ?
+	int solid_appearance = ((EngineGlobals::Screen::fancy_borders) ?
 	                        ACS_CKBOARD :
 	                        '#');
 

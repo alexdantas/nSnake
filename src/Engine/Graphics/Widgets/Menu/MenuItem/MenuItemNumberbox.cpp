@@ -1,5 +1,5 @@
 #include <Engine/Graphics/Widgets/Menu/MenuItem/MenuItemNumberbox.hpp>
-#include <Game/Config/Globals.hpp>
+#include <Engine/EngineGlobals.hpp>
 #include <Engine/Helpers/Utils.hpp>
 #include <Engine/Helpers/Timer.hpp>
 #include <Engine/InputManager.hpp>
@@ -37,8 +37,8 @@ void MenuItemNumberbox::draw(Window* window, int x, int y, int width, bool hilit
 	              rightmost - number.size() - 2,
 	              y,
 	              ((hilite)?
-	               Globals::Theme::hilite_text:
-	               Globals::Theme::text));
+	               EngineGlobals::Theme::hilite_text:
+	               EngineGlobals::Theme::text));
 
 	window->print(((hilite)?
 	               ">":
@@ -46,13 +46,13 @@ void MenuItemNumberbox::draw(Window* window, int x, int y, int width, bool hilit
 	              rightmost - 1,
 	              y,
 	              ((hilite)?
-	               Globals::Theme::hilite_text:
-	               Globals::Theme::text));
+	               EngineGlobals::Theme::hilite_text:
+	               EngineGlobals::Theme::text));
 
 	window->print(number,
 	              rightmost - number.size() - 1,
 	              y,
-	              Globals::Theme::hilite_text);
+	              EngineGlobals::Theme::hilite_text);
 }
 void MenuItemNumberbox::handleInput()
 {

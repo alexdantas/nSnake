@@ -1,7 +1,7 @@
 #include <Game/Display/WindowGameHelp.hpp>
 #include <Engine/Graphics/Layout.hpp>
 #include <Engine/Graphics/Colors.hpp>
-#include <Game/Config/Globals.hpp>
+#include <Engine/EngineGlobals.hpp>
 #include <Engine/InputManager.hpp>
 #include <Engine/Helpers/Utils.hpp>
 
@@ -18,9 +18,9 @@ WindowGameHelp::WindowGameHelp()
 	                        width,
 	                        height);
 
-	if (Globals::Screen::show_borders)
+	if (EngineGlobals::Screen::show_borders)
 	{
-		this->main->borders(Globals::Screen::fancy_borders ?
+		this->main->borders(EngineGlobals::Screen::fancy_borders ?
 		                    Window::BORDER_FANCY :
 		                    Window::BORDER_REGULAR);
 	}
@@ -50,8 +50,8 @@ void WindowGameHelp::run()
 		                  2,
 		                  0,
 		                  ((activatedIndex == 0) ?
-		                   Globals::Theme::textbox :
-		                   Globals::Theme::hilite_text));
+		                   EngineGlobals::Theme::textbox :
+		                   EngineGlobals::Theme::hilite_text));
 
 		this->main->print(((activatedIndex == 1) ?
 		                   "(Credits)" :
@@ -59,19 +59,19 @@ void WindowGameHelp::run()
 		                  12,
 		                  0,
 		                  ((activatedIndex == 1) ?
-		                   Globals::Theme::textbox :
-		                   Globals::Theme::hilite_text));
+		                   EngineGlobals::Theme::textbox :
+		                   EngineGlobals::Theme::hilite_text));
 
 		// HACK TO AVOID THE BORDERS FROM BEING
 		// BOLD. GOTTA SOLVE THIS MISTERY.
-		Colors::pairActivate(this->main->win, Globals::Theme::text);
+		Colors::pairActivate(this->main->win, EngineGlobals::Theme::text);
 
 		// Help Window
 		if (activatedIndex == 0)
 		{
 			this->windows[0]->print("In-game controls:\n",
 			                        0, 0,
-			                        Globals::Theme::hilite_text);
+			                        EngineGlobals::Theme::hilite_text);
 
 			this->windows[0]->print(Utils::String::split("Move up\n"
 			                                             "Move down\n"
@@ -81,7 +81,7 @@ void WindowGameHelp::run()
 			                                             "Quit anytime\n"
 			                                             "Show help", '\n'),
 			                        1, 1,
-			                        Globals::Theme::hilite_text);
+			                        EngineGlobals::Theme::hilite_text);
 
 			this->windows[0]->print(Utils::String::split(InputManager::keyToString(InputManager::getBind("up")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("down")) + "\n" +
@@ -91,26 +91,26 @@ void WindowGameHelp::run()
 			                                             InputManager::keyToString(InputManager::getBind("quit")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("help")), '\n'),
 			                        14, 1,
-			                        Globals::Theme::text);
+			                        EngineGlobals::Theme::text);
 
 			this->windows[0]->print("Menu controls:\n",
 			                        0, 9,
-			                        Globals::Theme::hilite_text);
+			                        EngineGlobals::Theme::hilite_text);
 
 			this->windows[0]->print(Utils::String::split("First item\n"
 			                                             "Last item", '\n'),
 			                        1, 10,
-			                        Globals::Theme::hilite_text);
+			                        EngineGlobals::Theme::hilite_text);
 
 			this->windows[0]->print(Utils::String::split("page up\n"
 			                                             "page down", '\n'),
 			                        14, 10,
-			                        Globals::Theme::text);
+			                        EngineGlobals::Theme::text);
 
 			this->windows[0]->print(Utils::String::split(" Settings and scores are stored at:\n"
 			                                             " `~/.local/share/nsnake/`", '\n'),
 			                        0, 13,
-			                        Globals::Theme::text);
+			                        EngineGlobals::Theme::text);
 		}
 		//
 		// Credits
@@ -135,7 +135,7 @@ void WindowGameHelp::run()
 			                                             " http://nsnake.alexdantas.net/\n"
 			                                             "Source Code:\n"
 			                                             " https://github.com/alexdantas/nsnake/", '\n'),
-			                        0, 5, Globals::Theme::text);
+			                        0, 5, EngineGlobals::Theme::text);
 		}
 
 		this->windows[activatedIndex]->refresh();
