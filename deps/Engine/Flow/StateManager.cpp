@@ -4,7 +4,6 @@
 
 #include <States/GameStateGame.hpp>
 #include <States/GameStateMainMenu.hpp>
-#include <Config/Globals.hpp>
 
 StateManager::StateManager():
 	currentState(NULL),
@@ -79,18 +78,5 @@ void StateManager::run()
 
 		Utils::Time::delay_ms(100);
 	}
-
-	// // Right before quitting, we must save current
-	// // user's settings
-	// Globals::saveSettings();
-
-	// // And set the current profile as the default
-	// // to load next time.
-	// INI ini;
-	// if (! ini.load(Globals::Config::file))
-	// 	ini.create();
-
-	// ini.set("profiles:default", Globals::Profiles::current->name);
-	// ini.save(Globals::Config::file);
 }
 

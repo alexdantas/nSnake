@@ -3,7 +3,6 @@
 #include <Engine/Helpers/Utils.hpp>
 #include <Engine/EngineGlobals.hpp>
 #include <Config/Globals.hpp>
-#include <Config/Globals.hpp>
 #include <Config/Arguments.hpp>
 
 int main(int argc, char *argv[])
