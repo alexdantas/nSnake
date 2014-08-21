@@ -1,4 +1,4 @@
-#include <Game/Display/WindowGameHelp.hpp>
+#include <Display/WindowGameHelp.hpp>
 #include <Engine/Graphics/Layout.hpp>
 #include <Engine/Graphics/Colors.hpp>
 #include <Engine/EngineGlobals.hpp>

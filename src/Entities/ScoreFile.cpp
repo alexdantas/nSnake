@@ -1,5 +1,5 @@
-#include <Game/Entities/ScoreFile.hpp>
-#include <Game/Entities/BoardParser.hpp>
+#include <Entities/ScoreFile.hpp>
+#include <Entities/BoardParser.hpp>
 #include <Engine/Helpers/Utils.hpp>
 #include <Engine/Helpers/INI.hpp>
 

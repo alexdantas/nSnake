@@ -1,5 +1,5 @@
-#include <Game/Entities/Player.hpp>
-#include <Game/Entities/Board.hpp>
+#include <Entities/Player.hpp>
+#include <Entities/Board.hpp>
 
 Player::Player(int x, int y):
 	alive(true),

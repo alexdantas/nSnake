@@ -1,10 +1,10 @@
-#include <Game/States/GameStateGame.hpp>
+#include <States/GameStateGame.hpp>
 #include <Engine/Flow/StateManager.hpp>
 #include <Engine/Helpers/Utils.hpp>
 #include <Engine/Graphics/Widgets/Dialog.hpp>
 #include <Engine/Graphics/Ncurses.hpp>
-#include <Game/Config/Globals.hpp>
-#include <Game/Entities/BoardParser.hpp>
+#include <Config/Globals.hpp>
+#include <Entities/BoardParser.hpp>
 
 GameStateGame::GameStateGame():
 	game(NULL),

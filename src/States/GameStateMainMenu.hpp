@@ -2,10 +2,10 @@
 #define GAMESTATEMAINMENU_H_DEFINED
 
 #include <Engine/Flow/GameState.hpp>
-#include <Game/Display/Layouts/LayoutMainMenu.hpp>
+#include <Display/Layouts/LayoutMainMenu.hpp>
 #include <Engine/Graphics/Widgets/Menu.hpp>
 #include <Engine/Graphics/Widgets/Menu/MenuAlphabetic.hpp>
-#include <Game/Display/WindowGameHelp.hpp>
+#include <Display/WindowGameHelp.hpp>
 
 /// The Main Menu.
 ///

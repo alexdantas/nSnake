@@ -2,9 +2,9 @@
 #include <Engine/Graphics/Ncurses.hpp>
 #include <Engine/Helpers/Utils.hpp>
 #include <Engine/EngineGlobals.hpp>
-#include <Game/Config/Globals.hpp>
-#include <Game/Config/Globals.hpp>
-#include <Game/Config/Arguments.hpp>
+#include <Config/Globals.hpp>
+#include <Config/Globals.hpp>
+#include <Config/Arguments.hpp>
 
 int main(int argc, char *argv[])
 {

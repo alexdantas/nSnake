@@ -1,4 +1,4 @@
-#include <Game/Display/Animations/AnimationFire.hpp>
+#include <Display/Animations/AnimationFire.hpp>
 #include <Engine/Graphics/Colors.hpp>
 #include <Engine/Helpers/Utils.hpp>
 

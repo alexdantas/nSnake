@@ -1,10 +1,10 @@
-#include <Game/Config/Globals.hpp>
+#include <Config/Globals.hpp>
 #include <Engine/EngineGlobals.hpp>
 #include <Engine/Helpers/INI.hpp>
 #include <Engine/Helpers/Utils.hpp>
 #include <Engine/InputManager.hpp>
-#include <Game/Entities/BoardParser.hpp>
-#include <Game/Entities/ScoreFile.hpp>
+#include <Entities/BoardParser.hpp>
+#include <Entities/ScoreFile.hpp>
 
 #include <ncurses.h>
 #include <iostream>

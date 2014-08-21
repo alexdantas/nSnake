@@ -1,4 +1,4 @@
-#include <Game/Display/Animations/AnimationGameOfLife.hpp>
+#include <Display/Animations/AnimationGameOfLife.hpp>
 #include <Engine/Graphics/Colors.hpp>
 #include <Engine/Helpers/Utils.hpp>
 

@@ -1,4 +1,4 @@
-#include <Game/Entities/FruitManager.hpp>
+#include <Entities/FruitManager.hpp>
 #include <Engine/Helpers/Utils.hpp>
 
 FruitManager::FruitManager(int amount):

@@ -1,5 +1,5 @@
-#include <Game/Entities/Board.hpp>
-#include <Game/Entities/Player.hpp>
+#include <Entities/Board.hpp>
+#include <Entities/Player.hpp>
 #include <Engine/EngineGlobals.hpp>
 #include <Engine/Helpers/Utils.hpp>
 

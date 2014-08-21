@@ -1,4 +1,4 @@
-#include <Game/Display/Animations/AnimationSnakes.hpp>
+#include <Display/Animations/AnimationSnakes.hpp>
 #include <Engine/Graphics/Colors.hpp>
 #include <Engine/Helpers/Utils.hpp>
 

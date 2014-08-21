@@ -1,5 +1,5 @@
-#include <Game/Entities/BoardParser.hpp>
-#include <Game/Config/Globals.hpp>
+#include <Entities/BoardParser.hpp>
+#include <Config/Globals.hpp>
 #include <Engine/Helpers/INI.hpp>
 #include <Engine/Helpers/Utils.hpp>
 

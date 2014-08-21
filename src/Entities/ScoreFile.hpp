@@ -1,7 +1,7 @@
 #ifndef SCORE_H_DEFINED
 #define SCORE_H_DEFINED
 
-#include <Game/Config/Globals.hpp>
+#include <Config/Globals.hpp>
 
 #include <string>
 #include <vector>

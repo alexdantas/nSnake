@@ -2,7 +2,7 @@
 #define GAMESTATEGAME_H_DEFINED
 
 #include <Engine/Flow/GameState.hpp>
-#include <Game/Entities/Game.hpp>
+#include <Entities/Game.hpp>
 
 /// This represents the actual game taking place.
 ///

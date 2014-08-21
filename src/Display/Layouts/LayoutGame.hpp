@@ -3,8 +3,8 @@
 
 #include <Engine/Graphics/Layout.hpp>
 #include <Engine/Graphics/Widgets/Menu.hpp>
-#include <Game/Display/WindowGameHelp.hpp>
-#include <Game/Entities/Game.hpp>
+#include <Display/WindowGameHelp.hpp>
+#include <Entities/Game.hpp>
 
 #include <vector>
 

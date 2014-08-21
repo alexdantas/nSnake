@@ -1,13 +1,13 @@
-#include <Game/Display/Layouts/LayoutMainMenu.hpp>
+#include <Display/Layouts/LayoutMainMenu.hpp>
 #include <Engine/Graphics/Colors.hpp>
 #include <Engine/Graphics/Ncurses.hpp>
 #include <Engine/EngineGlobals.hpp>
 #include <Engine/Helpers/Utils.hpp>
-#include <Game/States/GameStateMainMenu.hpp>
-#include <Game/Display/Animations/AnimationSnakes.hpp>
-#include <Game/Display/Animations/AnimationFire.hpp>
-#include <Game/Display/Animations/AnimationWater.hpp>
-#include <Game/Display/Animations/AnimationGameOfLife.hpp>
+#include <States/GameStateMainMenu.hpp>
+#include <Display/Animations/AnimationSnakes.hpp>
+#include <Display/Animations/AnimationFire.hpp>
+#include <Display/Animations/AnimationWater.hpp>
+#include <Display/Animations/AnimationGameOfLife.hpp>
 
 #include <iostream>
 
