@@ -183,7 +183,7 @@ ColorPair Colors::pair(Color& foreground, Color& background, bool is_bold)
 
 	return pair;
 }
-Color Colors::fromString(std::string str)
+Color Colors::name(std::string str)
 {
 	Color color;
 
@@ -209,8 +209,8 @@ ColorPair Colors::pair(std::string foreground, std::string background, bool is_b
 	if (foreground.empty() || background.empty())
 		return ColorPair();
 
-	Color f = Colors::fromString(foreground);
-	Color b = Colors::fromString(background);
+	Color f = Colors::name(foreground);
+	Color b = Colors::name(background);
 
 	return Colors::pair(f, b, is_bold);
 }

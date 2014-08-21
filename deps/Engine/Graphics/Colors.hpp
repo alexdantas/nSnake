@@ -1,8 +1,11 @@
 #ifndef COLORS_H_DEFINED
 #define COLORS_H_DEFINED
 
+#include <Engine/Helpers/Utils.hpp>
+
 #include <ncurses.h>
 #include <string>
+#include <vector>
 
 /// Single color.
 /// Pretty much useless, only used with `ColorPair`.
@@ -22,6 +25,42 @@ struct Color
 		blue(-1),
 		ncurses_color(COLOR_WHITE)
 	{ }
+
+	std::string toString()
+	{
+		if (! this->name.empty())
+			return this->name;
+
+		return (Utils::String::toString(this->red) + "," +
+		        Utils::String::toString(this->green) + "," +
+		        Utils::String::toString(this->blue));
+	}
+	void fromString(std::string str)
+	{
+		if (str.find(",") == std::string::npos)
+		{
+			// Format "name"
+			this->name = str;
+
+			this->red   = -1;
+			this->green = -1;
+			this->blue  = -1;
+		}
+		else
+		{
+			// Format "red,green,blue"
+			std::vector<std::string> v = Utils::String::split(str, ',');
+
+			if (v.size() != 3)
+				return;
+
+			this->red   = Utils::String::to<int>(v[0]);
+			this->green = Utils::String::to<int>(v[1]);
+			this->blue  = Utils::String::to<int>(v[2]);
+
+			this->name = "";
+		}
+	}
 };
 
 /// Color pair (foreground and background).
@@ -42,6 +81,22 @@ struct ColorPair
 		background(background),
 		ncurses_pair(0)
 	{ }
+	std::string toString()
+	{
+		return (foreground.toString() +
+		        "+" +
+		        background.toString());
+	}
+	void fromString(std::string str)
+	{
+		std::vector<std::string> v = Utils::String::split(str, '+');
+
+		if (v.size() != 2)
+			return;
+
+		this->foreground.fromString(v[0]);
+		this->background.fromString(v[1]);
+	}
 };
 
 /// Defines colors to display characters on the screen.
@@ -77,7 +132,7 @@ namespace Colors
 	///
 	/// @note It is very limited for now, only having the 8
 	///       basic ncurses colors.
-	Color fromString(std::string str);
+	Color name(std::string str);
 
 	/// Returns a new `ColorPair` made with #foreground and #background colors.
 	///
