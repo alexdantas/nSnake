@@ -68,21 +68,26 @@ LDFLAGS     = -lncurses $(LDFLAGS_PLATFORM)
 INCLUDESDIR = -I"src/" -I"deps/"
 LIBSDIR     =
 
-# All source files
+# Project source files
 CFILES   = $(shell find src -type f -name '*.c')
 CXXFILES = $(shell find src -type f -name '*.cpp')
 OBJECTS  = $(CFILES:.c=.o) \
            $(CXXFILES:.cpp=.o)
 
+# Engine source files
+ENGINE_DIR     = deps/Engine
+ENGINE_FILES   = $(shell find $(ENGINE_DIR) -type f -name '*.cpp')
+ENGINE_OBJECTS = $(ENGINE_FILES:.cpp=.o)
+
+# Commander source files
+COMMANDERDIR     = deps/commander
+COMMANDER_CFLAGS = -O2 -Wall -Wextra $(CFLAGS_PLATFORM)
+COMMANDER_OBJS   = $(COMMANDERDIR)/commander.o
+
 DEFINES = -DVERSION=\""$(VERSION)"\"                  \
           -DPACKAGE=\""$(PACKAGE)"\"                  \
           -DDATE=\""$(DATE)"\"                        \
           -DSYSTEM_LEVEL_DIR=\""$(LEVELDIR)"\"
-
-# commander stuff
-COMMANDERDIR     = deps/commander
-COMMANDER_CFLAGS = -O2 -Wall -Wextra $(CFLAGS_PLATFORM)
-COMMANDER_OBJS   = $(COMMANDERDIR)/commander.o
 
 # Distribution tarball
 TARNAME = $(PACKAGE)
@@ -145,11 +150,15 @@ uninstall:
 	$(MUTE)rm -f $(DESTDIR)$(XPMDIR)/nsnake.xpm
 	$(MUTE)rm -f $(DESTDIR)$(DESKTOPDIR)/nsnake.desktop
 
-$(EXE): $(OBJECTS) $(COMMANDER_OBJS)
+$(EXE): $(OBJECTS) $(ENGINE_OBJECTS) $(COMMANDER_OBJS)
 	# Linking...
-	$(MUTE)$(CXX) $(OBJECTS) $(COMMANDER_OBJS) -o bin/$(EXE) $(LIBSDIR) $(LDFLAGS)
+	$(MUTE)$(CXX) $(OBJECTS) $(ENGINE_OBJECTS) $(COMMANDER_OBJS) -o bin/$(EXE) $(LIBSDIR) $(LDFLAGS)
 
 src/%.o: src/%.cpp
+	# Compiling $<...
+	$(MUTE)$(CXX) $(CXXFLAGS) $(CDEBUG) $< -c -o $@ $(DEFINES) $(INCLUDESDIR)
+
+deps/Engine/%.o: deps/Engine/%.cpp
 	# Compiling $<...
 	$(MUTE)$(CXX) $(CXXFLAGS) $(CDEBUG) $< -c -o $@ $(DEFINES) $(INCLUDESDIR)
 
@@ -183,9 +192,13 @@ run: all
 	$(MUTE)./bin/$(EXE)
 
 clean:
-	# Cleaning files...
-	$(MUTE)rm $(VTAG) -f $(OBJECTS) $(COMMANDER_OBJS)
+	# Cleaning object files...
+	$(MUTE)rm $(VTAG) -f $(OBJECTS)
 	$(MUTE)rm $(VTAG) -f bin/$(EXE)
+
+clean-all: clean
+	# Cleaning dependency object files...
+	$(MUTE)rm $(VTAG) -f $(ENGINE_OBJECTS) $(COMMANDER_OBJS)
 
 dirs:
 	$(MUTE)mkdir -p bin

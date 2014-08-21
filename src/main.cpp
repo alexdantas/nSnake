@@ -6,7 +6,6 @@
 #include <Game/Config/Globals.hpp>
 #include <Game/Config/Arguments.hpp>
 
-
 int main(int argc, char *argv[])
 {
 	try
