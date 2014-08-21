@@ -71,7 +71,7 @@ bool Colors::init()
 	return true;
 }
 
-Color Colors::rgb(short r, short g, short b)
+Color Colors::rgb(short red, short green, short blue)
 {
 	if (can_change_color() == FALSE)
 		return 0;
@@ -84,10 +84,11 @@ Color Colors::rgb(short r, short g, short b)
 	if (color_no >= COLORS)
 		color_no = 8;
 
-	// init_color receives values from 0 to 1000
+	// `init_color` receives values from 0 to 1000,
+	// so we'll map from 255 to 1000
 	int expand = 1000/255;
 
-	init_color((color_no - 1), r*expand, g*expand, b*expand);
+	init_color((color_no - 1), red*expand, green*expand, blue*expand);
 	return (color_no - 1);
 }
 Color Colors::hex(std::string hex)
