@@ -115,7 +115,7 @@ void Window::printChar(int c, int x, int y, ColorPair pair)
 }
 void Window::setBackground(chtype ch, ColorPair pair)
 {
-	wbkgd(this->win, ch | pair);
+	wbkgd(this->win, ch | pair.ncurses_pair);
 }
 void Window::refresh()
 {
@@ -143,13 +143,13 @@ void Window::clear()
 	{
 		this->print(this->topLeftTitle,
 		            1, 0,
-		            Colors::pair(COLOR_BLUE, COLOR_DEFAULT));
+		            Colors::pair("blue", "default"));
 	}
 	if (! this->bottomLeftTitle.empty())
 	{
 		this->print(this->bottomLeftTitle,
 		            0, this->getH() - 1,
-		            Colors::pair(COLOR_BLUE, COLOR_DEFAULT));
+		            Colors::pair("blue", "default"));
 	}
 	if (! this->topRightTitle.empty())
 	{
@@ -158,7 +158,7 @@ void Window::clear()
 
 		this->print(this->topRightTitle,
 		            x - w, 0,
-		            Colors::pair(COLOR_BLUE, COLOR_DEFAULT));
+		            Colors::pair("blue", "default"));
 	}
 	if (! this->bottomRightTitle.empty())
 	{
@@ -167,7 +167,7 @@ void Window::clear()
 
 		this->print(this->bottomRightTitle,
 		            x - w, this->getH() - 1,
-		            Colors::pair(COLOR_BLUE, COLOR_DEFAULT));
+		            Colors::pair("blue", "default"));
 	}
 }
 int Window::getW() const
@@ -196,18 +196,20 @@ void Window::borders(BorderType type)
 	if (type == Window::BORDER_FANCY)
 	{
 		wborder(this->win,
-		        ACS_VLINE    | Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
-		        ACS_VLINE    | Colors::pair(COLOR_BLACK, COLOR_DEFAULT, true),
-		        ACS_HLINE    | Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
-		        ACS_HLINE    | Colors::pair(COLOR_BLACK, COLOR_DEFAULT, true),
-		        ACS_ULCORNER | Colors::pair(COLOR_WHITE, COLOR_DEFAULT, true),
-		        ACS_URCORNER | Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
-		        ACS_LLCORNER | Colors::pair(COLOR_WHITE, COLOR_DEFAULT),
-		        ACS_LRCORNER | Colors::pair(COLOR_BLACK, COLOR_DEFAULT, true));
+		        ACS_VLINE    | Colors::pair("white", "default"      ).ncurses_pair,
+		        ACS_VLINE    | Colors::pair("black", "default", true).ncurses_pair,
+		        ACS_HLINE    | Colors::pair("white", "default"      ).ncurses_pair,
+		        ACS_HLINE    | Colors::pair("black", "default", true).ncurses_pair,
+		        ACS_ULCORNER | Colors::pair("white", "default", true).ncurses_pair,
+		        ACS_URCORNER | Colors::pair("white", "default"      ).ncurses_pair,
+		        ACS_LLCORNER | Colors::pair("white", "default"      ).ncurses_pair,
+		        ACS_LRCORNER | Colors::pair("black", "default", true).ncurses_pair);
 	}
 	else if (type == Window::BORDER_REGULAR)
 	{
-		wattrset(this->win, Colors::pair(COLOR_BLACK, COLOR_DEFAULT, true));
+		ColorPair black = Colors::pair("black", "default", true);
+
+		Colors::pairActivate(this->win, black);
 		wborder(this->win, '|', '|', '-', '-', '+', '+', '+', '+');
 	}
 }

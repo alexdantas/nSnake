@@ -112,11 +112,11 @@ void WindowGameHelp::run()
 			this->windows[1]->print(Utils::String::split(" _      __   _       __    _     ____ \n"
 			                                             "| |\\ | ( (` | |\\ |  / /\\  | |_/ | |_  \n"
 			                                             "|_| \\| _)_) |_| \\| /_/--\\ |_| \\ |_|__", '\n'),
-			                        0, 0, Colors::pair(COLOR_BLUE, COLOR_DEFAULT, true));
+			                        0, 0, Colors::pair("blue", "default", true));
 
 			this->windows[1]->print(" v" VERSION "               (built " DATE ")",
 			                        0, 3,
-			                        Colors::pair(COLOR_GREEN, COLOR_DEFAULT, true));
+			                        Colors::pair("green", "default", true));
 
 			this->windows[1]->print(Utils::String::split("Try `nsnake --help` and `man nsnake`\n"
 			                                             "\n"

@@ -6,15 +6,43 @@
 
 /// Single color.
 /// Pretty much useless, only used with `ColorPair`.
-typedef short  Color;
+struct Color
+{
+	std::string name; // if it's empty, means use RGB
+	int red; // if it's -1, means use the name
+	int green;
+	int blue;
+
+	short ncurses_color;
+
+	Color():
+		name("white"),
+		red(-1),
+		green(-1),
+		blue(-1),
+		ncurses_color(COLOR_WHITE)
+	{ }
+};
 
 /// Color pair (foreground and background).
 /// Each character can get shown with a `ColorPair`.
-typedef chtype ColorPair;
+struct ColorPair
+{
+	Color foreground;
+	Color background;
 
-/// Default color of the current terminal.
-/// Means the default
-#define COLOR_DEFAULT -1
+	chtype ncurses_pair;
+
+	ColorPair():
+		ncurses_pair(0)
+	{ }
+
+	ColorPair(Color foreground, Color background):
+		foreground(foreground),
+		background(background),
+		ncurses_pair(0)
+	{ }
+};
 
 /// Defines colors to display characters on the screen.
 ///
@@ -55,27 +83,27 @@ namespace Colors
 	///
 	/// @note #is_bold usually brightens the color.
 	///
-	ColorPair pair(Color foreground, Color background, bool is_bold=false);
+	ColorPair pair(Color& foreground, Color& background, bool is_bold=false);
 
 	/// Returns a new `ColorPair` made with human-readable strings.
 	///
 	/// @see Colors::pair()
 	/// @see Colors::fromString()
 	///
-	ColorPair pairFromString(std::string foreground, std::string background, bool is_bold=false);
+	ColorPair pair(std::string foreground, std::string background, bool is_bold=false);
 
 	/// Activates the colors #foreground and #background on a ncurses #window.
 	///
 	/// It has the effect of making all subsequent prints having this
 	/// color pair.
 	///
-	void activate(WINDOW* window, Color foreground, Color background);
+	void activate(WINDOW* window, Color& foreground, Color& background);
 
 	/// Activates the color pair #color on a ncurses #window.
 	///
 	/// @see Colors::activate()
 	///
-	void pairActivate(WINDOW* window, ColorPair color);
+	void pairActivate(WINDOW* window, ColorPair& color);
 }
 
 #endif //COLORS_H_DEFINED

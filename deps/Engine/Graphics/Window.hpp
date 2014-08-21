@@ -34,7 +34,7 @@ public:
 	/// Shows text #str at #x #y on the window with color #pair.
 	///
 	/// @note It defaults to white text on black background.
-	void print(std::string str, int x, int y, ColorPair pair=0);
+	void print(std::string str, int x, int y, ColorPair pair=ColorPair());
 
 	/// Shows multiple text lines #lines at #x #y on the window
 	/// with color #pair.
@@ -45,12 +45,12 @@ public:
 	///     window.print(Utils::String::split("multiple\nlines", '\n'),
 	///                 x, y, color_pair);
 	///
-	void print(std::vector<std::string> lines, int x, int y, ColorPair pair=0);
+	void print(std::vector<std::string> lines, int x, int y, ColorPair pair=ColorPair());
 
 	/// Shows #c at #x #y with color #pair.
 	///
 	/// @note It also defaults to white text on black background.
-	void printChar(int c, int x, int y, ColorPair pair=0);
+	void printChar(int c, int x, int y, ColorPair pair=ColorPair());
 
 	void setBackground(chtype ch, ColorPair pair);
 

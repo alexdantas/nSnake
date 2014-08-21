@@ -126,7 +126,7 @@ void Player::draw(Window* win)
 		win->printChar('o',
 		               this->body[i].x,
 		               this->body[i].y,
-		               Colors::pair(COLOR_GREEN, COLOR_DEFAULT, true));
+		               Colors::pair("green", "default", true));
 
 	// The head
 	win->printChar(((this->alive) ?
@@ -135,8 +135,8 @@ void Player::draw(Window* win)
 	               this->body.front().x,
 	               this->body.front().y,
 	               Colors::pair(((this->alive) ?
-	                             COLOR_GREEN :
-	                             COLOR_RED), COLOR_DEFAULT, true));
+	                             "green" :
+	                             "red"), "default", true));
 }
 bool Player::headHit(int x, int y)
 {

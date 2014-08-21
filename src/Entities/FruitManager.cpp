@@ -61,6 +61,6 @@ void FruitManager::draw(Window* win)
 		win->print("$",
 		           this->fruit[i].x,
 		           this->fruit[i].y,
-		           Colors::pair(COLOR_RED, COLOR_DEFAULT, true));
+		           Colors::pair("red", "default", true));
 }
 

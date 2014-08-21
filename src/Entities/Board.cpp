@@ -68,15 +68,12 @@ void Board::draw(Window* win)
 				win->printChar(((this->style == Board::TELEPORT) ?
 				                teleport_appearance :
 				                solid_appearance),
-				               i,
-				               j,
-				               0);
+				               i, j);
 				continue;
 			}
 			else if (this->isWall(i, j))
 				win->printChar(solid_appearance,
-				               i, j,
-				               0);
+				               i, j);
 		}
 	}
 }

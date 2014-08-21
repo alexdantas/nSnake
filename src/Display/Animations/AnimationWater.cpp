@@ -2,11 +2,11 @@
 #include <Engine/Graphics/Colors.hpp>
 #include <Engine/Helpers/Utils.hpp>
 
-static ColorPair white      = 0;
-static ColorPair blue       = Colors::pair(COLOR_BLUE, COLOR_DEFAULT);
-static ColorPair blueBold   = Colors::pair(COLOR_BLUE, COLOR_DEFAULT, true);
-static ColorPair cyan       = Colors::pair(COLOR_CYAN, COLOR_DEFAULT);
-static ColorPair cyanBold   = Colors::pair(COLOR_CYAN, COLOR_DEFAULT, true);
+static ColorPair white;
+static ColorPair blue     = Colors::pair("blue", "default"      );
+static ColorPair blueBold = Colors::pair("blue", "default", true);
+static ColorPair cyan     = Colors::pair("cyan", "default"      );
+static ColorPair cyanBold = Colors::pair("cyan", "default", true);
 
 static int gray_scale_size = 11;
 static char gray_scale[12] = "#@%#*+=-:'.";

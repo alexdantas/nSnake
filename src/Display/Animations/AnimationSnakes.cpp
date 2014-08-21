@@ -61,14 +61,14 @@ void AnimationSnakes::draw()
 		window->printChar('@',
 		                  this->lilsnakes[i].x,
 		                  this->lilsnakes[i].y,
-		                  Colors::pair(COLOR_GREEN, COLOR_DEFAULT, true));
+		                  Colors::pair("green", "default", true));
 
 		for (int j = 1; j < (this->lilsnakes[i].size); j++)
 		{
 			window->printChar('o',
 			                  this->lilsnakes[i].x,
 			                  this->lilsnakes[i].y - j,
-			                  Colors::pair(COLOR_GREEN, COLOR_DEFAULT));
+			                  Colors::pair("green", "default"));
 
 		}
 	}

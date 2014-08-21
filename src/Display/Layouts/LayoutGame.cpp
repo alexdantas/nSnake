@@ -119,7 +119,7 @@ void LayoutGame::draw(Menu* menu)
 	// Statistics
 	// A mess of direct Ncurses calls - fix this later
 	this->info->clear();
-	this->info->print("a", 0, 0, 0);
+	this->info->print("a", 0, 0);
 
 	ColorPair hilite = EngineGlobals::Theme::hilite_text;
 

@@ -101,7 +101,7 @@ void LayoutMainMenu::draw(Menu* menu)
 	                                       "|_|  |__||_______||_|  |__||__| |__||___| |_||_______|", '\n'),
 	                  0,
 	                  0,
-	                  Colors::pair(COLOR_GREEN, COLOR_DEFAULT, true));
+	                  Colors::pair("green", "default", true));
 
 	this->logo->refresh();
 
@@ -117,3 +117,4 @@ void LayoutMainMenu::draw(Menu* menu)
 	// NCURSES NEEDS THIS
 	refresh();
 }
+

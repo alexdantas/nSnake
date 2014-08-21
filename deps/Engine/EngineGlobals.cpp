@@ -21,9 +21,19 @@ void EngineGlobals::init()
 	EngineGlobals::Screen::fancy_borders = true;
 	EngineGlobals::Screen::outer_border  = true;
 
-	EngineGlobals::Theme::text        = 0;
-	EngineGlobals::Theme::hilite_text = Colors::pair(COLOR_CYAN, COLOR_DEFAULT);
-	EngineGlobals::Theme::textbox     = (EngineGlobals::Theme::hilite_text | A_REVERSE);
+//	EngineGlobals::Theme::text        = DEFAULTS TO WHITE
+	EngineGlobals::Theme::hilite_text = Colors::pair("cyan", "default");
+	EngineGlobals::Theme::textbox     = Colors::pair("default", "cyan");
 }
+
+
+
+
+
+
+
+
+
+
 
 

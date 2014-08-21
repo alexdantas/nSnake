@@ -2,8 +2,8 @@
 #include <Engine/Graphics/Colors.hpp>
 #include <Engine/Helpers/Utils.hpp>
 
-static ColorPair white  = 0;
-static ColorPair yellow = Colors::pair(COLOR_YELLOW, COLOR_DEFAULT);
+static ColorPair white;
+static ColorPair yellow = Colors::pair("yellow", "default");
 
 AnimationGameOfLife::AnimationGameOfLife(Window* window):
 	Animation(window),

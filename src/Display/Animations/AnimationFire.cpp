@@ -2,11 +2,11 @@
 #include <Engine/Graphics/Colors.hpp>
 #include <Engine/Helpers/Utils.hpp>
 
-static ColorPair red        = Colors::pair(COLOR_RED, COLOR_DEFAULT);
-static ColorPair redBold    = Colors::pair(COLOR_RED, COLOR_DEFAULT, true);
-static ColorPair white      = 0;
-static ColorPair yellow     = Colors::pair(COLOR_YELLOW, COLOR_DEFAULT);
-static ColorPair yellowBold = Colors::pair(COLOR_YELLOW, COLOR_DEFAULT, true);
+static ColorPair red        = Colors::pair("red", "default");
+static ColorPair redBold    = Colors::pair("red", "default", true);
+static ColorPair white;
+static ColorPair yellow     = Colors::pair("yellow", "default");
+static ColorPair yellowBold = Colors::pair("yellow", "default", true);
 
 // An ASCII gray scale :)
 // Characters will be accessed proportionally to the intensity

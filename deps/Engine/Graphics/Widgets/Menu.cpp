@@ -131,7 +131,7 @@ void Menu::draw(Window* window)
 			window->print("(more)",
 			              this->x + this->width/2 - 3,
 			              this->y + yoffset,
-			              Colors::pair(COLOR_WHITE, COLOR_DEFAULT));
+			              Colors::pair("white", "default"));
 			continue;
 		}
 		// Menu is big and needs scrolling,
@@ -141,7 +141,7 @@ void Menu::draw(Window* window)
 			window->print("(more)",
 			              this->x + this->width/2 - 3,
 			              this->y + yoffset + 1,
-			              Colors::pair(COLOR_WHITE, COLOR_DEFAULT));
+			              Colors::pair("white", "default"));
 			continue;
 		}
 
@@ -165,7 +165,7 @@ void Menu::draw(Window* window)
 				                   '-'),
 				                  this->x + j,
 				                  this->y + yoffset,
-				                  Colors::pair(COLOR_WHITE, COLOR_DEFAULT));
+				                  Colors::pair("white", "default"));
 		}
 		else
 		{
