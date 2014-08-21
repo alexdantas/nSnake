@@ -31,17 +31,14 @@ void LayoutMainMenu::windowsInit()
 
 	// LOGO
 	this->logo = new Window(this->main,
-	                        0,
-	                        0,
-	                        56,
-	                        7);
+	                        0, 0,
+	                        56, 7);
+	this->logo->borders(Window::BORDER_NONE);
 
 	// MENU
 	this->menu = new Window(this->main,
-	                        55,
-	                        0,
-	                        24,
-	                        WINDOW_FILL);
+	                        55, 0,
+	                        24, WINDOW_FILL);
 
 	this->menu->setTitle("Main Menu");
 	this->menu->refresh();
@@ -52,6 +49,8 @@ void LayoutMainMenu::windowsInit()
 	                                this->logo->getH(),
 	                                this->logo->getW(),
 	                                this->main->getH() - this->logo->getH() - 1);
+
+	this->animationwin->borders(Window::BORDER_NONE);
 
 	// Deciding randomly the type of the Animation
 	switch(Utils::Random::between(0, 3))
