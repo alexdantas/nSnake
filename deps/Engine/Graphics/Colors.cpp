@@ -132,6 +132,8 @@ Color Colors::hex(std::string hex)
 ColorPair Colors::pair(Color& foreground, Color& background, bool is_bold)
 {
 	ColorPair pair(foreground, background);
+	if (is_bold)
+		pair.bold = true;
 
 	short fg = foreground.ncurses_color;
 	short bg = background.ncurses_color;

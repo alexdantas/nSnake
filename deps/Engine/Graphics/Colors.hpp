@@ -69,26 +69,39 @@ struct ColorPair
 {
 	Color foreground;
 	Color background;
+	bool bold;
 
 	chtype ncurses_pair;
 
 	ColorPair():
+		bold(false),
 		ncurses_pair(0)
 	{ }
 
 	ColorPair(Color foreground, Color background):
 		foreground(foreground),
 		background(background),
+		bold(false),
 		ncurses_pair(0)
 	{ }
 	std::string toString()
 	{
-		return (foreground.toString() +
-		        "+" +
-		        background.toString());
+		std::string bold = (this->bold ?
+		                    "!" :
+		                    "");
+
+		return (foreground.toString() + "+" + background.toString() + bold);
 	}
 	void fromString(std::string str)
 	{
+		// Let's see if it's bold
+		size_t pos = str.find("!");
+		if (pos != std::string::npos)
+		{
+			this->bold = true;
+			str.erase(pos, 1);
+		}
+
 		std::vector<std::string> v = Utils::String::split(str, '+');
 
 		if (v.size() != 2)
