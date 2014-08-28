@@ -4,6 +4,33 @@
 #include <string>
 #include <map>
 
+/// Handles input all over the game.
+///
+/// It's a collection of global functions to see
+/// if some keys were pressed or not.
+///
+/// @note Make sure to call `InputManager::update()`
+///       every frame!
+///
+/// ---
+///
+/// Bonus for being able to bind keys.
+/// See for yourself:
+///
+///     // While initializing your game...
+///     InputManager::bind("jump", 'w');
+///     InputManager::bind("jump", KEY_UP);
+///     // And then...
+///     if (InputManager::isPressed("jump"))
+///         // Do your magic...
+///
+/// ---
+///
+/// You can work with ASCII characters or ncurses
+/// keys.
+/// For a list of valid ncurses keys, check out
+/// the `InputManager::keyToString()` function on
+/// `InputManager.cpp` file.
 ///
 namespace InputManager
 {
@@ -33,6 +60,7 @@ namespace InputManager
 	/// * If 0, will return immediately, wether a key
 	///   was pressed or not.
 	/// * If positive, will wait for #delay_ms milliseconds.
+	///
 	void update(int delay_ms=0);
 
 	/// Returns human-readable name for internal value #key.
