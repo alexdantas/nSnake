@@ -17,8 +17,8 @@ public:
 	GameStateMainMenu();
 	virtual ~GameStateMainMenu() { };
 
-    void load(int stack=0);
-    int unload();
+    void load();
+    void unload();
 
 	void update();
     void draw();

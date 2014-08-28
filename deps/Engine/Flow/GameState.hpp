@@ -34,13 +34,13 @@ public:
     /// The *stack* is the previous state's returned value
     /// from *unload()*, allowing a state to communicate with
     /// the next one.
-    virtual void load(int stack=0) = 0;
+    virtual void load() = 0;
 
     /// Where every state destroys it's resources.
     ///
     /// The returned value will be sent to the next state's
     /// *load()* so we can send a specific message to it.
-    virtual int unload() = 0;
+    virtual void unload() = 0;
 
     /// Called every frame, where states calculate everything
     /// that can change.

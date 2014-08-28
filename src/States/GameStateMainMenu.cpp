@@ -72,10 +72,8 @@ GameStateMainMenu::GameStateMainMenu():
 	helpWindows(NULL)
 { }
 
-void GameStateMainMenu::load(int stack)
+void GameStateMainMenu::load()
 {
-	UNUSED(stack);
-
 	this->layout = new LayoutMainMenu(80, 24, this);
 
 	createMainMenu();
@@ -87,7 +85,7 @@ void GameStateMainMenu::load(int stack)
 	this->helpWindows = new WindowGameHelp();
 }
 
-int GameStateMainMenu::unload()
+void GameStateMainMenu::unload()
 {
 	saveSettingsMenuGameSettings();
 	saveSettingsMenuGUIOptions();
@@ -98,8 +96,6 @@ int GameStateMainMenu::unload()
 	SAFE_DELETE(this->menuGUIOptions);
 	SAFE_DELETE(this->menuControls);
 	SAFE_DELETE(this->menu);
-
-	return 0;
 }
 
 void GameStateMainMenu::update()

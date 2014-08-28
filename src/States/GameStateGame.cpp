@@ -15,10 +15,8 @@ GameStateGame::GameStateGame():
 { }
 GameStateGame::~GameStateGame()
 { }
-void GameStateGame::load(int stack)
+void GameStateGame::load()
 {
-	UNUSED(stack);
-
 	try {
 		this->game = new Game();
 		this->game->start(Globals::Game::current_level);
@@ -41,11 +39,9 @@ void GameStateGame::load(int stack)
 		// What should we do?
 	}
 }
-int GameStateGame::unload()
+void GameStateGame::unload()
 {
 	SAFE_DELETE(this->game);
-
-	return 0;
 }
 void GameStateGame::update()
 {
