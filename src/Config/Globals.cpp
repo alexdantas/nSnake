@@ -125,37 +125,6 @@ void Globals::init()
 	if (! Utils::File::isDirectory(BoardParser::directory))
 		Utils::File::mkdir_p(BoardParser::directory);
 }
-void Globals::exit()
-{
-	if (! Globals::Error::has_config_file)
-	{
-		std::cout << "Warning: We could not create the configuration file.\n"
-		          << "         Please check permissions to the path:\n"
-		          << "         " + Globals::Config::file
-		          << std::endl;
-	}
-	if (! Globals::Error::has_score_file)
-	{
-		std::cout << "Warning: We could not create the score file.\n"
-		          << "         Please check permissions to the path:\n"
-		          << "         " + Globals::Config::scoresFile
-		          << std::endl;
-	}
-	if (Globals::Error::old_version_score_file)
-	{
-		std::cout << "Warning: Your high score file is from an old nsnake version."
-		          << std::endl;
-	}
-	if (Globals::Error::strange_score_file)
-	{
-		// Erasing high scores...
-		Utils::File::create(Globals::Config::scoresFile);
-
-		std::cout << "Error: Corrupted high score file!\n"
-		          << "       We're sorry, but we had to erase it"
-		          << std::endl;
-	}
-}
 void Globals::loadFile()
 {
 	// Now, back on track
@@ -347,5 +316,36 @@ void Globals::saveFile()
 		// ... do nothing
 	}
 	SAFE_DELETE(ini);
+}
+void Globals::warnErrors()
+{
+	if (! Globals::Error::has_config_file)
+	{
+		std::cout << "Warning: We could not create the configuration file.\n"
+		          << "         Please check permissions to the path:\n"
+		          << "         " + Globals::Config::file
+		          << std::endl;
+	}
+	if (! Globals::Error::has_score_file)
+	{
+		std::cout << "Warning: We could not create the score file.\n"
+		          << "         Please check permissions to the path:\n"
+		          << "         " + Globals::Config::scoresFile
+		          << std::endl;
+	}
+	if (Globals::Error::old_version_score_file)
+	{
+		std::cout << "Warning: Your high score file is from an old nsnake version."
+		          << std::endl;
+	}
+	if (Globals::Error::strange_score_file)
+	{
+		// Erasing high scores...
+		Utils::File::create(Globals::Config::scoresFile);
+
+		std::cout << "Error: Corrupted high score file!\n"
+		          << "       We're sorry, but we had to erase it"
+		          << std::endl;
+	}
 }
 

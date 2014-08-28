@@ -6,32 +6,46 @@
 // Avoiding cyclic #includes
 struct ScoreEntry;
 
-/// All global settings to the game.
+/// Container for global settings on the game.
+///
+/// It holds all global variables, properly initializing
+/// their default values.
+///
+/// ---
+///
+/// Global variables are spread across inner namespaces.
+///
+/// ## Usage
+///
+/// Make sure to follow this order:
+///
+///     Globals::init();
+///     Globals::loadFile();
+///     // Run your game...
+///     Globals::saveFile();
+///     Globals::exit();
 ///
 namespace Globals
 {
-	/// Allocates necessary variables.
-	///
-	/// @note No need for Globals::exit() because the
-	///       Operational System always frees the memory
-	///       when quitting the program.
-	///       And definitely this module will need to
-	///       be accessed until the end of the program.
-	///
+	/// Initializes global variables with default values.
 	void init();
+
+	/// Loads global variables from the default file.
+	/// Check `Globals::Config::file` for its filename.
+	///
+	void loadFile();
+
+	/// Loads global variables to the default file.
+	/// Check `Globals::Config::file` for its filename.
+	///
+	void saveFile();
 
 	/// Warns the user about any errors and warnings found
 	/// during the program's execution.
 	///
 	/// @note You must call this _after_ finishing up nCurses,
 	///       otherwise things will get messed up on the terminal.
-	void exit();
-
-	/// Loads configuration from the default file name.
-	void loadFile();
-
-	/// Saves current configurations to the default file name.
-	void saveFile();
+	void warnErrors();
 
 	// Accessing version numbers - version[MAJOR] for example
 #define MAJOR 0
