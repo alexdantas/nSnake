@@ -8,6 +8,9 @@
 #include <Entities/BoardParser.hpp>
 #include <Entities/ScoreFile.hpp>
 
+#include <Engine/Flow/StateManager.hpp>
+#include <States/GameStateGame.hpp>
+
 enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 {
 	// Main Menu
@@ -122,14 +125,14 @@ GameState::StateCode GameStateMainMenu::update()
 				this->menuLevels->goRandom();
 
 				Globals::Game::current_level = this->menuLevels->current->label;
-				return GameState::GAME_START;
+				StateManager::change(new GameStateGame());
 				break;
 			}
 
 			default:
 				// Selected a level name!
 				Globals::Game::current_level = this->menuLevels->current->label;
-				return GameState::GAME_START;
+				StateManager::change(new GameStateGame());
 				break;
 			}
 			this->menuLevels->reset();
@@ -261,7 +264,7 @@ GameState::StateCode GameStateMainMenu::update()
 			case ARCADE:
 				// Starting game on the default level
 				Globals::Game::current_level = "";
-				return GameState::GAME_START;
+				StateManager::change(new GameStateGame());
 				break;
 
 			case LEVELS:

@@ -4,6 +4,7 @@
 #include <Engine/EngineGlobals.hpp>
 #include <Config/Globals.hpp>
 #include <Config/Arguments.hpp>
+#include <States/GameStateMainMenu.hpp>
 
 int main(int argc, char *argv[])
 {
@@ -21,7 +22,7 @@ int main(int argc, char *argv[])
 		Colors::init();
 
 		// Actually running the game
-		StateManager states;
+		StateManager states(new GameStateMainMenu());
 		states.run();
 
 		// Finishing things

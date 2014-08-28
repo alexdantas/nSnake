@@ -5,12 +5,29 @@
 #include <States/GameStateGame.hpp>
 #include <States/GameStateMainMenu.hpp>
 
-StateManager::StateManager():
-	currentState(NULL),
+void StateManager::change(GameState* newState)
+{
+	// Yeah, right!
+	//
+	// My solution to immediately change from one
+	// state to another is to launch an exception!
+	//
+	// See in action on `StateManager::run()`
+	//
+	// It seems kinda hackish, but at least it makes
+	// StateManager independent of all user-defined
+	// GameStates...
+	throw StateManagerChangeException(newState);
+}
+
+
+StateManager::StateManager(GameState* initialState):
+	currentState(initialState),
 	sharedInfo(0)
 {
-	// The first state, Hardcoded
-	this->currentState = new GameStateMainMenu();
+	if (! this->currentState)
+		throw "No state given to StateManager";
+
 	this->currentState->load();
 }
 StateManager::~StateManager()
@@ -24,59 +41,75 @@ void StateManager::run()
 {
 	bool letsQuit = false;
 
-	while (!letsQuit)
+	while (! letsQuit)
 	{
-		InputManager::update();
-
-		// Updating the whole state.
-		// This value is returned from it tell us if
-		// we need to switch from the current state.
-		GameState::StateCode whatToDoNow;
-
-		whatToDoNow = this->currentState->update();
-
-		switch (whatToDoNow)
+		try
 		{
-		case GameState::CONTINUE:
-			// Just continue on the current state.
-			break;
+			InputManager::update();
 
-		case GameState::QUIT:
-			this->currentState->unload();
-			delete this->currentState;
-			this->currentState = NULL;
+			// Updating the whole state.
+			// This value is returned from it tell us if
+			// we need to switch from the current state.
+			GameState::StateCode whatToDoNow;
 
-			letsQuit = true;
-			break;
+			whatToDoNow = this->currentState->update();
 
-		case GameState::GAME_START:
+			switch (whatToDoNow)
+			{
+			case GameState::CONTINUE:
+				// Just continue on the current state.
+				break;
+
+			case GameState::QUIT:
+				this->currentState->unload();
+				SAFE_DELETE(this->currentState);
+				this->currentState = NULL;
+
+				letsQuit = true;
+				break;
+
+			case GameState::MAIN_MENU:
+			{
+				this->currentState->unload();
+				SAFE_DELETE(this->currentState);
+
+				this->currentState = new GameStateMainMenu();
+				this->currentState->load();
+				break;
+			}
+
+			default:
+				break;
+			}
+
+			if (this->currentState)
+				this->currentState->draw();
+
+			Utils::Time::delay_ms(100);
+		}
+
+		// Special type of exception used to
+		// instantaneously change from one state
+		// to another.
+		catch (StateManagerChangeException& e)
 		{
 			this->currentState->unload();
-			delete this->currentState;
+			SAFE_DELETE(this->currentState);
 
-			this->currentState = new GameStateGame();
+			this->currentState = e.newState;
 			this->currentState->load();
-			break;
+
+			// Continue with the loop
 		}
+		// catch (StateManagerQuitException& e)
+		// {
+		// 	this->currentState->unload();
+		// 	SAFE_DELETE(this->currentState);
 
-		case GameState::MAIN_MENU:
-		{
-			this->currentState->unload();
-			delete this->currentState;
+		// 	break;
+		// }
 
-			this->currentState = new GameStateMainMenu();
-			this->currentState->load();
-			break;
-		}
-
-		default:
-			break;
-		}
-
-		if (this->currentState)
-			this->currentState->draw();
-
-		Utils::Time::delay_ms(100);
+		// All other exceptions will keep going up
 	}
 }
 

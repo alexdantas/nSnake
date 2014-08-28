@@ -2,6 +2,20 @@
 #define STATEMANAGER_H_DEFINED
 
 #include <Engine/Flow/GameState.hpp>
+#include <exception>
+
+/// Custom exception that's used to instantly
+/// change from one state to another.
+///
+class StateManagerChangeException : public std::exception
+{
+public:
+	StateManagerChangeException(GameState* newState):
+		newState(newState)
+	{ }
+
+	GameState* newState;
+};
 
 /// Giga-class that switches from game states.
 ///
@@ -22,8 +36,14 @@
 class StateManager
 {
 public:
-	/// Initializes pretty much everything.
-	StateManager();
+	/// Immediately changes to #newState
+	static void change(GameState* newState);
+
+	/// Initializes pretty much everything,
+	/// setting #initialState to run first.
+	///
+	/// @note It only actually starts when you call #run()
+	StateManager(GameState* initialState);
 
 	virtual ~StateManager();
 
