@@ -18,15 +18,9 @@ public:
 	virtual ~GameStateMainMenu() { };
 
     void load(int stack=0);
-
-	/// Gets called when we're leaving this menu.
-	///
-	/// It saves all the menu settings
-	/// (for example, game speed, board size, and such)
     int unload();
 
-	GameState::StateCode update();
-
+	void update();
     void draw();
 
 private:

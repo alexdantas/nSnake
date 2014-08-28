@@ -47,7 +47,7 @@ int GameStateGame::unload()
 
 	return 0;
 }
-GameState::StateCode GameStateGame::update()
+void GameStateGame::update()
 {
 	if (this->willQuit)
 		StateManager::quit();
@@ -77,8 +77,6 @@ GameState::StateCode GameStateGame::update()
 
 	if (this->game->willReturnToMenu())
 		StateManager::change(new GameStateMainMenu());
-
-	return GameState::CONTINUE;
 }
 void GameStateGame::draw()
 {

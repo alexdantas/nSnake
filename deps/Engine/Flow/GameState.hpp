@@ -16,37 +16,16 @@
 ///
 /// ## For developers
 ///
-/// All the other game states inherit from this baby.
-/// Each one must implement at least four methods - *load()*,
-/// *unload()*, *update()* and *draw()*.
+/// To switch from one GameState to another, use
+/// `StateManager::change`, like this:
 ///
-/// Each state controls the game flow via return values of
-/// the *update()* method. If, for instance, the player dies
-/// during the game, it should return *GAME_OVER* or *QUIT*.
+///     StateManager::change(new YourCustomGameState());
 ///
-/// A state can also comunicate with the next one by returning
-/// a value from *unload()*. That value will be passed on the
-/// next state's *load()* and it should know what to do with it.
+/// Don't worry, it cleans up the current state.
 ///
 class GameState
 {
 public:
-    /// All possible transitions between states.
-    ///
-    /// They are used to change from one state to the other.
-    /// The current state returns this at *update()* and the
-    /// *StateManager* makes the appropriate changes.
-    enum StateCode
-    {
-	    // Internal codes for quitting and continuing
-        QUIT, CONTINUE,
-
-        // The actual game screens
-        MAIN_MENU,
-        GAME_START,
-        GAME_OVER
-    };
-
     // Left this here just because.
     virtual ~GameState() {};
 
@@ -69,12 +48,10 @@ public:
     /// The returned value will be checked by the *StateManager*
     /// to see if we must change the current state - if so,
     /// which one should we go next.
-    virtual StateCode update() = 0;
+    virtual void update() = 0;
 
     /// Called every frame, where states draw stuff on screen.
     virtual void draw() = 0;
-
-private:
 };
 
 #endif //GAMESTATE_H_DEFINED

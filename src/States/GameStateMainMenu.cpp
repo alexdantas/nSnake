@@ -102,7 +102,7 @@ int GameStateMainMenu::unload()
 	return 0;
 }
 
-GameState::StateCode GameStateMainMenu::update()
+void GameStateMainMenu::update()
 {
 	if (InputManager::isPressed("quit"))
 		StateManager::quit();
@@ -316,9 +316,6 @@ GameState::StateCode GameStateMainMenu::update()
 			this->menu->reset();
 		}
 	}
-
-	// Otherwise, continuing things...
-	return GameState::CONTINUE;
 }
 
 void GameStateMainMenu::draw()
