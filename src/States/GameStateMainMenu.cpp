@@ -105,7 +105,7 @@ int GameStateMainMenu::unload()
 GameState::StateCode GameStateMainMenu::update()
 {
 	if (InputManager::isPressed("quit"))
-		return GameState::QUIT;
+		StateManager::quit();
 
 	if (this->menuLevelsActivated)
 	{
@@ -310,7 +310,7 @@ GameState::StateCode GameStateMainMenu::update()
 				break;
 
 			case QUIT_GAME:
-				return GameState::QUIT;
+				StateManager::quit();
 				break;
 			}
 			this->menu->reset();

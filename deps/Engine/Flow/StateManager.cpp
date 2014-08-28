@@ -19,6 +19,12 @@ void StateManager::change(GameState* newState)
 	// GameStates...
 	throw StateManagerChangeException(newState);
 }
+void StateManager::quit()
+{
+	// Same thing as the function above
+	throw StateManagerQuitException();
+}
+
 
 
 StateManager::StateManager(GameState* initialState):
@@ -60,24 +66,6 @@ void StateManager::run()
 				// Just continue on the current state.
 				break;
 
-			case GameState::QUIT:
-				this->currentState->unload();
-				SAFE_DELETE(this->currentState);
-				this->currentState = NULL;
-
-				letsQuit = true;
-				break;
-
-			case GameState::MAIN_MENU:
-			{
-				this->currentState->unload();
-				SAFE_DELETE(this->currentState);
-
-				this->currentState = new GameStateMainMenu();
-				this->currentState->load();
-				break;
-			}
-
 			default:
 				break;
 			}
@@ -101,14 +89,13 @@ void StateManager::run()
 
 			// Continue with the loop
 		}
-		// catch (StateManagerQuitException& e)
-		// {
-		// 	this->currentState->unload();
-		// 	SAFE_DELETE(this->currentState);
+		catch (StateManagerQuitException& e)
+		{
+			this->currentState->unload();
+			SAFE_DELETE(this->currentState);
 
-		// 	break;
-		// }
-
+			break; // out of the loop
+		}
 		// All other exceptions will keep going up
 	}
 }

@@ -17,6 +17,18 @@ public:
 	GameState* newState;
 };
 
+/// Custom exception for the specific case of
+/// quitting the game.
+///
+/// Quile like the custom exception above.
+///
+class StateManagerQuitException : public std::exception
+{
+public:
+	StateManagerQuitException()
+	{ }
+};
+
 /// Giga-class that switches from game states.
 ///
 /// It makes the transitions between them, assuring each one is
@@ -37,7 +49,18 @@ class StateManager
 {
 public:
 	/// Immediately changes to #newState
+	///
+	/// @note Don't worry, it cleans up the current
+	///       GameState before.
+	///
 	static void change(GameState* newState);
+
+	/// Immediately quits the game.
+	///
+	/// @note Don't worry, it cleans up the current
+	///       GameState before.
+	///
+	static void quit();
 
 	/// Initializes pretty much everything,
 	/// setting #initialState to run first.

@@ -6,6 +6,9 @@
 #include <Config/Globals.hpp>
 #include <Entities/BoardParser.hpp>
 
+#include <Engine/Flow/StateManager.hpp>
+#include <States/GameStateMainMenu.hpp>
+
 GameStateGame::GameStateGame():
 	game(NULL),
 	willQuit(false)
@@ -47,7 +50,7 @@ int GameStateGame::unload()
 GameState::StateCode GameStateGame::update()
 {
 	if (this->willQuit)
-		return GameState::QUIT;
+		StateManager::quit();
 
 	this->game->handleInput();
 	this->game->update();
@@ -66,14 +69,14 @@ GameState::StateCode GameStateGame::update()
 		if (Dialog::askBool("Retry?", "Game Over", true))
 			this->load(); // restart the game
 		else
-			return GameState::MAIN_MENU;
+			StateManager::change(new GameStateMainMenu());
 	}
 
 	if (this->game->willQuit())
 		this->willQuit = true;
 
 	if (this->game->willReturnToMenu())
-		return GameState::MAIN_MENU;
+		StateManager::change(new GameStateMainMenu());
 
 	return GameState::CONTINUE;
 }
