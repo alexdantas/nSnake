@@ -29,21 +29,13 @@ public:
 	{ }
 };
 
-/// Giga-class that switches from game states.
+/// Controls all game states.
 ///
-/// It makes the transitions between them, assuring each one is
-/// properly initialized.
+/// This is a very important class.
+/// It contains the main game loop (
 ///
-/// ## For developers:
-///
-/// Short and simple explanation:
-///
-/// * Creates the first state (allocating everything).
-/// * Run it (updating and drawing).
-/// * Whenever the state feels like changing, it will tell us
-///   (quit, for example).
-/// * Then we must delete the current state and repeat this whole
-///   process for the next one.
+/// It makes the transitions between GameStates, assuring
+/// they are properly cleaned and initialized.
 ///
 class StateManager
 {
@@ -81,17 +73,7 @@ public:
 	void run();
 
 private:
-
-	/// Current game state - defines what will actually happen.
 	GameState* currentState;
-
-	/// Shared information between states.
-	///
-	/// If a state want to share something with another, it should
-	/// return a value that will be stored right here.
-	///
-	/// Perhaps I should make this a template class or something.
-	int sharedInfo;
 };
 
 #endif /* STATEMANAGER_H_DEFINED */

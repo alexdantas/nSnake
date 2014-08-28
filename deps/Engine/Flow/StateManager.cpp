@@ -2,9 +2,6 @@
 #include <Engine/InputManager.hpp>
 #include <Engine/Helpers/Utils.hpp>
 
-#include <States/GameStateGame.hpp>
-#include <States/GameStateMainMenu.hpp>
-
 void StateManager::change(GameState* newState)
 {
 	// Yeah, right!
@@ -45,37 +42,20 @@ StateManager::~StateManager()
 }
 void StateManager::run()
 {
-	bool letsQuit = false;
-
-	while (! letsQuit)
+	// Oohh yeah, the main game loop!
+	while (true)
 	{
 		try
 		{
 			InputManager::update();
 
-			// Updating the whole state.
-			// This value is returned from it tell us if
-			// we need to switch from the current state.
-			GameState::StateCode whatToDoNow;
-
-			whatToDoNow = this->currentState->update();
-
-			switch (whatToDoNow)
-			{
-			case GameState::CONTINUE:
-				// Just continue on the current state.
-				break;
-
-			default:
-				break;
-			}
+			this->currentState->update();
 
 			if (this->currentState)
 				this->currentState->draw();
 
 			Utils::Time::delay_ms(100);
 		}
-
 		// Special type of exception used to
 		// instantaneously change from one state
 		// to another.
@@ -94,8 +74,10 @@ void StateManager::run()
 			this->currentState->unload();
 			SAFE_DELETE(this->currentState);
 
-			break; // out of the loop
+			break;
+			// Quit out of the loop
 		}
+
 		// All other exceptions will keep going up
 	}
 }
