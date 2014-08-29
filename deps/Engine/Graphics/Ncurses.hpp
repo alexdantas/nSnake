@@ -1,22 +1,32 @@
 #ifndef NCURSES_H_DEFINED
 #define NCURSES_H_DEFINED
 
-#include <stdbool.h>
-#include <ncurses.h>
-#include <sys/select.h>			// select()
-#include <unistd.h>				// STDIN_FILENO
-
-/// Everything related to the terminal library Ncurses.
+/// Low-level interactions with the terminal library Ncurses.
+///
+/// The whole point of this Engine is to abstract away
+/// direct Ncurses use.
+///
+/// Most of ncurses graphic manipulation moved to the `Window`
+/// class. Check there for a great ncurses function fest.
+///
+/// ## For developers
+///
+/// You shouldn't change this module at all.
+/// All the other modules depend on it and they work alright.
+///
 namespace Ncurses
 {
 	/// Initializes Ncurses mode.
+	///
+	/// The whole Engine depends on this.
 	bool init();
 
 	/// Quits Ncurses mode.
+	///
+	/// Make sure to call it at the end of the game,
+	/// otherwise the terminal will be left at a
+	/// strange state.
 	void exit();
-
-	/// Sleeps for #delay miliseconds.
-	void delay_ms(int delay);
 
 	/// Returns a pressed character within a
 	/// timespan of #delay_ms (milliseconds).

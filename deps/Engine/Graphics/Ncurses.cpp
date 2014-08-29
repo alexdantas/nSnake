@@ -1,5 +1,9 @@
 #include <Engine/Graphics/Ncurses.hpp>
 
+#include <ncurses.h>
+#include <sys/select.h>			// select()
+#include <unistd.h>				// STDIN_FILENO
+
 bool Ncurses::init()
 {
 	initscr();
@@ -29,14 +33,10 @@ void Ncurses::exit()
 	endwin();
 }
 
-void Ncurses::delay_ms(int delay)
-{
-	napms(delay);
-}
-
 int Ncurses::getInput(int delay_ms)
 {
-	// Will use select() function
+	// Will use the great (but complicated) select() function.
+	// Check out its manpage for more info.
 	int retval = 0;
 	int c      = 0;
 
@@ -67,9 +67,9 @@ int Ncurses::getInput(int delay_ms)
 		return -1;
 
 	if (retval == 0)
-		return ERR; //engine.input.none;
+		return ERR; // Nothing was pressed.
+					// This is an Ncurses internal value.
 
 	return c;
 }
-
 
