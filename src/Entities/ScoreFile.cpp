@@ -1,6 +1,7 @@
 #include <Entities/ScoreFile.hpp>
 #include <Entities/BoardParser.hpp>
-#include <Engine/Helpers/Utils.hpp>
+#include <Engine/Helpers/File.hpp>
+#include <Engine/Helpers/String.hpp>
 #include <Engine/Helpers/INI.hpp>
 
 #include <stdlib.h>	  // getenv()

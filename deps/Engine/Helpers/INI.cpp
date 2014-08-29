@@ -1,5 +1,5 @@
 #include <Engine/Helpers/INI.hpp>
-#include <Engine/Helpers/Utils.hpp>
+#include <Engine/Helpers/String.hpp>
 
 void INI::Level::addGroup(std::string name)
 {
