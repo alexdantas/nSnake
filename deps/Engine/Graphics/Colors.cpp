@@ -2,6 +2,99 @@
 
 #include <cstdlib>				// strtol()
 
+// Single Color
+
+Color::Color(std::string name):
+	name(name),
+	red(-1),
+	green(-1),
+	blue(-1),
+	ncurses_color(COLOR_WHITE)
+{ }
+
+std::string Color::toString()
+{
+	if (! this->name.empty())
+		return this->name;
+
+	return (Utils::String::toString(this->red) + "," +
+	        Utils::String::toString(this->green) + "," +
+	        Utils::String::toString(this->blue));
+}
+
+void Color::fromString(std::string str)
+{
+	if (str.find(",") == std::string::npos)
+	{
+		// Format is "name"
+		this->name = str;
+
+		this->red   = -1;
+		this->green = -1;
+		this->blue  = -1;
+	}
+	else
+	{
+		// Format "red,green,blue"
+		std::vector<std::string> v = Utils::String::split(str, ',');
+
+		if (v.size() != 3)
+			return;
+
+		this->red   = Utils::String::to<int>(v[0]);
+		this->green = Utils::String::to<int>(v[1]);
+		this->blue  = Utils::String::to<int>(v[2]);
+
+		this->name = "";
+	}
+}
+
+
+// Color Pair
+
+
+ColorPair::ColorPair():
+	bold(false),
+	ncurses_pair(0)
+{ }
+
+ColorPair::ColorPair(Color foreground, Color background):
+	foreground(foreground),
+	background(background),
+	bold(false),
+	ncurses_pair(0)
+{ }
+
+std::string ColorPair::toString()
+{
+	std::string bold = (this->bold ?
+	                    "!" :
+	                    "");
+
+	return (foreground.toString() + "+" + background.toString() + bold);
+}
+
+void ColorPair::fromString(std::string str)
+{
+	// Let's see if it's bold
+	size_t pos = str.find("!");
+	if (pos != std::string::npos)
+	{
+		this->bold = true;
+		str.erase(pos, 1);
+	}
+
+	std::vector<std::string> v = Utils::String::split(str, '+');
+
+	if (v.size() != 2)
+		return;
+
+	this->foreground.fromString(v[0]);
+	this->background.fromString(v[1]);
+}
+
+// All Colors
+
 /// Default color of the current terminal.
 ///
 /// This is the color your terminal has - both for

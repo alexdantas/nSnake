@@ -12,56 +12,42 @@
 /// Pretty much useless, only used with `ColorPair`.
 struct Color
 {
-	std::string name; // if it's empty, means use RGB
-	int red; // if it's -1, means use the name
+	/// Human-readable Color name.
+	/// @note If it's empty, means use RGB values.
+	std::string name;
+
+	/// Red component of the color, from 0 to 255.
+	/// @note If it's -1, means use the name string.
+	int red;
+
+	/// Green component of the color, from 0 to 255.
+	/// @note If it's -1, means use the name string.
 	int green;
+
+	/// Blue component of the color, from 0 to 255.
+	/// @note If it's -1, means use the name string.
 	int blue;
 
+	/// Internal value for the Ncurses library.
+	/// Don't mess with it.
 	short ncurses_color;
 
-	Color():
-		name("white"),
-		red(-1),
-		green(-1),
-		blue(-1),
-		ncurses_color(COLOR_WHITE)
-	{ }
+	/// Creates a new color from its human-readable name.
+	///
+	/// @note If you want to create a color from its
+	///       RGB values, use `Colors::rgb()`
+	Color(std::string name="white");
 
-	std::string toString()
-	{
-		if (! this->name.empty())
-			return this->name;
+	/// Returns a string representation of this Color.
+	/// @note It can be converted back using `fromString`.
+	///
+	/// The format is "red,green,blue".
+	std::string toString();
 
-		return (Utils::String::toString(this->red) + "," +
-		        Utils::String::toString(this->green) + "," +
-		        Utils::String::toString(this->blue));
-	}
-	void fromString(std::string str)
-	{
-		if (str.find(",") == std::string::npos)
-		{
-			// Format "name"
-			this->name = str;
-
-			this->red   = -1;
-			this->green = -1;
-			this->blue  = -1;
-		}
-		else
-		{
-			// Format "red,green,blue"
-			std::vector<std::string> v = Utils::String::split(str, ',');
-
-			if (v.size() != 3)
-				return;
-
-			this->red   = Utils::String::to<int>(v[0]);
-			this->green = Utils::String::to<int>(v[1]);
-			this->blue  = Utils::String::to<int>(v[2]);
-
-			this->name = "";
-		}
-	}
+	/// Makes this color be according to a string
+	/// representation of a Color.
+	/// @note It must be a value returned from `toString`.
+	void fromString(std::string str);
 };
 
 /// Color pair (foreground and background).
@@ -70,49 +56,37 @@ struct ColorPair
 {
 	Color foreground;
 	Color background;
+
+	/// Is this color bold?
+	/// Meaning is it brighter than its normal counterpart?
 	bool bold;
 
+	/// Internal ncurses value for a color pair.
+	/// Don't mess with it.
 	chtype ncurses_pair;
 
-	ColorPair():
-		bold(false),
-		ncurses_pair(0)
-	{ }
+	/// Creates an empty ColorPair.
+	/// @note Defaults to "white" over "black"
+	ColorPair();
 
-	ColorPair(Color foreground, Color background):
-		foreground(foreground),
-		background(background),
-		bold(false),
-		ncurses_pair(0)
-	{ }
-	std::string toString()
-	{
-		std::string bold = (this->bold ?
-		                    "!" :
-		                    "");
+	/// Creates a ColorPair from both Colors.
+	ColorPair(Color foreground, Color background);
 
-		return (foreground.toString() + "+" + background.toString() + bold);
-	}
-	void fromString(std::string str)
-	{
-		// Let's see if it's bold
-		size_t pos = str.find("!");
-		if (pos != std::string::npos)
-		{
-			this->bold = true;
-			str.erase(pos, 1);
-		}
+	/// Creates a string representation of this ColorPair.
+	/// @note Use later with `fromString`.
+	///
+	/// The format is "foreground+background".
+	/// If the color is bold, its has '!' at the end
+	/// (like "foregroud+background!").
+	std::string toString();
 
-		std::vector<std::string> v = Utils::String::split(str, '+');
-
-		if (v.size() != 2)
-			return;
-
-		this->foreground.fromString(v[0]);
-		this->background.fromString(v[1]);
-	}
+	/// Makes this ColorPair be according to a string
+	/// representation returned by `toString()`.
+	///
+	void fromString(std::string str);
 };
 
+/// Stuff related to Colors on a global scale.
 /// Defines colors to display characters on the screen.
 ///
 namespace Colors
@@ -148,7 +122,8 @@ namespace Colors
 	///       basic ncurses colors.
 	Color name(std::string str);
 
-	/// Returns a new `ColorPair` made with #foreground and #background colors.
+	/// Returns a new `ColorPair` made with #foreground
+	/// and #background colors.
 	///
 	/// @note #is_bold usually brightens the color.
 	///
@@ -161,10 +136,11 @@ namespace Colors
 	///
 	ColorPair pair(std::string foreground, std::string background, bool is_bold=false);
 
-	/// Activates the colors #foreground and #background on a ncurses #window.
+	/// Activates the colors #foreground and #background on a
+	/// ncurses #window.
 	///
-	/// It has the effect of making all subsequent prints having this
-	/// color pair.
+	/// It has the effect of making all subsequent prints having
+	/// this color pair.
 	///
 	void activate(WINDOW* window, Color& foreground, Color& background);
 
