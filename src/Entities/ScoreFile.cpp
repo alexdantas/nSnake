@@ -3,6 +3,7 @@
 #include <Engine/Helpers/File.hpp>
 #include <Engine/Helpers/String.hpp>
 #include <Engine/Helpers/INI.hpp>
+#include <Engine/Helpers/Base64.hpp>
 
 #include <stdlib.h>	  // getenv()
 #include <fstream>    // ofstream

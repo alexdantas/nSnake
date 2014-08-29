@@ -33,16 +33,6 @@ namespace Utils
 		/// Stops execution for #delay microseconds.
 		void delay_ms(int delay);
 	};
-
-	/// Utilities to encode and decode from the Base64 format.
-	namespace Base64
-	{
-		/// Transforms #str into a Base64 equivalent.
-		std::string encode(std::string str);
-
-		/// Transforms a Base64-encoded #str into it's regular string equivalent.
-		std::string decode(std::string const& s);
-	};
 };
 
 // Useful #defines collected over the years.
