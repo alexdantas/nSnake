@@ -22,13 +22,13 @@ int main(int argc, char *argv[])
 		Colors::init();
 
 		// Actually running the game
-		StateManager states(new GameStateMainMenu());
-		states.run();
+		StateManager states;
+		states.run(new GameStateMainMenu());
 
 		// Finishing things
 		Globals::saveFile();
 		Ncurses::exit();
-		Globals::exit();
+		Globals::warnErrors();
 	}
 	catch (...)
 	{

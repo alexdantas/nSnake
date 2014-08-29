@@ -24,15 +24,9 @@ void StateManager::quit()
 
 
 
-StateManager::StateManager(GameState* initialState):
-	currentState(initialState),
-	sharedInfo(0)
-{
-	if (! this->currentState)
-		throw "No state given to StateManager";
-
-	this->currentState->load();
-}
+StateManager::StateManager():
+	currentState(NULL)
+{ }
 StateManager::~StateManager()
 {
 	if (this->currentState)
@@ -40,8 +34,14 @@ StateManager::~StateManager()
 
 	SAFE_DELETE(this->currentState);
 }
-void StateManager::run()
+void StateManager::run(GameState* initialState)
 {
+	if (! initialState)
+		throw "No initial state given to StateManager";
+
+	this->currentState = initialState;
+	this->currentState->load();
+
 	// Oohh yeah, the main game loop!
 	while (true)
 	{

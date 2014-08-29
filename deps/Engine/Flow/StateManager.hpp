@@ -54,15 +54,13 @@ public:
 	///
 	static void quit();
 
+	StateManager();
+	virtual ~StateManager();
+
 	/// Initializes pretty much everything,
 	/// setting #initialState to run first.
 	///
-	/// @note It only actually starts when you call #run()
-	StateManager(GameState* initialState);
-
-	virtual ~StateManager();
-
-	/// Main entry point and game loop.
+	/// Main entry point to the game and game loop.
 	///
 	/// This is where it all happens. The game never leaves this
 	/// method, the only thing that's allowed to happen are
@@ -70,7 +68,7 @@ public:
 	///
 	/// If we leave this method, the game quits, as seen on
 	/// *main.cpp*.
-	void run();
+	void run(GameState* initialState);
 
 private:
 	GameState* currentState;
