@@ -127,14 +127,24 @@ void LayoutGame::draw(Menu* menu)
 	this->info->print("Score",    this->info->getW()/3, 0, hilite);
 	this->info->print("Speed",    this->info->getW()/3 * 2, 0, hilite);
 
-	// Default color
-	wattrset(this->info->win, COLOR_PAIR(0));
-
 	if (this->game->scores->highScore)
-		mvwprintw(this->info->win, 0, 9, "%u", this->game->scores->highScore->points);
+	{
+		std::string points = Utils::String::toString(this->game->scores->highScore->points);
 
-	mvwprintw(this->info->win, 0, this->info->getW()/3 + 6, "%u", this->game->currentScore->points);
-	mvwprintw(this->info->win, 0, this->info->getW()/3 * 2 + 6, "%d", this->game->currentScore->speed);
+		this->info->print(points, 9, 0, EngineGlobals::Theme::text);
+	}
+
+	std::string points = Utils::String::toString(this->game->currentScore->points);
+	this->info->print(points,
+	                  this->info->getW()/3 + 6,
+	                  0,
+	                  EngineGlobals::Theme::text);
+
+	std::string speed = Utils::String::toString(this->game->currentScore->speed);
+	this->info->print(speed,
+	                  this->info->getW()/3 * 2 + 6,
+	                  0,
+	                  EngineGlobals::Theme::text);
 
 	// 	// Timer - how much time has passed since game start
 	// 	this->rightmost->print("Timer", 2, 10, hilite);

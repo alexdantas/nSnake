@@ -55,9 +55,12 @@ void WindowGameHelp::run()
 		                   EngineGlobals::Theme::textbox :
 		                   EngineGlobals::Theme::hilite_text));
 
-		// HACK TO AVOID THE BORDERS FROM BEING
-		// BOLD. GOTTA SOLVE THIS MISTERY.
-		Colors::pairActivate(this->main->win, EngineGlobals::Theme::text);
+		// This is a HACK to avoid the borders from being
+		// bold. Apparently I need to activate the default
+		// ColorPair before continuing.
+		//
+		// TODO: Find out about this mistery.
+		this->main->print("", 0, 0, EngineGlobals::Theme::text);
 
 		// Help Window
 		if (activatedIndex == 0)
