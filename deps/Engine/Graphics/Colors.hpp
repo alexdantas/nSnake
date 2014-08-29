@@ -2,6 +2,7 @@
 #define COLORS_H_DEFINED
 
 #include <Engine/Helpers/Utils.hpp>
+#include <Engine/Helpers/String.hpp>
 
 #include <ncurses.h>
 #include <string>
