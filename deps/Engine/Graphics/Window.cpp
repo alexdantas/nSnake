@@ -82,7 +82,8 @@ void Window::print(std::string str, int x, int y, ColorPair pair)
 {
 	Colors::pairActivate(this->win, pair);
 
-	mvwaddstr(this->win, y, x, str.c_str());
+	if (! str.empty())
+		mvwaddstr(this->win, y, x, str.c_str());
 }
 void Window::print(std::vector<std::string> lines, int x, int y, ColorPair pair)
 {

@@ -86,13 +86,12 @@ public:
 	///
 	void setTitle(std::string title, WindowTitlePosition position=Window::TOP_LEFT);
 
+protected:
+
 	/// Ncurses' internal data structure.
-	///
-	/// IT'S PUBLIC BECAUSE SOMETIMES I NEED TO CALL DIRECT
-	/// NCURSES CALLS - TODO: FIX THIS
+	/// Don't mess with it.
 	WINDOW* win;
 
-protected:
 	/// Tells if we've got some initialization error.
 	bool error;
 
