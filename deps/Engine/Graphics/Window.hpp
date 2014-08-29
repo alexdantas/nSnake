@@ -72,6 +72,8 @@ public:
 
 	void horizontalLine(int x, int y, int c, int width, ColorPair pair);
 
+	/// All possible positions where a Window title can be.
+	/// Note that a Window can have titles on all of those.
 	enum WindowTitlePosition
 	{
 		TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT
@@ -85,8 +87,9 @@ public:
 	void setTitle(std::string title, WindowTitlePosition position=Window::TOP_LEFT);
 
 	/// Ncurses' internal data structure.
+	///
 	/// IT'S PUBLIC BECAUSE SOMETIMES I NEED TO CALL DIRECT
-	/// NCURSES CALLS - FIX THIS
+	/// NCURSES CALLS - TODO: FIX THIS
 	WINDOW* win;
 
 protected:

@@ -58,7 +58,7 @@ void GameStateGame::update()
 		// I know I shouldn't render things here.
 		// Oh boy, this should be refactored away.
 		this->game->scores->save();
-		Ncurses::delay_ms(500);
+		Utils::Time::delay_ms(500);
 
 		this->game->draw();
 
