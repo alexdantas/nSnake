@@ -34,6 +34,7 @@ std::string  Globals::Game::current_level           = "";
 ColorPair Globals::Theme::player_head;
 ColorPair Globals::Theme::player_head_dead;
 ColorPair Globals::Theme::player_body;
+ColorPair Globals::Theme::fruit;
 
 Globals::Game::BoardSize Globals::Game::board_size  = LARGE;
 
@@ -123,6 +124,8 @@ void Globals::init()
 	Globals::Theme::player_head = Colors::pair("green", "default", true);
 	Globals::Theme::player_head_dead = Colors::pair("red", "default", true);
 	Globals::Theme::player_body = Colors::pair("green", "default", true);
+
+	Globals::Theme::fruit = Colors::pair("red", "default", true);
 
 	/// HACK Initializing the default level file directory.
 	///      I know this is hacky, but couldn't find another way to
@@ -243,6 +246,9 @@ void Globals::loadFile()
 	INI_GET(tmp, "theme", "player_body");
 	Globals::Theme::player_body = ColorPair::fromString(tmp);
 
+	INI_GET(tmp, "theme", "fruit");
+	Globals::Theme::fruit = ColorPair::fromString(tmp);
+
 	SAFE_DELETE(ini);
 }
 void Globals::saveFile()
@@ -334,6 +340,8 @@ void Globals::saveFile()
 	INI_SET("theme", "player_head_dead", Globals::Theme::player_head_dead.toString());
 
 	INI_SET("theme", "player_body", Globals::Theme::player_body.toString());
+
+	INI_SET("theme", "fruit", Globals::Theme::fruit.toString());
 
 	try
 	{

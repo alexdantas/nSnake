@@ -1,5 +1,6 @@
 #include <Entities/FruitManager.hpp>
 #include <Engine/Helpers/Utils.hpp>
+#include <Config/Globals.hpp>
 
 FruitManager::FruitManager(int amount):
 	amount(amount)
@@ -61,6 +62,6 @@ void FruitManager::draw(Window* win)
 		win->print("$",
 		           this->fruit[i].x,
 		           this->fruit[i].y,
-		           Colors::pair("red", "default", true));
+		           Globals::Theme::fruit);
 }
 

@@ -120,6 +120,7 @@ namespace Globals
 		extern ColorPair player_head;
 		extern ColorPair player_head_dead;
 		extern ColorPair player_body;
+		extern ColorPair fruit;
 	};
 
 	// Flags to warn the user of some error at the end
