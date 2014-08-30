@@ -1,5 +1,6 @@
 #include <Entities/Player.hpp>
 #include <Entities/Board.hpp>
+#include <Config/Globals.hpp>
 
 Player::Player(int x, int y):
 	alive(true),
@@ -126,7 +127,7 @@ void Player::draw(Window* win)
 		win->printChar('o',
 		               this->body[i].x,
 		               this->body[i].y,
-		               Colors::pair("green", "default", true));
+		               Globals::Theme::player_body);
 
 	// The head
 	win->printChar(((this->alive) ?
@@ -134,9 +135,9 @@ void Player::draw(Window* win)
 	                'X'),
 	               this->body.front().x,
 	               this->body.front().y,
-	               Colors::pair(((this->alive) ?
-	                             "green" :
-	                             "red"), "default", true));
+	               ((this->alive) ?
+	                Globals::Theme::player_head :
+	                Globals::Theme::player_head_dead));
 }
 bool Player::headHit(int x, int y)
 {

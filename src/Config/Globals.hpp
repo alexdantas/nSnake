@@ -1,6 +1,8 @@
 #ifndef GLOBALS_H_DEFINED
 #define GLOBALS_H_DEFINED
 
+#include <Engine/Graphics/Colors.hpp>
+
 #include <string>
 
 // Avoiding cyclic #includes
@@ -111,6 +113,13 @@ namespace Globals
 		/// Name of the level the game should load.
 		/// Also, name of the current level.
 		extern std::string current_level;
+	};
+
+	namespace Theme
+	{
+		extern ColorPair player_head;
+		extern ColorPair player_head_dead;
+		extern ColorPair player_body;
 	};
 
 	// Flags to warn the user of some error at the end

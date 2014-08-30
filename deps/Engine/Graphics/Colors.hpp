@@ -44,10 +44,10 @@ struct Color
 	/// The format is "red,green,blue".
 	std::string toString();
 
-	/// Makes this color be according to a string
+	/// Makes a color according to a string
 	/// representation of a Color.
 	/// @note It must be a value returned from `toString`.
-	void fromString(std::string str);
+	static Color fromString(std::string str);
 };
 
 /// Color pair (foreground and background).
@@ -80,10 +80,10 @@ struct ColorPair
 	/// (like "foregroud+background!").
 	std::string toString();
 
-	/// Makes this ColorPair be according to a string
+	/// Makes a ColorPair be according to a string
 	/// representation returned by `toString()`.
 	///
-	void fromString(std::string str);
+	static ColorPair fromString(std::string str);
 };
 
 /// Stuff related to Colors on a global scale.

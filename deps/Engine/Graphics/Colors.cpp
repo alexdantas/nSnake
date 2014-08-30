@@ -22,32 +22,28 @@ std::string Color::toString()
 	        Utils::String::toString(this->blue));
 }
 
-void Color::fromString(std::string str)
+Color Color::fromString(std::string str)
 {
 	if (str.find(",") == std::string::npos)
 	{
 		// Format is "name"
-		this->name = str;
-
-		this->red   = -1;
-		this->green = -1;
-		this->blue  = -1;
+		return Colors::name(str);
 	}
 	else
 	{
 		// Format "red,green,blue"
 		std::vector<std::string> v = Utils::String::split(str, ',');
 		if (v.size() != 3)
-			return;
+			return Color();
 
 		for (size_t i = 0; i < v.size(); ++i)
 			v[i] = Utils::String::trim(v[i]);
 
-		this->red   = Utils::String::to<int>(v[0]);
-		this->green = Utils::String::to<int>(v[1]);
-		this->blue  = Utils::String::to<int>(v[2]);
+		int red   = Utils::String::to<int>(v[0]);
+		int green = Utils::String::to<int>(v[1]);
+		int blue  = Utils::String::to<int>(v[2]);
 
-		this->name = "";
+		return Colors::rgb(red, green, blue);
 	}
 }
 
@@ -76,23 +72,29 @@ std::string ColorPair::toString()
 	return (foreground.toString() + "+" + background.toString() + bold);
 }
 
-void ColorPair::fromString(std::string str)
+ColorPair ColorPair::fromString(std::string str)
 {
-	// Let's see if it's bold
+	bool is_bold = false;
+
 	size_t pos = str.find("!");
 	if (pos != std::string::npos)
 	{
-		this->bold = true;
+		is_bold = true;
 		str.erase(pos, 1);
 	}
 
 	std::vector<std::string> v = Utils::String::split(str, '+');
 
 	if (v.size() != 2)
-		return;
+		return ColorPair();
 
-	this->foreground.fromString(v[0]);
-	this->background.fromString(v[1]);
+	Color fg = Color::fromString(v[0]);
+	Color bg = Color::fromString(v[1]);
+
+	ColorPair tmp = Colors::pair(fg, bg);
+	tmp.bold = is_bold;
+
+	return tmp;
 }
 
 // All Colors

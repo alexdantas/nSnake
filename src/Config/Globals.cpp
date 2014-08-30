@@ -31,6 +31,10 @@ bool         Globals::Game::random_walls            = false;
 bool         Globals::Game::teleport                = false;
 std::string  Globals::Game::current_level           = "";
 
+ColorPair Globals::Theme::player_head;
+ColorPair Globals::Theme::player_head_dead;
+ColorPair Globals::Theme::player_body;
+
 Globals::Game::BoardSize Globals::Game::board_size  = LARGE;
 
 Globals::Game::BoardSize Globals::Game::intToBoardSize(int val)
@@ -114,6 +118,11 @@ void Globals::init()
 	InputManager::bind("help",  'h');
 	InputManager::bind("quit",  'q');
 
+
+	// Aww yeah, rev up dem colors
+	Globals::Theme::player_head = Colors::pair("green", "default", true);
+	Globals::Theme::player_head_dead = Colors::pair("red", "default", true);
+	Globals::Theme::player_body = Colors::pair("green", "default", true);
 
 	/// HACK Initializing the default level file directory.
 	///      I know this is hacky, but couldn't find another way to
@@ -223,6 +232,17 @@ void Globals::loadFile()
 	INI_GET(board_size, "game", "board_size");
 	Globals::Game::board_size = Globals::Game::intToBoardSize(board_size);
 
+	// Getting the colors from their strings
+
+	INI_GET(tmp, "theme", "player_head");
+	Globals::Theme::player_head = ColorPair::fromString(tmp);
+
+	INI_GET(tmp, "theme", "player_head_dead");
+	Globals::Theme::player_head_dead = ColorPair::fromString(tmp);
+
+	INI_GET(tmp, "theme", "player_body");
+	Globals::Theme::player_body = ColorPair::fromString(tmp);
+
 	SAFE_DELETE(ini);
 }
 void Globals::saveFile()
@@ -307,6 +327,14 @@ void Globals::saveFile()
 	int board_size = Globals::Game::boardSizeToInt(Globals::Game::board_size);
 	INI_SET("game", "board_size", board_size);
 
+	// Saving the colors from their strings
+
+	INI_SET("theme", "player_head", Globals::Theme::player_head.toString());
+
+	INI_SET("theme", "player_head_dead", Globals::Theme::player_head_dead.toString());
+
+	INI_SET("theme", "player_body", Globals::Theme::player_body.toString());
+
 	try
 	{
 		ini->saveAs(Globals::Config::file);
@@ -338,7 +366,7 @@ void Globals::warnErrors()
 	{
 		std::cout << "Warning: Your high score file is from an old nsnake version."
 		          << std::endl;
-	}
+ 	}
 	if (Globals::Error::strange_score_file)
 	{
 		// Erasing high scores...
