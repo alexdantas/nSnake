@@ -236,17 +236,25 @@ void Globals::loadFile()
 	Globals::Game::board_size = Globals::Game::intToBoardSize(board_size);
 
 	// Getting the colors from their strings
+	INI_GET(tmp, "gui_colors", "text");
+	EngineGlobals::Theme::text = ColorPair::fromString(tmp);
 
-	INI_GET(tmp, "theme", "player_head");
+	INI_GET(tmp, "gui_colors", "hilite_text");
+	EngineGlobals::Theme::hilite_text = ColorPair::fromString(tmp);
+
+	INI_GET(tmp, "gui_colors", "textbox");
+	EngineGlobals::Theme::textbox = ColorPair::fromString(tmp);
+
+	INI_GET(tmp, "game_colors", "player_head");
 	Globals::Theme::player_head = ColorPair::fromString(tmp);
 
-	INI_GET(tmp, "theme", "player_head_dead");
+	INI_GET(tmp, "game_colors", "player_head_dead");
 	Globals::Theme::player_head_dead = ColorPair::fromString(tmp);
 
-	INI_GET(tmp, "theme", "player_body");
+	INI_GET(tmp, "game_colors", "player_body");
 	Globals::Theme::player_body = ColorPair::fromString(tmp);
 
-	INI_GET(tmp, "theme", "fruit");
+	INI_GET(tmp, "game_colors", "fruit");
 	Globals::Theme::fruit = ColorPair::fromString(tmp);
 
 	SAFE_DELETE(ini);
@@ -334,14 +342,20 @@ void Globals::saveFile()
 	INI_SET("game", "board_size", board_size);
 
 	// Saving the colors from their strings
+	INI_SET("gui_colors", "text", EngineGlobals::Theme::text.toString());
 
-	INI_SET("theme", "player_head", Globals::Theme::player_head.toString());
+	INI_SET("gui_colors", "hilite_text", EngineGlobals::Theme::hilite_text.toString());
 
-	INI_SET("theme", "player_head_dead", Globals::Theme::player_head_dead.toString());
+	INI_SET("gui_colors", "textbox", EngineGlobals::Theme::textbox.toString());
 
-	INI_SET("theme", "player_body", Globals::Theme::player_body.toString());
 
-	INI_SET("theme", "fruit", Globals::Theme::fruit.toString());
+	INI_SET("game_colors", "player_head", Globals::Theme::player_head.toString());
+
+	INI_SET("game_colors", "player_head_dead", Globals::Theme::player_head_dead.toString());
+
+	INI_SET("game_colors", "player_body", Globals::Theme::player_body.toString());
+
+	INI_SET("game_colors", "fruit", Globals::Theme::fruit.toString());
 
 	try
 	{
