@@ -58,7 +58,7 @@ std::vector<std::string> Utils::String::split(const std::string& str, char delim
 	std::vector<std::string> elems; // all things
 
 	while (std::getline(ss, item, delim))
-		elems.push_back(Utils::String::trim(item));
+		elems.push_back(item);
 
 	return elems;
 }

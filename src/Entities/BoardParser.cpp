@@ -108,6 +108,9 @@ Board* BoardParser::loadFile(std::string filename)
 
     std::vector<std::string> level_lines = Utils::String::split(level_buffer, '\n');
 
+    for (size_t i = 0; i < level_lines.size(); ++i)
+	    level_lines[i] = Utils::String::trim(level_lines[i]);
+
     for (size_t j = 0; j < (level_lines.size()); j++)
     {
 	    current_line = level_lines[j];

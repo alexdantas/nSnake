@@ -29,8 +29,6 @@ public:
 
 	virtual void resize(int w, int h);
 
-	bool isValid();
-
 	/// Shows text #str at #x #y on the window with color #pair.
 	///
 	/// @note It defaults to white text on black background.
@@ -91,9 +89,6 @@ protected:
 	/// Ncurses' internal data structure.
 	/// Don't mess with it.
 	WINDOW* win;
-
-	/// Tells if we've got some initialization error.
-	bool error;
 
 	int x;
 	int y;

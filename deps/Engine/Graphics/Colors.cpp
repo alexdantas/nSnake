@@ -37,9 +37,11 @@ void Color::fromString(std::string str)
 	{
 		// Format "red,green,blue"
 		std::vector<std::string> v = Utils::String::split(str, ',');
-
 		if (v.size() != 3)
 			return;
+
+		for (size_t i = 0; i < v.size(); ++i)
+			v[i] = Utils::String::trim(v[i]);
 
 		this->red   = Utils::String::to<int>(v[0]);
 		this->green = Utils::String::to<int>(v[1]);
