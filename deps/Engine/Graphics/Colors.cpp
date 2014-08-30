@@ -91,10 +91,7 @@ ColorPair ColorPair::fromString(std::string str)
 	Color fg = Color::fromString(v[0]);
 	Color bg = Color::fromString(v[1]);
 
-	ColorPair tmp = Colors::pair(fg, bg);
-	tmp.bold = is_bold;
-
-	return tmp;
+	return Colors::pair(fg, bg, is_bold);
 }
 
 // All Colors
