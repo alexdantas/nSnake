@@ -2,9 +2,9 @@
 
 Classic snake game on the terminal; made with C++ and ncurses.
 
-![menu](http://nsnake.alexdantas.net/images/arcade-menu.png)
-![menu](http://nsnake.alexdantas.net/images/small-maze.png)
-![menu](http://nsnake.alexdantas.net/images/large-maze-with-lots-of-fruits.png)
+![menu](http://nsnake.alexdantas.net/img/arcade-menu.png)
+![menu](http://nsnake.alexdantas.net/img/small-maze.png)
+![menu](http://nsnake.alexdantas.net/img/large-maze-with-lots-of-fruits.png)
 
 `nsnake` is a clone of the classic snake game that we all used to
 play on our cellphones. You play this game on the terminal,
