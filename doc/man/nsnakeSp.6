@@ -1,0 +1,67 @@
+\" ----------------------------- nsnake man page -------------------------------
+.TH nsnake 6 "DATE" vVERSION "nsnake vVERSION"
+\"---------------------------------- NAME --------------------------------------
+.SH NAME
+nsnake \- El clasico juego de snake en la terminal
+\"-------------------------------- SYNOPSIS ------------------------------------
+.SH SYNOPSIS
+nsnake
+.RB [ -h ]
+.RB [ -v ]
+\"------------------------------- DESCRIPTION ----------------------------------
+.SH DESCRIPTION
+nsnake es el clasico juego snake con interface solo texto.
+Podes jugarlo por linea de comandos y usar la biblioteca nCurses para los graficos.
+Las reglas son las mismas de cualquier juego de snake:
+.PP
+Controlas una serpiente hambrienta y el objetivo es comer cuantas frutas puedas.
+Cada fruta que comas incrementara tu tamaño.
+El juego termina cuando la serpiente coliciona con la pared o consigo misma.
+.PP
+El reto es obtener la mayor puntuacion posible comiendo cuantas frutas 
+puedas.
+.PP
+Los controles y la configuracion del juego pueden ser cambiada a traves del menu dentro del juego o 
+directamente editando el archivo de configuracion.
+
+.B Controles por defecto:
+.RS
+.BR "Teclas de direccion          " "Mueve la serpiente"
+
+.BR "q                   " "sale del juego en cualquier momento"
+
+.BR "p                   " "Pausa/Continua el juego"
+
+.BR "h                   " "muestra la ayuda en el juego"
+.RE
+\"--------------------------------- OPCIONES ------------------------------------
+.SH OPTIONS
+
+.TP
+.B "-h, --ayuda"
+Muestra el texto de ayuda rapida.
+
+.TP
+.B "-v, --version"
+Muestra la version e informacion general.
+\"----------------------------------- ARCHIVOS -------------------------------------
+.SH FILES
+.BR "$(HOME)/.local/share/nsnake/" "     contenido Per-user; configuracion del juego y puntajes"
+\"----------------------------------- VER TAMBIEN ----------------------------------
+.SH SEE ALSO
+.BR "snake4" "(6)   " "ktron" "(6)   " "yetris" "(6) "
+\"----------------------------------- BUGS -------------------------------------
+.SH BUGS
+Probablemente. Si encontras alguno, por favor reportalo en el issue tracker (https://github.com/alexdantas/nsnake/issue) o por email a <eu@alexdantas.net>.
+
+\"---------------------------------- AUTHOR ------------------------------------
+.SH AUTHOR
+.PP
+Esta pagina de manual fue traducida por Alan Rodriguez <alan.nicolas.rodriguez@gmail.com>
+y nsnake fue escrito por Alexandre Dantas <eu@alexdantas.net>.
+\"----------------------------------- WWW -------------------------------------
+.SH WWW
+* http://nsnake.alexdantas.net/
+
+* https://github.com/alexdantas/nsnake/
+

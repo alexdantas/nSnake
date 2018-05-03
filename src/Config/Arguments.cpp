@@ -3,6 +3,9 @@
 #include <commander/commander.h> // local files
 #include <iostream>
 #include <cstdlib>
+#include <libintl.h>
+#include <locale.h>
+
 
 // Local functions that'll be used as callbacks
 // for the right switches.
@@ -15,7 +18,7 @@ void version(command_t* self)
 		"nsnake v" VERSION " (" DATE ")\n"
 		"\n"
 		"   ,           ,\n"
-		"  /             \\  This game was made with\n"
+		<< gettext("  /             \\  This game was made with\n")<<
 		" ((__-^^-,-^^-__))  and itself is Free Software,\n"
 		"  `-_---' `---_-'   licensed under the GPLv3\n"
 		"   `--|o` 'o|--'                 <3\n"
