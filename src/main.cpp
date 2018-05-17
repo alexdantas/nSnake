@@ -5,9 +5,13 @@
 #include <Config/Globals.hpp>
 #include <Config/Arguments.hpp>
 #include <States/GameStateMainMenu.hpp>
+#include "Headers/gettextpd.h"//getText header
 
 int main(int argc, char *argv[])
 {
+	setlocale( LC_ALL, "es_ES" );//Spanish
+	bindtextdomain( "hello", "." );// set directory containing message catalogs 
+	textdomain( "hello" );//set domain for future gettext() calls
 	try
 	{
 		// Settings
