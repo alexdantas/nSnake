@@ -5,6 +5,9 @@
 #include <Engine/InputManager.hpp>
 #include <Engine/Helpers/Utils.hpp>
 
+#include <libintl.h>
+#include <locale.h>
+
 WindowGameHelp::WindowGameHelp()
 {
 	int width  = 40;
@@ -38,8 +41,8 @@ void WindowGameHelp::run()
 		this->windows[activatedIndex]->clear();
 
 		this->main->print(((activatedIndex == 0) ?
-		                   "(Help)" :
-		                   " Help "),
+		                   gettext("(Help)") :
+		                   gettext(" Help ")),
 		                  2,
 		                  0,
 		                  ((activatedIndex == 0) ?
@@ -47,8 +50,8 @@ void WindowGameHelp::run()
 		                   EngineGlobals::Theme::hilite_text));
 
 		this->main->print(((activatedIndex == 1) ?
-		                   "(Credits)" :
-		                   " Credits "),
+		                   gettext("(Credits)") :
+		                   gettext(" Credits ")),
 		                  12,
 		                  0,
 		                  ((activatedIndex == 1) ?
@@ -65,17 +68,17 @@ void WindowGameHelp::run()
 		// Help Window
 		if (activatedIndex == 0)
 		{
-			this->windows[0]->print("In-game controls:\n",
+			this->windows[0]->print(gettext("In-game controls:\n"),
 			                        0, 0,
 			                        EngineGlobals::Theme::hilite_text);
 
-			this->windows[0]->print(Utils::String::split("Move up\n"
+			this->windows[0]->print(Utils::String::split(gettext("Move up\n"
 			                                             "Move down\n"
 			                                             "Move left\n"
 			                                             "Move right\n"
 			                                             "Pause game\n"
 			                                             "Quit anytime\n"
-			                                             "Show help", '\n'),
+			                                             "Show help"), '\n'),
 			                        1, 1,
 			                        EngineGlobals::Theme::hilite_text);
 

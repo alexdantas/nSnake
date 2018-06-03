@@ -5,9 +5,8 @@
 #include <Config/Globals.hpp>
 #include <Config/Arguments.hpp>
 #include <States/GameStateMainMenu.hpp>
-//#include "Headers/gettextpd.h"//getText header
-#include <locale.h>
 
+#include <locale.h>
 #include <libintl.h>
 #include <iostream>
 #include <cstdlib>

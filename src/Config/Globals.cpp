@@ -13,7 +13,6 @@
 
 #include <cstdlib>
 #include <libintl.h>
-
 #include <locale.h>
 
 
