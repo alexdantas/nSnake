@@ -11,6 +11,12 @@
 #include <iostream>
 #include <fstream>
 
+#include <cstdlib>
+#include <libintl.h>
+
+#include <locale.h>
+
+
 // VERSION is formatted like "0.0.1" - i'm skipping the dots
 char Globals::version[3] = { VERSION[0],
                              VERSION[2],
@@ -379,14 +385,16 @@ void Globals::warnErrors()
 	}
 	if (! Globals::Error::has_score_file)
 	{
-		std::cout << "Warning: We could not create the score file.\n"
-		          << "         Please check permissions to the path:\n"
+		//<<gettext("  /             \\  This game was made with")<<"\n"
+		
+		std::cout << gettext("Warning: We could not create the score file.")<<"\n"
+		          << gettext("         Please check permissions to the path:")<<"\n"
 		          << "         " + Globals::Config::scoresFile
 		          << std::endl;
 	}
 	if (Globals::Error::old_version_score_file)
 	{
-		std::cout << "Warning: Your high score file is from an old nsnake version."
+		std::cout << gettext("Warning: Your high score file is from an old nsnake version.")
 		          << std::endl;
  	}
 	if (Globals::Error::strange_score_file)
@@ -394,8 +402,8 @@ void Globals::warnErrors()
 		// Erasing high scores...
 		Utils::File::create(Globals::Config::scoresFile);
 
-		std::cout << "Error: Corrupted high score file!\n"
-		          << "       We're sorry, but we had to erase it"
+		std::cout << gettext("Error: Corrupted high score file!")<<"\n"
+		          << gettext("       We're sorry, but we had to erase it")
 		          << std::endl;
 	}
 }

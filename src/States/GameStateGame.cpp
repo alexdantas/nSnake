@@ -9,6 +9,10 @@
 #include <Engine/Flow/StateManager.hpp>
 #include <States/GameStateMainMenu.hpp>
 
+#include <cstdlib>
+#include <libintl.h>
+#include <locale.h>
+
 GameStateGame::GameStateGame():
 	game(NULL),
 	willQuit(false)
@@ -24,7 +28,7 @@ void GameStateGame::load()
 	}
 	catch (BoardParserException& e)
 	{
-		Dialog::show("Couldn't load the level! (Error: \"" + e.message + "\")", true);
+		Dialog::show("Couldn't load the level!" "(Error: \"" + e.message + "\")", true);
 		this->willQuit = true;
 	}
 	catch (ScoreFileException& e)
