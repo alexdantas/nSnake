@@ -220,4 +220,3 @@ $(ENGINE_DIR)/%.o: $(ENGINE_DIR)/%.cpp
 $(COMMANDER_DIR)/%.o: $(COMMANDER_DIR)/%.c
 	# Compiling $<...
 	$(MUTE)$(CC) $(COMMANDER_CFLAGS) $< -c -o $@
-

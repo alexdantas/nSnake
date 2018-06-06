@@ -193,5 +193,7 @@ I raise my hat to:
 
 ## For translate in Spanish-Argentinian
 
+first of all add the generated .mo file to the convenient place, at that is in /usr/share/locale/es_AR_LC_MESSAGES
+the .mo file is generated with the command "msgfmt --output-file=po/nsnake.mo po/nsnake.po"
 before the command "make run" execute "export LANG=es_AR.UTF-8"
 and then execute "sudo make run". that's it!
