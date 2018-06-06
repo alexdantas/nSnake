@@ -190,3 +190,8 @@ I raise my hat to:
 [contrib]:     https://github.com/alexdantas/nSnake/graphs/contributors
 [level_wiki]:  https://github.com/alexdantas/nSnake/wiki/How-to-create-your-own-levels
 
+
+## For translate in Spanish-Argentinian
+
+before the command "make run" execute "export LANG=es_AR.UTF-8"
+and then execute "sudo make run". that's it!
