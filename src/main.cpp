@@ -6,8 +6,22 @@
 #include <Config/Arguments.hpp>
 #include <States/GameStateMainMenu.hpp>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <libintl.h>
+#include <locale.h>
+#define _(String) gettext (String)
+
 int main(int argc, char *argv[])
 {
+	/* Setting the i18n environment */
+  	setlocale (LC_ALL, "");
+  	bindtextdomain ("nsnake", getenv("PWD"));
+  	textdomain ("nsnake");
+
+		/* Example of i18n usage */
+  	printf(_("Hello World\n"));
+
 	try
 	{
 		// Settings
@@ -39,4 +53,3 @@ int main(int argc, char *argv[])
 	}
 	return 0;
 }
-
