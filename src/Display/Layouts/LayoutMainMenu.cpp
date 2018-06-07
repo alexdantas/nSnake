@@ -11,6 +11,13 @@
 
 #include <iostream>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <libintl.h>
+#include <locale.h>
+#define _(String) gettext (String)
+
+
 LayoutMainMenu::LayoutMainMenu(int width, int height, GameStateMainMenu* state):
 	Layout(width, height),
 	state(state),
@@ -40,7 +47,7 @@ void LayoutMainMenu::windowsInit()
 	                        55, 0,
 	                        24, WINDOW_FILL);
 
-	this->menu->setTitle("Main Menu");
+	this->menu->setTitle(_("Main Menu"));
 	this->menu->refresh();
 
 	// ANIMATION
@@ -116,4 +123,3 @@ void LayoutMainMenu::draw(Menu* menu)
 	// NCURSES NEEDS THIS
 	refresh();
 }
-
