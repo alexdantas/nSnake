@@ -87,9 +87,8 @@ msgid "Controls"
 msgstr "Controles"
 
 #: src/Entities/ScoreFile.cpp:230
-#, fuzzy
 msgid "Could not create file '"
-msgstr "imposible abrir archivo ' "
+msgstr "imposible abrir archivo '"
 
 #: src/States/GameStateGame.cpp:33
 msgid "Couldn't load the level! (Error: \""
@@ -142,9 +141,8 @@ msgid "Hello World\n"
 msgstr "Hola Mundo\n"
 
 #: src/Display/Layouts/LayoutGame.cpp:67 src/States/GameStateMainMenu.cpp:370
-#, fuzzy
 msgid "Help"
-msgstr "Ayuda "
+msgstr "Ayuda"
 
 #: src/Display/Layouts/LayoutGame.cpp:133
 msgid "Hi-Score"
@@ -203,9 +201,8 @@ msgstr "Selecciona nivel"
 #: src/Display/Layouts/LayoutMainMenu.cpp:50
 #: src/States/GameStateMainMenu.cpp:121 src/States/GameStateMainMenu.cpp:167
 #: src/States/GameStateMainMenu.cpp:183 src/States/GameStateMainMenu.cpp:206
-#, fuzzy
 msgid "Main Menu"
-msgstr "Volver al Menu Principal"
+msgstr "Menu Principal"
 
 #: src/States/GameStateMainMenu.cpp:453
 msgid "Maze size"
@@ -248,7 +245,6 @@ msgid "Press any key, Enter to Cancel"
 msgstr "presiona cualquier tecla, enter para cancelar"
 
 #: src/States/GameStateMainMenu.cpp:373
-#, fuzzy
 msgid "Quit"
 msgstr "Salir"
 
