@@ -55,7 +55,7 @@ msgstr "Fin abrupto del archivo"
 
 #: src/States/GameStateMainMenu.cpp:161
 msgid "All high scores erased!"
-msgstr "Todos los puntajes altos eliminados!"
+msgstr "Records eliminados!"
 
 #: src/States/GameStateMainMenu.cpp:355
 msgid "Arcade Mode"
@@ -63,7 +63,7 @@ msgstr "Modo Arcade"
 
 #: src/States/GameStateMainMenu.cpp:156
 msgid "Are you sure?"
-msgstr "Estás seguro?"
+msgstr "Estas seguro?"
 
 #: src/States/GameStateMainMenu.cpp:389 src/States/GameStateMainMenu.cpp:414
 #: src/States/GameStateMainMenu.cpp:494 src/States/GameStateMainMenu.cpp:537
@@ -96,7 +96,7 @@ msgstr "Imposible cargar nivel! (Error: \""
 
 #: src/States/GameStateMainMenu.cpp:479
 msgid "Erase High Scores"
-msgstr "Borrados puntajes"
+msgstr "Borrar records"
 
 #: src/Config/Globals.cpp:403
 msgid "Error: Corrupted high score file!\n"
@@ -371,8 +371,8 @@ msgid ""
 "page up\n"
 "page down"
 msgstr ""
-"página arriba\n"
-"página abajo"
+"pagina arriba\n"
+"pagina abajo"
 
 #: src/Entities/Game.cpp:161 src/Display/WindowGameHelp.cpp:93
 msgid "pause"
