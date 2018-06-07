@@ -2,6 +2,13 @@
 #include <Engine/EngineGlobals.hpp>
 #include <Engine/Helpers/Utils.hpp>
 
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <libintl.h>
+#include <locale.h>
+#define _(String) gettext (String)
+
 LayoutGame::LayoutGame(Game* game, int width, int height):
 	Layout(width, height),
 	game(game),
@@ -187,4 +194,3 @@ void LayoutGame::draw(Menu* menu)
 	// NCURSES NEEDS THIS
 	refresh();
 }
-

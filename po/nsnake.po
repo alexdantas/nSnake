@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nsnake 3.0.1\n"
 "Report-Msgid-Bugs-To: nicolastpi10@gmail.com\n"
-"POT-Creation-Date: 2018-06-07 10:55-0300\n"
+"POT-Creation-Date: 2018-06-07 12:10-0300\n"
 "PO-Revision-Date: 2018-06-06 18:02-0300\n"
 "Last-Translator: nicolas <nicolastpi10@gmail.com>\n"
 "Language-Team: Argentinian\n"
@@ -17,15 +17,69 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: src/Display/WindowGameHelp.cpp:58
+msgid " Credits "
+msgstr "Creditos "
+
+#: src/Display/WindowGameHelp.cpp:49
+msgid " Help "
+msgstr "Ayuda "
+
+#: src/Display/WindowGameHelp.cpp:113
+msgid ""
+" Settings and scores are stored at:\n"
+" `~/.local/share/nsnake/`"
+msgstr ""
+"Los ajustes y la puntuacion son almacenados en:\n"
+" `~/.local/share/nsnake/`"
+
+#: src/Entities/BoardParser.cpp:95
+msgid "Abrupt ending of file while parsing level at line "
+msgstr "Fin abrupto del archivo"
+
+#: src/Entities/BoardParser.cpp:40
+msgid "Can't open file '"
+msgstr "imposible abrir archivo ' "
+
+#: src/Display/WindowGameHelp.cpp:103
+msgid ""
+"First item\n"
+"Last item"
+msgstr ""
+"Primer item\n"
+"Último item"
+
 #. Example of i18n usage
 #: src/main.cpp:23
 #, c-format
 msgid "Hello World\n"
 msgstr "Hola Mundo\n"
 
+#: src/Display/WindowGameHelp.cpp:75
+msgid "In-game controls:\n"
+msgstr "Controles del juego:\n"
+
+#: src/Display/WindowGameHelp.cpp:79
+msgid ""
+"Move up\n"
+"Move down\n"
+"Move left\n"
+"Move right\n"
+"Pause game\n"
+"Quit anytime\n"
+"Show help"
+msgstr ""
+"Mover arriba\n"
+"Mover abajo\n"
+"Mover izquierda\n"
+"Mover derecha\n"
+"Pausar juego\n"
+"Quitar de todos modos\n"
+"Mostrar ayuda"
+
 #: src/Entities/Game.cpp:142
 msgid "Quit Game"
-msgstr "Salir"
+msgstr "Quitar juego"
 
 #: src/Entities/Game.cpp:139
 msgid "Quit to Main Menu"
@@ -39,32 +93,56 @@ msgstr "Reiniciar"
 msgid "Resume"
 msgstr "Resumen"
 
-#: src/Entities/Game.cpp:219
+#: src/Entities/BoardParser.cpp:174
+msgid "author"
+msgstr "autor"
+
+#: src/Entities/BoardParser.cpp:176
+msgid "comment"
+msgstr "comentario"
+
+#: src/Entities/BoardParser.cpp:175
+msgid "date"
+msgstr "fecha"
+
+#: src/Entities/Game.cpp:219 src/Display/WindowGameHelp.cpp:90
 msgid "down"
 msgstr "abajo"
 
-#: src/Entities/Game.cpp:181
+#: src/Entities/Game.cpp:181 src/Display/WindowGameHelp.cpp:95
 msgid "help"
 msgstr "ayuda"
 
-#: src/Entities/Game.cpp:207
+#: src/Entities/Game.cpp:207 src/Display/WindowGameHelp.cpp:91
 msgid "left"
 msgstr "izquierda"
 
-#: src/Entities/Game.cpp:161
+#: src/Entities/BoardParser.cpp:173
+msgid "name"
+msgstr "nombre"
+
+#: src/Display/WindowGameHelp.cpp:108
+msgid ""
+"page up\n"
+"page down"
+msgstr ""
+"página arriba\n"
+"página abajo"
+
+#: src/Entities/Game.cpp:161 src/Display/WindowGameHelp.cpp:93
 msgid "pause"
 msgstr "pausa"
 
 #. The only two absolute inputs are to quit and pause.
 #. Others depend if the game is paused or not.
-#: src/Entities/Game.cpp:157
+#: src/Entities/Game.cpp:157 src/Display/WindowGameHelp.cpp:94
 msgid "quit"
 msgstr "salir"
 
-#: src/Entities/Game.cpp:211
+#: src/Entities/Game.cpp:211 src/Display/WindowGameHelp.cpp:92
 msgid "right"
 msgstr "derecha"
 
-#: src/Entities/Game.cpp:215
+#: src/Entities/Game.cpp:215 src/Display/WindowGameHelp.cpp:89
 msgid "up"
 msgstr "arriba"
