@@ -38,7 +38,7 @@ msgid ""
 " Settings and scores are stored at:\n"
 " `~/.local/share/nsnake/`"
 msgstr ""
-"Los ajustes y la puntuacion son almacenados en:\n"
+"ajustes y puntuacion en:\n"
 " `~/.local/share/nsnake/`"
 
 #: src/Entities/ScoreFile.cpp:122
@@ -104,7 +104,7 @@ msgstr "Error: archivo de puntajes corrupto!\n"
 
 #: src/States/GameStateMainMenu.cpp:506
 msgid "Fancy Borders"
-msgstr "bordes elegantes"
+msgstr "bordes bonitos"
 
 #: src/Entities/ScoreFile.cpp:122 src/Entities/ScoreFile.cpp:148
 msgid "File '"
@@ -116,7 +116,7 @@ msgid ""
 "Last item"
 msgstr ""
 "Primer item\n"
-"Último item"
+"Ultimo item"
 
 #: src/States/GameStateMainMenu.cpp:424
 msgid "Fruits"
@@ -200,7 +200,7 @@ msgstr "Menu Principal"
 
 #: src/States/GameStateMainMenu.cpp:453
 msgid "Maze size"
-msgstr "tamaño del laberinto"
+msgstr "tamanio laberinto"
 
 #: src/States/GameStateMainMenu.cpp:438 src/States/GameStateMainMenu.cpp:449
 #: src/States/GameStateMainMenu.cpp:607
@@ -227,7 +227,7 @@ msgstr ""
 
 #: src/States/GameStateMainMenu.cpp:511
 msgid "Outer Border"
-msgstr "Borde Exterior"
+msgstr "Bordes Exteriores"
 
 #: src/Display/Layouts/LayoutGame.cpp:58
 msgid "Paused"
