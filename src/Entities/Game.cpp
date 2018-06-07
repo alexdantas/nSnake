@@ -7,6 +7,10 @@
 
 #include <stdlib.h>
 
+#include <libintl.h>
+#include <locale.h>
+#define _(STRING) gettext(STRING)
+
 // Options of the Pause Menu
 enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 {
@@ -124,18 +128,18 @@ void Game::start(std::string levelName)
 
 	MenuItem* item;
 
-	item = new MenuItem("Resume", RESUME);
+	item = new MenuItem(_("Resume"), RESUME);
 	this->pauseMenu->add(item);
 
-	item = new MenuItem("Restart", RESTART);
+	item = new MenuItem(_("Restart"), RESTART);
 	this->pauseMenu->add(item);
 
 	this->pauseMenu->addBlank();
 
-	item = new MenuItem("Quit to Main Menu", QUIT_MENU);
+	item = new MenuItem(_("Quit to Main Menu"), QUIT_MENU);
 	this->pauseMenu->add(item);
 
-	item = new MenuItem("Quit Game", QUIT_GAME);
+	item = new MenuItem(_("Quit Game"), QUIT_GAME);
 	this->pauseMenu->add(item);
 
 	// Starting timers
@@ -367,4 +371,3 @@ void Game::pause(bool option)
 		this->timerSnake.unpause();
 	}
 }
-

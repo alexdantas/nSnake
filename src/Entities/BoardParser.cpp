@@ -8,6 +8,10 @@
 #include <vector>
 #include <string>
 
+#include <libintl.h>
+#include <locale.h>
+#define _(STRING) gettext(STRING)
+
 // HACK This will be initialized at `Globals::init()`
 std::string BoardParser::directory = "";
 
@@ -31,7 +35,7 @@ Board* BoardParser::loadFile(std::string filename)
     std::ifstream file(filename.c_str());
 
     if (!(file.is_open()))
-	    throw BoardParserException("Can't open file '" + filename + "'");
+	    throw BoardParserException(_("Can't open file '") + filename + "'");
 
     // Tells what's the current line on the file
     // (independent of comments and empty lines)
@@ -86,7 +90,7 @@ Board* BoardParser::loadFile(std::string filename)
 		        // End-of-file...
 		        // Something wrong happened
 		        throw BoardParserException(
-			        "Abrupt ending of file while parsing level at line " +
+			        _("Abrupt ending of file while parsing level at line ") +
 			        Utils::String::toString(line_count)
 			        );
 	        }
@@ -201,4 +205,3 @@ std::vector<std::string> BoardParser::listLevels()
 
 	return levels;
 }
-
