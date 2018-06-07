@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nsnake 3.0.1\n"
 "Report-Msgid-Bugs-To: nicolastpi10@gmail.com\n"
-"POT-Creation-Date: 2018-06-06 17:58-0300\n"
+"POT-Creation-Date: 2018-06-07 10:55-0300\n"
 "PO-Revision-Date: 2018-06-06 18:02-0300\n"
 "Last-Translator: nicolas <nicolastpi10@gmail.com>\n"
 "Language-Team: Argentinian\n"
@@ -22,3 +22,49 @@ msgstr ""
 #, c-format
 msgid "Hello World\n"
 msgstr "Hola Mundo\n"
+
+#: src/Entities/Game.cpp:142
+msgid "Quit Game"
+msgstr "Salir"
+
+#: src/Entities/Game.cpp:139
+msgid "Quit to Main Menu"
+msgstr "Volver al Menu Principal"
+
+#: src/Entities/Game.cpp:134
+msgid "Restart"
+msgstr "Reiniciar"
+
+#: src/Entities/Game.cpp:131
+msgid "Resume"
+msgstr "Resumen"
+
+#: src/Entities/Game.cpp:219
+msgid "down"
+msgstr "abajo"
+
+#: src/Entities/Game.cpp:181
+msgid "help"
+msgstr "ayuda"
+
+#: src/Entities/Game.cpp:207
+msgid "left"
+msgstr "izquierda"
+
+#: src/Entities/Game.cpp:161
+msgid "pause"
+msgstr "pausa"
+
+#. The only two absolute inputs are to quit and pause.
+#. Others depend if the game is paused or not.
+#: src/Entities/Game.cpp:157
+msgid "quit"
+msgstr "salir"
+
+#: src/Entities/Game.cpp:211
+msgid "right"
+msgstr "derecha"
+
+#: src/Entities/Game.cpp:215
+msgid "up"
+msgstr "arriba"
