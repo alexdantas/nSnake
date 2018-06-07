@@ -153,38 +153,32 @@ msgid "In-game controls:\n"
 msgstr "Controles del juego:\n"
 
 #: src/States/GameStateMainMenu.cpp:550
-#, fuzzy
 msgid "Key down"
-msgstr "abajo"
+msgstr "tecla abajo"
 
 #: src/States/GameStateMainMenu.cpp:566
-#, fuzzy
 msgid "Key help"
-msgstr "ayuda"
+msgstr "tecla ayuda"
 
 #: src/States/GameStateMainMenu.cpp:554
-#, fuzzy
 msgid "Key left"
-msgstr "izquierda"
+msgstr "tecla izquierda"
 
 #: src/States/GameStateMainMenu.cpp:562
-#, fuzzy
 msgid "Key pause"
-msgstr "pausa"
+msgstr "tecla pausa"
 
 #: src/States/GameStateMainMenu.cpp:570
-#, fuzzy
 msgid "Key quit"
-msgstr "salir"
+msgstr "tecla quitar"
 
 #: src/States/GameStateMainMenu.cpp:558
-#, fuzzy
 msgid "Key right"
-msgstr "derecha"
+msgstr "tecla derecha"
 
 #: src/States/GameStateMainMenu.cpp:546
 msgid "Key up"
-msgstr "arriba"
+msgstr "tecla arriba"
 
 #: src/States/GameStateMainMenu.cpp:439 src/States/GameStateMainMenu.cpp:450
 msgid "Large"
@@ -228,7 +222,7 @@ msgstr ""
 "Mover izquierda\n"
 "Mover derecha\n"
 "Pausar juego\n"
-"Quitar de todos modos\n"
+"Quitar siempre\n"
 "Mostrar ayuda"
 
 #: src/States/GameStateMainMenu.cpp:511
@@ -236,7 +230,6 @@ msgid "Outer Border"
 msgstr "Borde Exterior"
 
 #: src/Display/Layouts/LayoutGame.cpp:58
-#, fuzzy
 msgid "Paused"
 msgstr "pausa"
 
@@ -266,7 +259,7 @@ msgstr "al Azar muros"
 
 #: src/States/GameStateMainMenu.cpp:575
 msgid "Reset to Defaults"
-msgstr "Reiniciar valores por defecto"
+msgstr "valores por defecto"
 
 #: src/Entities/Game.cpp:134
 msgid "Restart"
