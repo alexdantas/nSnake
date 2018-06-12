@@ -349,7 +349,7 @@ void GameStateMainMenu::createMainMenu()
 
 	MenuItem* item;
 
-	item = new MenuItem("Arcade Mode", ARCADE);
+	item = new MenuItem(_("Arcade Mode"), ARCADE);
 	menu->add(item);
 
 	item = new MenuItem(_("Level Select"), LEVELS);
