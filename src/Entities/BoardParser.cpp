@@ -8,6 +8,12 @@
 #include <vector>
 #include <string>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <libintl.h>
+#include <locale.h>
+#define _(String) gettext (String)
+
 // HACK This will be initialized at `Globals::init()`
 std::string BoardParser::directory = "";
 
@@ -31,7 +37,7 @@ Board* BoardParser::loadFile(std::string filename)
     std::ifstream file(filename.c_str());
 
     if (!(file.is_open()))
-	    throw BoardParserException("Can't open file '" + filename + "'");
+	    throw BoardParserException(_("Can't open file '") + filename + "'");
 
     // Tells what's the current line on the file
     // (independent of comments and empty lines)
@@ -86,7 +92,7 @@ Board* BoardParser::loadFile(std::string filename)
 		        // End-of-file...
 		        // Something wrong happened
 		        throw BoardParserException(
-			        "Abrupt ending of file while parsing level at line " +
+			        _("Abrupt ending of file while parsing level at line ") +
 			        Utils::String::toString(line_count)
 			        );
 	        }
@@ -164,10 +170,10 @@ Board* BoardParser::loadFile(std::string filename)
     stream << metadata_buffer;
     INI::Parser parser(stream);
 
-    board->setMetadata("name",    parser["name"]);
-    board->setMetadata("author",  parser["author"]);
-    board->setMetadata("date",    parser["date"]);
-    board->setMetadata("comment", parser["comment"]);
+    board->setMetadata(_("name"),    parser["name"]);
+    board->setMetadata(_("author"),  parser["author"]);
+    board->setMetadata(_("date"),    parser["date"]);
+    board->setMetadata(_("comment"), parser["comment"]);
 
     return board;
 }
@@ -201,4 +207,3 @@ std::vector<std::string> BoardParser::listLevels()
 
 	return levels;
 }
-
