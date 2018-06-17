@@ -9,10 +9,10 @@
 #include <Display/Animations/AnimationWater.hpp>
 #include <Display/Animations/AnimationGameOfLife.hpp>
 
-#include <cstdlib>
-#include <libintl.h>
 #include <locale.h>
-
+#include <libintl.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 #include <iostream>
 

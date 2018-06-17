@@ -3,9 +3,11 @@
 #include <commander/commander.h> // local files
 #include <iostream>
 #include <cstdlib>
-#include <libintl.h>
-#include <locale.h>
 
+#include <locale.h>
+#include <libintl.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 // Local functions that'll be used as callbacks
 // for the right switches.

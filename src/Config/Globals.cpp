@@ -11,10 +11,10 @@
 #include <iostream>
 #include <fstream>
 
-#include <cstdlib>
-#include <libintl.h>
 #include <locale.h>
-
+#include <libintl.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 // VERSION is formatted like "0.0.1" - i'm skipping the dots
 char Globals::version[3] = { VERSION[0],

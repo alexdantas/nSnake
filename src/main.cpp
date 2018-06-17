@@ -8,30 +8,18 @@
 
 #include <locale.h>
 #include <libintl.h>
-#include <iostream>
-#include <cstdlib>
+#include <stdlib.h>
+#include <stdio.h>
 
 
 int main(int argc, char *argv[])
 {
-/*	char* cwd = getenv("PWD");
-    std::cout << "getenv(PWD): " << (cwd?cwd:"NULL") << std::endl;
-    char* l = getenv("LANG");
-    std::cout << "getenv(LANG): " << (l?l:"NULL") << std::endl;
-    char* s = setlocale(LC_ALL, "");
-    std::cout << "setlocale(): " << (s?s:"NULL") << std::endl;
-    std::cout << "bindtextdomain(): " << bindtextdomain("nSnakeGt", cwd) << std::endl;
-    std::cout << "textdomain(): " << textdomain( "nSnakeGt") << std::endl;
 
-	setlocale( LC_ALL, "es_ES" );//Spanish
-	bindtextdomain( "nSnakeGt", "." );// set directory containing message catalogs 
-	textdomain( "nSnakeGt" );//set domain for future gettext() calls
-*/
 	 setlocale (LC_ALL, "");
-     bindtextdomain ("hello", "/usr/share/locale/");
-     textdomain ("hello");
+     bindtextdomain ("nsnake", getenv ("PWD"));
+     textdomain ("nsnake");
 
-	printf(gettext("Hello World\n"));
+	printf(gettext("Hello World\n"));//only for testing gettext
 
 	
 	try

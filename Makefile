@@ -48,10 +48,6 @@ EXEC_PREFIX = $(PREFIX)
 DATAROOTDIR = $(PREFIX)/share
 BINDIR      = $(EXEC_PREFIX)/bin
 
-
-# System locale directory
-LOCALEDIR = /usr/share/locale
-
 # Misc stuff
 PNGDIR     = $(DATAROOTDIR)/icons/hicolor
 XPMDIR     = $(DATAROOTDIR)/pixmaps
@@ -144,13 +140,8 @@ install: all
 	$(MUTE)install -pm644 misc/nsnake32.xpm $(DESTDIR)$(XPMDIR)/nsnake.xpm
 	$(MUTE)install -pdm755 $(DESTDIR)$(DESKTOPDIR)
 	$(MUTE)install -pm644 misc/nsnake.desktop $(DESTDIR)$(DESKTOPDIR)
-	$(MUTE)mkdir -p $(LOCALEDIR)/es_AR/LC_MESSAGES
-#	$(MUTE)install -pdm755 $(LOCALEDIR)
-# 	$(MUTE)install -pm644 locale/es_AR/LC_MESSAGES/nsnakegt.mo $(LOCALEDIR)/es_AR/LC_MESSAGES/nsnakegt.mo
-
-# 	$(MUTE)cp po/nsnake.mo /usr/share/locale/es_AR/LC_MESSAGES/
-
-
+	
+	cp po/nsnake.mo /usr/share/locale/es_AR/LC_MESSAGES/
 
 	# $(PACKAGE) successfuly installed!
 
@@ -204,7 +195,6 @@ clean:
 	# Cleaning object files...
 	$(MUTE)rm $(VTAG) -f $(OBJECTS)
 	$(MUTE)rm $(VTAG) -f bin/$(EXE)
-	$(MUTE)rm -f $(LOCALEDIR)/es_AR/LC_MESSAGES/nsnakegt.mo
 
 clean-all: clean
 	# Cleaning dependency object files...
@@ -232,4 +222,3 @@ $(ENGINE_DIR)/%.o: $(ENGINE_DIR)/%.cpp
 $(COMMANDER_DIR)/%.o: $(COMMANDER_DIR)/%.c
 	# Compiling $<...
 	$(MUTE)$(CC) $(COMMANDER_CFLAGS) $< -c -o $@
-

@@ -5,9 +5,10 @@
 #include <Engine/InputManager.hpp>
 #include <Engine/Helpers/Utils.hpp>
 
-#include <cstdlib>
-#include <libintl.h>
 #include <locale.h>
+#include <libintl.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 WindowGameHelp::WindowGameHelp()
 {
