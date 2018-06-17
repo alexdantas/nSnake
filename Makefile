@@ -145,8 +145,11 @@ install: all
 	$(MUTE)install -pdm755 $(DESTDIR)$(DESKTOPDIR)
 	$(MUTE)install -pm644 misc/nsnake.desktop $(DESTDIR)$(DESKTOPDIR)
 	$(MUTE)mkdir -p $(LOCALEDIR)/es_AR/LC_MESSAGES
-	$(MUTE)install -pdm755 $(LOCALEDIR)
- #	$(MUTE)install -pm644 locale/es_AR/LC_MESSAGES/nsnakegt.mo $(LOCALEDIR)/es_AR/LC_MESSAGES/nsnakegt.mo
+#	$(MUTE)install -pdm755 $(LOCALEDIR)
+# 	$(MUTE)install -pm644 locale/es_AR/LC_MESSAGES/nsnakegt.mo $(LOCALEDIR)/es_AR/LC_MESSAGES/nsnakegt.mo
+
+# 	$(MUTE)cp po/nsnake.mo /usr/share/locale/es_AR/LC_MESSAGES/
+
 
 
 	# $(PACKAGE) successfuly installed!

@@ -9,6 +9,11 @@
 #include <Display/Animations/AnimationWater.hpp>
 #include <Display/Animations/AnimationGameOfLife.hpp>
 
+#include <cstdlib>
+#include <libintl.h>
+#include <locale.h>
+
+
 #include <iostream>
 
 LayoutMainMenu::LayoutMainMenu(int width, int height, GameStateMainMenu* state):
@@ -40,7 +45,7 @@ void LayoutMainMenu::windowsInit()
 	                        55, 0,
 	                        24, WINDOW_FILL);
 
-	this->menu->setTitle("Main Menu");
+	this->menu->setTitle("Menu Principal");
 	this->menu->refresh();
 
 	// ANIMATION

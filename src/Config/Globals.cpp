@@ -377,14 +377,13 @@ void Globals::warnErrors()
 {
 	if (! Globals::Error::has_config_file)
 	{
-		std::cout << "Warning: We could not create the configuration file.\n"
-		          << "         Please check permissions to the path:\n"
+		std::cout << gettext("Warning: We could not create the configuration file.")<<"\n"
+		          << gettext("         Please check permissions to the path:")<<"\n"
 		          << "         " + Globals::Config::file
 		          << std::endl;
 	}
 	if (! Globals::Error::has_score_file)
 	{
-		//<<gettext("  /             \\  This game was made with")<<"\n"
 		
 		std::cout << gettext("Warning: We could not create the score file.")<<"\n"
 		          << gettext("         Please check permissions to the path:")<<"\n"

@@ -14,7 +14,7 @@
 
 int main(int argc, char *argv[])
 {
-	char* cwd = getenv("PWD");
+/*	char* cwd = getenv("PWD");
     std::cout << "getenv(PWD): " << (cwd?cwd:"NULL") << std::endl;
     char* l = getenv("LANG");
     std::cout << "getenv(LANG): " << (l?l:"NULL") << std::endl;
@@ -26,6 +26,14 @@ int main(int argc, char *argv[])
 	setlocale( LC_ALL, "es_ES" );//Spanish
 	bindtextdomain( "nSnakeGt", "." );// set directory containing message catalogs 
 	textdomain( "nSnakeGt" );//set domain for future gettext() calls
+*/
+	 setlocale (LC_ALL, "");
+     bindtextdomain ("hello", "/usr/share/locale/");
+     textdomain ("hello");
+
+	printf(gettext("Hello World\n"));
+
+	
 	try
 	{
 		// Settings
