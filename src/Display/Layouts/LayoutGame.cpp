@@ -29,9 +29,9 @@ void LayoutGame::windowsInit()
 	this->main->setTitle("nsnake " VERSION);
 
 	if (this->game->currentScore->level.empty())
-		this->main->setTitle("Modo Arcade", Window::TOP_RIGHT);
+		this->main->setTitle(gettext("Arcade Mode"), Window::TOP_RIGHT);
 	else
-		this->main->setTitle("Nivel " + this->game->board->getMetadata("name"), Window::TOP_RIGHT);
+		this->main->setTitle(gettext("Level ") + this->game->board->getMetadata("name"), Window::TOP_RIGHT);
 
 	// Leftmost window
 	this->gamewin = new Window(this->main,
@@ -53,7 +53,7 @@ void LayoutGame::windowsInit()
 	                         this->main->getW() / 2,
 	                         7);
 
-	this->pause->setTitle("Pausa");
+	this->pause->setTitle(gettext("Paused"));
 
 	// Le help window.
 	this->help = new Window(this->main,
@@ -62,7 +62,7 @@ void LayoutGame::windowsInit()
 	                        this->main->getW() / 2,
 	                        this->main->getH() / 2);
 
-	this->help->setTitle("Help");
+	this->help->setTitle(gettext("Help"));
 
 	this->helpWindows = new WindowGameHelp();
 }

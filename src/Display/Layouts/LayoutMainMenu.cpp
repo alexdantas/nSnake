@@ -45,7 +45,7 @@ void LayoutMainMenu::windowsInit()
 	                        55, 0,
 	                        24, WINDOW_FILL);
 
-	this->menu->setTitle("Menu Principal");
+	this->menu->setTitle(gettext("Main Menu"));
 	this->menu->refresh();
 
 	// ANIMATION

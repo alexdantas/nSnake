@@ -71,8 +71,8 @@ void Arguments::parse(int argc, char* argv[])
 	command_t cmd;
 	command_init(&cmd, argv[0], VERSION);
 
-	command_option(&cmd, "-v", "--version", "Show game version and build date", version);
-	command_option(&cmd, "-h", "--help",    "Show instructions", help);
+	command_option(&cmd, "-v", "--version", gettext("Show game version and build date"), version);
+	command_option(&cmd, "-h", "--help",    gettext("Show instructions"), help);
 
 	command_parse(&cmd, argc, argv);
 	command_free(&cmd);
