@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nsnake\n"
-"POT-Creation-Date: 2018-06-20 16:56-0300\n"
-"PO-Revision-Date: 2018-06-20 17:32-0300\n"
+"POT-Creation-Date: 2018-06-20 20:22-0300\n"
+"PO-Revision-Date: 2018-06-20 20:22-0300\n"
 "Last-Translator: \n"
 "Language-Team: alan rodriguez\n"
 "Language: es_AR\n"
@@ -56,7 +56,8 @@ msgstr "\t-h, --help     Muestra este mensaje"
 
 #: Config/Arguments.cpp:59
 msgid "\t-v, --version  Show game version and contact info"
-msgstr "\t-v, --version  Muestra la version del juego y la informacion de contacto"
+msgstr ""
+"\t-v, --version  Muestra la version del juego y la informacion de contacto"
 
 #: Config/Arguments.cpp:61
 msgid "See also `man nsnake`"
@@ -88,7 +89,9 @@ msgstr "Cuidado: No podemos crear el archivo de puntajes."
 
 #: Config/Globals.cpp:395
 msgid "Warning: Your high score file is from an old nsnake version."
-msgstr "Cuidado: Tu archivo de altos puntajes corresponde a una version antigua de nsnake."
+msgstr ""
+"Cuidado: Tu archivo de altos puntajes corresponde a una version antigua de "
+"nsnake."
 
 #: Config/Globals.cpp:403
 msgid "Error: Corrupted high score file!"
@@ -221,6 +224,6 @@ msgstr ""
 " https://github.com/alexdantas/nsnake/"
 
 #: main.cpp:22
-#, c-format
+#, fuzzy, c-format
 msgid "Hello World\n"
 msgstr "Hola Mundo\n"

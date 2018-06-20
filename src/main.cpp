@@ -15,8 +15,8 @@
 int main(int argc, char *argv[])
 {
 
-	 setlocale (LC_ALL, "");
-     bindtextdomain ("es_AR", getenv ("PWD"));
+     setlocale (LC_ALL, "");
+     bindtextdomain ("es_AR", "/usr/share/locale/");
      textdomain ("es_AR");
 
 	printf(gettext("Hello World\n"));//only for testing gettext
