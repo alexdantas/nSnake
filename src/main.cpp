@@ -16,8 +16,8 @@ int main(int argc, char *argv[])
 {
 
 	 setlocale (LC_ALL, "");
-     bindtextdomain ("nsnake", getenv ("PWD"));
-     textdomain ("nsnake");
+     bindtextdomain ("es_AR", getenv ("PWD"));
+     textdomain ("es_AR");
 
 	printf(gettext("Hello World\n"));//only for testing gettext
 
