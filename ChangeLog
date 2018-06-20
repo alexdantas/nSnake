@@ -1,3 +1,9 @@
+05-10-2018 v3.0.2
+        * Creating: new branch traduction
+04-26-2018 v3.0.1
+        * Added: spanish man page
+
+
 07-28-2014 v3.0.0
 	* Gameplay: Levels! Now you can make your own maps and mazes
 	            that the snake will play on. As expected, each
@@ -27,7 +33,7 @@
 
 03-06-2014 v2.0.0
 	* Development: Completely rewrote the game in C++, using brand
-	               new C++11 features!
+	               new C++11 features!Ad
 	* Interface: Main menu has a cute Matrix-like animation.
 	* Interface: GUI-like menus and buttons and widgets and much more.
 	* Gameplay: Made input keys customizable.
