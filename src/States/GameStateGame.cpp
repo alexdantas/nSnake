@@ -9,6 +9,13 @@
 #include <Engine/Flow/StateManager.hpp>
 #include <States/GameStateMainMenu.hpp>
 
+#include <cstdlib>
+
+#include <locale.h>
+#include <libintl.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 GameStateGame::GameStateGame():
 	game(NULL),
 	willQuit(false)
@@ -24,7 +31,7 @@ void GameStateGame::load()
 	}
 	catch (BoardParserException& e)
 	{
-		Dialog::show("Couldn't load the level! (Error: \"" + e.message + "\")", true);
+		Dialog::show("Couldn't load the level!" "(Error: \"" + e.message + "\")", true);
 		this->willQuit = true;
 	}
 	catch (ScoreFileException& e)
@@ -62,7 +69,7 @@ void GameStateGame::update()
 
 		this->game->draw();
 
-		if (Dialog::askBool("Retry?", "Game Over", true))
+		if (Dialog::askBool(gettext("Retry?"), gettext("Game Over"), true))
 			this->load(); // restart the game
 		else
 			StateManager::change(new GameStateMainMenu());

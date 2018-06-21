@@ -6,8 +6,20 @@
 #include <Config/Arguments.hpp>
 #include <States/GameStateMainMenu.hpp>
 
+#include <locale.h>
+#include <libintl.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+
 int main(int argc, char *argv[])
 {
+
+     setlocale (LC_ALL, "");
+     bindtextdomain ("es_AR", "/usr/share/locale/");
+     textdomain ("es_AR");
+
+	
 	try
 	{
 		// Settings

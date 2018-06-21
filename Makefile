@@ -64,7 +64,7 @@ MANPAGE   = doc/man/$(MANFILE)
 # Build info
 EXE         = $(PACKAGE)
 CDEBUG      = -O2
-CXXFLAGS    = $(CDEBUG) -Wall -Wextra $(CFLAGS_PLATFORM)
+CXXFLAGS    = $(CDEBUG) -Wall -Wextra $(CFLAGS_PLATFORM) -DLOCALEDIR=\"$(LOCALEDIR)\"
 LDFLAGS     = -lncurses $(LDFLAGS_PLATFORM)
 INCLUDESDIR = -I"src/" -I"deps/"
 LIBSDIR     =
@@ -140,6 +140,8 @@ install: all
 	$(MUTE)install -pm644 misc/nsnake32.xpm $(DESTDIR)$(XPMDIR)/nsnake.xpm
 	$(MUTE)install -pdm755 $(DESTDIR)$(DESKTOPDIR)
 	$(MUTE)install -pm644 misc/nsnake.desktop $(DESTDIR)$(DESKTOPDIR)
+	
+	cp po/es_AR.mo /usr/share/locale/es_AR/LC_MESSAGES/
 
 	# $(PACKAGE) successfuly installed!
 
@@ -220,4 +222,3 @@ $(ENGINE_DIR)/%.o: $(ENGINE_DIR)/%.cpp
 $(COMMANDER_DIR)/%.o: $(COMMANDER_DIR)/%.c
 	# Compiling $<...
 	$(MUTE)$(CC) $(COMMANDER_CFLAGS) $< -c -o $@
-

@@ -1,0 +1,334 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: nsnake\n"
+"POT-Creation-Date: 2018-06-20 22:13-0300\n"
+"PO-Revision-Date: 2018-06-20 22:25-0300\n"
+"Last-Translator: \n"
+"Language-Team: alan rodriguez\n"
+"Language: es_AR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.8\n"
+"X-Poedit-Basepath: ../src\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: Config/Arguments.cpp:24
+msgid "  /             \\  This game was made with"
+msgstr "  /             \\  Este juego fue hecho con"
+
+#: Config/Arguments.cpp:25
+msgid " ((__-^^-,-^^-__))  and itself is Free Software,"
+msgstr " ((__-^^-,-^^-__))  y es por si mismo Software Libre,"
+
+#: Config/Arguments.cpp:26
+msgid "  `-_---' `---_-'   licensed under the GPLv3"
+msgstr "  `-_---' `---_-'   se encuentra bajo licencia GPLv3"
+
+#: Config/Arguments.cpp:33
+msgid "Homepage:      http://nsnake.alexdantas.net/"
+msgstr "Pagina  Web:      http://nsnake.alexdantas.net/"
+
+#: Config/Arguments.cpp:34
+msgid "Source Code:   https://github.com/alexdantas/nsnake/"
+msgstr "Codigo Fuente:   https://github.com/alexdantas/nsnake/"
+
+#: Config/Arguments.cpp:35
+msgid "Contact:       Alexandre Dantas <eu@alexdantas.net>"
+msgstr "Contacto:       Alexandre Dantas <eu@alexdantas.net>"
+
+#: Config/Arguments.cpp:50
+msgid "nsnake is the classical snake game on the terminal"
+msgstr "nsnake es el juego clasico juego de snake en la terminal"
+
+#: Config/Arguments.cpp:52
+msgid "Settings and scores are stored at:"
+msgstr "Configuraciones y puntajes se guardan en:"
+
+#: Config/Arguments.cpp:55
+msgid "Usage:"
+msgstr "Usar:"
+
+#: Config/Arguments.cpp:58
+msgid "\t-h, --help     Show this message"
+msgstr "\t-h, --help     Muestra este mensaje"
+
+#: Config/Arguments.cpp:59
+msgid "\t-v, --version  Show game version and contact info"
+msgstr ""
+"\t-v, --version  Muestra la version del juego y la informacion de contacto"
+
+#: Config/Arguments.cpp:61
+msgid "See also `man nsnake`"
+msgstr "Ver tambien `man nsnake`"
+
+#: Config/Arguments.cpp:62
+msgid "Thanks for playing this game :)"
+msgstr "Gracias por jugar este juego :)"
+
+#: Config/Arguments.cpp:74
+msgid "Show game version and build date"
+msgstr "Muestra la version del juego y la fecha de realizacion"
+
+#: Config/Arguments.cpp:75
+msgid "Show instructions"
+msgstr "Muestra instrucciones"
+
+#: Config/Globals.cpp:380
+msgid "Warning: We could not create the configuration file."
+msgstr "Cuidado: No podemos crear el archivo de configuracion."
+
+#: Config/Globals.cpp:381 Config/Globals.cpp:389
+msgid "         Please check permissions to the path:"
+msgstr "         Por favor chequea los permisos de la ruta:"
+
+#: Config/Globals.cpp:388
+msgid "Warning: We could not create the score file."
+msgstr "Cuidado: No podemos crear el archivo de puntajes."
+
+#: Config/Globals.cpp:395
+msgid "Warning: Your high score file is from an old nsnake version."
+msgstr ""
+"Cuidado: Tu archivo de altos puntajes corresponde a una version antigua de "
+"nsnake."
+
+#: Config/Globals.cpp:403
+msgid "Error: Corrupted high score file!"
+msgstr "Error: Archivo de altos puntajes dañado!"
+
+#: Config/Globals.cpp:404
+msgid "       We're sorry, but we had to erase it"
+msgstr "       Lo sentimos, pero tuvimos que borrarlo!"
+
+#: Display/Layouts/LayoutGame.cpp:32 States/GameStateMainMenu.cpp:354
+msgid "Arcade Mode"
+msgstr "Modo Arcade"
+
+#: Display/Layouts/LayoutGame.cpp:34
+msgid "Level "
+msgstr "Nivel "
+
+#: Display/Layouts/LayoutGame.cpp:56
+msgid "Paused"
+msgstr "Pausa"
+
+#: Display/Layouts/LayoutGame.cpp:65 States/GameStateMainMenu.cpp:369
+msgid "Help"
+msgstr "Ayuda"
+
+#: Display/Layouts/LayoutGame.cpp:131
+msgid "Hi-Score"
+msgstr "Puntaje mas alto"
+
+#: Display/Layouts/LayoutGame.cpp:132
+msgid "Score"
+msgstr "Puntaje"
+
+#: Display/Layouts/LayoutGame.cpp:133
+msgid "Speed"
+msgstr "Velocidad"
+
+#: Display/Layouts/LayoutMainMenu.cpp:48 States/GameStateMainMenu.cpp:120
+#: States/GameStateMainMenu.cpp:166 States/GameStateMainMenu.cpp:182
+#: States/GameStateMainMenu.cpp:205
+msgid "Main Menu"
+msgstr "Menu Principal"
+
+#: Display/WindowGameHelp.cpp:46
+msgid "(Help)"
+msgstr "(Ayuda)"
+
+#: Display/WindowGameHelp.cpp:47
+msgid " Help "
+msgstr " Ayuda "
+
+#: Display/WindowGameHelp.cpp:55
+msgid "(Credits)"
+msgstr "(Creditos)"
+
+#: Display/WindowGameHelp.cpp:56
+msgid " Credits "
+msgstr " Creditos "
+
+#: Display/WindowGameHelp.cpp:73
+msgid "In-game controls:\n"
+msgstr "Controles dentro del juego:\n"
+
+#: Display/WindowGameHelp.cpp:77
+msgid ""
+"Move up\n"
+"Move down\n"
+"Move left\n"
+"Move right\n"
+"Pause game\n"
+"Quit anytime\n"
+"Show help"
+msgstr ""
+"Mover arriba\n"
+"Mover abajo\n"
+"Mover izquierda\n"
+"Move derecha\n"
+"Pausar juego\n"
+"Salir en cualquier momento\n"
+"Mostrar ayuda"
+
+#: Display/WindowGameHelp.cpp:97
+msgid "Menu controls:\n"
+msgstr "Controles del Menu:\n"
+
+#: Display/WindowGameHelp.cpp:101
+msgid ""
+"First item\n"
+"Last item"
+msgstr ""
+"Primer item\n"
+"Ultimo item"
+
+#: Display/WindowGameHelp.cpp:106
+msgid ""
+"page up\n"
+"page down"
+msgstr ""
+"subir pagina\n"
+"bajar pagina"
+
+#: Display/WindowGameHelp.cpp:111
+msgid ""
+" Settings and scores are stored at:\n"
+" `~/.local/share/nsnake/`"
+msgstr ""
+" Configuraciones y puntajes se almacenan en:\n"
+" `~/.local/share/nsnake/`"
+
+#: Display/WindowGameHelp.cpp:129
+msgid ""
+"Try `nsnake --help` and `man nsnake`\n"
+"\n"
+"Game made by Alexandre Dantas,\n"
+"contact him at <eu@alexdantas.net>\n"
+"Thanks for playing this game :)\n"
+"\n"
+"Homepage:\n"
+" http://nsnake.alexdantas.net/\n"
+"Source Code:\n"
+" https://github.com/alexdantas/nsnake/"
+msgstr ""
+"Intenta con `nsnake --help` y `man nsnake`\n"
+"\n"
+"Juego hecho por Alexandre Dantas,\n"
+"puedes contactarlo en <eu@alexdantas.net>\n"
+"Gracias por jugar este juego :)\n"
+"\n"
+"Pagina Web:\n"
+" http://nsnake.alexdantas.net/\n"
+"Codigo Fuente:\n"
+" https://github.com/alexdantas/nsnake/"
+
+#: Entities/BoardParser.cpp:39
+msgid "Can't open file '"
+msgstr "No se puede abrir el archivo '"
+
+#: Entities/BoardParser.cpp:94
+msgid "Abrupt ending of file while parsing level at line "
+msgstr "Final de archivo repentino cuando se analizaba el nivel en linea "
+
+#: Entities/BoardParser.cpp:172
+msgid "name"
+msgstr "nombre"
+
+#: Entities/BoardParser.cpp:173
+msgid "author"
+msgstr "autor"
+
+#: Entities/BoardParser.cpp:174
+msgid "date"
+msgstr "fecha"
+
+#: Entities/BoardParser.cpp:175
+msgid "comment"
+msgstr "comentario"
+
+#: Entities/Game.cpp:131
+msgid "Resume"
+msgstr "Continuar"
+
+#: Entities/Game.cpp:134
+msgid "Restart"
+msgstr "Reiniciar"
+
+#: Entities/Game.cpp:139
+msgid "Quit to Main Menu"
+msgstr "Salir al Menu Principal"
+
+#: Entities/Game.cpp:142
+msgid "Quit Game"
+msgstr "Salir del Juego"
+
+#: Entities/ScoreFile.cpp:146
+msgid "File '"
+msgstr "Archivo '"
+
+#: Entities/ScoreFile.cpp:146
+msgid "' has an old version format"
+msgstr "' tiene formato de una version anterior"
+
+#: Entities/ScoreFile.cpp:228
+msgid "Could not create file '"
+msgstr "No se pudo crear el archivo '"
+
+#: States/GameStateGame.cpp:72
+msgid "Retry?"
+msgstr "Reintentar?"
+
+#: States/GameStateGame.cpp:72
+msgid "Game Over"
+msgstr "Perdiste"
+
+#: States/GameStateMainMenu.cpp:155
+msgid "Are you sure?"
+msgstr "Estas seguro?"
+
+#: States/GameStateMainMenu.cpp:160
+msgid "All high scores erased!"
+msgstr "Todos los puntajes altos borrados!"
+
+#: States/GameStateMainMenu.cpp:238
+msgid "Press any key, Enter to Cancel"
+msgstr "Presiona cualquier tecla, Enter para Cancelar"
+
+#: States/GameStateMainMenu.cpp:289 States/GameStateMainMenu.cpp:357
+msgid "Level Select"
+msgstr "Nivel Elegido"
+
+#: States/GameStateMainMenu.cpp:295 States/GameStateMainMenu.cpp:360
+msgid "Game Settings"
+msgstr "Configuracion del Juego"
+
+#: States/GameStateMainMenu.cpp:300 States/GameStateMainMenu.cpp:363
+msgid "GUI Options"
+msgstr "Opciones de la Interfaz"
+
+#: States/GameStateMainMenu.cpp:305 States/GameStateMainMenu.cpp:366
+msgid "Controls"
+msgstr "Controles"
+
+#: States/GameStateMainMenu.cpp:372
+msgid "Quit"
+msgstr "Salir"
+
+#: States/GameStateMainMenu.cpp:388 States/GameStateMainMenu.cpp:413
+msgid "Back"
+msgstr "Regresar"
+
+#: States/GameStateMainMenu.cpp:420
+msgid "Starting Speed"
+msgstr "Velocidad Inicial"
+
+#: States/GameStateMainMenu.cpp:423
+msgid "Fruits"
+msgstr "Frutas"
+
+#, fuzzy
+#~ msgid "Hello World\n"
+#~ msgstr "Hola Mundo\n"

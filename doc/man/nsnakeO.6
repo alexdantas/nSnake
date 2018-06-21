@@ -1,0 +1,66 @@
+\" ----------------------------- nsnake man page -------------------------------
+.TH nsnake 6 "DATE" vVERSION "nsnake vVERSION"
+\"---------------------------------- NAME --------------------------------------
+.SH NAME
+nsnake \- Classic snake game on the terminal
+\"-------------------------------- SYNOPSIS ------------------------------------
+.SH SYNOPSIS
+nsnake
+.RB [ -h ]
+.RB [ -v ]
+\"------------------------------- DESCRIPTION ----------------------------------
+.SH DESCRIPTION
+nsnake is the classic snake game with textual interface.
+You can play it at command-line and uses the nCurses library for graphics.
+The rules are the same of any snake game:
+.PP
+You control a hungry snake and the objective is to eat as many fruits you can.
+Each fruit eaten increases your size.
+The game ends when the snake collides with the walls or itself.
+.PP
+The challenge is to earn the biggest score possible by eating as many fruits as
+you can.
+.PP
+Controls and game settings can be changed through the in-game menus or by
+directly editing the settings file.
+
+.B Default controls:
+.RS
+.BR "Arrow Keys          " "Moves the snake"
+
+.BR "q                   " "Quits the game at any time"
+
+.BR "p                   " "Pauses/Unpauses the game"
+
+.BR "h                   " "Show help during the game"
+.RE
+\"--------------------------------- OPTIONS ------------------------------------
+.SH OPTIONS
+
+.TP
+.B "-h, --help"
+Displays the quick help text.
+
+.TP
+.B "-v, --version"
+Displays the version and general information.
+\"----------------------------------- FILES -------------------------------------
+.SH FILES
+.BR "$(HOME)/.local/share/nsnake/" "     Per-user content; game settings and scores"
+\"----------------------------------- SEE ALSO ----------------------------------
+.SH SEE ALSO
+.BR "snake4" "(6)   " "ktron" "(6)   " "yetris" "(6) "
+\"----------------------------------- BUGS -------------------------------------
+.SH BUGS
+Probably. If you find any, please report it at the issue tracker (https://github.com/alexdantas/nsnake/issue) or email me at <eu@alexdantas.net>.
+
+\"---------------------------------- AUTHOR ------------------------------------
+.SH AUTHOR
+.PP
+This manual page and nsnake were both written by Alexandre Dantas <eu@alexdantas.net>.
+\"----------------------------------- WWW -------------------------------------
+.SH WWW
+* http://nsnake.alexdantas.net/
+
+* https://github.com/alexdantas/nsnake/
+

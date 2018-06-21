@@ -2,7 +2,7 @@
 .TH nsnake 6 "DATE" vVERSION "nsnake vVERSION"
 \"---------------------------------- NAME --------------------------------------
 .SH NAME
-nsnake \- Classic snake game on the terminal
+nsnake \- El clasico juego de snake en la terminal
 \"-------------------------------- SYNOPSIS ------------------------------------
 .SH SYNOPSIS
 nsnake
@@ -10,54 +10,55 @@ nsnake
 .RB [ -v ]
 \"------------------------------- DESCRIPTION ----------------------------------
 .SH DESCRIPTION
-nsnake is the classic snake game with textual interface.
-You can play it at command-line and uses the nCurses library for graphics.
-The rules are the same of any snake game:
+nsnake es el juego snake clasico con interface solo texto.
+Se puede jugar por linea de comandos y usando la biblioteca nCurses para los graficos.
+Las reglas son las mismas de cualquier juego de snake:
 .PP
-You control a hungry snake and the objective is to eat as many fruits you can.
-Each fruit eaten increases your size.
-The game ends when the snake collides with the walls or itself.
+Controlas una serpiente hambrienta y el objetivo es comer cuantas frutas puedas.
+Cada fruta que comas incrementara tu tamaño.
+El juego termina cuando la serpiente colisiona con la pared o consigo misma.
 .PP
-The challenge is to earn the biggest score possible by eating as many fruits as
-you can.
+El reto es obtener la mayor puntuacion posible comiendo cuantas frutas 
+puedas.
 .PP
-Controls and game settings can be changed through the in-game menus or by
-directly editing the settings file.
+Los controles y la configuracion del juego pueden ser cambiada a traves del menu dentro del juego o 
+directamente editando el archivo de configuracion.
 
-.B Default controls:
+.B Controles por defecto:
 .RS
-.BR "Arrow Keys          " "Moves the snake"
+.BR "Teclas de direccion          " "Mueve la serpiente"
 
-.BR "q                   " "Quits the game at any time"
+.BR "q                   " "sale del juego en cualquier momento"
 
-.BR "p                   " "Pauses/Unpauses the game"
+.BR "p                   " "Pausa/Continua el juego"
 
-.BR "h                   " "Show help during the game"
+.BR "h                   " "muestra la ayuda en el juego"
 .RE
-\"--------------------------------- OPTIONS ------------------------------------
+\"--------------------------------- OPCIONES ------------------------------------
 .SH OPTIONS
 
 .TP
-.B "-h, --help"
-Displays the quick help text.
+.B "-h, --ayuda"
+Muestra el texto de ayuda rapida.
 
 .TP
 .B "-v, --version"
-Displays the version and general information.
-\"----------------------------------- FILES -------------------------------------
+Muestra la version e informacion general.
+\"----------------------------------- ARCHIVOS -------------------------------------
 .SH FILES
-.BR "$(HOME)/.local/share/nsnake/" "     Per-user content; game settings and scores"
-\"----------------------------------- SEE ALSO ----------------------------------
+.BR "$(HOME)/.local/share/nsnake/" "     contenido Per-user; configuracion del juego y puntajes"
+\"----------------------------------- VER TAMBIEN ----------------------------------
 .SH SEE ALSO
 .BR "snake4" "(6)   " "ktron" "(6)   " "yetris" "(6) "
 \"----------------------------------- BUGS -------------------------------------
 .SH BUGS
-Probably. If you find any, please report it at the issue tracker (https://github.com/alexdantas/nsnake/issue) or email me at <eu@alexdantas.net>.
+Probablemente hayan. Si encontras alguno, por favor reportalo en el issue tracker (https://github.com/alexdantas/nsnake/issue) o por email a <eu@alexdantas.net>.
 
 \"---------------------------------- AUTHOR ------------------------------------
 .SH AUTHOR
 .PP
-This manual page and nsnake were both written by Alexandre Dantas <eu@alexdantas.net>.
+Esta pagina de manual fue traducida por Alan Rodriguez <alan.nicolas.rodriguez@gmail.com>
+y nsnake fue escrito por Alexandre Dantas <eu@alexdantas.net>.
 \"----------------------------------- WWW -------------------------------------
 .SH WWW
 * http://nsnake.alexdantas.net/

@@ -8,6 +8,10 @@
 #include <stdlib.h>	  // getenv()
 #include <fstream>    // ofstream
 
+#include <locale.h>
+#include <libintl.h>
+#include <stdio.h>
+
 // HACK This will be initialized at `Globals::init()`
 std::string ScoreFile::directory = "";
 
@@ -139,7 +143,7 @@ void ScoreFile::load()
 		// Compare versions, lower, higher, whatever...
 		Globals::Error::old_version_score_file = true;
 
-		throw ScoreFileException("File '" + score_file + "' has an old version format");
+		throw ScoreFileException(gettext("File '") + score_file + gettext("' has an old version format"));
 	}
 
 	// Going through each group on the INI file
@@ -221,7 +225,7 @@ void ScoreFile::save()
 		Utils::File::create(score_file);
 
 		if (! Utils::File::exists(score_file))
-			throw ScoreFileException("Could not create file '" + score_file + "'");
+			throw ScoreFileException(gettext("Could not create file '") + score_file + "'");
 	}
 
 	// We'll recreate the whole score file from scratch
