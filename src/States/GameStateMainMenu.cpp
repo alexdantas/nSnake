@@ -11,6 +11,11 @@
 #include <Engine/Flow/StateManager.hpp>
 #include <States/GameStateGame.hpp>
 
+#include <locale.h>
+#include <libintl.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 {
 	// Main Menu
@@ -112,7 +117,7 @@ void GameStateMainMenu::update()
 			switch (this->menuLevels->currentID())
 			{
 			case GO_BACK:
-				this->layout->menu->setTitle("Main Menu");
+				this->layout->menu->setTitle(gettext("Main Menu"));
 				this->menuLevelsActivated = false;
 				break;
 
@@ -147,18 +152,18 @@ void GameStateMainMenu::update()
 			{
 			case ERASE_HIGH_SCORES:
 			{
-				bool answer = Dialog::askBool("Are you sure?");
+				bool answer = Dialog::askBool(gettext("Are you sure?"));
 
 				if (answer)
 				{
 					ScoreFile::eraseAll();
-					Dialog::show("All high scores erased!", true);
+					Dialog::show(gettext("All high scores erased!"), true);
 				}
 			}
 				break;
 
 			case GO_BACK:
-				this->layout->menu->setTitle("Main Menu");
+				this->layout->menu->setTitle(gettext("Main Menu"));
 				this->menuGameSettingsActivated = false;
 				break;
 			}
@@ -174,7 +179,7 @@ void GameStateMainMenu::update()
 			switch(this->menuGUIOptions->currentID())
 			{
 			case GO_BACK:
-				this->layout->menu->setTitle("Main Menu");
+				this->layout->menu->setTitle(gettext("Main Menu"));
 				this->menuGUIOptionsActivated = false;
 
 				// Redrawing the screen to refresh settings
@@ -197,7 +202,7 @@ void GameStateMainMenu::update()
 			switch(this->menuControls->currentID())
 			{
 			case GO_BACK:
-				this->layout->menu->setTitle("Main Menu");
+				this->layout->menu->setTitle(gettext("Main Menu"));
 				this->menuControlsActivated = false;
 				break;
 
@@ -230,7 +235,7 @@ void GameStateMainMenu::update()
 			// If we'll change a key binding
 			if (! key.empty())
 			{
-				Dialog::show("Press any key, Enter to Cancel");
+				Dialog::show(gettext("Press any key, Enter to Cancel"));
 				int tmp = Ncurses::getInput(-1);
 
 				if ((tmp != KEY_ENTER) &&
@@ -269,7 +274,7 @@ void GameStateMainMenu::update()
 				// If not, we should stay at the main menu.
 				if (BoardParser::listLevels().size() == 0)
 				{
-					Dialog::show("Sorry, it seems you have no levels.\n"
+					Dialog::show(gettext("Sorry, it seems you have no levels.\n"
 					             "\n"
 					             "Please copy the default level files from\n"
 					             "`"  SYSTEM_LEVEL_DIR "/`\n"
@@ -281,23 +286,23 @@ void GameStateMainMenu::update()
 				}
 				else
 				{
-					this->layout->menu->setTitle("Level Select");
+					this->layout->menu->setTitle(gettext("Level Select"));
 					this->menuLevelsActivated = true;
 				}
 				break;
 
 			case GAME_SETTINGS:
-				this->layout->menu->setTitle("Game Settings");
+				this->layout->menu->setTitle(gettext("Game Settings"));
 				this->menuGameSettingsActivated = true;
 				break;
 
 			case GUI_OPTIONS:
-				this->layout->menu->setTitle("GUI Options");
+				this->layout->menu->setTitle(gettext("GUI Options"));
 				this->menuGUIOptionsActivated = true;
 				break;
 
 			case CONTROLS:
-				this->layout->menu->setTitle("Controls");
+				this->layout->menu->setTitle(gettext("Controls"));
 				this->menuControlsActivated = true;
 				break;
 
@@ -346,25 +351,25 @@ void GameStateMainMenu::createMainMenu()
 
 	MenuItem* item;
 
-	item = new MenuItem("Arcade Mode", ARCADE);
+	item = new MenuItem(gettext("Arcade Mode"), ARCADE);
 	menu->add(item);
 
-	item = new MenuItem("Level Select", LEVELS);
+	item = new MenuItem(gettext("Level Select"), LEVELS);
 	menu->add(item);
 
-	item = new MenuItem("Game Settings", GAME_SETTINGS);
+	item = new MenuItem(gettext("Game Settings"), GAME_SETTINGS);
 	menu->add(item);
 
-	item = new MenuItem("GUI Options", GUI_OPTIONS);
+	item = new MenuItem(gettext("GUI Options"), GUI_OPTIONS);
 	menu->add(item);
 
-	item = new MenuItem("Controls", CONTROLS);
+	item = new MenuItem(gettext("Controls"), CONTROLS);
 	menu->add(item);
 
-	item = new MenuItem("Help", HELP);
+	item = new MenuItem(gettext("Help"), HELP);
 	menu->add(item);
 
-	item = new MenuItem("Quit", QUIT_GAME);
+	item = new MenuItem(gettext("Quit"), QUIT_GAME);
 	menu->add(item);
 }
 void GameStateMainMenu::createLevelsMenu()
@@ -380,7 +385,7 @@ void GameStateMainMenu::createLevelsMenu()
 
 	std::vector<std::string> levels = BoardParser::listLevels();
 
-	item = new MenuItem("Back", GO_BACK);
+	item = new MenuItem(gettext("Back"), GO_BACK);
 	menuLevels->add(item);
 
 	item = new MenuItem("Random", RANDOM);
@@ -405,17 +410,17 @@ void GameStateMainMenu::createGameSettingsMenu()
 
 	MenuItem* item;
 
-	item = new MenuItem("Back", GO_BACK);
+	item = new MenuItem(gettext("Back"), GO_BACK);
 	menuGameSettings->add(item);
 
 	menuGameSettings->addBlank();
 
 	MenuItemNumberbox* number;
 
-	number = new MenuItemNumberbox("Starting Speed", STARTING_SPEED, 1, 10, Globals::Game::starting_speed);
+	number = new MenuItemNumberbox(gettext("Starting Speed"), STARTING_SPEED, 1, 10, Globals::Game::starting_speed);
 	menuGameSettings->add(number);
 
-	number = new MenuItemNumberbox("Fruits", FRUITS, 1, 99, Globals::Game::fruits_at_once);
+	number = new MenuItemNumberbox(gettext("Fruits"), FRUITS, 1, 99, Globals::Game::fruits_at_once);
 	menuGameSettings->add(number);
 
 	MenuItemCheckbox* check;

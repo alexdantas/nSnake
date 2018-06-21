@@ -19,8 +19,6 @@ int main(int argc, char *argv[])
      bindtextdomain ("es_AR", "/usr/share/locale/");
      textdomain ("es_AR");
 
-	printf(gettext("Hello World\n"));//only for testing gettext
-
 	
 	try
 	{

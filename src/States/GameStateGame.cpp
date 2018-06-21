@@ -10,8 +10,11 @@
 #include <States/GameStateMainMenu.hpp>
 
 #include <cstdlib>
-#include <libintl.h>
+
 #include <locale.h>
+#include <libintl.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 GameStateGame::GameStateGame():
 	game(NULL),
@@ -66,7 +69,7 @@ void GameStateGame::update()
 
 		this->game->draw();
 
-		if (Dialog::askBool("Retry?", "Game Over", true))
+		if (Dialog::askBool(gettext("Retry?"), gettext("Game Over"), true))
 			this->load(); // restart the game
 		else
 			StateManager::change(new GameStateMainMenu());

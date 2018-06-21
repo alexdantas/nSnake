@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nsnake\n"
-"POT-Creation-Date: 2018-06-20 20:22-0300\n"
-"PO-Revision-Date: 2018-06-20 20:22-0300\n"
+"POT-Creation-Date: 2018-06-20 22:13-0300\n"
+"PO-Revision-Date: 2018-06-20 22:25-0300\n"
 "Last-Translator: \n"
 "Language-Team: alan rodriguez\n"
 "Language: es_AR\n"
@@ -101,7 +101,7 @@ msgstr "Error: Archivo de altos puntajes dañado!"
 msgid "       We're sorry, but we had to erase it"
 msgstr "       Lo sentimos, pero tuvimos que borrarlo!"
 
-#: Display/Layouts/LayoutGame.cpp:32
+#: Display/Layouts/LayoutGame.cpp:32 States/GameStateMainMenu.cpp:354
 msgid "Arcade Mode"
 msgstr "Modo Arcade"
 
@@ -113,7 +113,7 @@ msgstr "Nivel "
 msgid "Paused"
 msgstr "Pausa"
 
-#: Display/Layouts/LayoutGame.cpp:65
+#: Display/Layouts/LayoutGame.cpp:65 States/GameStateMainMenu.cpp:369
 msgid "Help"
 msgstr "Ayuda"
 
@@ -129,7 +129,9 @@ msgstr "Puntaje"
 msgid "Speed"
 msgstr "Velocidad"
 
-#: Display/Layouts/LayoutMainMenu.cpp:48
+#: Display/Layouts/LayoutMainMenu.cpp:48 States/GameStateMainMenu.cpp:120
+#: States/GameStateMainMenu.cpp:166 States/GameStateMainMenu.cpp:182
+#: States/GameStateMainMenu.cpp:205
 msgid "Main Menu"
 msgstr "Menu Principal"
 
@@ -223,7 +225,110 @@ msgstr ""
 "Codigo Fuente:\n"
 " https://github.com/alexdantas/nsnake/"
 
-#: main.cpp:22
-#, fuzzy, c-format
-msgid "Hello World\n"
-msgstr "Hola Mundo\n"
+#: Entities/BoardParser.cpp:39
+msgid "Can't open file '"
+msgstr "No se puede abrir el archivo '"
+
+#: Entities/BoardParser.cpp:94
+msgid "Abrupt ending of file while parsing level at line "
+msgstr "Final de archivo repentino cuando se analizaba el nivel en linea "
+
+#: Entities/BoardParser.cpp:172
+msgid "name"
+msgstr "nombre"
+
+#: Entities/BoardParser.cpp:173
+msgid "author"
+msgstr "autor"
+
+#: Entities/BoardParser.cpp:174
+msgid "date"
+msgstr "fecha"
+
+#: Entities/BoardParser.cpp:175
+msgid "comment"
+msgstr "comentario"
+
+#: Entities/Game.cpp:131
+msgid "Resume"
+msgstr "Continuar"
+
+#: Entities/Game.cpp:134
+msgid "Restart"
+msgstr "Reiniciar"
+
+#: Entities/Game.cpp:139
+msgid "Quit to Main Menu"
+msgstr "Salir al Menu Principal"
+
+#: Entities/Game.cpp:142
+msgid "Quit Game"
+msgstr "Salir del Juego"
+
+#: Entities/ScoreFile.cpp:146
+msgid "File '"
+msgstr "Archivo '"
+
+#: Entities/ScoreFile.cpp:146
+msgid "' has an old version format"
+msgstr "' tiene formato de una version anterior"
+
+#: Entities/ScoreFile.cpp:228
+msgid "Could not create file '"
+msgstr "No se pudo crear el archivo '"
+
+#: States/GameStateGame.cpp:72
+msgid "Retry?"
+msgstr "Reintentar?"
+
+#: States/GameStateGame.cpp:72
+msgid "Game Over"
+msgstr "Perdiste"
+
+#: States/GameStateMainMenu.cpp:155
+msgid "Are you sure?"
+msgstr "Estas seguro?"
+
+#: States/GameStateMainMenu.cpp:160
+msgid "All high scores erased!"
+msgstr "Todos los puntajes altos borrados!"
+
+#: States/GameStateMainMenu.cpp:238
+msgid "Press any key, Enter to Cancel"
+msgstr "Presiona cualquier tecla, Enter para Cancelar"
+
+#: States/GameStateMainMenu.cpp:289 States/GameStateMainMenu.cpp:357
+msgid "Level Select"
+msgstr "Nivel Elegido"
+
+#: States/GameStateMainMenu.cpp:295 States/GameStateMainMenu.cpp:360
+msgid "Game Settings"
+msgstr "Configuracion del Juego"
+
+#: States/GameStateMainMenu.cpp:300 States/GameStateMainMenu.cpp:363
+msgid "GUI Options"
+msgstr "Opciones de la Interfaz"
+
+#: States/GameStateMainMenu.cpp:305 States/GameStateMainMenu.cpp:366
+msgid "Controls"
+msgstr "Controles"
+
+#: States/GameStateMainMenu.cpp:372
+msgid "Quit"
+msgstr "Salir"
+
+#: States/GameStateMainMenu.cpp:388 States/GameStateMainMenu.cpp:413
+msgid "Back"
+msgstr "Regresar"
+
+#: States/GameStateMainMenu.cpp:420
+msgid "Starting Speed"
+msgstr "Velocidad Inicial"
+
+#: States/GameStateMainMenu.cpp:423
+msgid "Fruits"
+msgstr "Frutas"
+
+#, fuzzy
+#~ msgid "Hello World\n"
+#~ msgstr "Hola Mundo\n"
