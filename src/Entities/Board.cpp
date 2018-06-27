@@ -3,8 +3,11 @@
 #include <Engine/EngineGlobals.hpp>
 #include <Engine/Helpers/Utils.hpp>
 
-int Board::small_width  = 40;
-int Board::small_height = 10;
+// int Board::small_width  = 40;
+// int Board::small_height = 10;
+
+int Board::small_width  = 5;
+int Board::small_height = 5;
 
 int Board::medium_width  = 55;
 int Board::medium_height = 14;
@@ -238,4 +241,3 @@ void Board::scrollDown()
 		this->board->set(j, 1, tmp);
 	}
 }
-

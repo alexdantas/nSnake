@@ -4,6 +4,7 @@
 #include <Display/Layouts/LayoutGame.hpp>
 #include <Engine/InputManager.hpp>
 #include <Entities/BoardParser.hpp>
+#include <Engine/Graphics/Widgets/Dialog.hpp>
 
 #include <stdlib.h>
 
@@ -223,6 +224,17 @@ void Game::handleInput()
 }
 void Game::update()
 {
+	// std::cout << (this->board->getW()) * (this->board->getH());
+	// if (Dialog::askBool(_("Retry?"), _("Game Over"), true)){
+	// 	return;
+	// }
+	if((this->player->getSize() + 30) == ((this->board->getW()) * (this->board->getH()))) {
+		if (Dialog::askBool(_("Retry?"), _("Game Over"), true)){
+			return;
+		}
+	}
+	// std::cout << this->player->getSize();
+
 	if (this->gameOver)
 		return;
 
