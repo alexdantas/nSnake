@@ -5,6 +5,7 @@
 #include <Engine/InputManager.hpp>
 #include <Entities/BoardParser.hpp>
 #include <Engine/Graphics/Widgets/Dialog.hpp>
+#include <unistd.h>
 
 #include <stdlib.h>
 
@@ -224,20 +225,16 @@ void Game::handleInput()
 }
 void Game::update()
 {
-	// std::cout << (this->board->getW()) * (this->board->getH());
-	// if (Dialog::askBool(_("Retry?"), _("Game Over"), true)){
-	// 	return;
-	// }
-	if((this->player->getSize() + 30) == ((this->board->getW()) * (this->board->getH()))) {
-		if (Dialog::askBool(_("Retry?"), _("Game Over"), true)){
-			return;
-		}
+	//Fix bug game freezes when snake eats last fruit
+	if((this->player->getSize() - 1) >= ((this->board->getW()) * (this->board->getH())))
+	{
+		Dialog::show(_("You win"));
+		//Thread sleeps 2 seconds for dialog "You win"
+		usleep(2000000);
+		this->gameOver = true;
 	}
-	// std::cout << this->player->getSize();
-
 	if (this->gameOver)
 		return;
-
 	// If we're paused, only handle the menu.
 	if (this->isPaused)
 	{
