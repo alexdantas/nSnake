@@ -238,3 +238,4 @@ void Board::scrollDown()
 		this->board->set(j, 1, tmp);
 	}
 }
+
