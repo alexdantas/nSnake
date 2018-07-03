@@ -56,6 +56,7 @@ public:
 	bool bodyHit(int x, int y, bool isCheckingHead=false);
 
 	void increase();
+	int getSizeMinus(int count);
 
 private:
 	std::vector<Body> body;
@@ -67,4 +68,3 @@ private:
 };
 
 #endif //PLAYER_H_DEFINED
-
