@@ -226,7 +226,7 @@ void Game::handleInput()
 void Game::update()
 {
 	//Fix bug game freezes when snake eats last fruit
-	if((this->player->getSize() - 1) >= ((this->board->getW()) * (this->board->getH())))
+	if((this->player->getSizeMinus(1)) >= this->board->getSize())
 	{
 		Dialog::show(_("You win"));
 		//Thread sleeps 2 seconds for dialog "You win"
