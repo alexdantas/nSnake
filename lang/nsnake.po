@@ -1,0 +1,298 @@
+# Spanish translations for PACKAGE package.
+# Copyright (C) 2018 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Martin <martin@martin>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spanish translate\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-05-19 15:06-0300\n"
+"PO-Revision-Date: 2018-05-19 16:47-0300\n"
+"Last-Translator: Martin_Leandro <martin_leandro@gmail.com>\n"
+"Language-Team: Argentinian\n"
+"Language: es_AR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: GameStateMainMenu.cpp:161
+msgid "All high scores erased!"
+msgstr ""
+
+#: GameStateMainMenu.cpp:355
+msgid "Arcade Mode"
+msgstr ""
+
+#: GameStateMainMenu.cpp:156
+msgid "Are you sure?"
+msgstr ""
+
+#: GameStateMainMenu.cpp:389 GameStateMainMenu.cpp:414
+#: GameStateMainMenu.cpp:494 GameStateMainMenu.cpp:537
+msgid "Back"
+msgstr ""
+
+#: GameStateMainMenu.cpp:516
+msgid "Center Horizontal"
+msgstr ""
+
+#: GameStateMainMenu.cpp:521
+msgid "Center Vertical"
+msgstr ""
+
+#: GameStateMainMenu.cpp:306 GameStateMainMenu.cpp:367
+msgid ""
+msgstr ""
+
+#: GameStateMainMenu.cpp:479
+msgid "Erase High Scores"
+msgstr ""
+
+#: GameStateMainMenu.cpp:506
+msgid "Fancy Borders"
+msgstr ""
+
+#: GameStateMainMenu.cpp:424
+msgid "Fruits"
+msgstr ""
+
+#: GameStateMainMenu.cpp:301 GameStateMainMenu.cpp:364
+msgid "GUI Options"
+msgstr ""
+
+#: GameStateMainMenu.cpp:296 GameStateMainMenu.cpp:361
+msgid "Game Settings"
+msgstr ""
+
+#: GameStateMainMenu.cpp:370
+msgid "Help"
+msgstr ""
+
+#: GameStateMainMenu.cpp:550
+msgid "Key down"
+msgstr ""
+
+#: GameStateMainMenu.cpp:566
+msgid "Key help"
+msgstr ""
+
+#: GameStateMainMenu.cpp:554
+msgid "Key left"
+msgstr ""
+
+#: GameStateMainMenu.cpp:562
+msgid "Key pause"
+msgstr ""
+
+#: GameStateMainMenu.cpp:570
+msgid "Key quit"
+msgstr ""
+
+#: GameStateMainMenu.cpp:558
+msgid "Key right"
+msgstr ""
+
+#: GameStateMainMenu.cpp:546
+msgid "Key up"
+msgstr ""
+
+#: GameStateMainMenu.cpp:290 GameStateMainMenu.cpp:358
+msgid "Level Select"
+msgstr ""
+
+#: GameStateMainMenu.cpp:121 GameStateMainMenu.cpp:167
+#: GameStateMainMenu.cpp:183 GameStateMainMenu.cpp:206
+msgid "Main Menu"
+msgstr ""
+
+#: GameStateMainMenu.cpp:453
+msgid "Maze size"
+msgstr ""
+
+#: GameStateMainMenu.cpp:511
+msgid "Outer Border"
+msgstr ""
+
+#: GameStateMainMenu.cpp:280
+msgid "Please copy the default level files from\n"
+msgstr ""
+
+#: GameStateMainMenu.cpp:239
+msgid "Press any key, Enter to Cancel"
+msgstr ""
+
+#: GameStateMainMenu.cpp:373
+msgid "Quit"
+msgstr ""
+
+#: GameStateMainMenu.cpp:392
+msgid "Random"
+msgstr ""
+
+#: GameStateMainMenu.cpp:432
+msgid "Random Walls"
+msgstr ""
+
+#: GameStateMainMenu.cpp:575
+msgid "Reset to Defaults"
+msgstr ""
+
+#: GameStateMainMenu.cpp:462
+msgid "Scroll Delay(ms)"
+msgstr ""
+
+#: GameStateMainMenu.cpp:468
+msgid "Scroll Down"
+msgstr ""
+
+#: GameStateMainMenu.cpp:471
+msgid "Scroll Left"
+msgstr ""
+
+#: GameStateMainMenu.cpp:474
+msgid "Scroll Right"
+msgstr ""
+
+#: GameStateMainMenu.cpp:465
+msgid "Scroll Up"
+msgstr ""
+
+#: GameStateMainMenu.cpp:501
+msgid "Show Borders"
+msgstr ""
+
+#: GameStateMainMenu.cpp:278
+msgid "Sorry, it seems you have no levels.\n"
+msgstr ""
+
+#: GameStateMainMenu.cpp:421
+msgid "Starting Speed"
+msgstr ""
+
+#: GameStateMainMenu.cpp:429
+msgid "Teleport"
+msgstr ""
+
+#: GameStateMainMenu.cpp:285
+msgid "You can also download more levels from the website:\n"
+msgstr ""
+
+#: GameStateMainMenu.cpp:109
+msgid "quit"
+msgstr ""
+
+#: GameStateMainMenu.cpp:282
+msgid "to\n"
+msgstr ""
+
+msgid " Credits "
+msgstr ""
+msgid ""
+" Settings and scores are stored at:\n"
+" `~/.local/share/nsnake/`"
+msgstr ""
+
+
+msgid "(Credits)"
+msgstr ""
+
+msgid "(Help)"
+msgstr ""
+
+msgid ""
+"First item\n"
+"Last item"
+msgstr ""
+""
+""
+
+msgid "In-game controls:\n"
+msgstr ""
+
+msgid "Menu controls:\n"
+msgstr ""
+
+msgid ""
+"Move up\n"
+"Move down\n"
+"Move left\n"
+"Move right\n"
+"Pause game\n"
+"Quit anytime\n"
+"Show help"
+msgstr ""
+""
+""
+""
+""
+""
+""
+""
+
+msgid ""
+"Try `nsnake --help` and `man nsnake`\n"
+"\n"
+"Game made by Alexandre Dantas,\n"
+"contact him at <eu@alexdantas.net>\n"
+"Thanks for playing this game :)\n"
+"\n"
+"Homepage:\n"
+" http://nsnake.alexdantas.net/\n"
+"Source Code:\n"
+" https://github.com/alexdantas/nsnake/"
+msgstr ""
+
+
+msgid ""
+"page up\n"
+"page down"
+msgstr ""
+""
+""
+
+msgid "Couldn't load the level! (Error: \""
+msgstr ""
+
+msgid "Game Over"
+msgstr ""
+
+msgid "Retry?"
+msgstr ""
+
+msgid "Hi-Score"
+msgstr ""
+
+msgid "Paused"
+msgstr ""
+
+msgid "Score"
+msgstr ""
+
+msgid "Speed"
+msgstr ""
+
+msgid "' doesn't exist"
+msgstr ""
+
+msgid "' has an old version format"
+msgstr ""
+
+msgid "Abrupt ending of file while parsing level at line "
+msgstr ""
+
+msgid "Can't open file '"
+msgstr ""
+
+msgid "Could not create file '"
+msgstr ""
+
+msgid "File '"
+msgstr ""
+
+msgid "Restart"
+msgstr ""
+
+msgid "Resume"
+msgstr ""

@@ -4,8 +4,14 @@
 #include <Display/Layouts/LayoutGame.hpp>
 #include <Engine/InputManager.hpp>
 #include <Entities/BoardParser.hpp>
+#include <Engine/Graphics/Widgets/Dialog.hpp>
+#include <unistd.h>
 
 #include <stdlib.h>
+
+#include <libintl.h>
+#include <locale.h>
+#define _(STRING) gettext(STRING)
 
 // Options of the Pause Menu
 enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
@@ -124,18 +130,18 @@ void Game::start(std::string levelName)
 
 	MenuItem* item;
 
-	item = new MenuItem("Resume", RESUME);
+	item = new MenuItem(_("Resume"), RESUME);
 	this->pauseMenu->add(item);
 
-	item = new MenuItem("Restart", RESTART);
+	item = new MenuItem(_("Restart"), RESTART);
 	this->pauseMenu->add(item);
 
 	this->pauseMenu->addBlank();
 
-	item = new MenuItem("Quit to Main Menu", QUIT_MENU);
+	item = new MenuItem(_("Quit to Main Menu"), QUIT_MENU);
 	this->pauseMenu->add(item);
 
-	item = new MenuItem("Quit Game", QUIT_GAME);
+	item = new MenuItem(_("Quit Game"), QUIT_GAME);
 	this->pauseMenu->add(item);
 
 	// Starting timers
@@ -219,9 +225,16 @@ void Game::handleInput()
 }
 void Game::update()
 {
+	//Fix bug game freezes when snake eats last fruit
+	if((this->player->getSizeMinus(1)) >= this->board->getSize())
+	{
+		Dialog::show(_("You win"));
+		//Thread sleeps 2 seconds for dialog "You win"
+		usleep(2000000);
+		this->gameOver = true;
+	}
 	if (this->gameOver)
 		return;
-
 	// If we're paused, only handle the menu.
 	if (this->isPaused)
 	{
@@ -367,4 +380,3 @@ void Game::pause(bool option)
 		this->timerSnake.unpause();
 	}
 }
-
