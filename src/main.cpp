@@ -5,11 +5,18 @@
 #include <Config/Globals.hpp>
 #include <Config/Arguments.hpp>
 #include <States/GameStateMainMenu.hpp>
+#include <libintl.h>
+#include <locale.h>
+#define _(STRING) gettext(STRING)
 
 int main(int argc, char *argv[])
 {
 	try
 	{
+		setlocale(LC_ALL, "");
+ 		bindtextdomain("nsnake", "lang" );
+ 		textdomain("nsnake");
+
 		// Settings
 		EngineGlobals::init();
 		Globals::init();

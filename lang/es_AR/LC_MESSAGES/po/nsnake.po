@@ -1,0 +1,290 @@
+# Spanish translations for PACKAGE package.
+# Copyright (C) 2018 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Martin <martin@martin>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Spanish translate\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-06-05 20:02-0300\n"
+"PO-Revision-Date: 2018-05-19 16:47-0300\n"
+"Last-Translator: Martin_Leandro <martin_leandro@gmail.com>\n"
+"Language-Team: Argentinian\n"
+"Language: es_AR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ASCII\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: GameStateMainMenu.cpp:159
+msgid "All high scores erased!"
+msgstr "Todos los puntajes maximos han sido borrados!"
+
+#: GameStateMainMenu.cpp:358
+msgid "Arcade Mode"
+msgstr "Modo arcade"
+
+#: GameStateMainMenu.cpp:154
+msgid "Are you sure?"
+msgstr "Esta seguro?"
+
+#: GameStateMainMenu.cpp:392 GameStateMainMenu.cpp:417
+#: GameStateMainMenu.cpp:497 GameStateMainMenu.cpp:540
+msgid "Back"
+msgstr "Atras"
+
+#: GameStateMainMenu.cpp:519
+msgid "Center Horizontal"
+msgstr "Centrado horizontal"
+
+#: GameStateMainMenu.cpp:524
+msgid "Center Vertical"
+msgstr "Centrado Vertical"
+
+#: GameStateMainMenu.cpp:309 GameStateMainMenu.cpp:370
+msgid "Controls"
+msgstr "Controles"
+
+#: GameStateMainMenu.cpp:482
+msgid "Erase High Scores"
+msgstr "Borrar puntajes maximos"
+
+#: GameStateMainMenu.cpp:509
+msgid "Fancy Borders"
+msgstr "Bordes elegantes"
+
+#: GameStateMainMenu.cpp:427
+msgid "Fruits"
+msgstr "Frutas"
+
+#: GameStateMainMenu.cpp:304 GameStateMainMenu.cpp:367
+msgid "GUI Options"
+msgstr "Opciones de pantalla"
+
+#: GameStateMainMenu.cpp:299 GameStateMainMenu.cpp:364
+msgid "Game Settings"
+msgstr "Configuracion del juego"
+
+#: GameStateMainMenu.cpp:373
+msgid "Help"
+msgstr "Ayuda"
+
+#: GameStateMainMenu.cpp:553
+msgid "Key down"
+msgstr "Tecla abajo"
+
+#: GameStateMainMenu.cpp:569
+msgid "Key help"
+msgstr "Tecla ayuda"
+
+#: GameStateMainMenu.cpp:557
+msgid "Key left"
+msgstr "Tecla izquierda"
+
+#: GameStateMainMenu.cpp:565
+msgid "Key pause"
+msgstr "Tecla pausa"
+
+#: GameStateMainMenu.cpp:573
+msgid "Key quit"
+msgstr "Tecla salir"
+
+#: GameStateMainMenu.cpp:561
+msgid "Key right"
+msgstr "Tecla derecha"
+
+#: GameStateMainMenu.cpp:549
+msgid "Key up"
+msgstr "Tecla arriba"
+
+#: GameStateMainMenu.cpp:293 GameStateMainMenu.cpp:361
+msgid "Level Select"
+msgstr "Seleccionar nivel"
+
+#: GameStateMainMenu.cpp:119 GameStateMainMenu.cpp:165
+#: GameStateMainMenu.cpp:181 GameStateMainMenu.cpp:204
+msgid "Main Menu"
+msgstr "Menu principal"
+
+#: GameStateMainMenu.cpp:456
+msgid "Maze size"
+msgstr "Tamanio laberinto"
+
+#: GameStateMainMenu.cpp:514
+msgid "Outer Border"
+msgstr "Bordes externos"
+
+#: GameStateMainMenu.cpp:277
+msgid "Please copy the default level files from \n"
+msgstr "Por favor copiar los archivos de nivel por defecto desde\n"
+
+#: GameStateMainMenu.cpp:237
+msgid "Press any key, Enter to Cancel"
+msgstr "Presione cualquier tecla, Enter para cancelar"
+
+#: GameStateMainMenu.cpp:376
+msgid "Quit"
+msgstr "Salir"
+
+#: GameStateMainMenu.cpp:395
+msgid "Random"
+msgstr "Aleatorio"
+
+#: GameStateMainMenu.cpp:435
+msgid "Random Walls"
+msgstr "Paredes aleatorias"
+
+#: GameStateMainMenu.cpp:578
+msgid "Reset to Defaults"
+msgstr "Valores por defecto"
+
+#: GameStateMainMenu.cpp:465
+msgid "Scroll Delay(ms)"
+msgstr "Velocidad de movimiento(ms)"
+
+#: GameStateMainMenu.cpp:471
+msgid "Scroll Down"
+msgstr "Bajar scroll"
+
+#: GameStateMainMenu.cpp:474
+msgid "Scroll Left"
+msgstr "Scroll izquierda"
+
+#: GameStateMainMenu.cpp:477
+msgid "Scroll Right"
+msgstr "Scroll derecha"
+
+#: GameStateMainMenu.cpp:468
+msgid "Scroll Up"
+msgstr "Scroll arriba"
+
+#: GameStateMainMenu.cpp:504
+msgid "Show Borders"
+msgstr "Mostrar bordes"
+
+#: GameStateMainMenu.cpp:276
+msgid "Sorry, it seems you have no levels. \n"
+msgstr "Perdon, parece que no tiene niveles. \n"
+
+#: GameStateMainMenu.cpp:424
+msgid "Starting Speed"
+msgstr "Velocidad inicial"
+
+#: GameStateMainMenu.cpp:432
+msgid "Teleport"
+msgstr "Teletransportacion"
+
+#: GameStateMainMenu.cpp:281
+msgid "You can also download more levels from the website:\n"
+msgstr "Puede descargar mas niveles desde el sitio web:\n"
+
+#: GameStateMainMenu.cpp:107
+msgid "quit"
+msgstr "salir"
+
+#: GameStateMainMenu.cpp:279
+msgid "to\n"
+msgstr "a\n"
+
+msgid " Credits "
+msgstr " Creditos "
+
+msgid ""
+" Settings and scores are stored at:\n"
+" `~/.local/share/nsnake/`"
+msgstr ""
+"Configuraciones y puntajes restaurados a:\n"
+"`~/.local/share/nsnake/`"
+
+msgid "(Credits)"
+msgstr " (Creditos) "
+msgid ""
+"First item\n"
+"Last item"
+msgstr ""
+"Primer item\n"
+"Ultimo item"
+msgid "In-game controls:\n"
+msgstr "Controles dentro del juego\n"
+msgid ""
+"Move up\n"
+"Move down\n"
+"Move left\n"
+"Move right\n"
+"Pause game\n"
+"Quit anytime\n"
+"Show help"
+msgstr ""
+"Arriba\n"
+"Abajo\n"
+"Izquierda\n"
+"Derecha\n"
+"Pausa\n"
+"Salir\n"
+"Ayuda"
+ msgid ""
+"Try `nsnake --help` and `man nsnake`\n"
+"\n"
+"Game made by Alexandre Dantas,\n"
+"contact him at <eu@alexdantas.net>\n"
+"Thanks for playing this game :)\n"
+"\n"
+"Homepage:\n"
+" http://nsnake.alexdantas.net/\n"
+"Source Code:\n"
+" https://github.com/alexdantas/nsnake/"
+msgstr ""
+"Probar `nsnake --help` and `man nsnake`\n"
+"\n"
+"Juego hecho por Alexandre Dantas,\n"
+"Contacto <eu@alexdantas.net>\n"
+"Gracias por jugar :)\n"
+"\n"
+"Pagina principal:\n"
+" http://nsnake.alexdantas.net/\n"
+"Codigo fuente:\n"
+" https://github.com/alexdantas/nsnake/"
+msgid ""
+"page up\n"
+"page down"
+msgstr ""
+"pagina arriba\n"
+"pagina abajo"
+msgid "Couldn't load the level! (Error: \""
+msgstr "No se puede cargar el nivel! (Error: \""
+msgid "Game Over"
+msgstr "Juego terminado"
+msgid "Retry?"
+msgstr "Reintentar?"
+msgid "Hi-Score"
+msgstr "Puntaje maximo"
+msgid "Paused"
+msgstr "Pausado"
+msgid "Score"
+msgstr "Puntaje"
+msgid "Speed"
+msgstr "Velocidad"
+msgid "' doesn't exist"
+msgstr "' no existe"
+msgid "' has an old version format"
+msgstr "' tiene un formato de version anterior"
+msgid "Abrupt ending of file while parsing level at line "
+msgstr "Final abrupto de archivo en la linea "
+msgid "Can't open file '"
+msgstr "No se puede abrir el archivo '"
+msgid "Could not create file '"
+msgstr "No se puede crear el archivo"
+msgid "File '"
+msgstr "Archivo '"
+msgid "Restart"
+msgstr "Reiniciar"
+msgid "Resume"
+msgstr "Resumir"
+msgid "(Help)"
+msgstr "(Ayuda)"
+msgid " Help "
+msgstr " Ayuda "
+
+msgid "Menu controls:\n"
+msgstr "Controles del menu\n"
