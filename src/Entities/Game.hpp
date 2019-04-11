@@ -47,7 +47,7 @@ public:
 
 	/// Returns how much time (millisseconds) we need to wait
 	/// for a specific #speed.
-	int getDelay(int speed);
+	int getDelay(int speed, int direction);
 
 	void pause(bool option);
 

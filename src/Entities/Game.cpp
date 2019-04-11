@@ -255,7 +255,7 @@ void Game::update()
 	// Forcing Snake to move if enough time has passed
 	// (time based on current level)
 	this->timerSnake.pause();
-	int delta = this->getDelay(this->currentScore->speed);
+	int delta = this->getDelay(this->currentScore->speed, this->player->getDirection());
 
 	if (this->timerSnake.delta_ms() >= delta)
 	{
@@ -324,25 +324,31 @@ bool Game::willReturnToMenu()
 {
 	return this->userAskedToGoToMenu;
 }
-int Game::getDelay(int speed)
+int Game::getDelay(int speed, int direction)
 {
+	int delay = 0;
 	// returning delay in milliseconds
-	if (speed < 1) return 800;
+	if (speed < 1) delay = 800;
 
 	switch (speed)
 	{
-	case 1:  return 800;
-	case 2:  return 600;
-	case 3:  return 500;
-	case 4:  return 300;
-	case 5:  return 200;
-	case 6:  return 150;
-	case 7:  return 125;
-	case 8:  return 100;
-	case 9:  return 80;
-	case 10: return 50;
+	case 1:  delay = 800; break;
+	case 2:  delay =  600; break;
+	case 3:  delay =  500; break;
+	case 4:  delay =  300; break;
+	case 5:  delay =  200; break;
+	case 6:  delay =  150; break;
+	case 7:  delay =  125; break;
+	case 8:  delay =  100; break;
+	case 9:  delay =  80; break;
+	case 10: delay =  50; break;
 	}
-	return 50;
+	delay =  50;
+	/* If the direction is UP or DOWN slow down the delay using a 2:1 ration */
+	if(direction == 3 || direction == 4) {
+		delay = delay * 1;
+	}
+	return delay;
 }
 void Game::pause(bool option)
 {

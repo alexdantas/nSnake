@@ -19,6 +19,21 @@ bool Player::isAlive()
 {
 	return (this->alive);
 }
+int Player::getDirection()
+{
+	switch(this->currentDirection)
+	{
+	case Player::RIGHT:
+		return 1;
+	case Player::LEFT:
+		return 2;
+	case Player::UP:
+		return 3;
+	case Player::DOWN:
+		return 4;
+	}
+	return 0;
+}
 int Player::getSize()
 {
 	return (int)(this->body.size());
