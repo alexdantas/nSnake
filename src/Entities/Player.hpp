@@ -34,6 +34,7 @@ public:
 	bool isAlive();
 	int getSize();
 
+	int getDirection();
 	int getX(); ///< Returns the head's x position.
 	int getY(); ///< Returns the head's y position.
 
