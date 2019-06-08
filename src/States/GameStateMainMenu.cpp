@@ -98,6 +98,217 @@ void GameStateMainMenu::unload()
 	SAFE_DELETE(this->menu);
 }
 
+void GameStateMainMenu::ActivatedLevels(){
+	this->menuLevels->handleInput();
+
+	if (this->menuLevels->willQuit())
+	{
+		switch (this->menuLevels->currentID())
+		{
+		case GO_BACK:
+			this->layout->menu->setTitle("Main Menu");
+			this->menuLevelsActivated = false;
+			break;
+
+		case RANDOM:
+		{
+			this->menuLevels->goRandom();
+
+			Globals::Game::current_level = this->menuLevels->current->label;
+			StateManager::change(new GameStateGame());
+			break;
+		}
+
+		default:
+			// Selected a level name!
+			Globals::Game::current_level = this->menuLevels->current->label;
+			StateManager::change(new GameStateGame());
+			break;
+		}
+		this->menuLevels->reset();
+	}
+}
+
+
+void GameStateMainMenu::ActivatedSettings(){
+	this->menuGameSettings->handleInput();
+
+	if (this->menuGameSettings->willQuit())
+	{
+		saveSettingsMenuGameSettings();
+
+		// And then exit based on the selected option.
+		switch (this->menuGameSettings->currentID())
+		{
+		case ERASE_HIGH_SCORES:
+		{
+			bool answer = Dialog::askBool("Are you sure?");
+
+			if (answer)
+			{
+				ScoreFile::eraseAll();
+				Dialog::show("All high scores erased!", true);
+			}
+		}
+			break;
+
+		case GO_BACK:
+			this->layout->menu->setTitle("Main Menu");
+			this->menuGameSettingsActivated = false;
+			break;
+		}
+		this->menuGameSettings->reset();
+	}
+}
+
+void GameStateMainMenu::ActivatedGui(){
+	this->menuGUIOptions->handleInput();
+
+	if (this->menuGUIOptions->willQuit())
+	{
+		switch(this->menuGUIOptions->currentID())
+		{
+		case GO_BACK:
+			this->layout->menu->setTitle("Main Menu");
+			this->menuGUIOptionsActivated = false;
+
+			// Redrawing the screen to refresh settings
+			saveSettingsMenuGUIOptions();
+			this->layout->windowsExit();
+			this->layout->windowsInit();
+			break;
+		}
+		this->menuGUIOptions->reset();
+	}
+
+}
+
+void GameStateMainMenu::ActivatedControls(){
+	this->menuControls->handleInput();
+
+	if (this->menuControls->willQuit())
+	{
+		std::string key(""); // for key binding
+
+		switch(this->menuControls->currentID())
+		{
+		case GO_BACK:
+			this->layout->menu->setTitle("Main Menu");
+			this->menuControlsActivated = false;
+			break;
+
+		case CONTROLS_KEY_LEFT:  key = "left";  break;
+		case CONTROLS_KEY_RIGHT: key = "right"; break;
+		case CONTROLS_KEY_UP:    key = "up";    break;
+		case CONTROLS_KEY_DOWN:  key = "down";  break;
+		case CONTROLS_KEY_PAUSE: key = "pause"; break;
+		case CONTROLS_KEY_HELP:  key = "help"; break;
+		case CONTROLS_KEY_QUIT:  key = "quit";  break;
+
+		case CONTROLS_DEFAULT:
+		{
+			// Reset all keybindings to default
+			InputManager::bind("left",  KEY_LEFT);
+			InputManager::bind("right", KEY_RIGHT);
+			InputManager::bind("up",    KEY_UP);
+			InputManager::bind("down",  KEY_DOWN);
+			InputManager::bind("pause", 'p');
+			InputManager::bind("help",  'h');
+			InputManager::bind("quit",  'q');
+
+			// Resetting the menu to show the new labels
+			createControlsMenu();
+			menuControls->goLast();
+			break;
+		}
+		}
+
+		// If we'll change a key binding
+		if (! key.empty())
+		{
+			Dialog::show("Press any key, Enter to Cancel");
+			int tmp = Ncurses::getInput(-1);
+
+			if ((tmp != KEY_ENTER) &&
+				(tmp != '\n') &&
+				(tmp != ERR))
+			{
+				InputManager::bind(key, tmp);
+
+				MenuItemLabel* label;
+				label = (MenuItemLabel*)menuControls->current;
+
+				label->set(InputManager::keyToString(tmp));
+			}
+		}
+		this->menuControls->reset();
+	}
+}
+
+void GameStateMainMenu:: RunMenu(){
+	// We're still at the Main Menu
+	this->menu->handleInput();
+
+	if (this->menu->willQuit())
+	{
+		switch(this->menu->currentID())
+		{
+		case ARCADE:
+			// Starting game on the default level
+			Globals::Game::current_level = "";
+			StateManager::change(new GameStateGame());
+			break;
+
+		case LEVELS:
+			// Before going to the Levels menu, we must check if
+			// the user has any levels on the level directory.
+			// If not, we should stay at the main menu.
+			if (BoardParser::listLevels().size() == 0)
+			{
+				Dialog::show("Sorry, it seems you have no levels.\n"
+								"\n"
+								"Please copy the default level files from\n"
+								"`"  SYSTEM_LEVEL_DIR "/`\n"
+								"to\n"
+								"`" + BoardParser::directory + "`\n" +
+								"\n"
+								"You can also download more levels from the website:\n"
+								"http://nsnake.alexdantas.net/", true);
+			}
+			else
+			{
+				this->layout->menu->setTitle("Level Select");
+				this->menuLevelsActivated = true;
+			}
+			break;
+
+		case GAME_SETTINGS:
+			this->layout->menu->setTitle("Game Settings");
+			this->menuGameSettingsActivated = true;
+			break;
+
+		case GUI_OPTIONS:
+			this->layout->menu->setTitle("GUI Options");
+			this->menuGUIOptionsActivated = true;
+			break;
+
+		case CONTROLS:
+			this->layout->menu->setTitle("Controls");
+			this->menuControlsActivated = true;
+			break;
+
+		case HELP:
+			this->helpWindows->run();
+			break;
+
+		case QUIT_GAME:
+			StateManager::quit();
+			break;
+		}
+		this->menu->reset();
+	}
+}
+
 void GameStateMainMenu::update()
 {
 	if (InputManager::isPressed("quit"))
@@ -105,212 +316,24 @@ void GameStateMainMenu::update()
 
 	if (this->menuLevelsActivated)
 	{
-		this->menuLevels->handleInput();
-
-		if (this->menuLevels->willQuit())
-		{
-			switch (this->menuLevels->currentID())
-			{
-			case GO_BACK:
-				this->layout->menu->setTitle("Main Menu");
-				this->menuLevelsActivated = false;
-				break;
-
-			case RANDOM:
-			{
-				this->menuLevels->goRandom();
-
-				Globals::Game::current_level = this->menuLevels->current->label;
-				StateManager::change(new GameStateGame());
-				break;
-			}
-
-			default:
-				// Selected a level name!
-				Globals::Game::current_level = this->menuLevels->current->label;
-				StateManager::change(new GameStateGame());
-				break;
-			}
-			this->menuLevels->reset();
-		}
+		ActivatedLevels();
 	}
 	else if (this->menuGameSettingsActivated)
 	{
-		this->menuGameSettings->handleInput();
-
-		if (this->menuGameSettings->willQuit())
-		{
-			saveSettingsMenuGameSettings();
-
-			// And then exit based on the selected option.
-			switch (this->menuGameSettings->currentID())
-			{
-			case ERASE_HIGH_SCORES:
-			{
-				bool answer = Dialog::askBool("Are you sure?");
-
-				if (answer)
-				{
-					ScoreFile::eraseAll();
-					Dialog::show("All high scores erased!", true);
-				}
-			}
-				break;
-
-			case GO_BACK:
-				this->layout->menu->setTitle("Main Menu");
-				this->menuGameSettingsActivated = false;
-				break;
-			}
-			this->menuGameSettings->reset();
-		}
+		ActivatedSettings();
 	}
+
 	else if (this->menuGUIOptionsActivated)
 	{
-		this->menuGUIOptions->handleInput();
-
-		if (this->menuGUIOptions->willQuit())
-		{
-			switch(this->menuGUIOptions->currentID())
-			{
-			case GO_BACK:
-				this->layout->menu->setTitle("Main Menu");
-				this->menuGUIOptionsActivated = false;
-
-				// Redrawing the screen to refresh settings
-				saveSettingsMenuGUIOptions();
-				this->layout->windowsExit();
-				this->layout->windowsInit();
-				break;
-			}
-			this->menuGUIOptions->reset();
-		}
+		ActivatedGui();
 	}
 	else if (this->menuControlsActivated)
 	{
-		this->menuControls->handleInput();
-
-		if (this->menuControls->willQuit())
-		{
-			std::string key(""); // for key binding
-
-			switch(this->menuControls->currentID())
-			{
-			case GO_BACK:
-				this->layout->menu->setTitle("Main Menu");
-				this->menuControlsActivated = false;
-				break;
-
-			case CONTROLS_KEY_LEFT:  key = "left";  break;
-			case CONTROLS_KEY_RIGHT: key = "right"; break;
-			case CONTROLS_KEY_UP:    key = "up";    break;
-			case CONTROLS_KEY_DOWN:  key = "down";  break;
-			case CONTROLS_KEY_PAUSE: key = "pause"; break;
-			case CONTROLS_KEY_HELP:  key = "help"; break;
-			case CONTROLS_KEY_QUIT:  key = "quit";  break;
-
-			case CONTROLS_DEFAULT:
-			{
-				// Reset all keybindings to default
-				InputManager::bind("left",  KEY_LEFT);
-				InputManager::bind("right", KEY_RIGHT);
-				InputManager::bind("up",    KEY_UP);
-				InputManager::bind("down",  KEY_DOWN);
-				InputManager::bind("pause", 'p');
-				InputManager::bind("help",  'h');
-				InputManager::bind("quit",  'q');
-
-				// Resetting the menu to show the new labels
-				createControlsMenu();
-				menuControls->goLast();
-				break;
-			}
-			}
-
-			// If we'll change a key binding
-			if (! key.empty())
-			{
-				Dialog::show("Press any key, Enter to Cancel");
-				int tmp = Ncurses::getInput(-1);
-
-				if ((tmp != KEY_ENTER) &&
-				    (tmp != '\n') &&
-				    (tmp != ERR))
-				{
-					InputManager::bind(key, tmp);
-
-					MenuItemLabel* label;
-					label = (MenuItemLabel*)menuControls->current;
-
-					label->set(InputManager::keyToString(tmp));
-				}
-			}
-			this->menuControls->reset();
-		}
+		ActivatedControls();
 	}
 	else
 	{
-		// We're still at the Main Menu
-		this->menu->handleInput();
-
-		if (this->menu->willQuit())
-		{
-			switch(this->menu->currentID())
-			{
-			case ARCADE:
-				// Starting game on the default level
-				Globals::Game::current_level = "";
-				StateManager::change(new GameStateGame());
-				break;
-
-			case LEVELS:
-				// Before going to the Levels menu, we must check if
-				// the user has any levels on the level directory.
-				// If not, we should stay at the main menu.
-				if (BoardParser::listLevels().size() == 0)
-				{
-					Dialog::show("Sorry, it seems you have no levels.\n"
-					             "\n"
-					             "Please copy the default level files from\n"
-					             "`"  SYSTEM_LEVEL_DIR "/`\n"
-					             "to\n"
-					             "`" + BoardParser::directory + "`\n" +
-					             "\n"
-					             "You can also download more levels from the website:\n"
-					             "http://nsnake.alexdantas.net/", true);
-				}
-				else
-				{
-					this->layout->menu->setTitle("Level Select");
-					this->menuLevelsActivated = true;
-				}
-				break;
-
-			case GAME_SETTINGS:
-				this->layout->menu->setTitle("Game Settings");
-				this->menuGameSettingsActivated = true;
-				break;
-
-			case GUI_OPTIONS:
-				this->layout->menu->setTitle("GUI Options");
-				this->menuGUIOptionsActivated = true;
-				break;
-
-			case CONTROLS:
-				this->layout->menu->setTitle("Controls");
-				this->menuControlsActivated = true;
-				break;
-
-			case HELP:
-				this->helpWindows->run();
-				break;
-
-			case QUIT_GAME:
-				StateManager::quit();
-				break;
-			}
-			this->menu->reset();
-		}
+		RunMenu();
 	}
 }
 

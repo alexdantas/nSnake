@@ -51,6 +51,11 @@ private:
 	void createControlsMenu();
 	void saveSettingsMenuGUIOptions();
 	void saveSettingsMenuGameSettings();
+	void ActivatedLevels();
+	void ActivatedSettings();
+	void ActivatedGui();
+	void ActivatedControls();
+	void RunMenu();
 };
 
 #endif //GAMESTATEMAINMENU_H_DEFINED
