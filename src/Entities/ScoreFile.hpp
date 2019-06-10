@@ -154,6 +154,11 @@ private:
 
 	/// All score entries for this file
 	std::vector<ScoreEntry>	entries;
+	
+	//added functions by david decoste
+	ScoreEntryReplacer();
+	PickHighestScore();
+	AddScoreEntrytoFile();
 };
 
 #endif //SCORE_H_DEFINED
