@@ -148,44 +148,10 @@ void ScoreFile::load()
 	     it != ini.top().ordered_sections.end();
 	     ++it)
 	{
-		// This is SOO ugly!
-		// We should NOT have to worry about INI parser's internals!
-		INI::Level ini_score = (*it)->second;
-
-		ScoreEntry entry;
-		entry.level  = ini_score["level"];
-		entry.points = Utils::String::to<unsigned int>(ini_score["points"]);
-		entry.speed  = Utils::String::to<unsigned int>(ini_score["speed"]);
-		entry.fruits = Utils::String::to<int>(ini_score["fruits"]);
-		entry.random_walls = Utils::String::to<bool>(ini_score["random_walls"]);
-		entry.teleport     = Utils::String::to<bool>(ini_score["teleport"]);
-
-		entry.board_scroll_delay = Utils::String::to<int>(ini_score["board_scroll_delay"]);
-		entry.board_scroll_left  = Utils::String::to<bool>(ini_score["board_scroll_left"]);
-		entry.board_scroll_right = Utils::String::to<bool>(ini_score["board_scroll_right"]);
-		entry.board_scroll_up    = Utils::String::to<bool>(ini_score["board_scroll_up"]);
-		entry.board_scroll_down  = Utils::String::to<bool>(ini_score["board_scroll_down"]);
-
-		int board_size = Utils::String::to<int>(ini_score["board_size"]);
-		entry.board_size = Globals::Game::intToBoardSize(board_size);
-
-		this->entries.push_back(entry);
+			ScoreEntryReplacer();
 	}
 
-	// Finally, we have to pick the highest score
-	// according to these game settings.
-	ScoreEntry tmp_score;
-	tmp_score.level        = this->level_name;
-	tmp_score.speed        = Globals::Game::starting_speed;
-	tmp_score.fruits       = Globals::Game::fruits_at_once;
-	tmp_score.random_walls = Globals::Game::random_walls;
-	tmp_score.teleport     = Globals::Game::teleport;
-	tmp_score.board_size   = Globals::Game::board_size;
-	tmp_score.board_scroll_delay = Globals::Game::board_scroll_delay;
-	tmp_score.board_scroll_left  = Globals::Game::board_scroll_left;
-	tmp_score.board_scroll_right = Globals::Game::board_scroll_right;
-	tmp_score.board_scroll_up    = Globals::Game::board_scroll_up;
-	tmp_score.board_scroll_down  = Globals::Game::board_scroll_down;
+			PickHighestScore();
 
 	for (size_t i = 0; i < (this->entries.size()); i++)
 	{
@@ -232,26 +198,7 @@ void ScoreFile::save()
 	// Adding each score entry on the file
 	for (size_t i = 0; i < (this->entries.size()); i++)
 	{
-		std::string score_name = "score" + Utils::String::toString(i);
-
-		ini.top().addGroup(score_name);
-
-		ini(score_name).addKey("level", this->entries[i].level);
-		ini(score_name).addKey("points", Utils::String::toString(this->entries[i].points));
-		ini(score_name).addKey("speed",  Utils::String::toString(this->entries[i].speed));
-		ini(score_name).addKey("fruits", Utils::String::toString(this->entries[i].fruits));
-
-		ini(score_name).addKey("random_walls", Utils::String::toString(this->entries[i].random_walls));
-		ini(score_name).addKey("teleport", Utils::String::toString(this->entries[i].teleport));
-
-		int board_size = Globals::Game::boardSizeToInt(this->entries[i].board_size);
-		ini(score_name).addKey("board_size", Utils::String::toString(board_size));
-
-		ini(score_name).addKey("board_scroll_delay", Utils::String::toString(this->entries[i].board_scroll_delay));
-		ini(score_name).addKey("board_scroll_left", Utils::String::toString(this->entries[i].board_scroll_left));
-		ini(score_name).addKey("board_scroll_right", Utils::String::toString(this->entries[i].board_scroll_right));
-		ini(score_name).addKey("board_scroll_up", Utils::String::toString(this->entries[i].board_scroll_up));
-		ini(score_name).addKey("board_scroll_down", Utils::String::toString(this->entries[i].board_scroll_down));
+			AddScoreEntrytoFile();
 	}
 
 	std::stringstream contents;
@@ -285,3 +232,71 @@ bool ScoreFile::handle(ScoreEntry* score)
 	return false;
 }
 
+void ScoreFile::ScoreEntryReplacer(){
+
+// This is SOO ugly!
+// We should NOT have to worry about INI parser's internals!
+INI::Level ini_score = (*it)->second;
+
+ScoreEntry entry;
+entry.level  = ini_score["level"];
+entry.points = Utils::String::to<unsigned int>(ini_score["points"]);
+entry.speed  = Utils::String::to<unsigned int>(ini_score["speed"]);
+entry.fruits = Utils::String::to<int>(ini_score["fruits"]);
+entry.random_walls = Utils::String::to<bool>(ini_score["random_walls"]);
+entry.teleport     = Utils::String::to<bool>(ini_score["teleport"]);
+
+entry.board_scroll_delay = Utils::String::to<int>(ini_score["board_scroll_delay"]);
+entry.board_scroll_left  = Utils::String::to<bool>(ini_score["board_scroll_left"]);
+entry.board_scroll_right = Utils::String::to<bool>(ini_score["board_scroll_right"]);
+entry.board_scroll_up    = Utils::String::to<bool>(ini_score["board_scroll_up"]);
+entry.board_scroll_down  = Utils::String::to<bool>(ini_score["board_scroll_down"]);
+
+int board_size = Utils::String::to<int>(ini_score["board_size"]);
+entry.board_size = Globals::Game::intToBoardSize(board_size);
+
+this->entries.push_back(entry);
+
+}
+
+void ScoreFile::PickHighestScore(){
+
+	// Finally, we have to pick the highest score
+	// according to these game settings.
+	ScoreEntry tmp_score;
+	tmp_score.level        = this->level_name;
+	tmp_score.speed        = Globals::Game::starting_speed;
+	tmp_score.fruits       = Globals::Game::fruits_at_once;
+	tmp_score.random_walls = Globals::Game::random_walls;
+	tmp_score.teleport     = Globals::Game::teleport;
+	tmp_score.board_size   = Globals::Game::board_size;
+	tmp_score.board_scroll_delay = Globals::Game::board_scroll_delay;
+	tmp_score.board_scroll_left  = Globals::Game::board_scroll_left;
+	tmp_score.board_scroll_right = Globals::Game::board_scroll_right;
+	tmp_score.board_scroll_up    = Globals::Game::board_scroll_up;
+	tmp_score.board_scroll_down  = Globals::Game::board_scroll_down;
+	
+}
+
+void AddScoreEntrytoFile(){
+	std::string score_name = "score" + Utils::String::toString(i);
+
+	ini.top().addGroup(score_name);
+
+	ini(score_name).addKey("level", this->entries[i].level);
+	ini(score_name).addKey("points", Utils::String::toString(this->entries[i].points));
+	ini(score_name).addKey("speed",  Utils::String::toString(this->entries[i].speed));
+	ini(score_name).addKey("fruits", Utils::String::toString(this->entries[i].fruits));
+
+	ini(score_name).addKey("random_walls", Utils::String::toString(this->entries[i].random_walls));
+	ini(score_name).addKey("teleport", Utils::String::toString(this->entries[i].teleport));
+
+	int board_size = Globals::Game::boardSizeToInt(this->entries[i].board_size);
+	ini(score_name).addKey("board_size", Utils::String::toString(board_size));
+
+	ini(score_name).addKey("board_scroll_delay", Utils::String::toString(this->entries[i].board_scroll_delay));
+	ini(score_name).addKey("board_scroll_left", Utils::String::toString(this->entries[i].board_scroll_left));
+	ini(score_name).addKey("board_scroll_right", Utils::String::toString(this->entries[i].board_scroll_right));
+	ini(score_name).addKey("board_scroll_up", Utils::String::toString(this->entries[i].board_scroll_up));
+	ini(score_name).addKey("board_scroll_down", Utils::String::toString(this->entries[i].board_scroll_down));
+}
