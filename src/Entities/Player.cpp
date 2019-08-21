@@ -38,6 +38,8 @@ void Player::moveTo(int x, int y)
 }
 void Player::move(Direction dir)
 {
+	// we don't want UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT, CLOCKWISE and COUNTERCLOCKWISE to be actual directions that the snake can move, since it would require more coding when updating the board.
+	// so we're basically translating these directions to UP, DOWN, LEFT or RIGHT depending on the currentDirection
 	switch(dir)
 	{
 		case Player::UPLEFT:
@@ -117,7 +119,6 @@ void Player::move(Direction dir)
 		default:
 		this->nextDirection = dir;
 	}
-	//this->nextDirection = dir;
 
 }
 void Player::kill()

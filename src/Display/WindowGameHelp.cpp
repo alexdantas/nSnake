@@ -89,12 +89,12 @@ void WindowGameHelp::run()
 			                                             InputManager::keyToString(InputManager::getBind("down")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("left")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("right")) + "\n" +
-														 InputManager::keyToString(InputManager::getBind("upleft")) + "\n" +
-														 InputManager::keyToString(InputManager::getBind("upright")) + "\n" +
-														 InputManager::keyToString(InputManager::getBind("downleft")) + "\n" +
-														 InputManager::keyToString(InputManager::getBind("downright")) + "\n" +
-														 InputManager::keyToString(InputManager::getBind("clockwise")) + "\n" +
-														 InputManager::keyToString(InputManager::getBind("counterclockwise")) + "\n" +
+			                                             InputManager::keyToString(InputManager::getBind("upleft")) + "\n" +
+			                                             InputManager::keyToString(InputManager::getBind("upright")) + "\n" +
+			                                             InputManager::keyToString(InputManager::getBind("downleft")) + "\n" +
+			                                             InputManager::keyToString(InputManager::getBind("downright")) + "\n" +
+			                                             InputManager::keyToString(InputManager::getBind("clockwise")) + "\n" +
+			                                             InputManager::keyToString(InputManager::getBind("counterclockwise")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("pause")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("quit")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("help")), '\n'),
