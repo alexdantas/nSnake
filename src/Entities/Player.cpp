@@ -50,6 +50,70 @@ void Player::move(Direction dir)
 				this->nextDirection = Player::UP;
 			}
 			break;
+		case Player::UPRIGHT:
+			if (this->currentDirection == Player::UP || this->currentDirection == Player::DOWN)
+			{
+				this->nextDirection = Player::RIGHT;
+			}
+			else if (this->currentDirection == Player::LEFT || this->currentDirection == Player::RIGHT)
+			{
+				this->nextDirection = Player::UP;
+			}
+			break;
+		case Player::DOWNLEFT:
+			if (this->currentDirection == Player::UP || this->currentDirection == Player::DOWN)
+			{
+				this->nextDirection = Player::LEFT;
+			}
+			else if (this->currentDirection == Player::LEFT || this->currentDirection == Player::RIGHT)
+			{
+				this->nextDirection = Player::DOWN;
+			}
+			break;
+		case Player::DOWNRIGHT:
+			if (this->currentDirection == Player::UP || this->currentDirection == Player::DOWN)
+			{
+				this->nextDirection = Player::RIGHT;
+			}
+			else if (this->currentDirection == Player::LEFT || this->currentDirection == Player::RIGHT)
+			{
+				this->nextDirection = Player::DOWN;
+			}
+			break;
+		case Player::CLOCKWISE:
+			switch (this->currentDirection)
+			{
+				case Player::UP:
+					this->nextDirection = Player::RIGHT;
+					break;
+				case Player::RIGHT:
+					this->nextDirection = Player::DOWN;
+					break;
+				case Player::DOWN:
+					this->nextDirection = Player::LEFT;
+					break;
+				case Player::LEFT:
+					this->nextDirection = Player::UP;
+					break;
+			}
+			break;
+		case Player::COUNTERCLOCKWISE:
+			switch (this->currentDirection)
+			{
+				case Player::UP:
+					this->nextDirection = Player::LEFT;
+					break;
+				case Player::RIGHT:
+					this->nextDirection = Player::UP;
+					break;
+				case Player::DOWN:
+					this->nextDirection = Player::RIGHT;
+					break;
+				case Player::LEFT:
+					this->nextDirection = Player::DOWN;
+					break;
+			}
+			break;
 		default:
 		this->nextDirection = dir;
 	}
