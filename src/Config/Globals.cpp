@@ -115,10 +115,16 @@ void Globals::init()
 	InputManager::bind("right", KEY_RIGHT);
 	InputManager::bind("up",    KEY_UP);
 	InputManager::bind("down",  KEY_DOWN);
+	InputManager::bind("upleft",  '7');
+	InputManager::bind("upright",  '9');
+	InputManager::bind("downleft",  '1');
+	InputManager::bind("downright",  '3');
+	InputManager::bind("clockwise",  'x');
+	InputManager::bind("counterclockwise",  'z');
 	InputManager::bind("pause", 'p');
 	InputManager::bind("help",  'h');
 	InputManager::bind("quit",  'q');
-
+	
 
 	// Aww yeah, rev up dem colors
 	Globals::Theme::player_head = Colors::pair("green", "default", true);
@@ -230,6 +236,24 @@ void Globals::loadFile()
 	INI_GET(tmp, "input", "quit");
 	InputManager::bind("quit", InputManager::stringToKey(tmp));
 
+	INI_GET(tmp, "input", "upleft");
+	InputManager::bind("upleft", InputManager::stringToKey(tmp));
+
+	INI_GET(tmp, "input", "upright");
+	InputManager::bind("upright", InputManager::stringToKey(tmp));
+
+	INI_GET(tmp, "input", "downleft");
+	InputManager::bind("downleft", InputManager::stringToKey(tmp));
+
+	INI_GET(tmp, "input", "downright");
+	InputManager::bind("downright", InputManager::stringToKey(tmp));
+
+	INI_GET(tmp, "input", "clockwise");
+	InputManager::bind("clockwise", InputManager::stringToKey(tmp));
+
+	INI_GET(tmp, "input", "counterclockwise");
+	InputManager::bind("counterclockwise", InputManager::stringToKey(tmp));
+
 	// Board Size
 	int board_size = 2;
 	INI_GET(board_size, "game", "board_size");
@@ -337,6 +361,23 @@ void Globals::saveFile()
 	key = InputManager::keyToString(InputManager::getBind("quit"));
 	INI_SET("input", "quit", key);
 
+	key = InputManager::keyToString(InputManager::getBind("upleft"));
+	INI_SET("input", "upleft", key);
+
+	key = InputManager::keyToString(InputManager::getBind("upright"));
+	INI_SET("input", "upright", key);
+
+	key = InputManager::keyToString(InputManager::getBind("downleft"));
+	INI_SET("input", "downleft", key);
+
+	key = InputManager::keyToString(InputManager::getBind("downright"));
+	INI_SET("input", "downright", key);
+
+	key = InputManager::keyToString(InputManager::getBind("clockwise"));
+	INI_SET("input", "clockwise", key);
+
+	key = InputManager::keyToString(InputManager::getBind("counterclockwise"));
+	INI_SET("input", "counterclockwise", key);
 	// Board size
 	int board_size = Globals::Game::boardSizeToInt(Globals::Game::board_size);
 	INI_SET("game", "board_size", board_size);

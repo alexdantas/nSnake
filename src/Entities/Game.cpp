@@ -216,6 +216,30 @@ void Game::handleInput()
 	{
 		this->player->move(Player::DOWN);
 	}
+	else if (InputManager::isPressed("upleft"))
+	{
+		this->player->move(Player::UPLEFT);
+	}
+	else if (InputManager::isPressed("upright"))
+	{
+		this->player->move(Player::UPRIGHT);
+	}
+	else if (InputManager::isPressed("downleft"))
+	{
+		this->player->move(Player::DOWNLEFT);
+	}
+	else if (InputManager::isPressed("downright"))
+	{
+		this->player->move(Player::DOWNRIGHT);
+	}
+	else if (InputManager::isPressed("clockwise"))
+	{
+		this->player->move(Player::CLOCKWISE);
+	}
+	else if (InputManager::isPressed("counterclockwise"))
+	{
+		this->player->move(Player::COUNTERCLOCKWISE);
+	}
 }
 void Game::update()
 {

@@ -8,7 +8,7 @@
 WindowGameHelp::WindowGameHelp()
 {
 	int width  = 40;
-	int height = 17;
+	int height = 23;
 
 	int windowx = Layout::screenWidth/2  - width/2;
 	int windowy = Layout::screenHeight/2 - height/2;
@@ -73,39 +73,51 @@ void WindowGameHelp::run()
 			                                             "Move down\n"
 			                                             "Move left\n"
 			                                             "Move right\n"
+			                                             "Move up or left\n"
+			                                             "Move up or right\n"
+			                                             "Move down or left\n"
+			                                             "Move down or right\n"
+			                                             "Rotate clockwise\n"
+			                                             "Rotate counterclockwise\n"
 			                                             "Pause game\n"
 			                                             "Quit anytime\n"
 			                                             "Show help", '\n'),
-			                        1, 1,
+			                        2, 1,
 			                        EngineGlobals::Theme::hilite_text);
 
 			this->windows[0]->print(Utils::String::split(InputManager::keyToString(InputManager::getBind("up")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("down")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("left")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("right")) + "\n" +
+			                                             InputManager::keyToString(InputManager::getBind("upleft")) + "\n" +
+			                                             InputManager::keyToString(InputManager::getBind("upright")) + "\n" +
+			                                             InputManager::keyToString(InputManager::getBind("downleft")) + "\n" +
+			                                             InputManager::keyToString(InputManager::getBind("downright")) + "\n" +
+			                                             InputManager::keyToString(InputManager::getBind("clockwise")) + "\n" +
+			                                             InputManager::keyToString(InputManager::getBind("counterclockwise")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("pause")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("quit")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("help")), '\n'),
-			                        14, 1,
+			                        27, 1,
 			                        EngineGlobals::Theme::text);
 
 			this->windows[0]->print("Menu controls:\n",
-			                        0, 9,
+			                        0, 15,
 			                        EngineGlobals::Theme::hilite_text);
 
 			this->windows[0]->print(Utils::String::split("First item\n"
 			                                             "Last item", '\n'),
-			                        1, 10,
+			                        2, 16,
 			                        EngineGlobals::Theme::hilite_text);
 
 			this->windows[0]->print(Utils::String::split("page up\n"
 			                                             "page down", '\n'),
-			                        14, 10,
+			                        27, 16,
 			                        EngineGlobals::Theme::text);
 
 			this->windows[0]->print(Utils::String::split(" Settings and scores are stored at:\n"
 			                                             " `~/.local/share/nsnake/`", '\n'),
-			                        0, 13,
+			                        0, 19,
 			                        EngineGlobals::Theme::text);
 		}
 		//

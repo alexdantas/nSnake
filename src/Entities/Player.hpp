@@ -25,7 +25,7 @@ class Player
 public:
 	enum Direction
 	{
-		UP, DOWN, LEFT, RIGHT
+		UP, DOWN, LEFT, RIGHT, UPLEFT, UPRIGHT, DOWNLEFT, DOWNRIGHT, CLOCKWISE, COUNTERCLOCKWISE
 	};
 
 	Player(int x, int y);

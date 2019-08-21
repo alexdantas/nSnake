@@ -52,6 +52,12 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 	CONTROLS_KEY_RIGHT,
 	CONTROLS_KEY_UP,
 	CONTROLS_KEY_DOWN,
+	CONTROLS_KEY_UPLEFT,
+	CONTROLS_KEY_UPRIGHT,
+	CONTROLS_KEY_DOWNLEFT,
+	CONTROLS_KEY_DOWNRIGHT,
+	CONTROLS_KEY_CLOCKWISE,
+	CONTROLS_KEY_COUNTERCLOCKWISE,
 	CONTROLS_KEY_PAUSE,
 	CONTROLS_KEY_HELP,
 	CONTROLS_KEY_QUIT,
@@ -205,9 +211,16 @@ void GameStateMainMenu::update()
 			case CONTROLS_KEY_RIGHT: key = "right"; break;
 			case CONTROLS_KEY_UP:    key = "up";    break;
 			case CONTROLS_KEY_DOWN:  key = "down";  break;
+			case CONTROLS_KEY_UPLEFT:  key = "upleft";  break;
+			case CONTROLS_KEY_UPRIGHT:  key = "upright";  break;
+			case CONTROLS_KEY_DOWNLEFT:  key = "downleft";  break;
+			case CONTROLS_KEY_DOWNRIGHT:  key = "downright";  break;
+			case CONTROLS_KEY_CLOCKWISE:  key = "clockwise";  break;
+			case CONTROLS_KEY_COUNTERCLOCKWISE:  key = "counterclockwise";  break;
 			case CONTROLS_KEY_PAUSE: key = "pause"; break;
 			case CONTROLS_KEY_HELP:  key = "help"; break;
 			case CONTROLS_KEY_QUIT:  key = "quit";  break;
+			
 
 			case CONTROLS_DEFAULT:
 			{
@@ -216,6 +229,12 @@ void GameStateMainMenu::update()
 				InputManager::bind("right", KEY_RIGHT);
 				InputManager::bind("up",    KEY_UP);
 				InputManager::bind("down",  KEY_DOWN);
+				InputManager::bind("upleft",  '7');
+				InputManager::bind("upright",  '9');
+				InputManager::bind("downleft",  '1');
+				InputManager::bind("downright",  '3');
+				InputManager::bind("clockwise",  'x');
+				InputManager::bind("counterclockwise",  'z');
 				InputManager::bind("pause", 'p');
 				InputManager::bind("help",  'h');
 				InputManager::bind("quit",  'q');
@@ -550,6 +569,30 @@ void GameStateMainMenu::createControlsMenu()
 
 	str = InputManager::keyToString(InputManager::getBind("right"));
 	label = new MenuItemLabel("Key right", CONTROLS_KEY_RIGHT, str);
+	menuControls->add(label);
+
+	str = InputManager::keyToString(InputManager::getBind("upleft"));
+	label = new MenuItemLabel("Key up/left", CONTROLS_KEY_UPLEFT, str);
+	menuControls->add(label);
+
+	str = InputManager::keyToString(InputManager::getBind("upright"));
+	label = new MenuItemLabel("Key up/right", CONTROLS_KEY_UPRIGHT, str);
+	menuControls->add(label);
+
+	str = InputManager::keyToString(InputManager::getBind("downleft"));
+	label = new MenuItemLabel("Key down/left", CONTROLS_KEY_DOWNLEFT, str);
+	menuControls->add(label);
+
+	str = InputManager::keyToString(InputManager::getBind("downright"));
+	label = new MenuItemLabel("Key down/right", CONTROLS_KEY_DOWNRIGHT, str);
+	menuControls->add(label);
+
+	str = InputManager::keyToString(InputManager::getBind("clockwise"));
+	label = new MenuItemLabel("Key clockwise", CONTROLS_KEY_CLOCKWISE, str);
+	menuControls->add(label);
+
+	str = InputManager::keyToString(InputManager::getBind("counterclockwise"));
+	label = new MenuItemLabel("Key counterclockwise", CONTROLS_KEY_COUNTERCLOCKWISE, str);
 	menuControls->add(label);
 
 	str = InputManager::keyToString(InputManager::getBind("pause"));
