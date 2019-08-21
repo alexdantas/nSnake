@@ -52,6 +52,7 @@ enum NamesToEasilyIdentifyTheMenuItemsInsteadOfRawNumbers
 	CONTROLS_KEY_RIGHT,
 	CONTROLS_KEY_UP,
 	CONTROLS_KEY_DOWN,
+	CONTROLS_KEY_UPLEFT,
 	CONTROLS_KEY_PAUSE,
 	CONTROLS_KEY_HELP,
 	CONTROLS_KEY_QUIT,
@@ -208,6 +209,7 @@ void GameStateMainMenu::update()
 			case CONTROLS_KEY_PAUSE: key = "pause"; break;
 			case CONTROLS_KEY_HELP:  key = "help"; break;
 			case CONTROLS_KEY_QUIT:  key = "quit";  break;
+			case CONTROLS_KEY_UPLEFT:  key = "upleft";  break;
 
 			case CONTROLS_DEFAULT:
 			{
@@ -562,6 +564,10 @@ void GameStateMainMenu::createControlsMenu()
 
 	str = InputManager::keyToString(InputManager::getBind("quit"));
 	label = new MenuItemLabel("Key quit", CONTROLS_KEY_QUIT, str);
+	menuControls->add(label);
+
+	str = InputManager::keyToString(InputManager::getBind("upleft"));
+	label = new MenuItemLabel("Key Up / Left", CONTROLS_KEY_UPLEFT, str);
 	menuControls->add(label);
 
 	menuControls->addBlank();

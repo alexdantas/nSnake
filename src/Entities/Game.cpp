@@ -216,6 +216,10 @@ void Game::handleInput()
 	{
 		this->player->move(Player::DOWN);
 	}
+	else if (InputManager::isPressed("upleft"))
+	{
+		this->player->move(Player::UPLEFT);
+	}
 }
 void Game::update()
 {

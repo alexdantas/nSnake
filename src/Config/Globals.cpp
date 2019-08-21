@@ -115,10 +115,11 @@ void Globals::init()
 	InputManager::bind("right", KEY_RIGHT);
 	InputManager::bind("up",    KEY_UP);
 	InputManager::bind("down",  KEY_DOWN);
+	InputManager::bind("upleft",  '7');
 	InputManager::bind("pause", 'p');
 	InputManager::bind("help",  'h');
 	InputManager::bind("quit",  'q');
-
+	
 
 	// Aww yeah, rev up dem colors
 	Globals::Theme::player_head = Colors::pair("green", "default", true);
@@ -230,6 +231,9 @@ void Globals::loadFile()
 	INI_GET(tmp, "input", "quit");
 	InputManager::bind("quit", InputManager::stringToKey(tmp));
 
+	INI_GET(tmp, "input", "upleft");
+	InputManager::bind("upleft", InputManager::stringToKey(tmp));
+
 	// Board Size
 	int board_size = 2;
 	INI_GET(board_size, "game", "board_size");
@@ -336,6 +340,9 @@ void Globals::saveFile()
 
 	key = InputManager::keyToString(InputManager::getBind("quit"));
 	INI_SET("input", "quit", key);
+
+	key = InputManager::keyToString(InputManager::getBind("upleft"));
+	INI_SET("input", "upleft", key);
 
 	// Board size
 	int board_size = Globals::Game::boardSizeToInt(Globals::Game::board_size);

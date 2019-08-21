@@ -38,7 +38,23 @@ void Player::moveTo(int x, int y)
 }
 void Player::move(Direction dir)
 {
-	this->nextDirection = dir;
+	switch(dir)
+	{
+		case Player::UPLEFT:
+			if (this->currentDirection == Player::UP || this->currentDirection == Player::DOWN)
+			{
+				this->nextDirection = Player::LEFT;
+			}
+			else if (this->currentDirection == Player::LEFT || this->currentDirection == Player::RIGHT)
+			{
+				this->nextDirection = Player::UP;
+			}
+			break;
+		default:
+		this->nextDirection = dir;
+	}
+	//this->nextDirection = dir;
+
 }
 void Player::kill()
 {

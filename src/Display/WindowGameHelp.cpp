@@ -73,6 +73,7 @@ void WindowGameHelp::run()
 			                                             "Move down\n"
 			                                             "Move left\n"
 			                                             "Move right\n"
+														 "Move up or left\n"
 			                                             "Pause game\n"
 			                                             "Quit anytime\n"
 			                                             "Show help", '\n'),
@@ -83,6 +84,7 @@ void WindowGameHelp::run()
 			                                             InputManager::keyToString(InputManager::getBind("down")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("left")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("right")) + "\n" +
+														 InputManager::keyToString(InputManager::getBind("upleft")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("pause")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("quit")) + "\n" +
 			                                             InputManager::keyToString(InputManager::getBind("help")), '\n'),
