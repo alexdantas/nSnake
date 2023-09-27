@@ -53,6 +53,7 @@ that comes with your distro.
 | Ubuntu/Debian  | `apt-get install libncurses5-dev` |
 | Fedora         | `yum install ncurses-devel`       |
 | Arch Linux     | _comes by default_                |
+| Alpine Linux   | `apk add ncurses-dev`             |
 
 If you know the means to install on other distros, [please tell me][issues].
 
